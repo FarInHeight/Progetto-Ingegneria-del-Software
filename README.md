@@ -1,6 +1,6 @@
-# progettoIS - Description
-Project Repository for Software Engineering exam
-# Request
+# progettoIS - Descrizione
+Repository per il progetto di Ingegneria del Software
+# Tesina
 Si richiede la progettazione di un software per il supporto ad un’azienda farmaceutica. Le specifiche
 di seguito espresse sono da considerarsi come minime per la tesina in oggetto e possono essere
 estese dallo studente qualora questo non violi la natura e l’intento del software richiesto. Lo
@@ -32,6 +32,10 @@ Alle ore 20:00 del giorno della consegna merce, se il farmacista non ha caricato
 consegna per quel giorno, il sistema mostra a video un avviso. Il farmacista può confermare la
 consegna di tutto o parte dell’ordine ed in quest’ultimo caso l’azienda farmaceutica viene allertata.
 Il giorno dopo un addetto dell’azienda chiamerà la farmacia per accordarsi sulla procedura da
-mettere in atto e la attuerà tramite il sistema.Si ricorda che da specifiche NON è richiesta un’applicazione web o una particolare architettura, gli
+mettere in atto e la attuerà tramite il sistema. 
+\
+\
+NOTE:
+- Si ricorda che da specifiche NON è richiesta un’applicazione web o una particolare architettura, gli
 studenti dovranno condurre la fase di analisi senza far riferimento ad una particolare architettura né
 ipotizzare soluzioni specifiche.
