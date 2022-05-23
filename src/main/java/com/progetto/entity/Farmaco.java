@@ -1,6 +1,7 @@
 package com.progetto.entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /** Classe che descrive un Farmaco trattato dall'Azienda o presente nel magazzino della Farmacia
  */
@@ -94,7 +95,9 @@ public class Farmaco implements Cloneable{
         if (dataScadenza == null || quantita == -1)  {
             return "Farmaco: " + nome + " di tipo " + descTipo + " col principio attivo "+ principioAttivo;
         } else {
-            return "Farmaco: " + nome + " di tipo " + descTipo + " col principio attivo. Sono presenti " + quantita + " farmaci con scadenza " + dataScadenza;
+            return "Farmaco: " + nome + " di tipo " + descTipo + " col principio attivo. Sono presenti " + quantita + " farmaci con scadenza " + dataScadenza.format(DateTimeFormatter.ofPattern("d//MM/uuuu"));
         }
     }
 }
+
+//LocalDate.of(2022, 05, 23).format(DateTimeFormatter.ofPattern("d/MM/uuuu"))
