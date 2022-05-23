@@ -1,4 +1,4 @@
-package com.progetto.azienda.gestioneProduzione;
+package com.progetto.azienda.produzione;
 
 import com.progetto.dbInterface.InterfacciaAzienda;
 import com.progetto.entity.Lotto;

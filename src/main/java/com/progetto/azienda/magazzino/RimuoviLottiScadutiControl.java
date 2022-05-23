@@ -1,4 +1,4 @@
-package com.progetto.azienda.rimuoviLottiScaduti;
+package com.progetto.azienda.magazzino;
 
 import com.progetto.dbInterface.InterfacciaAzienda;
 
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class rimuoviLottiScadutiControl {
+public class RimuoviLottiScadutiControl {
 
     /**
      * Rimuove tutti i Lotti del database la cui data di scadenza preceda la data odierna

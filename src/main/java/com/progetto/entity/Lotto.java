@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
- *  Classe che modella il concetto di {@code Lotto} nel magazzino dell'Azienda
+ *  Classe che modella il concetto di {@code Lotto} nel magazzino dell'Azienda.
  */
 public class Lotto {
 
