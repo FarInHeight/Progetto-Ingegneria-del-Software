@@ -3,7 +3,8 @@ package com.progetto.entity;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/** Classe che descrive un Farmaco trattato dall'Azienda o presente nel magazzino della Farmacia
+/**
+ * Classe che descrive un Farmaco trattato dall'Azienda o presente nel magazzino della Farmacia
  */
 public class Farmaco implements Cloneable{
 

@@ -21,7 +21,7 @@ public class rimuoviLottiScadutiControl {
                 while (lotti.next()) {
                     LocalDate data_scadenza = lotti.getDate("Data_scadenza").toLocalDate();
                     if (data_scadenza.compareTo(LocalDate.now()) < 0) {
-                        db.removeLotto(lotti.getInt("ID_lotto"));
+                        db.rimuoviLotto(lotti.getInt("ID_lotto"));
                     }
                 }
             }

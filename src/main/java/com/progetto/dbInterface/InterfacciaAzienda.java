@@ -28,7 +28,7 @@ public class InterfacciaAzienda {
      *
      * @param id identificativo del Lotto da rimuovere
      */
-    public void removeLotto(int id) {
+    public void rimuoviLotto(int id) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "azienda","pwd")){
             PreparedStatement statement = connection.prepareStatement("delete from Lotto where ID_lotto = ?");
             statement.setInt(1,id);

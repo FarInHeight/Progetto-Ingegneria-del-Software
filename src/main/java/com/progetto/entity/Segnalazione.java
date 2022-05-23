@@ -1,5 +1,7 @@
 package com.progetto.entity;
-
+/**
+ *  Classe che modella il concetto di {@code Segnalazione} nel Sistema.
+ */
 public class Segnalazione {
     private int idSegnalazione;
     private String commento;

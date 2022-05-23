@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/**
+ *  Classe che modella il concetto di {@code Lotto} nel magazzino dell'Azienda
+ */
 public class Lotto {
 
     private int idLotto;
