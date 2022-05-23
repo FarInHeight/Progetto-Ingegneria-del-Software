@@ -6,4 +6,6 @@ module com.progetto.progettois {
 
     opens com.progetto.progettois to javafx.fxml;
     exports com.progetto.progettois;
+    exports com.progetto.farmacia.autenticazione;
+    opens com.progetto.farmacia.autenticazione to javafx.fxml;
 }

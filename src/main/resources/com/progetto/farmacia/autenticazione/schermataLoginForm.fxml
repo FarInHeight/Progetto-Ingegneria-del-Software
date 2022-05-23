@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.autenticazione.SchermataLoginForm">
+   <center>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="420.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="idFarmacia" layoutX="135.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" promptText="Id farmacia" />
+            <Button layoutX="170.0" layoutY="130.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #26bd1b;" text="LOGIN" textFill="WHITE" />
+            <PasswordField fx:id="password" layoutX="135.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" promptText="Password" />
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
+         <top>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EFFETTUA L'ACCESSO" translateY="13.0" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Text>
+         </top>
+      </BorderPane>
+   </top>
+</BorderPane>
