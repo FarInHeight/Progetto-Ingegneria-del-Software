@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ *  Classe che modella il concetto di {@code Ordine} nel Sistema.
+*/
 public class Ordine {
     private int idOrdine;
     private int stato;
@@ -14,6 +17,17 @@ public class Ordine {
     private String nomeFarmacia;
     private String indirizzoConsegna;
 
+    /**
+     * Costruttore di un Ordine.
+     * @param idOrdine id dell'ordine
+     * @param stato stato dell'ordine (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5])
+     * @param farmaci farmaci contenuti nell'ordine
+     * @param tipo tipo dell'ordine (periodico [1], non periodico [2])
+     * @param periodo periodo che intercorre tra due ordini periodici successivi (solo se l'ordine è periodico)
+     * @param dataConsegna data di consegna dell'ordine
+     * @param nomeFarmacia nome della farmacia che ha effettuato l'ordine
+     * @param indirizzoConsegna indirizzo di consegna della farmacia che ha effettuato l'ordine
+     */
     public Ordine(int idOrdine, int stato, ArrayList<Farmaco> farmaci, int tipo, int periodo, LocalDate dataConsegna, String nomeFarmacia, String indirizzoConsegna) {
         this.setIdOrdine(idOrdine);
         this.setStato(stato);
@@ -25,21 +39,33 @@ public class Ordine {
         this.setIndirizzoConsegna(indirizzoConsegna);
     }
 
-    private void setIdOrdine(int idOrdine) {
+    /**
+     * Setter per impostare l'ID dell'ordine
+     * @param idOrdine id dell'ordine
+     */
+    public void setIdOrdine(int idOrdine) {
         if(idOrdine < 1) {
             throw new IllegalArgumentException("Id Ordine non valido");
         }
         this.idOrdine = idOrdine;
     }
 
-    private void setStato(int stato) {
+    /**
+     * Setter per impostare lo stato dell'ordine (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5]).
+     * @param stato stato dell'ordine
+     */
+    public void setStato(int stato) {
         if(stato < 1 || stato > 5) {
             throw new IllegalArgumentException("Nessuno stato delll'ordine corrispondente trovato");
         }
         this.stato = stato;
     }
 
-    private void setFarmaci(ArrayList<Farmaco> farmaci) {
+    /**
+     * Setter per impostare la lista di farmaci contenuti nell'ordine
+     * @param farmaci lista di farmaci
+     */
+    public void setFarmaci(ArrayList<Farmaco> farmaci) {
         if(farmaci == null) {
             throw new NullPointerException("ArrayList di Farmaci = null");
         }
@@ -57,46 +83,82 @@ public class Ordine {
         this.farmaci = copiaFarmaci;
     }
 
-    private void setTipo(int tipo) {
+    /**
+     * Setter per impostare il tipo dell'ordine (periodico [1], non periodico [2]).
+     * @param tipo tipo dell'ordine
+     */
+    public void setTipo(int tipo) {
         if(tipo < 1 || tipo > 2) {
             throw new IllegalArgumentException("Nessun tipo dell'ordine corrispondente trovato");
         }
         this.tipo = tipo;
     }
 
-    private void setPeriodo(int periodo) {
+    /**
+     * Setter per impostare il periodo dell'ordine.
+     * @param periodo periodo dell'ordine
+     */
+    public void setPeriodo(int periodo) {
         if(periodo < 0) {
             throw new IllegalArgumentException("Periodo negativo non ammesso");
         }
         this.periodo = periodo;
     }
 
-    private void setDataConsegna(LocalDate dataConsegna) {
+    /**
+     * Setter per impostare la data di consegna dell'ordine.
+     * @param dataConsegna data di consegna
+     */
+    public void setDataConsegna(LocalDate dataConsegna) {
         if(farmaci == null) {
             throw new NullPointerException("Data di consegna = null");
         }
         this.dataConsegna = dataConsegna;
     }
 
-    private void setNomeFarmacia(String nomeFarmacia) {
+    /**
+     * Setter per impostare il nome della farmacia che ha effettuato l'ordine.
+     * @param nomeFarmacia nome della farmacia
+     */
+    public void setNomeFarmacia(String nomeFarmacia) {
         if(farmaci == null) {
             throw new NullPointerException("Nome della Farmacia = null");
         }
         this.nomeFarmacia = nomeFarmacia;
     }
 
-    private void setIndirizzoConsegna(String indirizzoConsegna) {
+    /**
+     * Setter per impostare l'indirizzo di consegna dell'ordine.
+     * @param indirizzoConsegna indirizzo di consegna
+     */
+    public void setIndirizzoConsegna(String indirizzoConsegna) {
         if(farmaci == null) {
             throw new NullPointerException("Indirizzo di Consegna = null");
         }
         this.indirizzoConsegna = indirizzoConsegna;
     }
 
+    /**
+     * Getter per ottenere l'ID dell'ordine.
+     * @return ID dell'ordine
+     */
     public int getIdOrdine() {
         return idOrdine;
     }
 
-    public String getStato() {
+    /**
+     * Getter per ottenere lo stato dell'ordine come intero (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5]).
+     * @return stato dell'ordine
+     */
+    public int getStato() {
+        return this.stato;
+    }
+
+    /**
+     * Getter per ottenere lo stato dell'ordine come stringa (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5]).
+     * @return stato dell'ordine
+     */
+    public String getStatoStringa() {
         /*
             1 - Elaborazione
             2 - Spedizione
@@ -114,6 +176,10 @@ public class Ordine {
         }
     }
 
+    /**
+     * Getter per ottenere la lista di farmaci contenuti nell'ordine.
+     * @return lista di farmaci
+     */
     public ArrayList<Farmaco> getFarmaci() {
         ArrayList<Farmaco> copiaFarmaci = new ArrayList<>();
         for(Farmaco farmaco : this.farmaci) {
@@ -128,7 +194,19 @@ public class Ordine {
         return copiaFarmaci;
     }
 
-    public String getTipo() {
+    /**
+     * Getter per ottenere il tipo dell'ordine come intero.
+     * @return tipo dell'ordine
+     */
+    public int getTipo() {
+        return this.tipo;
+    }
+
+    /**
+     * Getter per ottenere il tipo dell'ordine come stringa.
+     * @return tipo dell'ordine
+     */
+    public String getTipoStringa() {
         /*
             1 - periodico
             2 - non periodico
@@ -140,45 +218,35 @@ public class Ordine {
         }
     }
 
+    /**
+     * Getter per ottenere il periodo dell'ordine.
+     * @return periodo dell'ordine
+     */
     public int getPeriodo() {
         return periodo;
     }
 
+    /**
+     * Getter per ottenere la data di consegna dell'ordine
+     * @return data di consegna
+     */
     public LocalDate getDataConsegna() {
         return dataConsegna;
     }
 
+    /**
+     * Getter per ottenere il nome della farmacia che ha effettuato l'ordine.
+     * @return nome della farmacia
+     */
     public String getNomeFarmacia() {
         return nomeFarmacia;
     }
 
+    /**
+     * Getter per ottenere l'indirizzo di consegna dell'ordine
+     * @return  indirizzo di consegna
+     */
     public String getIndirizzoConsegna() {
         return indirizzoConsegna;
-    }
-
-    public String[] getRiepilogo() {
-        String []riepilogo = new String[8];
-        riepilogo[0] = "" + this.getIdOrdine();
-        riepilogo[1] = this.getStato();
-        riepilogo[2] = "";  // da implementare i farmaci
-        riepilogo[3] = this.getTipo();
-        riepilogo[4] = "" + this.getPeriodo();
-        riepilogo[5] = this.dataConsegna.format(DateTimeFormatter.ofPattern("d/MM/uuuu"));
-        /*
-        this.setIdOrdine(idOrdine);
-        this.setStato(stato);
-        this.setFarmaci(farmaci);
-        this.setTipo(tipo);
-        this.setPeriodo(periodo);
-        this.setDataConsegna(dataConsegna);
-        this.setNomeFarmacia(nomeFarmacia);
-        this.setIndirizzoConsegna(indirizzoConsegna);
-         */
-        return riepilogo;
-    }
-
-    public static void main(String args[]) {
-        //Ordine ordine = new Ordine(1, 1, null, 1, 1, null, "ciao", "casa");
-        System.out.println(LocalDate.of(2022, 05, 23).format(DateTimeFormatter.ofPattern("d/MM/uuuu")));
     }
 }
