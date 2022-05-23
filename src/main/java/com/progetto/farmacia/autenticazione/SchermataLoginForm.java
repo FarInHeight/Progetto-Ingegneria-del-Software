@@ -1,8 +1,10 @@
 package com.progetto.farmacia.autenticazione;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
@@ -19,8 +21,15 @@ public class SchermataLoginForm extends Application {
     @FXML
     private TextField password;
     @FXML
-    private void login(){
-        AutenticazioneFarmaciaControl autFarmContr = new AutenticazioneFarmaciaControl(this.idFarmacia,this.password);
+    //verifica credenziali
+    private void login(ActionEvent event) throws IOException{
+        try {
+            AutenticazioneFarmaciaControl autFarmContr = new AutenticazioneFarmaciaControl(this.idFarmacia, this.password);
+        } catch (NumberFormatException e) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+            ErroreAutenticazione errAut = new ErroreAutenticazione();
+            errAut.start(stage);
+        }
     }
 
     /**
@@ -33,15 +42,19 @@ public class SchermataLoginForm extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schermataLoginForm.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
+        double stageWidth = 600;
+        double stageHeight = 400;
+
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((screenBounds.getWidth() - 600) / 2);
-        stage.setY((screenBounds.getHeight() - 400) / 2);
+        stage.setX((screenBounds.getWidth() - stageWidth) / 2);
+        stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
+        //mostra la schermata di login
         stage.setTitle("Effettua l'accesso");
         stage.setScene(scene);
-        stage.setMinWidth(600);
-        stage.setMinHeight(400);
+        stage.setMinWidth(stageWidth);
+        stage.setMinHeight(stageHeight);
         stage.show();
     }
 
