@@ -1,7 +1,5 @@
 package com.progetto.dbInterface;
-
 import com.progetto.entity.Lotto;
-
 import java.sql.*;
 
 public class InterfacciaAzienda {

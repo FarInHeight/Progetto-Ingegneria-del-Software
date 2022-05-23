@@ -4,12 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Rappresenta la schermata di login della farmacia
@@ -21,15 +21,9 @@ public class SchermataLoginForm extends Application {
     @FXML
     private TextField password;
     @FXML
-    //verifica credenziali
+    //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
-        try {
-            AutenticazioneFarmaciaControl autFarmContr = new AutenticazioneFarmaciaControl(this.idFarmacia, this.password);
-        } catch (NumberFormatException e) {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            ErroreAutenticazione errAut = new ErroreAutenticazione();
-            errAut.start(stage);
-        }
+        AutenticazioneFarmaciaControl autFarmContr = new AutenticazioneFarmaciaControl(this.idFarmacia, this.password, event);
     }
 
     /**
