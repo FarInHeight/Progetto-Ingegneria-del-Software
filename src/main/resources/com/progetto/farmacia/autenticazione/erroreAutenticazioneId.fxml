@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.autenticazione.ErroreAutenticazione">
+   <center>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="143.0" prefWidth="235.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="78.0" layoutY="99.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiudiErrore" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #26bd1b;" text="CHIUDI" textFill="WHITE" />
+            <Text layoutX="3.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L'identificativo della farmacia deve essere composto solamente da numeri" textAlignment="CENTER" wrappingWidth="228.103515625">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #f26f6f; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
+         <top>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ERRORE" translateY="9.0" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Text>
+         </top>
+      </BorderPane>
+   </top>
+</BorderPane>
