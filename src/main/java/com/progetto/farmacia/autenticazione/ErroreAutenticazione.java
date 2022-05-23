@@ -14,10 +14,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ErroreAutenticazione extends Application {
-    
+
     @FXML
     private void chiudiErrore(ActionEvent event) {
-        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
     //creare costruttore in base al tipo di errore
@@ -47,9 +47,5 @@ public class ErroreAutenticazione extends Application {
         subStage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
         subStage.initModality(Modality.WINDOW_MODAL);  //blocco il focus sulla schermata delle'errore
         subStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
