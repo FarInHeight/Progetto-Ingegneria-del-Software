@@ -1,4 +1,4 @@
-package com.progetto.progettois.entity;
+package com.progetto.entity;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,7 +46,12 @@ public class Ordine {
         ArrayList<Farmaco> copiaFarmaci = new ArrayList<>();
         for(Farmaco farmaco : farmaci) {
             if(farmaco != null) {
-                copiaFarmaci.add(farmaco.clone());
+                try {
+                    copiaFarmaci.add(farmaco.clone());
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
         this.farmaci = copiaFarmaci;
@@ -113,7 +118,11 @@ public class Ordine {
         ArrayList<Farmaco> copiaFarmaci = new ArrayList<>();
         for(Farmaco farmaco : this.farmaci) {
             if(farmaco != null) {
-                copiaFarmaci.add(farmaco.clone());
+                try {
+                    copiaFarmaci.add(farmaco.clone());
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return copiaFarmaci;

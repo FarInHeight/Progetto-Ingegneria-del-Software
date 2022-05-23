@@ -1,4 +1,4 @@
-package com.progetto.progettois.entity;
+package com.progetto.entity;
 
 public class Segnalazione {
     private int idSegnalazione;
