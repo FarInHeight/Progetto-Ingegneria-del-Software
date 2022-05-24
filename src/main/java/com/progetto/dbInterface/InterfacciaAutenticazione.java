@@ -2,6 +2,7 @@ package com.progetto.dbInterface;
 import com.progetto.entity.AddettoAzienda;
 import com.progetto.entity.Farmacia;
 
+import javax.security.auth.login.CredentialException;
 import java.sql.*;
 
 /**
@@ -15,7 +16,7 @@ public class InterfacciaAutenticazione {
      * @param password password della farmacia
      * @return un {@code int} contenente l'id corrispondente alle credenziali inserite (se non sono corrette ritorna -1)
      */
-    public Farmacia getCredenzialiFarmacia(int idFarmacia, String password){
+    public Farmacia getCredenzialiFarmacia(int idFarmacia, String password) throws CredentialException{
         Farmacia farmacia = new Farmacia();
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select ID_farmacia from Farmacia where ID_farmacia = ? and Password = ?");
@@ -23,13 +24,21 @@ public class InterfacciaAutenticazione {
             statement.setString(2,password);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
-               farmacia.setIdFarmacia(resultSet.getInt(1));
-               farmacia.setNome(resultSet.getString(2));
-               farmacia.setIndirizzo(resultSet.getString(3));
-               farmacia.setRecapitoTelefonico(resultSet.getString(4));
+                farmacia.setIdFarmacia(resultSet.getInt(1));
+                farmacia.setNome(resultSet.getString(2));
+                farmacia.setIndirizzo(resultSet.getString(3));
+                farmacia.setRecapitoTelefonico(resultSet.getString(4));
             }
             else{
-                farmacia = null;
+                PreparedStatement statementId = connection.prepareStatement("select ID_farmacia from Farmacia where ID_farmacia = ?");
+                statement.setInt(1,idFarmacia);
+                ResultSet resultSetId = statement.executeQuery();
+                if(resultSetId.next()){
+                    farmacia.setIdFarmacia(resultSetId.getInt(1));
+                }
+                else{
+                    farmacia = null;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

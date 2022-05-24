@@ -37,9 +37,16 @@ public class AutenticazioneFarmaciaControl {
             ErroreAutenticazione errAut = new ErroreAutenticazione(0);
             errAut.start(stage);
         } catch (CredentialException e){ //credenziali non corrette
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            ErroreAutenticazione errAut = new ErroreAutenticazione(1);
-            errAut.start(stage);
+            if(e.getMessage().compareTo("idNonValido") == 0) {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                ErroreAutenticazione errAut = new ErroreAutenticazione(2);
+                errAut.start(stage);
+            }
+            else if(e.getMessage().compareTo("passwordNonValida") == 0) {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                ErroreAutenticazione errAut = new ErroreAutenticazione(1);
+                errAut.start(stage);
+            }
         }
     }
 
@@ -63,6 +70,9 @@ public class AutenticazioneFarmaciaControl {
 
     private void verificaCredenziali(Farmacia farmacia) throws CredentialException{
         if(farmacia != null){
+            if(farmacia.getNome() == null){
+                throw new CredentialException("passwordNonValida");
+            }
             try {
                 Farmacia farm = farmacia.clone();
                 //chiudi schermata di autenticazione
@@ -72,7 +82,7 @@ public class AutenticazioneFarmaciaControl {
             }
         }
         else{
-            throw new CredentialException("Credenziali non corrette");
+            throw new CredentialException("idNonValido");
         }
     }
 }

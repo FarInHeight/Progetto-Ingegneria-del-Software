@@ -46,10 +46,13 @@ public class ErroreAutenticazione extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         if(this.tipo == 0){
-            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneId.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneFormatoId.fxml"));
         }
         else if(this.tipo == 1){
             fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazionePassword.fxml"));
+        }
+        else if(this.tipo == 2){
+            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneId.fxml"));
         }
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
