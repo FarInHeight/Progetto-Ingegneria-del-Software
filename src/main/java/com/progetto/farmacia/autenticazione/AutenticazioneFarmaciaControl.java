@@ -1,6 +1,7 @@
 package com.progetto.farmacia.autenticazione;
 import com.progetto.dbInterface.InterfacciaAutenticazione;
 import com.progetto.entity.Farmacia;
+import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -17,7 +18,6 @@ import java.security.NoSuchAlgorithmException;
  * Control che gestisce l'autenticazione della farmacia
  */
 public class AutenticazioneFarmaciaControl {
-    Farmacia farmacia;
 
     /**
      * istanzia l'oggetto dati in input l'id della farmacia e la password
@@ -27,7 +27,7 @@ public class AutenticazioneFarmaciaControl {
      * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
     public AutenticazioneFarmaciaControl(TextField idFarmacia, TextField password, ActionEvent event) throws IOException {
-        String pwd = this.getDigest(password.getText());
+        String pwd = this.creaDigest(password.getText());
         try {
             int id = Integer.parseInt(idFarmacia.getText());
             this.verificaCredenziali(this.getCredenziali(id,pwd));
@@ -42,7 +42,7 @@ public class AutenticazioneFarmaciaControl {
         }
     }
 
-    private String getDigest(String password){
+    private String creaDigest(String password){
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-256");
@@ -62,18 +62,16 @@ public class AutenticazioneFarmaciaControl {
 
     private void verificaCredenziali(Farmacia farmacia) throws CredentialException{
         if(farmacia != null){
-            this.setFarmacia(farmacia);
-            //crea schermata principale farmacia
+            try {
+                Farmacia farm = farmacia.clone();
+                //chiudi schermata di autenticazione
+                SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farm);
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
         }
         else{
             throw new CredentialException("Credenziali non corrette");
         }
-    }
-
-    private void setFarmacia(Farmacia farmacia) {
-        if(farmacia == null){
-            throw new NullPointerException("Farmacia = null");
-        }
-        this.farmacia = farmacia;
     }
 }

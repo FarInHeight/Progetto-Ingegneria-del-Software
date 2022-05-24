@@ -75,6 +75,34 @@ public class Farmacia implements Cloneable{
     }
 
     /**
+     * getter per l'id della farmacia
+     * @return {@code int} contenente l'id della farmacia
+     */
+    public int getIdFarmacia() {
+        return idFarmacia;
+    }
+
+    /**
+     * getter per il nome della farmacia
+     * @return {@code String} contenente il nome della farmacia
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * getter per l'indirizzo della farmacia
+     * @return {@code String} contenente l'indirizzo della farmacia
+     */
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public String getRecapitoTelefonico() {
+        return recapitoTelefonico;
+    }
+
+    /**
      * implementazione del metodo clone
      * @return un oggetto di tipo {@code Farmacia}
      * @throws CloneNotSupportedException se classe non implementa {@code Cloneable}

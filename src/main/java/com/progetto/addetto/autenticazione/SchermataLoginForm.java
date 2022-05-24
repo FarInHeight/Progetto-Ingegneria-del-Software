@@ -1,28 +1,31 @@
-package com.progetto.farmacia.autenticazione;
+package com.progetto.addetto.autenticazione;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
- * Rappresenta la schermata di login della farmacia
+ * Rappresenta la schermata di login dell'Addetto dell'Azienda
  */
 public class SchermataLoginForm extends Application {
 
     @FXML
-    private TextField idFarmacia;
+    private TextField id;
     @FXML
     private TextField password;
     @FXML
     //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
-        AutenticazioneFarmaciaControl autFarmContr = new AutenticazioneFarmaciaControl(this.idFarmacia, this.password, event);
+        //AutenticazioneFarmaciaControl autFarmContr = new AutenticazioneFarmaciaControl(this.idFarmacia, this.password, event);
     }
 
     /**
