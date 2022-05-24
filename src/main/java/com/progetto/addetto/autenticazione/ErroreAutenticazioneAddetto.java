@@ -1,5 +1,4 @@
 package com.progetto.addetto.autenticazione;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,14 +12,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ErroreAutenticazione extends Application {
+public class ErroreAutenticazioneAddetto extends Application {
 
     private int tipo;
 
     /**
      * costruire un istanza di {@code ErroreAutenticazione}
      */
-    public ErroreAutenticazione(){
+    public ErroreAutenticazioneAddetto(){
         super();
     }
 
@@ -28,7 +27,7 @@ public class ErroreAutenticazione extends Application {
      * costruire un istanza di {@code ErroreAutenticazione} dato in input il tipo di errore
      * @param tipo di errore (0 per username errato, 1 per password errata)
      */
-    public ErroreAutenticazione(int tipo){
+    public ErroreAutenticazioneAddetto(int tipo){
         super();
         this.tipo = tipo;
     }
@@ -49,7 +48,7 @@ public class ErroreAutenticazione extends Application {
             fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneId.fxml"));
         }
         else if(this.tipo == 1){
-            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazionePassword.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazione.fxml"));
         }
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 

@@ -1,7 +1,6 @@
-package com.progetto.farmacia.autenticazione;
+package com.progetto.addetto.autenticazione;
 import com.progetto.dbInterface.InterfacciaAutenticazione;
-import com.progetto.entity.Farmacia;
-import com.progetto.farmacia.SchermataPrincipaleFarmacia;
+import com.progetto.entity.AddettoAzienda;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.PasswordField;
@@ -18,27 +17,27 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Control che gestisce l'autenticazione della farmacia
  */
-public class AutenticazioneFarmaciaControl {
+public class AutenticazioneAddettoAziendaControl {
 
     /**
-     * istanzia l'oggetto dati in input l'id della farmacia e la password
-     * @param idFarmacia id della farmacia
+     * istanzia l'oggetto dati in input l'id dell'addetto e la password
+     * @param idAddetto id dell'addetto
      * @param password password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
      * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
-    public AutenticazioneFarmaciaControl(TextField idFarmacia, PasswordField password, ActionEvent event) throws IOException {
+    public AutenticazioneAddettoAziendaControl(TextField idAddetto, PasswordField password, ActionEvent event) throws IOException {
         String pwd = this.creaDigest(password.getText());
         try {
-            int id = Integer.parseInt(idFarmacia.getText());
+            int id = Integer.parseInt(idAddetto.getText());
             this.verificaCredenziali(this.getCredenziali(id,pwd));
-        } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
+        } catch (NumberFormatException e) { //id dell'addetto inserito in un formato non corretto
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            ErroreAutenticazione errAut = new ErroreAutenticazione(0);
+            ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(0);
             errAut.start(stage);
         } catch (CredentialException e){ //credenziali non corrette
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            ErroreAutenticazione errAut = new ErroreAutenticazione(1);
+            ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(1);
             errAut.start(stage);
         }
     }
@@ -56,17 +55,17 @@ public class AutenticazioneFarmaciaControl {
         return hex;  //la stringa ha 64 caratteri
     }
 
-    private Farmacia getCredenziali (int idFarmacia, String password) throws CredentialException {
+    private AddettoAzienda getCredenziali (int idAddetto, String password) throws CredentialException {
         InterfacciaAutenticazione intAut = new InterfacciaAutenticazione();
-        return intAut.getCredenzialiFarmacia(idFarmacia, password);
+        return intAut.getCredenziali(idAddetto, password);
     }
 
-    private void verificaCredenziali(Farmacia farmacia) throws CredentialException{
-        if(farmacia != null){
+    private void verificaCredenziali(AddettoAzienda addetto) throws CredentialException{
+        if(addetto != null){
             try {
-                Farmacia farm = farmacia.clone();
+                AddettoAzienda addettoClone = addetto.clone();
                 //chiudi schermata di autenticazione
-                SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farm);
+                SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(farm);
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
@@ -76,3 +75,4 @@ public class AutenticazioneFarmaciaControl {
         }
     }
 }
+

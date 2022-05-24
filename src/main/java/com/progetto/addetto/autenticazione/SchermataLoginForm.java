@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Rappresenta la schermata di login della farmacia
+ * Rappresenta la schermata di login dell'Addetto
  */
 public class SchermataLoginForm extends Application {
 
@@ -24,7 +24,7 @@ public class SchermataLoginForm extends Application {
     @FXML
     //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
-
+        AutenticazioneAddettoAziendaControl autFarmContr = new AutenticazioneAddettoAziendaControl(this.id, this.password, event);
     }
 
     /**
