@@ -37,8 +37,8 @@ public class InterfacciaAutenticazione {
         return farmacia;
     }
 
-    /*public AddettoAzienda getCredenzialiAddettoAzienda(int idAddetto, String password){
-        AddettoAzienda farmacia = new AddettoAzienda();
+    public AddettoAzienda getCredenzialiAddettoAzienda(int idAddetto, String password){
+        /*AddettoAzienda farmacia = new AddettoAzienda();
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select ID_farmacia from Farmacia where ID_farmacia = ? and Password = ?");
             statement.setInt(1,idFarmacia);
@@ -56,6 +56,7 @@ public class InterfacciaAutenticazione {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return farmacia;
-    }*/
+        return farmacia;*/
+        return null;
+    }
 }

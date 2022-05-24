@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -15,6 +16,9 @@ import java.io.IOException;
 public class ErroreAutenticazioneAddetto extends Application {
 
     private int tipo;
+
+    @FXML
+    private Label outputLabel;
 
     /**
      * costruire un istanza di {@code ErroreAutenticazione}
@@ -43,13 +47,14 @@ public class ErroreAutenticazioneAddetto extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazione.fxml"));
         if(this.tipo == 0){
-            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneId.fxml"));
+            outputLabel.setText("L'ID inserito è errato.");
         }
         else if(this.tipo == 1){
-            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazione.fxml"));
+            outputLabel.setText("La password inserita è errata.");
         }
+
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
         double subStageWidth = 350;

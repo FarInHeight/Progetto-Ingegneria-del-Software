@@ -57,7 +57,7 @@ public class AutenticazioneAddettoAziendaControl {
 
     private AddettoAzienda getCredenziali (int idAddetto, String password) throws CredentialException {
         InterfacciaAutenticazione intAut = new InterfacciaAutenticazione();
-        return intAut.getCredenziali(idAddetto, password);
+        return intAut.getCredenzialiAddettoAzienda(idAddetto, password);
     }
 
     private void verificaCredenziali(AddettoAzienda addetto) throws CredentialException{
@@ -65,7 +65,8 @@ public class AutenticazioneAddettoAziendaControl {
             try {
                 AddettoAzienda addettoClone = addetto.clone();
                 //chiudi schermata di autenticazione
-                SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(farm);
+                // IMPORTANTE
+                //SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(farm);
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
