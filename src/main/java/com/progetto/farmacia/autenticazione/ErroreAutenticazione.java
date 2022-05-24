@@ -37,8 +37,11 @@ public class ErroreAutenticazione extends Application {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
-    //creare costruttore in base al tipo di errore
-
+    /**
+     * permette di mostrare la schermata di errore
+     * @param stage {@code stage} della schermata di login
+     * @throws IOException se non è possibile caricare il file fxml della schermata di errore
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
