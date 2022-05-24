@@ -85,7 +85,6 @@ public class AutenticazioneFarmaciaControl {
             }
         }
         else{
-            System.out.println("ERrorequi");
             throw new CredentialException("idNonValido");
         }
     }

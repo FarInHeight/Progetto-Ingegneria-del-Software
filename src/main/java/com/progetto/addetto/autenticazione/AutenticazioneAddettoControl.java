@@ -72,7 +72,7 @@ public class AutenticazioneAddettoControl {
 
     private void verificaCredenziali(AddettoAzienda addettoAzienda) throws CredentialException{
         if(addettoAzienda != null){
-            if(addettoAzienda.getNominativo() == null){
+            if(addettoAzienda.getNominativo().compareTo("passwordNonValida") == 0){
                 throw new CredentialException("passwordNonValida");
             }
             try {

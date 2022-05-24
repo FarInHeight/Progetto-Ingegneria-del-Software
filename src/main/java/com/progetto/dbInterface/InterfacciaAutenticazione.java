@@ -50,7 +50,7 @@ public class InterfacciaAutenticazione {
     public AddettoAzienda getCredenzialiAddettoAzienda(int idAddetto, String password){
         AddettoAzienda addetto = new AddettoAzienda();
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("select * from addetto where ID_addetto = ? and Password = ?");
+            PreparedStatement statement = connection.prepareStatement("select * from addetto where id_addetto = ? and password = ?");
             statement.setInt(1,idAddetto);
             statement.setString(2,password);
             ResultSet resultSet = statement.executeQuery();
@@ -62,11 +62,11 @@ public class InterfacciaAutenticazione {
                 addetto.setRecapitoTelefonico(resultSet.getString(5));
             }
             else{
-                PreparedStatement statementId = connection.prepareStatement("select ID_addetto from addetto where ID_addetto = ?");
-                statement.setInt(1,idAddetto);
-                ResultSet resultSetId = statement.executeQuery();
+                PreparedStatement statementId = connection.prepareStatement("select id_addetto from addetto where id_addetto = ?");
+                statementId.setInt(1,idAddetto);
+                ResultSet resultSetId = statementId.executeQuery();
                 if(resultSetId.next()){
-                    addetto.setIdAddetto(resultSetId.getInt(1));
+                    addetto.setNominativo("passwordNonValida");
                 }
                 else{
                     addetto = null;

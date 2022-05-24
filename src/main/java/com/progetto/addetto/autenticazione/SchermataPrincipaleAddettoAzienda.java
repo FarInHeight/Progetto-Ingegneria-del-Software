@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SchermataPrincipaleAddettoAzienda extends Application implements Initializable {
+public class SchermataPrincipaleAddettoAzienda extends Application /*implements Initializable*/ {
 
     private AddettoAzienda addetto;
 
