@@ -1,4 +1,4 @@
-package com.progetto.addetto.autenticazione;
+package com.progetto.farmacia.autenticazione;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
