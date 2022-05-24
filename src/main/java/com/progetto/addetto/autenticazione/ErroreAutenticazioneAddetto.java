@@ -79,10 +79,12 @@ public class ErroreAutenticazioneAddetto extends Application implements Initiali
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(this.tipo == 0){
-            outputLabel.setText("L'ID inserito è errato.");
+            outputLabel.setText("L'ID inserito è errato. Rivedi il formato inserito.");
         }
         else if(this.tipo == 1){
             outputLabel.setText("La password inserita è errata.");
+        } else {
+            outputLabel.setText("L'ID inserito è errato. Nessun Addetto trovato.");
         }
     }
 }

@@ -21,7 +21,7 @@ public class AutenticazioneAddettoAziendaControl {
 
     /**
      * istanzia l'oggetto dati in input l'id dell'addetto e la password
-     * @param idAddetto id dell'addetto
+     * @param idAddetto id dell'Addetto
      * @param password password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
      * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
@@ -31,14 +31,21 @@ public class AutenticazioneAddettoAziendaControl {
         try {
             int id = Integer.parseInt(idAddetto.getText());
             this.verificaCredenziali(this.getCredenziali(id,pwd));
-        } catch (NumberFormatException e) { //id dell'addetto inserito in un formato non corretto
+        } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(0);
             errAut.start(stage);
         } catch (CredentialException e){ //credenziali non corrette
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(1);
-            errAut.start(stage);
+            if(e.getMessage().compareTo("idNonValido") == 0) {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(2);
+                errAut.start(stage);
+            }
+            else if(e.getMessage().compareTo("passwordNonValida") == 0) {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(1);
+                errAut.start(stage);
+            }
         }
     }
 
@@ -60,20 +67,21 @@ public class AutenticazioneAddettoAziendaControl {
         return intAut.getCredenzialiAddettoAzienda(idAddetto, password);
     }
 
-    private void verificaCredenziali(AddettoAzienda addetto) throws CredentialException{
-        if(addetto != null){
+    private void verificaCredenziali(AddettoAzienda addettoAzienda) throws CredentialException{
+        if(addettoAzienda != null){
+            if(addettoAzienda.getNominativo() == null){
+                throw new CredentialException("passwordNonValida");
+            }
             try {
-                AddettoAzienda addettoClone = addetto.clone();
+                AddettoAzienda addetto = addettoAzienda.clone();
                 //chiudi schermata di autenticazione
-                // IMPORTANTE
-                //SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(farm);
+                //SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farm);
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
         }
         else{
-            throw new CredentialException("Credenziali non corrette");
+            throw new CredentialException("idNonValido");
         }
     }
 }
-

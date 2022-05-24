@@ -24,7 +24,7 @@ public class SchermataLoginForm extends Application {
     @FXML
     //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
-        AutenticazioneAddettoAziendaControl autFarmContr = new AutenticazioneAddettoAziendaControl(this.id, this.password, event);
+        AutenticazioneAddettoAziendaControl autAddettoCtrl = new AutenticazioneAddettoAziendaControl(this.id, this.password, event);
     }
 
     /**

@@ -97,4 +97,12 @@ public class AddettoAzienda {
     public AddettoAzienda clone() throws CloneNotSupportedException {
         return (AddettoAzienda)super.clone();
     }
+
+    /**
+     * Getter per ottenere il nominativo dell'Addetto ("Nome Cognome")
+     * @return nominativo dell'Addetto
+     */
+    public String getNominativo() {
+        return nominativo;
+    }
 }
