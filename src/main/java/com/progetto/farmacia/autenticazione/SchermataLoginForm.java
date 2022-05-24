@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Rappresenta la schermata di login della farmacia
