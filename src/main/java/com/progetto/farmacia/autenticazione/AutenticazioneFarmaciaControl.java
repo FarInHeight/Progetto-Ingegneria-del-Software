@@ -64,6 +64,7 @@ public class AutenticazioneFarmaciaControl {
         if(farmacia != null){
             try {
                 Farmacia farm = farmacia.clone();
+                //chiudi schermata di autenticazione
                 SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farm);
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
