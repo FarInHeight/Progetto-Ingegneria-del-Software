@@ -31,7 +31,9 @@ public class AutenticazioneFarmaciaControl {
         String pwd = this.creaDigest(password.getText());
         try {
             int id = Integer.parseInt(idFarmacia.getText());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             this.verificaCredenziali(this.getCredenziali(id,pwd));
+            stage.close(); //chiudo scgermata autenticazione
         } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             ErroreAutenticazione errAut = new ErroreAutenticazione(0);
@@ -75,9 +77,10 @@ public class AutenticazioneFarmaciaControl {
             }
             try {
                 Farmacia farm = farmacia.clone();
-                //chiudi schermata di autenticazione
                 SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farm);
-            } catch (CloneNotSupportedException e) {
+                Stage stage = new Stage();
+                schermataPrincipaleFarmacia.start(stage);
+            } catch (CloneNotSupportedException | IOException e) {
                 e.printStackTrace();
             }
         }
