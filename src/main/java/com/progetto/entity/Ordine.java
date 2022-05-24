@@ -1,5 +1,7 @@
 package com.progetto.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ public class Ordine {
     private LocalDate dataConsegna;
     private String nomeFarmacia;
     private String indirizzoConsegna;
+
+    private ArrayList<LottoOrdinato> lottiContenuti;
 
     /**
      * Costruttore di un {@code Ordine}.
@@ -37,6 +41,23 @@ public class Ordine {
         this.setDataConsegna(dataConsegna);
         this.setNomeFarmacia(nomeFarmacia);
         this.setIndirizzoConsegna(indirizzoConsegna);
+    }
+
+    /**
+     * Costruttore che genera un Ordine a partire dal risultato di una query sul database
+     *
+     * @param ordine risultato della query composta da una sola tupla
+     * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
+     */
+    public Ordine(ResultSet ordine) throws SQLException {
+        this.setIdOrdine(ordine.getInt("ID_ordine"));
+        this.setStato(ordine.getInt("Stato"));
+        this.setLottiContenuti(ordine);
+        this.setTipo(ordine.getInt("Tipo"));
+        this.setPeriodo(ordine.getInt("Periodo"));
+        this.setDataConsegna(ordine.getDate("Data_consegna").toLocalDate());
+        this.setNomeFarmacia(ordine.getString("Nome_farmacia"));
+        this.setIndirizzoConsegna(ordine.getString("Indirizzo"));
     }
 
     /**
@@ -136,6 +157,17 @@ public class Ordine {
             throw new NullPointerException("Indirizzo di Consegna = null");
         }
         this.indirizzoConsegna = indirizzoConsegna;
+    }
+
+    /**
+     * Setter per impostare i Lotti associati ad un Ordine
+     * @param ordine tupla contenente informazioni su un Lotto associato ad un Ordine
+     * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
+     */
+    public void setLottiContenuti(ResultSet ordine) throws SQLException {
+        ArrayList<LottoOrdinato> lottiOrdinati = new ArrayList<>();
+        lottiOrdinati.add(new LottoOrdinato(ordine.getInt("ID_lotto"), ordine.getInt("N_farmaci")));
+        this.lottiContenuti = lottiOrdinati;
     }
 
     /**
@@ -248,5 +280,21 @@ public class Ordine {
      */
     public String getIndirizzoConsegna() {
         return indirizzoConsegna;
+    }
+
+    /**
+     * Getter per i Lotti associati in un Ordine
+     * @return tutti i Lotti associati
+     */
+    public ArrayList<LottoOrdinato> getLottiContenuti() {
+        return lottiContenuti;
+    }
+
+    /**
+     * Aggiunge un Lotto all'insieme di Lotti assocaiti ad un Ordine
+     * @param lotto Lotto da aggiungere all'Ordine
+     */
+    public void addLotto(LottoOrdinato lotto) {
+        this.lottiContenuti.add(lotto);
     }
 }

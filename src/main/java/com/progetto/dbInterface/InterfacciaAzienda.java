@@ -1,30 +1,38 @@
 package com.progetto.dbInterface;
 import com.progetto.entity.Lotto;
+import com.progetto.entity.LottoOrdinato;
+import com.progetto.entity.Ordine;
+
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class InterfacciaAzienda {
 
     /**
      * Metodo che ritorna tutti i Lotti contenuti nel database
      *
-     * @return oggetto ResultSet contenente tutti i Lotti del database
+     * @return ArrayList di Lotto contenente tutti i Lotti del database
      */
-    public ResultSet getLotti() {
+    public ArrayList<Lotto> getLotti() {
 
-        ResultSet result = null;
+        ArrayList<Lotto> lotti = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "azienda","pwd")){
             Statement statement = connection.createStatement();
-            result = statement.executeQuery("select * from Lotto");
+            ResultSet resultLotti = statement.executeQuery("select * from Lotto");
+            while (resultLotti.next()) {
+                lotti.add(new Lotto(resultLotti));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return lotti;
     }
 
     /**
      * Rimuove un particolare Lotto dal database. Il Lotto è indicato tramite il suo id.
      *
-     * @param id identificativo del Lotto da rimuovere
+     * @param id intero identificativo del Lotto da rimuovere
      */
     public void rimuoviLotto(int id) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "azienda","pwd")){
@@ -55,21 +63,23 @@ public class InterfacciaAzienda {
     }
 
     /**
-     * Modifica la quantità di Farmaci contenuti e ordinati del Lotto specificato.
+     * Modifica la quantità di Farmaci contenuti e ordinati di tutti i Lotti conenuti in un Ordine.
+     * Le nuove quantità coincidono esattamente con la quantità di Farmaci presenti nell'Ordine.
      * Modifica la data di scadenza in base a quando sono stati prodotti i Farmaci.
      *
-     * @param quantita nuova quantità di Farmaci contenuti e ordinati
-     * @param id identificatore del Lotto
-     * @param data nuova data di scadenza
+     * @param ordine Ordine prenotato del quale si vogliono riempire i Lotti
      */
-    public void updateQuantitaLotto(int quantita, int id, Date data) {
+    public void updateQuantitaLotti(Ordine ordine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "azienda","pwd")){
             PreparedStatement statement = connection.prepareStatement("update Lotto set N_contenuti = ?, N_ordinati = ?, Data_scadenza = ? where ID_lotto = ?");
-            statement.setInt(1,quantita);
-            statement.setInt(2,quantita);
-            statement.setDate(3,data);
-            statement.setInt(4,id);
-            statement.executeUpdate();
+            ArrayList<LottoOrdinato> lotti = ordine.getLottiContenuti();
+            for (LottoOrdinato lotto : lotti) {
+                statement.setInt(1,lotto.getQuantitaOrdine());
+                statement.setInt(2,lotto.getQuantitaOrdine());
+                statement.setDate(3,Date.valueOf(LocalDate.now().plusYears(2)));
+                statement.setInt(4,lotto.getIdLotto());
+                statement.executeUpdate();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,17 +88,26 @@ public class InterfacciaAzienda {
     /**
      * Ritorna tutti gli Ordini in stato di Prenotazione.
      *
-     * @return tutti gli Ordini prenotati
+     * @return ArrayList contenente tutti gli Ordini prenotati
      */
-    public ResultSet getOrdiniPrenotati() {
-        ResultSet result = null;
+    public ArrayList<Ordine> getOrdiniPrenotati() {
+        ArrayList<Ordine> ordini = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "azienda","pwd")){
             Statement statement = connection.createStatement();
-            result = statement.executeQuery("select ID_ordine, N_farmaci, ID_lotto from Ordine,Composizione,Lotto where Stato = 3 AND ID_ordine = Ordine_ID_ordine AND ID_lotto = Lotto_ID_lotto");
+            ResultSet resultOrdini = statement.executeQuery("select * from Ordine,Composizione,Lotto where Stato = 3 AND ID_ordine = Ordine_ID_ordine AND ID_lotto = Lotto_ID_lotto ORDER BY ID_ordine");
+            int previousID = -1;
+            while(resultOrdini.next()) {
+                if (previousID == resultOrdini.getInt("ID_ordine")) {
+                    ordini.get(ordini.size()-1).addLotto(new LottoOrdinato(resultOrdini.getInt("ID_lotto"),resultOrdini.getInt("N_farmaci")));
+                } else {
+                    ordini.add(new Ordine(resultOrdini));
+                }
+                previousID = resultOrdini.getInt("ID_ordine");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return ordini;
     }
 
     /**

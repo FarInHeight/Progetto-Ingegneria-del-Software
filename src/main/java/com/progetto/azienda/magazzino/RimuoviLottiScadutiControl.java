@@ -1,10 +1,12 @@
 package com.progetto.azienda.magazzino;
 
 import com.progetto.dbInterface.InterfacciaAzienda;
+import com.progetto.entity.Lotto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class RimuoviLottiScadutiControl {
 
@@ -14,19 +16,12 @@ public class RimuoviLottiScadutiControl {
     public void rimuoviLottiScaduti() {
 
         InterfacciaAzienda db = new InterfacciaAzienda();
-        ResultSet lotti = db.getLotti();
+        ArrayList<Lotto> lotti = db.getLotti();
 
-        try {
-            if (lotti != null) {
-                while (lotti.next()) {
-                    LocalDate data_scadenza = lotti.getDate("Data_scadenza").toLocalDate();
-                    if (data_scadenza.compareTo(LocalDate.now()) < 0) {
-                        db.rimuoviLotto(lotti.getInt("ID_lotto"));
-                    }
-                }
+        for (Lotto lotto : lotti) {
+            if(lotto.getDataScadenza().compareTo(LocalDate.now()) < 0) {
+                db.rimuoviLotto(lotto.getIdLotto());
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

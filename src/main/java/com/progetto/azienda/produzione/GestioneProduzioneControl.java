@@ -2,11 +2,13 @@ package com.progetto.azienda.produzione;
 
 import com.progetto.dbInterface.InterfacciaAzienda;
 import com.progetto.entity.Lotto;
+import com.progetto.entity.Ordine;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class GestioneProduzioneControl {
 
@@ -26,25 +28,18 @@ public class GestioneProduzioneControl {
      * @param db istanza dell'interfaccia col database
      */
     private void aggiungiLottiProdotti(InterfacciaAzienda db) {
-        ResultSet lotti = db.getLotti();
-        try {
-            if (lotti!=null) {
-                while (lotti.next()) {
-                    if (lotti.getInt("N_quantita") != 0) {
-                        Lotto newLotto = new Lotto(lotti);
-                        newLotto.setDataScadenza(LocalDate.now().plusYears(2));
-                        newLotto.setQuantitaOrdinata(0);
-                        if (controllaQuantita(lotti)) {
-                            db.addLotto(newLotto);
-                        } else {
-                            newLotto.setQuantitaContenuta((int) (newLotto.getQuantitaContenuta() * 1.1));
-                            db.addLotto(newLotto);
-                        }
-                    }
+        ArrayList<Lotto> lotti = db.getLotti();
+
+        for(Lotto lotto : lotti) {
+            if (lotto.getQuantitaContenuta() != 0) {
+                Lotto newLotto = Lotto.lottoProdotto(lotto);
+                if (controllaQuantita(lotto)) {
+                    db.addLotto(newLotto);
+                } else {
+                    newLotto.setQuantitaContenuta((int) (newLotto.getQuantitaContenuta() * 1.1));
+                    db.addLotto(newLotto);
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -56,16 +51,11 @@ public class GestioneProduzioneControl {
      */
     private void aggiungiLottiPrenotati(InterfacciaAzienda db) {
 
-        ResultSet ordini = db.getOrdiniPrenotati();
-        try {
-            if (ordini != null) {
-                while(ordini.next()) {
-                    db.updateQuantitaLotto(ordini.getInt("N_farmaci"), ordini.getInt("ID_lotto"), Date.valueOf(LocalDate.now().plusYears(2)));
-                    db.cambiaStatoInElaborazione(ordini.getInt("ID_ordine"));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        ArrayList<Ordine> ordini = db.getOrdiniPrenotati();
+
+        for(Ordine ordine : ordini) {
+            db.updateQuantitaLotti(ordine);
+            db.cambiaStatoInElaborazione(ordine.getIdOrdine());
         }
     }
 
@@ -73,10 +63,9 @@ public class GestioneProduzioneControl {
      * Verifica se la quantità di Farmaci ordinati in un Lotto non superi la metà dei Farmaci contenuti
      * @param lotto lotto su cui effettuare al verifica
      * @return true se la quantità ordinata è minore della metà del totale, false altrimenti
-     * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
-    private boolean controllaQuantita(ResultSet lotto) throws SQLException {
-        return (lotto.getInt("N_ordinati") <= (0.5*lotto.getInt("N_contenuti")));
+    private boolean controllaQuantita(Lotto lotto) {
+        return (lotto.getQuantitaOrdinata() <= (0.5*lotto.getQuantitaOrdinata()));
     }
 
 

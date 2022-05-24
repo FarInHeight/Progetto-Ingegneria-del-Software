@@ -15,6 +15,10 @@ public class Lotto {
     private int quantitaContenuta;
     private int quantitaOrdinata;
 
+    public Lotto(){
+
+    }
+
     /**
      * Costruttore per un Lotto contenuto nel DBMSAzienda.
      * <p>
@@ -75,6 +79,13 @@ public class Lotto {
     }
 
     /**
+     * Setter per l'ID del Lotto
+     */
+    public void setIdLotto(int idLotto) {
+        this.idLotto = idLotto;
+    }
+
+    /**
      * Getter per la quantità di Farmaco contenuta del Lotto
      * @return la quantità di Farmaco contenuta nel Lotto
      */
@@ -113,6 +124,18 @@ public class Lotto {
     public void setQuantitaOrdinata(int quantitaOrdinata) {
         this.quantitaOrdinata = quantitaOrdinata;
     }
+
+    /**
+     * Crea un nuovo Lotto da aggiungere al database dell'Azienda a partire da un Lotto preesistente.
+     *
+     * @param lotto Lotto contente il Farmco che è stato appena prodotto
+     * @return nuovo Lotto
+     */
+    public static Lotto lottoProdotto(Lotto lotto) {
+        return new Lotto(lotto.getIdLotto(), lotto.getNomeFarmaco(), lotto.getDataScadenza().plusYears(2), lotto.getQuantitaContenuta(), 0);
+    }
+
+
 }
 
 
