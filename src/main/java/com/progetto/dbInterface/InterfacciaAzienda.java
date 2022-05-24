@@ -36,7 +36,7 @@ public class InterfacciaAzienda {
      */
     public void rimuoviLotto(int id) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("delete from lotto where ID_lotto = ?");
+            PreparedStatement statement = connection.prepareStatement("delete from lotto where id_lotto = ?");
             statement.setInt(1,id);
             statement.executeUpdate();
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class InterfacciaAzienda {
      */
     public void addLotto(Lotto lotto) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("insert into lotto (Data_scadenza, N_contenuti, N_ordinati, Farmaco_Nome) values (?,?,?,?)");
+            PreparedStatement statement = connection.prepareStatement("insert into lotto (data_scadenza, n_contenuti, n_ordinati, farmaco_nome) values (?,?,?,?)");
             statement.setDate(1,Date.valueOf(lotto.getDataScadenza()));
             statement.setInt(2,lotto.getQuantitaContenuta());
             statement.setInt(3,lotto.getQuantitaOrdinata());
@@ -71,7 +71,7 @@ public class InterfacciaAzienda {
      */
     public void updateQuantitaLotti(Ordine ordine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("update lotto set N_contenuti = ?, N_ordinati = ?, Data_scadenza = ? where ID_lotto = ?");
+            PreparedStatement statement = connection.prepareStatement("update lotto set n_contenuti = ?, n_ordinati = ?, data_scadenza = ? where id_lotto = ?");
             ArrayList<LottoOrdinato> lotti = ordine.getLottiContenuti();
             for (LottoOrdinato lotto : lotti) {
                 statement.setInt(1,lotto.getQuantitaOrdine());
@@ -94,15 +94,15 @@ public class InterfacciaAzienda {
         ArrayList<Ordine> ordini = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
             Statement statement = connection.createStatement();
-            ResultSet resultOrdini = statement.executeQuery("select * from ordine,composizione,lotto where Stato = 3 AND ID_ordine = Ordine_ID_ordine AND ID_lotto = Lotto_ID_lotto ORDER BY ID_ordine");
+            ResultSet resultOrdini = statement.executeQuery("select * from ordine,composizione,lotto where stato = 3 AND id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto ORDER BY id_ordine");
             int previousID = -1;
             while(resultOrdini.next()) {
-                if (previousID == resultOrdini.getInt("ID_ordine")) {
-                    ordini.get(ordini.size()-1).addLotto(new LottoOrdinato(resultOrdini.getInt("ID_lotto"),resultOrdini.getInt("N_farmaci")));
+                if (previousID == resultOrdini.getInt("id_ordine")) {
+                    ordini.get(ordini.size()-1).addLotto(new LottoOrdinato(resultOrdini.getInt("id_lotto"),resultOrdini.getInt("n_farmaci")));
                 } else {
                     ordini.add(new Ordine(resultOrdini));
                 }
-                previousID = resultOrdini.getInt("ID_ordine");
+                previousID = resultOrdini.getInt("id_ordine");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class InterfacciaAzienda {
      */
     public void cambiaStatoInElaborazione(int id_ordine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("update ordine set Stato = 1 where ID_ordine = ?");
+            PreparedStatement statement = connection.prepareStatement("update ordine set stato = 1 where id_ordine = ?");
             statement.setInt(1,id_ordine);
             statement.executeUpdate();
         } catch (Exception e) {
