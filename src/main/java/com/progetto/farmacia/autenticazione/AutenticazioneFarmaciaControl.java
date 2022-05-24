@@ -1,5 +1,6 @@
 package com.progetto.farmacia.autenticazione;
 import com.progetto.dbInterface.InterfacciaAutenticazione;
+import com.progetto.entity.Farmacia;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -16,8 +17,7 @@ import java.security.NoSuchAlgorithmException;
  * Control che gestisce l'autenticazione della farmacia
  */
 public class AutenticazioneFarmaciaControl {
-    private int idFarmacia;
-    private String password;
+    Farmacia farmacia;
 
     /**
      * istanzia l'oggetto dati in input l'id della farmacia e la password
@@ -27,15 +27,15 @@ public class AutenticazioneFarmaciaControl {
      * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
     public AutenticazioneFarmaciaControl(TextField idFarmacia, TextField password, ActionEvent event) throws IOException {
-        this.password = this.getDigest(password.getText());
+        String pwd = this.getDigest(password.getText());
         try {
-            this.idFarmacia = Integer.parseInt(idFarmacia.getText());
-            this.verificaCredenziali(this.getCredenziali(this.idFarmacia,this.password));
-        } catch (NumberFormatException e) {
+            int id = Integer.parseInt(idFarmacia.getText());
+            this.verificaCredenziali(this.getCredenziali(id,pwd));
+        } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             ErroreAutenticazione errAut = new ErroreAutenticazione(0);
             errAut.start(stage);
-        } catch (CredentialException e){
+        } catch (CredentialException e){ //credenziali non corrette
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             ErroreAutenticazione errAut = new ErroreAutenticazione(1);
             errAut.start(stage);
@@ -55,18 +55,25 @@ public class AutenticazioneFarmaciaControl {
         return hex;  //la stringa ha 64 caratteri
     }
 
-    private int getCredenziali (int idFarmacia, String password) throws CredentialException {
+    private Farmacia getCredenziali (int idFarmacia, String password) throws CredentialException {
         InterfacciaAutenticazione intAut = new InterfacciaAutenticazione();
         return intAut.getCredenziali(idFarmacia, password);
     }
 
-    private void verificaCredenziali(int id) throws CredentialException{
-        if(id != -1){
+    private void verificaCredenziali(Farmacia farmacia) throws CredentialException{
+        if(farmacia != null){
+            this.setFarmacia(farmacia);
             //crea schermata principale farmacia
-            //crea entity per token sessione
         }
         else{
-            throw new CredentialException();
+            throw new CredentialException("Credenziali non corrette");
         }
+    }
+
+    private void setFarmacia(Farmacia farmacia) {
+        if(farmacia == null){
+            throw new NullPointerException("Farmacia = null");
+        }
+        this.farmacia = farmacia;
     }
 }

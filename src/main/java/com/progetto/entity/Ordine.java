@@ -18,7 +18,7 @@ public class Ordine {
     private String indirizzoConsegna;
 
     /**
-     * Costruttore di un Ordine.
+     * Costruttore di un {@code Ordine}.
      * @param idOrdine id dell'ordine
      * @param stato stato dell'ordine (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5])
      * @param farmaci farmaci contenuti nell'ordine
