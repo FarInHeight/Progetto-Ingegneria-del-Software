@@ -4,6 +4,7 @@ import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.security.auth.login.CredentialException;
@@ -26,7 +27,7 @@ public class AutenticazioneFarmaciaControl {
      * @param event evento che rappresenta il click del tasto login
      * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
-    public AutenticazioneFarmaciaControl(TextField idFarmacia, TextField password, ActionEvent event) throws IOException {
+    public AutenticazioneFarmaciaControl(TextField idFarmacia, PasswordField password, ActionEvent event) throws IOException {
         String pwd = this.creaDigest(password.getText());
         try {
             int id = Integer.parseInt(idFarmacia.getText());

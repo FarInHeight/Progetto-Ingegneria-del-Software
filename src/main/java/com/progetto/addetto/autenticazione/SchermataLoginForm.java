@@ -21,7 +21,7 @@ public class SchermataLoginForm extends Application {
     @FXML
     private TextField id;
     @FXML
-    private TextField password;
+    private PasswordField password;
     @FXML
     //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
