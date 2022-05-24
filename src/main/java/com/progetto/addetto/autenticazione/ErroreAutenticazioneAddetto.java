@@ -3,6 +3,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,8 +13,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ErroreAutenticazioneAddetto extends Application {
+public class ErroreAutenticazioneAddetto extends Application implements Initializable {
 
     private int tipo;
 
@@ -48,12 +51,6 @@ public class ErroreAutenticazioneAddetto extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazione.fxml"));
-        if(this.tipo == 0){
-            outputLabel.setText("L'ID inserito è errato.");
-        }
-        else if(this.tipo == 1){
-            outputLabel.setText("La password inserita è errata.");
-        }
 
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
@@ -77,5 +74,15 @@ public class ErroreAutenticazioneAddetto extends Application {
         subStage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
         subStage.initModality(Modality.WINDOW_MODAL);  //blocco il focus sulla schermata delle'errore
         subStage.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(this.tipo == 0){
+            outputLabel.setText("L'ID inserito è errato.");
+        }
+        else if(this.tipo == 1){
+            outputLabel.setText("La password inserita è errata.");
+        }
     }
 }
