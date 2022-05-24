@@ -35,6 +35,11 @@ public class SchermataPrincipaleFarmacia extends Application {
         this.farmacia = farmacia;
     }
 
+    /**
+     * permette di mostrare la schermata principale della farmacia
+     * @param stage stage della schermata
+     * @throws IOException se il caricamento del file fxml non è andato a buon fine
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schermataPrincipaleFarmacia.fxml"));
