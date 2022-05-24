@@ -4,6 +4,7 @@ import com.progetto.entity.Farmacia;
 
 import javax.security.auth.login.CredentialException;
 import java.sql.*;
+import java.time.LocalDate;
 
 /**
  * contiene i metodi necessari ad effettuare l'autenticazione con il database
@@ -11,7 +12,7 @@ import java.sql.*;
 public class InterfacciaAutenticazione {
 
     /**
-     * ritorna il tupla della tabella {@code Farmacia} corrispondente alle credenziali inserite
+     * Ritorna la tupla della tabella {@code Farmacia} corrispondente alle credenziali inserite
      * @param idFarmacia id della farmacia
      * @param password password della farmacia
      * @return un {@code int} contenente l'id corrispondente alle credenziali inserite (se non sono corrette ritorna -1)
@@ -47,25 +48,33 @@ public class InterfacciaAutenticazione {
     }
 
     public AddettoAzienda getCredenzialiAddettoAzienda(int idAddetto, String password){
-        /*AddettoAzienda farmacia = new AddettoAzienda();
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("select ID_farmacia from Farmacia where ID_farmacia = ? and Password = ?");
-            statement.setInt(1,idFarmacia);
+        AddettoAzienda addetto = new AddettoAzienda();
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("select * from addetto where ID_addetto = ? and Password = ?");
+            statement.setInt(1,idAddetto);
             statement.setString(2,password);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
-                farmacia.setIdFarmacia(resultSet.getInt(1));
-                farmacia.setNome(resultSet.getString(2));
-                farmacia.setIndirizzo(resultSet.getString(3));
-                farmacia.setRecapitoTelefonico(resultSet.getString(4));
+                addetto.setIdAddetto(resultSet.getInt(1));
+                addetto.setNominativo(resultSet.getString(2));
+                addetto.setDataNascita(resultSet.getDate(3).toLocalDate());
+                addetto.setEmail(resultSet.getString(4));
+                addetto.setRecapitoTelefonico(resultSet.getString(5));
             }
             else{
-                farmacia = null;
+                PreparedStatement statementId = connection.prepareStatement("select ID_addetto from addetto where ID_addetto = ?");
+                statement.setInt(1,idAddetto);
+                ResultSet resultSetId = statement.executeQuery();
+                if(resultSetId.next()){
+                    addetto.setIdAddetto(resultSetId.getInt(1));
+                }
+                else{
+                    addetto = null;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return farmacia;*/
-        return null;
+        return addetto;
     }
 }

@@ -1,32 +1,26 @@
 package com.progetto.addetto.autenticazione;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ErroreAutenticazioneAddetto extends Application implements Initializable {
+public class ErroreAutenticazione extends Application {
 
     private int tipo;
-
-    @FXML
-    private Label outputLabel;
 
     /**
      * costruire un istanza di {@code ErroreAutenticazione}
      */
-    public ErroreAutenticazioneAddetto(){
+    public ErroreAutenticazione(){
         super();
     }
 
@@ -34,7 +28,7 @@ public class ErroreAutenticazioneAddetto extends Application implements Initiali
      * costruire un istanza di {@code ErroreAutenticazione} dato in input il tipo di errore
      * @param tipo di errore (0 per username errato, 1 per password errata)
      */
-    public ErroreAutenticazioneAddetto(int tipo){
+    public ErroreAutenticazione(int tipo){
         super();
         this.tipo = tipo;
     }
@@ -50,8 +44,16 @@ public class ErroreAutenticazioneAddetto extends Application implements Initiali
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazione.fxml"));
-
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        if(this.tipo == 0){
+            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneFormatoId.fxml"));
+        }
+        else if(this.tipo == 1){
+            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazionePassword.fxml"));
+        }
+        else if(this.tipo == 2){
+            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneId.fxml"));
+        }
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
         double subStageWidth = 350;
@@ -74,17 +76,5 @@ public class ErroreAutenticazioneAddetto extends Application implements Initiali
         subStage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
         subStage.initModality(Modality.WINDOW_MODAL);  //blocco il focus sulla schermata delle'errore
         subStage.show();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(this.tipo == 0){
-            outputLabel.setText("L'ID inserito è errato. Rivedi il formato inserito.");
-        }
-        else if(this.tipo == 1){
-            outputLabel.setText("La password inserita è errata.");
-        } else {
-            outputLabel.setText("L'ID inserito è errato. Nessun Addetto trovato.");
-        }
     }
 }

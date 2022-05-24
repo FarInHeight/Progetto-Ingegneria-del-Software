@@ -1,4 +1,5 @@
 package com.progetto.addetto.autenticazione;
+
 import com.progetto.dbInterface.InterfacciaAutenticazione;
 import com.progetto.entity.AddettoAzienda;
 import javafx.event.ActionEvent;
@@ -15,35 +16,37 @@ import java.security.NoSuchAlgorithmException;
 
 
 /**
- * Control che gestisce l'autenticazione della farmacia
+ * Control che gestisce l'autenticazione dell'Addetto dell'Azienda
  */
-public class AutenticazioneAddettoAziendaControl {
+public class AutenticazioneAddettoControl {
 
     /**
-     * istanzia l'oggetto dati in input l'id dell'addetto e la password
+     * istanzia l'oggetto dati in input l'id dell'Addetto dell'Azienda e la password
      * @param idAddetto id dell'Addetto
      * @param password password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
      * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
-    public AutenticazioneAddettoAziendaControl(TextField idAddetto, PasswordField password, ActionEvent event) throws IOException {
+    public AutenticazioneAddettoControl(TextField idAddetto, PasswordField password, ActionEvent event) throws IOException {
         String pwd = this.creaDigest(password.getText());
         try {
             int id = Integer.parseInt(idAddetto.getText());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             this.verificaCredenziali(this.getCredenziali(id,pwd));
+            stage.close(); //chiudo scgermata autenticazione
         } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(0);
+            ErroreAutenticazione errAut = new ErroreAutenticazione(0);
             errAut.start(stage);
         } catch (CredentialException e){ //credenziali non corrette
             if(e.getMessage().compareTo("idNonValido") == 0) {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-                ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(2);
+                ErroreAutenticazione errAut = new ErroreAutenticazione(2);
                 errAut.start(stage);
             }
             else if(e.getMessage().compareTo("passwordNonValida") == 0) {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-                ErroreAutenticazioneAddetto errAut = new ErroreAutenticazioneAddetto(1);
+                ErroreAutenticazione errAut = new ErroreAutenticazione(1);
                 errAut.start(stage);
             }
         }
@@ -74,9 +77,10 @@ public class AutenticazioneAddettoAziendaControl {
             }
             try {
                 AddettoAzienda addetto = addettoAzienda.clone();
-                //chiudi schermata di autenticazione
-                //SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farm);
-            } catch (CloneNotSupportedException e) {
+                SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(addetto);
+                Stage stage = new Stage();
+                schermataPrincipaleFarmacia.start(stage);
+            } catch (CloneNotSupportedException | IOException e) {
                 e.printStackTrace();
             }
         }

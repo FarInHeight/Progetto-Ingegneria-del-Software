@@ -10,10 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 /**
- * Rappresenta la schermata di login dell'Addetto
+ * Rappresenta la schermata di login dell'Addetto dell'Azienda
  */
 public class SchermataLoginForm extends Application {
 
@@ -24,7 +25,7 @@ public class SchermataLoginForm extends Application {
     @FXML
     //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
-        AutenticazioneAddettoAziendaControl autAddettoCtrl = new AutenticazioneAddettoAziendaControl(this.id, this.password, event);
+        AutenticazioneAddettoControl autAddettoCtrl = new AutenticazioneAddettoControl(this.id, this.password, event);
     }
 
     /**

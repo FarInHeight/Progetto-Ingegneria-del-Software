@@ -13,7 +13,7 @@ public class AddettoAzienda {
     private String recapitoTelefonico;
 
     /**
-     * Costruttore di un {@code AddettoAzienda}.
+     * Costruttore di un {@code AddettoAzienda} per specificare tutti i campi.
      * @param idAddetto id dell'Addetto
      * @param nominativo nominativo dell'Addetto ("Nome Cognome")
      * @param dataNascita data di nascita dell'Addetto
@@ -28,6 +28,12 @@ public class AddettoAzienda {
         this.recapitoTelefonico = recapitoTelefonico;
     }
 
+    /**
+     * Costruttore di un {@code AddettoAzienda}.
+     */
+    public AddettoAzienda() {
+
+    }
     /**
      * Setter per impostare l'ID dell'Addetto
      * @param idAddetto id dell'Addetto
@@ -89,13 +95,45 @@ public class AddettoAzienda {
     }
 
     /**
+     * Getter per ottenere l'id dell'Addetto
+     * @return id dell'addetto
+     */
+    public int getIdAddetto() {
+        return idAddetto;
+    }
+
+    /**
+     * Getter per ottenere la data di nascita dell'Addetto
+     * @return data di nascita
+     */
+    public LocalDate getDataNascita() {
+        return dataNascita;
+    }
+
+    /**
+     * Getter per ottenere l'email dell'Addetto
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Getter per ottenere il recapito telefonico dell'Addetto
+     * @return recapito telefonico
+     */
+    public String getRecapitoTelefonico() {
+        return recapitoTelefonico;
+    }
+
+    /**
      * Implementazione del metodo {@code clone} ereditato dalla classe {@code Object}
      * @return copia dell'AddettoAzienda
      * @throws CloneNotSupportedException
      */
     @Override
     public AddettoAzienda clone() throws CloneNotSupportedException {
-        return (AddettoAzienda)super.clone();
+        return new AddettoAzienda(this.getIdAddetto(), this.getNominativo(), this.getDataNascita(), this.getEmail(), this.getRecapitoTelefonico());
     }
 
     /**
