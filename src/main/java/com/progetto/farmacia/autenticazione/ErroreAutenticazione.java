@@ -15,6 +15,23 @@ import java.io.IOException;
 
 public class ErroreAutenticazione extends Application {
 
+    private int tipo;
+
+    /**
+     * costruire un istanza di {@code ErroreAutenticazione}
+     */
+    public ErroreAutenticazione(){
+        super();
+    }
+
+    /**
+     * costruire un istanza di {@code ErroreAutenticazione} dato in input il tipo di errore
+     * @param tipo di errore (0 per username errato, 1 per password errata)
+     */
+    public ErroreAutenticazione(int tipo){
+        super();
+        this.tipo = tipo;
+    }
     @FXML
     private void chiudiErrore(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
@@ -24,7 +41,13 @@ public class ErroreAutenticazione extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneId.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        if(this.tipo == 0){
+            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazioneId.fxml"));
+        }
+        else if(this.tipo == 1){
+            fxmlLoader = new FXMLLoader(getClass().getResource("erroreAutenticazionePassword.fxml"));
+        }
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
         double subStageWidth = 350;

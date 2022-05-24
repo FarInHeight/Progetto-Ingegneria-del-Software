@@ -1,10 +1,17 @@
 package com.progetto.farmacia.autenticazione;
-
+import com.progetto.dbInterface.InterfacciaAutenticazione;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import javafx.stage.Stage;
+import javax.security.auth.login.CredentialException;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+
 /**
  * Control che gestisce l'autenticazione della farmacia
  */
@@ -16,27 +23,50 @@ public class AutenticazioneFarmaciaControl {
      * istanzia l'oggetto dati in input l'id della farmacia e la password
      * @param idFarmacia id della farmacia
      * @param password password inserita dall'utente
+     * @param event evento che rappresenta il click del tasto login
+     * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
-    public AutenticazioneFarmaciaControl(TextField idFarmacia,TextField password){
-        this.idFarmacia = Integer.parseInt(idFarmacia.getText());
-        this.password = password.getText();
-        this.getCredenziali();
+    public AutenticazioneFarmaciaControl(TextField idFarmacia, TextField password, ActionEvent event) throws IOException {
+        this.password = this.getDigest(password.getText());
+        try {
+            this.idFarmacia = Integer.parseInt(idFarmacia.getText());
+            this.verificaCredenziali(this.getCredenziali(this.idFarmacia,this.password));
+        } catch (NumberFormatException e) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+            ErroreAutenticazione errAut = new ErroreAutenticazione(0);
+            errAut.start(stage);
+        } catch (CredentialException e){
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+            ErroreAutenticazione errAut = new ErroreAutenticazione(1);
+            errAut.start(stage);
+        }
     }
 
-    private void getCredenziali(){
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * from addetto")) {
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(1));
-                System.out.println(resultSet.getString(2));
-                System.out.println(resultSet.getString(3));
-                System.out.println(resultSet.getString(4));
-
-            }
-        } catch(Exception e){
-            e.printStackTrace();
+    private String getDigest(String password){
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
+        md.update(password.getBytes(StandardCharsets.UTF_8));
+        byte[] digest = md.digest();
+        String hex = String.format("%064x", new BigInteger(1, digest));
+        return hex;  //la stringa ha 64 caratteri
+    }
 
+    private int getCredenziali (int idFarmacia, String password) throws CredentialException {
+        InterfacciaAutenticazione intAut = new InterfacciaAutenticazione();
+        return intAut.getCredenziali(idFarmacia, password);
+    }
+
+    private void verificaCredenziali(int id) throws CredentialException{
+        if(id != -1){
+            //crea schermata principale farmacia
+            //crea entity per token sessione
+        }
+        else{
+            throw new CredentialException();
+        }
     }
 }
