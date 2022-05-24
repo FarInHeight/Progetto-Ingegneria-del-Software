@@ -18,8 +18,8 @@ public class InterfacciaAutenticazione {
      */
     public Farmacia getCredenzialiFarmacia(int idFarmacia, String password) throws CredentialException{
         Farmacia farmacia = new Farmacia();
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("select * from farmacia where ID_farmacia = ? and Password = ?");
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("select * from farmacia where id_farmacia = ? and Password = ?");
             statement.setInt(1,idFarmacia);
             statement.setString(2,password);
             ResultSet resultSet = statement.executeQuery();
@@ -30,11 +30,11 @@ public class InterfacciaAutenticazione {
                 farmacia.setRecapitoTelefonico(resultSet.getString(4));
             }
             else{
-                PreparedStatement statementId = connection.prepareStatement("select ID_farmacia from farmacia where ID_farmacia = ?");
-                statement.setInt(1,idFarmacia);
-                ResultSet resultSetId = statement.executeQuery();
+                PreparedStatement statementId = connection.prepareStatement("select id_farmacia from farmacia where id_farmacia = ?");
+                statementId.setInt(1,idFarmacia);
+                ResultSet resultSetId = statementId.executeQuery();
                 if(resultSetId.next()){
-                    farmacia.setIdFarmacia(resultSetId.getInt(1));
+                    farmacia.setNome("passwordNonValida");
                 }
                 else{
                     farmacia = null;

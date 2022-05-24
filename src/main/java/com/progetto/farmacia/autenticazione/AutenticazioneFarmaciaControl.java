@@ -72,7 +72,7 @@ public class AutenticazioneFarmaciaControl {
 
     private void verificaCredenziali(Farmacia farmacia) throws CredentialException{
         if(farmacia != null){
-            if(farmacia.getNome() == null){
+            if(farmacia.getNome().compareTo("passwordNonValida") == 0){
                 throw new CredentialException("passwordNonValida");
             }
             try {
@@ -85,6 +85,7 @@ public class AutenticazioneFarmaciaControl {
             }
         }
         else{
+            System.out.println("ERrorequi");
             throw new CredentialException("idNonValido");
         }
     }
