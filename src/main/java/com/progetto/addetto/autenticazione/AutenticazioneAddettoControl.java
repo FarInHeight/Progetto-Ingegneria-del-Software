@@ -1,5 +1,6 @@
 package com.progetto.addetto.autenticazione;
 
+import com.progetto.addetto.SchermataPrincipaleAddettoAzienda;
 import com.progetto.dbInterface.InterfacciaAutenticazione;
 import com.progetto.entity.AddettoAzienda;
 import javafx.event.ActionEvent;
