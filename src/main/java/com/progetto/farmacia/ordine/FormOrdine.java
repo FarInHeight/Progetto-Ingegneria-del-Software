@@ -1,12 +1,15 @@
 package com.progetto.farmacia.ordine;
 
-import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.FocusModel;
+import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -20,7 +23,10 @@ import java.util.ResourceBundle;
  */
 public class FormOrdine extends Application implements Initializable {
 
+    @FXML
     private Text usernameLabel;
+    @FXML
+    private TableView lista;
     private static String nomeFarmacia;
 
     /**
@@ -36,6 +42,12 @@ public class FormOrdine extends Application implements Initializable {
      */
     public FormOrdine(String nomeFarmacia){
         FormOrdine.nomeFarmacia = nomeFarmacia;
+    }
+
+    @FXML
+    private void indietro(ActionEvent event){
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+        stage.close();
     }
 
     /**
