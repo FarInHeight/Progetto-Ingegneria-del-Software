@@ -70,14 +70,9 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
         //mostra la schermata di login
         stage.setTitle("Homepage");
         stage.setScene(scene);
-        stage.setMinWidth(stageWidth);
+        stage.setMinWidth(stageWidth + 20);
         stage.setMinHeight(stageHeight);
         stage.show();
-    }
-
-    @FXML
-    private void creaOrdine() {
-
     }
 
     @FXML

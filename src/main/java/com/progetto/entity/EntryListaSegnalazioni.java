@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class EntryListaSegnalazioni {
     private Segnalazione segnalazione;
     private String riepilogoOrdine;
+    private int idFarmacia;
     private String recapitoTelefonicoFarmacia;
     private String nomeFarmacia;
     private String data;
@@ -24,9 +25,10 @@ public class EntryListaSegnalazioni {
      * @param nomeFarmacia nome della farmacia che ha effettuato la segnalazione
      * @param data data in cui è stata generata segnalazione
      */
-    public EntryListaSegnalazioni(int idSegnalazione, int idOrdine, String riepilogoOrdine, String nomeFarmacia, String recapitoTelefonicoFarmacia, String commento, LocalDate data) {
+    public EntryListaSegnalazioni(int idSegnalazione, int idOrdine, String riepilogoOrdine, int idFarmacia, String nomeFarmacia, String recapitoTelefonicoFarmacia, String commento, LocalDate data) {
         this.segnalazione = new Segnalazione(idSegnalazione, commento, idOrdine);
         this.setRiepilogoOrdine(riepilogoOrdine);
+        this.setIdFarmacia(idFarmacia);
         this.setNomeFarmacia(nomeFarmacia);
         this.setRecapitoTelefonicoFarmacia(recapitoTelefonicoFarmacia);
         this.setData(data.format(DateTimeFormatter.ofPattern("d/MM/uuuu")));
@@ -43,6 +45,12 @@ public class EntryListaSegnalazioni {
         this.strumenti = flow;
     }
 
+    private void setIdFarmacia(int idFarmacia) {
+        if(idFarmacia < 1) {
+            throw new IllegalArgumentException("ID farmacia < 1");
+        }
+        this.idFarmacia = idFarmacia;
+    }
     private void setRecapitoTelefonicoFarmacia(String recapitoTelefonicoFarmacia) {
         if(recapitoTelefonicoFarmacia == null) {
             throw new NullPointerException("Recapito telefonico della farmacia = null");
