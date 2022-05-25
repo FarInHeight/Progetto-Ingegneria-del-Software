@@ -2,6 +2,7 @@ package com.progetto.farmacia;
 
 import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.autenticazione.LogoutControl;
+import com.progetto.farmacia.ordine.CreaOrdineControl;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,8 +38,13 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
         this.setFarmacia(farmacia);
     }
     @FXML
-    private void logout (ActionEvent event) throws IOException{
+    private void logout(ActionEvent event) throws IOException{
         LogoutControl logoutControl = new LogoutControl(event);
+    }
+
+    @FXML
+    private void creaOrdine(ActionEvent event) throws IOException{
+        CreaOrdineControl creaOrdineControl = new CreaOrdineControl(event);
     }
 
     private void setFarmacia(Farmacia farmacia){

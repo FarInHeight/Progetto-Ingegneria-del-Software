@@ -47,6 +47,8 @@ public class SchermataLoginForm extends Application {
         //mostra la schermata di login
         stage.setTitle("Effettua l'accesso");
         stage.setScene(scene);
+        stage.setWidth(stageWidth);
+        stage.setHeight(stageHeight);
         stage.setMinWidth(stageWidth);
         stage.setMinHeight(stageHeight);
         stage.show();
