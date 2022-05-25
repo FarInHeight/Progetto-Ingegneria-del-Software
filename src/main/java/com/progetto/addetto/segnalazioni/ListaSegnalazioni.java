@@ -79,10 +79,11 @@ public class ListaSegnalazioni extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listaSegnalazioni.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 400);
 
         double stageWidth = 800;
         double stageHeight = 400;
+
 
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
@@ -92,7 +93,7 @@ public class ListaSegnalazioni extends Application implements Initializable {
         //mostra la schermata di login
         stage.setTitle("Lista Segnalazioni");
         stage.setScene(scene);
-        stage.setMinWidth(stageWidth);
+        stage.setMinWidth(stageWidth + 50);
         stage.setMinHeight(stageHeight);
         stage.show();
     }
@@ -110,7 +111,6 @@ public class ListaSegnalazioni extends Application implements Initializable {
         nomeFarmacia.setCellValueFactory(new PropertyValueFactory<>("nomeFarmacia"));
         data.setCellValueFactory(new PropertyValueFactory<>("data"));
         strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
-        this.lista.getItems().add(new EntryListaSegnalazioni(1, 1, "nome", LocalDate.of(2020, 2, 1)));
     }
 
     @FXML

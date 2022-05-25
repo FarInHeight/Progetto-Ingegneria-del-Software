@@ -10,8 +10,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class EntryListaSegnalazioni {
-    private int idSegnalazione;
-    private int idOrdine;
+    private Segnalazione segnalazione;
+    private String riepilogoOrdine;
+    private String recapitoTelefonicoFarmacia;
     private String nomeFarmacia;
     private String data;
     private FlowPane strumenti;
@@ -23,10 +24,11 @@ public class EntryListaSegnalazioni {
      * @param nomeFarmacia nome della farmacia che ha effettuato la segnalazione
      * @param data data in cui è stata generata segnalazione
      */
-    public EntryListaSegnalazioni(int idSegnalazione, int idOrdine, String nomeFarmacia, LocalDate data) {
-        this.setIdSegnalazione(idSegnalazione);
-        this.setIdOrdine(idOrdine);
+    public EntryListaSegnalazioni(int idSegnalazione, int idOrdine, String riepilogoOrdine, String nomeFarmacia, String recapitoTelefonicoFarmacia, String commento, LocalDate data) {
+        this.segnalazione = new Segnalazione(idSegnalazione, commento, idOrdine);
+        this.setRiepilogoOrdine(riepilogoOrdine);
         this.setNomeFarmacia(nomeFarmacia);
+        this.setRecapitoTelefonicoFarmacia(recapitoTelefonicoFarmacia);
         this.setData(data.format(DateTimeFormatter.ofPattern("d/MM/uuuu")));
         Button espandi = new Button("Espandi");
         espandi.setBackground(Background.fill(Color.rgb(38, 189, 27)));
@@ -41,19 +43,20 @@ public class EntryListaSegnalazioni {
         this.strumenti = flow;
     }
 
-    private void setIdSegnalazione(int idSegnalazione) {
-        if(idSegnalazione < 1) {
-            throw new IllegalArgumentException("L'ID della segnalazione non può assumere valori <= 1");
+    private void setRecapitoTelefonicoFarmacia(String recapitoTelefonicoFarmacia) {
+        if(recapitoTelefonicoFarmacia == null) {
+            throw new NullPointerException("Recapito telefonico della farmacia = null");
         }
-        this.idSegnalazione = idSegnalazione;
+        this.recapitoTelefonicoFarmacia = recapitoTelefonicoFarmacia;
     }
 
-    private void setIdOrdine(int idOrdine) {
-        if(idOrdine < 1) {
-            throw new IllegalArgumentException("L'ID dell'ordine non può assumere valori <= 1");
+    private void setRiepilogoOrdine(String riepilogoOrdine) {
+        if(riepilogoOrdine == null) {
+            throw new NullPointerException("Riepilogo dell'ordine = null");
         }
-        this.idOrdine = idOrdine;
+        this.riepilogoOrdine = riepilogoOrdine;
     }
+
 
     private void setNomeFarmacia(String nomeFarmacia) {
         if(nomeFarmacia == null) {
@@ -69,23 +72,51 @@ public class EntryListaSegnalazioni {
         this.data = data;
     }
 
+    /**
+     * Getter per ottenere l'ID della segnalazione
+     * @return ID della segnalazione
+     */
     public int getIdSegnalazione() {
-        return idSegnalazione;
+        return this.segnalazione.getIdSegnalazione();
     }
 
+    /**
+     * Getter per ottenere l'ID dell'ordine a cui fa riferimento la segnalazione
+     * @return id dell'ordine
+     */
     public int getIdOrdine() {
-        return idOrdine;
+        return this.segnalazione.getRefOrdine();
     }
 
+    /**
+     * Getter per ottenere il nome della farmacia che ha effettuato la segnalazione
+     * @return nome della farmacia
+     */
     public String getNomeFarmacia() {
-        return nomeFarmacia;
+        return this.nomeFarmacia;
     }
 
+    /**
+     * Getter per ottenere la data in cui è stata creata la segnalazione
+     * @return data della segnalazione
+     */
     public String getData() {
-        return data;
+        return this.data;
     }
 
+    /**
+     * Getter per ottenere i pulsanti Espandi e Rimuovi inerenti alla segnalazione
+     * @return pulsanti Espandi e Rimuovi
+     */
     public FlowPane getStrumenti() {
         return strumenti;
+    }
+
+    /**
+     * Getter per ottenere un oggetto {@code Segnalazione} riferito a {@code EntryListaSegnalazioni}
+     * @return segnalazione associata alla entry
+     */
+    public Segnalazione getSegnalazione() {
+        return this.segnalazione;
     }
 }

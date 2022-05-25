@@ -1,6 +1,7 @@
 package com.progetto.addetto;
 
 import com.progetto.addetto.autenticazione.LogoutControl;
+import com.progetto.addetto.segnalazioni.VisualizzaSegnalazioniControl;
 import com.progetto.entity.AddettoAzienda;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -81,7 +82,7 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
 
     @FXML
     private void visualizzaSegnalazioni() {
-
+        VisualizzaSegnalazioniControl visSegCtrl = new VisualizzaSegnalazioniControl(SchermataPrincipaleAddettoAzienda.addetto);
     }
 
     @FXML
