@@ -5,11 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prova.prova.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.addetto.SchermataPrincipaleAddettoAzienda">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="420.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="100.0" layoutY="85.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#visualizzaListaSpedizioni" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #0056d8;" text="VISUALIZZA LISTA SPEDIZIONI" textFill="WHITE" />
+            <Button layoutX="115.0" layoutY="62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#visualizzaSegnalazioni" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #0056d8;" text="VISUALIZZA SEGNALAZIONI" textFill="WHITE" />
+            <Button layoutX="115.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#creaOrdine" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #0056d8;" text="CREA ORDINE" textFill="WHITE" />
          </children>
       </Pane>
    </center>
