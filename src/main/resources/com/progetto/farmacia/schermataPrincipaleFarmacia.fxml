@@ -3,8 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <!-- il controller deve essere SchermataPrincipaleFarmacia -->
-<BorderPane fx:controller="com.progetto.farmacia.SchermataPrincipaleFarmacia" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.SchermataPrincipaleFarmacia">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="420.0" BorderPane.alignment="CENTER">
          <children>
@@ -17,10 +19,10 @@
    <top>
       <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
          <left>
-            <Button onAction="#logout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #ff4f42;" text="LOGOUT" textAlignment="CENTER" textFill="WHITE" translateX="11.0" translateY="-12.0" BorderPane.alignment="CENTER" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #ff4f42;" text="LOGOUT" textAlignment="CENTER" textFill="WHITE" translateX="11.0" translateY="-12.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Text fx:id="usernameLabel" strokeType="OUTSIDE" strokeWidth="0.0" translateX="-20.0" translateY="-12.0" BorderPane.alignment="CENTER" />
+            <Text fx:id="usernameLabel" strokeType="OUTSIDE" strokeWidth="0.0" translateX="-25.0" translateY="-12.0" BorderPane.alignment="CENTER" />
          </right>
          <top>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HOMEPAGE" translateY="13.0" wrappingWidth="83.61328125" BorderPane.alignment="CENTER">
