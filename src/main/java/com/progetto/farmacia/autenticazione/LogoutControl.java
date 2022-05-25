@@ -1,10 +1,8 @@
 package com.progetto.farmacia.autenticazione;
 
-import com.progetto.farmacia.autenticazione.SchermataLoginForm;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
