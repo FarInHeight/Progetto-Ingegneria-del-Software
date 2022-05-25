@@ -1,7 +1,10 @@
 package com.progetto.farmacia;
 
 import com.progetto.entity.Farmacia;
+import com.progetto.farmacia.autenticazione.SchermataLoginForm;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -11,7 +14,7 @@ import java.io.IOException;
 
 public class SchermataPrincipaleFarmacia extends Application {
 
-    private Farmacia farmacia;
+    private static Farmacia farmacia;
 
     /**
      * costruisce una {@code SchermataPricipaleFarmacia}
@@ -26,6 +29,10 @@ public class SchermataPrincipaleFarmacia extends Application {
     public SchermataPrincipaleFarmacia(Farmacia farmacia){
         super();
         this.setFarmacia(farmacia);
+    }
+    @FXML
+    private void logout (ActionEvent event) throws IOException{
+        LogoutControl logoutControl = new LogoutControl(event);
     }
 
     private void setFarmacia(Farmacia farmacia){

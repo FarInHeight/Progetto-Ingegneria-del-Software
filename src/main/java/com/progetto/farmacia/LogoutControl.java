@@ -1,18 +1,22 @@
 package com.progetto.farmacia;
 
+import com.progetto.farmacia.autenticazione.SchermataLoginForm;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * control che gestisce il logout
  */
 public class LogoutControl{
 
-    @FXML
-    private void logout(ActionEvent event){
+    public LogoutControl(ActionEvent event) throws IOException{
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+        SchermataLoginForm schermataLoginForm = new SchermataLoginForm();
+        Stage stageLogin = new Stage();
+        schermataLoginForm.start(stageLogin);
         stage.close();
     }
 }
