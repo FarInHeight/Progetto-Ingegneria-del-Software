@@ -2,11 +2,12 @@ package com.progetto.addetto;
 
 import com.progetto.entity.AddettoAzienda;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -18,7 +19,8 @@ public class SchermataPrincipaleAddettoAzienda extends Application /*implements 
 
     private AddettoAzienda addetto;
 
-    private Label usernameLabel;
+    @FXML
+    private Text usernameLabel;
 
     /**
      * Costruisce una {@code SchermataPricipaleAddettoAzienda}
