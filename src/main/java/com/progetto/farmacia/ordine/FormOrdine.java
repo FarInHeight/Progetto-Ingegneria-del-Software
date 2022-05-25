@@ -1,5 +1,8 @@
 package com.progetto.farmacia.ordine;
 
+import com.progetto.addetto.segnalazioni.ListaSegnalazioni;
+import com.progetto.entity.AddettoAzienda;
+import com.progetto.entity.Farmaco;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,13 +12,16 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -23,11 +29,25 @@ import java.util.ResourceBundle;
  */
 public class FormOrdine extends Application implements Initializable {
 
+    private static String nomeFarmacia;
+
     @FXML
     private Text usernameLabel;
+
     @FXML
-    private TableView lista;
-    private static String nomeFarmacia;
+    private static Farmaco farmaco;
+
+    @FXML
+    private TableView<Farmaco> lista;
+
+    @FXML
+    private TableColumn<Farmaco, String> nomeFarmaco;
+
+    @FXML
+    private TableColumn<Farmaco, String> principioAttivo;
+
+    @FXML
+    private TableColumn<AddettoAzienda, String> strumenti;
 
     /**
      * costruisce un {@code FormOrdine}
@@ -38,7 +58,7 @@ public class FormOrdine extends Application implements Initializable {
 
     /**
      * costruisce un {@code FormOrdine} dato in input il nome della farmacia
-     * @param nomeFarmacia
+     * @param nomeFarmacia nome della farmacia
      */
     public FormOrdine(String nomeFarmacia){
         FormOrdine.nomeFarmacia = nomeFarmacia;
@@ -83,6 +103,12 @@ public class FormOrdine extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //LocalDate data = LocalDate.of(2022,2,2);
+        //Farmaco farm = new Farmaco("Farmaco a","Pinrcipio b", 0,data,3);
+        //FormOrdine.farmaco = farm;
         this.usernameLabel.setText(FormOrdine.nomeFarmacia);
+        this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
+        this.lista.getItems().add(FormOrdine.farmaco);
     }
 }
