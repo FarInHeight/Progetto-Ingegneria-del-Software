@@ -1,7 +1,7 @@
 package com.progetto.farmacia;
 
-import com.progetto.addetto.SchermataPrincipaleAddettoAzienda;
 import com.progetto.entity.Farmacia;
+import com.progetto.farmacia.autenticazione.LogoutControl;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;

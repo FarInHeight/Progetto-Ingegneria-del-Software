@@ -1,4 +1,4 @@
-package com.progetto.farmacia;
+package com.progetto.farmacia.autenticazione;
 
 import com.progetto.farmacia.autenticazione.SchermataLoginForm;
 import javafx.event.ActionEvent;
