@@ -26,17 +26,16 @@ public class Farmaco implements Cloneable{
      * @param tipo tipo del farmaco, 0 per farmaci da banco e 1 per farmaci particolari
      */
     public Farmaco(String nome, String principioAttivo, int tipo) {
-        this.nome = nome;
-        this.principioAttivo = principioAttivo;
-        this.tipo = tipo;
-        this.dataScadenza = null;
-        this.quantita = -1;
+        this.setNome(nome);
+        this.setPrincipioAttivo(principioAttivo);
+        this.setPrincipioAttivo(principioAttivo);
+        this.setTipo(tipo);
+        this.setDataScadenza(dataScadenza);
+        this.setQuantita(quantita);
     }
 
     /**
-     * Costruttore per un Farmaco presente nel magazzino della Farmacia.
-     * <p>
-     * Il costruttore non effettua nessun controllo sulla validità dei parametri passati
+     * Costruttore di un {@code Farmaco} presente nel magazzino della Farmacia.
      *
      * @param nome nome del farmaco
      * @param principioAttivo principio attivo del farmaco
@@ -49,6 +48,57 @@ public class Farmaco implements Cloneable{
         this.principioAttivo = principioAttivo;
         this.tipo = tipo;
         this.dataScadenza = dataScadenza;
+        this.quantita = quantita;
+    }
+
+    /**
+     * setter per il nome del Farmaco
+     * @param nome nome del farmaco
+     */
+    public void setNome(String nome) {
+        if(nome == null) {
+            throw new NullPointerException("Nome del farmaco = null");
+        }
+        this.nome = nome;
+    }
+
+    /**
+     * setter per il principio attivo del farmaco
+     * @param principioAttivo principio attivo del farmaco
+     */
+    public void setPrincipioAttivo(String principioAttivo) {
+        if(principioAttivo == null) {
+            throw new NullPointerException("Principio attivo del Farmaco = null");
+        }
+        this.principioAttivo = principioAttivo;
+    }
+
+    public void setDataScadenza(LocalDate dataScadenza) {
+        if(dataScadenza == null) {
+            throw new NullPointerException("Data di scadenza del farmaco = null");
+        }
+        this.dataScadenza = dataScadenza;
+    }
+
+    /**
+     * setter per il tipo del Farmaco
+     * @param tipo tipo del farmaco
+     */
+    public void setTipo(int tipo) {
+        if(tipo < 0 || tipo > 1) {
+            throw new IllegalArgumentException("Tipo del Farmaco non valido");
+        }
+        this.tipo = tipo;
+    }
+
+    /**
+     * setter per la quantità del farmaco
+     * @param quantita quantità del farmaco
+     */
+    public void setQuantita(int quantita) {
+        if(quantita < 0){
+            throw new IllegalArgumentException("Qunatità del Farmaco non valido");
+        }
         this.quantita = quantita;
     }
 
@@ -74,15 +124,6 @@ public class Farmaco implements Cloneable{
      */
     public int getQuantita() {
         return quantita;
-    }
-
-    /**
-     * Metodo che modifica l'attributo quantita di un oggetto Faramco.
-     * Non effettua controlli sulla validità dei parametri passati.
-     * @param quantita nuova quantita
-     */
-    public void setQuantita(int quantita) {
-        this.quantita = quantita;
     }
 
     @Override
