@@ -1,16 +1,24 @@
 package com.progetto.addetto.segnalazioni;
 
 import com.progetto.entity.AddettoAzienda;
+import com.progetto.entity.EntryListaSegnalazioni;
 import com.progetto.entity.Segnalazione;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -29,18 +37,18 @@ public class ListaSegnalazioni extends Application implements Initializable {
     private Text usernameLabel;
 
     @FXML
-    private TableView<AddettoAzienda> lista;
+    private TableView<EntryListaSegnalazioni> lista;
 
     @FXML
-    private TableColumn<AddettoAzienda, Integer> idSegnalazione;
+    private TableColumn<EntryListaSegnalazioni, Integer> idSegnalazione;
     @FXML
-    private TableColumn<AddettoAzienda, String> idOrdine;
+    private TableColumn<EntryListaSegnalazioni, Integer> idOrdine;
     @FXML
-    private TableColumn<AddettoAzienda, LocalDate> nomeFarmacia;
+    private TableColumn<EntryListaSegnalazioni, String> nomeFarmacia;
     @FXML
-    private TableColumn<AddettoAzienda, String> data;
+    private TableColumn<EntryListaSegnalazioni, String> data;
     @FXML
-    private TableColumn<AddettoAzienda, String> strumenti;
+    private TableColumn<EntryListaSegnalazioni, FlowPane> strumenti;
     /**
      * Costruisce una {@code ListaSegnalazioni}
      */
@@ -73,7 +81,7 @@ public class ListaSegnalazioni extends Application implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listaSegnalazioni.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
-        double stageWidth = 600;
+        double stageWidth = 800;
         double stageHeight = 400;
 
         //centra la schermata
@@ -82,7 +90,7 @@ public class ListaSegnalazioni extends Application implements Initializable {
         stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
         //mostra la schermata di login
-        stage.setTitle("Homepage");
+        stage.setTitle("Lista Segnalazioni");
         stage.setScene(scene);
         stage.setMinWidth(stageWidth);
         stage.setMinHeight(stageHeight);
@@ -97,12 +105,12 @@ public class ListaSegnalazioni extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ListaSegnalazioni.addetto.getNominativo());
-        idSegnalazione.setCellValueFactory(new PropertyValueFactory<>("idAddetto"));
-        idOrdine.setCellValueFactory(new PropertyValueFactory<>("nominativo"));
-        nomeFarmacia.setCellValueFactory(new PropertyValueFactory<>("dataNascita"));
-        data.setCellValueFactory(new PropertyValueFactory<>("email"));
-        strumenti.setCellValueFactory(new PropertyValueFactory<>("recapitoTelefonico"));
-        this.lista.getItems().add(ListaSegnalazioni.addetto);
+        idSegnalazione.setCellValueFactory(new PropertyValueFactory<>("idSegnalazione"));
+        idOrdine.setCellValueFactory(new PropertyValueFactory<>("idOrdine"));
+        nomeFarmacia.setCellValueFactory(new PropertyValueFactory<>("nomeFarmacia"));
+        data.setCellValueFactory(new PropertyValueFactory<>("data"));
+        strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+        this.lista.getItems().add(new EntryListaSegnalazioni(1, 1, "nome", LocalDate.of(2020, 2, 1)));
     }
 
     @FXML
