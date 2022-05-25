@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * Classe che implementa la boundary {@code SchermataPrincipaleAddettoAzienda}
+ */
 public class SchermataPrincipaleAddettoAzienda extends Application implements Initializable {
     @FXML
     private static AddettoAzienda addetto;
@@ -45,6 +47,11 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
         SchermataPrincipaleAddettoAzienda.addetto = addetto;
     }
 
+    /**
+     * Metodo utilizzato per visualizzare la {@code SchermataPrincipaleAddettoAzienda} a schermo
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schermataPrincipaleAddettoAzienda.fxml"));
@@ -79,7 +86,7 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
     }
 
     /**
-     * Metodo utilizzato per personalizzare la schermata dell'Addetto
+     * Metodo utilizzato per personalizzare la {@code SchermataPrincipaleAddettoAzienda} dell'Addetto
      * @param url
      * @param resourceBundle
      */
