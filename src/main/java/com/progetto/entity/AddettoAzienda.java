@@ -21,11 +21,11 @@ public class AddettoAzienda {
      * @param recapitoTelefonico numero di telefono dell'Addetto
      */
     public AddettoAzienda(int idAddetto, String nominativo, LocalDate dataNascita, String email, String recapitoTelefonico) {
-        this.idAddetto = idAddetto;
-        this.nominativo = nominativo;
-        this.dataNascita = dataNascita;
-        this.email = email;
-        this.recapitoTelefonico = recapitoTelefonico;
+        this.setIdAddetto(idAddetto);
+        this.setNominativo(nominativo);
+        this.setDataNascita(dataNascita);
+        this.setEmail(email);
+        this.setRecapitoTelefonico(recapitoTelefonico);
     }
 
     /**
@@ -41,7 +41,7 @@ public class AddettoAzienda {
      */
     public void setIdAddetto(int idAddetto) {
         if(idAddetto < 1) {
-            throw new IllegalArgumentException("Id Ordine non valido");
+            throw new IllegalArgumentException("Id Addetto non valido");
         }
         this.idAddetto = idAddetto;
     }
