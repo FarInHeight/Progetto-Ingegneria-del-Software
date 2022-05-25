@@ -4,19 +4,21 @@ import com.progetto.entity.AddettoAzienda;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class SchermataPrincipaleAddettoAzienda extends Application /*implements Initializable*/ {
-
-    private AddettoAzienda addetto;
+public class SchermataPrincipaleAddettoAzienda extends Application implements Initializable {
+    @FXML
+    private static AddettoAzienda addetto;
 
     @FXML
     private Text usernameLabel;
@@ -40,7 +42,7 @@ public class SchermataPrincipaleAddettoAzienda extends Application /*implements 
         if(addetto == null){
             throw new NullPointerException("Addetto dell'Azienda = null");
         }
-        this.addetto = addetto;
+        SchermataPrincipaleAddettoAzienda.addetto = addetto;
     }
 
     @Override
@@ -74,5 +76,15 @@ public class SchermataPrincipaleAddettoAzienda extends Application /*implements 
 
     public void logout() {
 
+    }
+
+    /**
+     * Metodo utilizzato per personalizzare la schermata dell'Addetto
+     * @param url
+     * @param resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.usernameLabel.setText(SchermataPrincipaleAddettoAzienda.addetto.getNominativo());
     }
 }
