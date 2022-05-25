@@ -1,7 +1,9 @@
 package com.progetto.addetto;
 
+import com.progetto.addetto.autenticazione.LogoutControl;
 import com.progetto.entity.AddettoAzienda;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -73,16 +74,19 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
         stage.show();
     }
 
-    public void creaOrdine() {
+    @FXML
+    private void creaOrdine() {
 
     }
 
-    public void visualizzaSegnalazioni() {
+    @FXML
+    private void visualizzaSegnalazioni() {
 
     }
 
-    public void logout() {
-
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+        LogoutControl logoutControl = new LogoutControl(event);
     }
 
     /**
