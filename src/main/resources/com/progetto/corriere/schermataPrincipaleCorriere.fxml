@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.addetto.SchermataPrincipaleAddettoAzienda">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.corriere.SchermataPrincipaleCorriere">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="420.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="115.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#visualizzaSegnalazioni" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #0056d8;" text="VISUALIZZA SEGNALAZIONI" textFill="WHITE" />
+            <Button layoutX="115.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #0056d8;" text="VISUALIZZA LISTA ORDINI" textFill="WHITE" />
          </children>
       </Pane>
    </center>
