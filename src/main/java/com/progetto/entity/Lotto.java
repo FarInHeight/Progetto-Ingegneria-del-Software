@@ -22,8 +22,6 @@ public class Lotto {
 
     /**
      * Costruttore per un Lotto contenuto nel DBMSAzienda.
-     * <p>
-     * Non effettua alcun controllo sui parametri passati.
      *
      * @param idLotto identificativo unico del lotto
      * @param nomeFarmaco riferimento all'oggetto Farmaco contenuto nel Lotto
@@ -55,7 +53,6 @@ public class Lotto {
 
     /**
      * Getter per l'attributo idLotto
-     *
      * @return l'identificatore unico del Lotto
      */
     public int getIdLotto() {
@@ -64,7 +61,6 @@ public class Lotto {
 
     /**
      * Getter per il nome del Farmaco contenuto nel Lotto
-     *
      * @return nome del Farmaco contenuto
      */
     public String getNomeFarmaco() {
@@ -97,7 +93,6 @@ public class Lotto {
 
     /**
      * Setter per l'ID del Lotto
-     *
      * @param idLotto id del lotto
      */
     public void setIdLotto(int idLotto) {
@@ -109,7 +104,6 @@ public class Lotto {
 
     /**
      * Setter per il nome del farmaco contenuto
-     *
      * @param nomeFarmaco nome del Faramco contenuto nel lotto
      */
     public void setNomeFarmaco(String nomeFarmaco) {
@@ -167,8 +161,7 @@ public class Lotto {
     }
 
     /**
-     * Crea un nuovo Lotto da aggiungere al database dell'Azienda a partire da un Lotto preesistente.
-     *
+     * Crea un nuovo Lotto da aggiungere al database dell'Azienda a partire da un {@code Lotto} preesistente.
      * @param lotto Lotto contente il Farmco che è stato appena prodotto
      * @return nuovo Lotto
      */

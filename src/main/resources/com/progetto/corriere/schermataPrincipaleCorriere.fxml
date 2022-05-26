@@ -9,7 +9,7 @@
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="420.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="115.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #0056d8;" text="VISUALIZZA LISTA ORDINI" textFill="WHITE" />
+            <Button layoutX="78.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#visualizzaListaSpedizioni" prefHeight="30.0" prefWidth="262.0" style="-fx-background-color: #0056d8;" text="VISUALIZZA LISTA SPEDIZIONI" textFill="WHITE" />
          </children>
       </Pane>
    </center>

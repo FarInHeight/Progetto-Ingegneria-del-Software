@@ -1,32 +1,49 @@
 package com.progetto.interfacciaDatabase;
 
+import com.progetto.entity.EntryListaSpedizioni;
 import com.progetto.entity.LottoOrdinato;
 import com.progetto.entity.Ordine;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class InterfacciaCorriere {
-    public ArrayList<Ordine> getOrdiniGiornalieri() {
-        ArrayList<Ordine> spedizioni = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "azienda","pwd")){
-            Statement statement = connection.createStatement();
-            ResultSet resultOrdini = statement.executeQuery("select ID_ordine, ID_farmacia, Indirizzo from Ordine,Composizione,Lotto, Farmacia where Stato = 3 AND ID_ordine = Ordine_ID_ordine AND ID_lotto = Lotto_ID_lotto AND Farmacia_ID_farmacia = ID_farmacia ORDER BY ID_ordine");
+
+    /**
+     * Ritorna tutti gli ordini in elaborazione con data di consegna odierna
+     * @return ordini in elaborazione con data di consegna odierna
+     */
+    public ArrayList<EntryListaSpedizioni> getOrdiniGiornalieri() {
+        ArrayList<EntryListaSpedizioni> spedizioni = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("select * from ordine,composizione,lotto,farmacia " +
+                    "where stato = 1 AND id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto AND farmacia_id_farmacia = id_farmacia AND data_consegna = ?" +
+                    "ORDER BY id_ordine");
+            statement.setDate(1,Date.valueOf(LocalDate.now()));
+            ResultSet resultOrdini = statement.executeQuery();
             int previousID = -1;
             while(resultOrdini.next()) {
-                if (previousID == resultOrdini.getInt("ID_ordine")) {
-                    spedizioni.get(spedizioni.size()-1).addLotto(new LottoOrdinato(resultOrdini.getInt("ID_lotto"),resultOrdini.getInt("N_farmaci")));
+                if (previousID == resultOrdini.getInt("id_ordine")) {
+                    spedizioni.get(spedizioni.size()-1).getOrdine().addLotto(new LottoOrdinato(resultOrdini));
                 } else {
-                    spedizioni.add(new Ordine(resultOrdini));
+                    spedizioni.add(new EntryListaSpedizioni(new Ordine(resultOrdini)));
                 }
-                previousID = resultOrdini.getInt("ID_ordine");
+                previousID = resultOrdini.getInt("id_ordine");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return spedizioni;
+    }
+
+    public void modificaStatoInSpedizione(int id_ordine) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("update ordine set stato = 2 where id_ordine = ?");
+            statement.setInt(1,id_ordine);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
