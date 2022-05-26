@@ -6,6 +6,11 @@ import com.progetto.entity.Ordine;
 
 import java.util.ArrayList;
 
+/**
+ * Classe che gestisce la produzione di {@code farmaci} da parte dell'azienda.
+ * Produce nuovi farmaci in base ai farmaci già nel magazzino e alla percentule di farmaci ordinati.
+ * Prdouce i farmaci necessari per far partire gli {@code ordini} in stato di prenotazione
+ */
 public class GestioneProduzioneControl {
 
     public void gestioneProduzione() {
@@ -51,7 +56,7 @@ public class GestioneProduzioneControl {
 
         for(Ordine ordine : ordini) {
             db.updateQuantitaLotti(ordine);
-            db.cambiaStatoInElaborazione(ordine.getIdOrdine());
+            db.modificaStatoInElaborazione(ordine.getIdOrdine());
         }
     }
 

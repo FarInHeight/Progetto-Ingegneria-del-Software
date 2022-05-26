@@ -6,6 +6,9 @@ import com.progetto.entity.Lotto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Classe che si occupa di rimuovere tutti i {@code lotti} scauti dal database dell'Azienda
+ */
 public class RimuoviLottiScadutiControl {
 
     /**

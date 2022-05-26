@@ -46,8 +46,6 @@ public class FormOrdine extends Application implements Initializable {
     @FXML
     private TableColumn<EntryFormOrdine, FlowPane> strumenti;
 
-    @FXML
-    private LinkedList<Spinner> spinners;
 
     /**
      * costruisce un {@code FormOrdine}
@@ -58,10 +56,10 @@ public class FormOrdine extends Application implements Initializable {
 
     /**
      * costruisce un {@code FormOrdine} dato in input il nome della farmacia
-     * @param nomeFarmacia nome della farmacia
+     * @param usernameLabel nome della farmacia
      */
-    public FormOrdine(String nomeFarmacia){
-        FormOrdine.nomeFarmacia = nomeFarmacia;
+    public FormOrdine(Text usernameLabel){
+        FormOrdine.nomeFarmacia = usernameLabel.getText();
     }
 
     @FXML
