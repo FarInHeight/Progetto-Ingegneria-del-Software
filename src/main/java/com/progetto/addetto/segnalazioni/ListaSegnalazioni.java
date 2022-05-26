@@ -47,7 +47,7 @@ public class ListaSegnalazioni extends Application implements Initializable {
 
     private static ArrayList<EntryListaSegnalazioni> segnalazioni;
 
-    private static VisualizzaSegnalazioniControl control;
+    private static GestioneSegnalazioniControl control;
     /**
      * Costruisce una {@code ListaSegnalazioni}
      */
@@ -58,14 +58,14 @@ public class ListaSegnalazioni extends Application implements Initializable {
      * Costruisce una {@code ListaSegnalazioni} secondo il contenuto nel DBMS dell'Azienda
      * @param addetto addetto che richiede la lista delle segnalazioni
      */
-    public ListaSegnalazioni(AddettoAzienda addetto, ArrayList<EntryListaSegnalazioni> segnalazioni, VisualizzaSegnalazioniControl control){
+    public ListaSegnalazioni(AddettoAzienda addetto, ArrayList<EntryListaSegnalazioni> segnalazioni, GestioneSegnalazioniControl control){
         super();
         this.setAddettoAZienda(addetto);
         this.setSegnalazioni(segnalazioni);
         this.setControl(control);
     }
 
-    private void setControl(VisualizzaSegnalazioniControl control) {
+    private void setControl(GestioneSegnalazioniControl control) {
         if(control == null){
             throw new NullPointerException("Visualizza Segnalazioni Control = null");
         }
