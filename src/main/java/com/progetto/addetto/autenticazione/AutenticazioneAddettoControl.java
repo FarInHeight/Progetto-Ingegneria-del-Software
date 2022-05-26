@@ -77,11 +77,10 @@ public class AutenticazioneAddettoControl {
                 throw new CredentialException("passwordNonValida");
             }
             try {
-                AddettoAzienda addetto = addettoAzienda.clone();
-                SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(addetto);
+                SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(addettoAzienda);
                 Stage stage = new Stage();
                 schermataPrincipaleFarmacia.start(stage);
-            } catch (CloneNotSupportedException | IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
