@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +18,6 @@ public class Ordine {
     private LocalDate dataConsegna;
     private String nomeFarmacia;
     private String indirizzoConsegna;
-
     private ArrayList<LottoOrdinato> lottiContenuti;
 
     /**
@@ -94,12 +92,7 @@ public class Ordine {
         ArrayList<Farmaco> copiaFarmaci = new ArrayList<>();
         for(Farmaco farmaco : farmaci) {
             if(farmaco != null) {
-                try {
-                    copiaFarmaci.add(farmaco.clone());
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
-
+                copiaFarmaci.add(farmaco);
             }
         }
         this.farmaci = copiaFarmaci;
@@ -180,7 +173,7 @@ public class Ordine {
      */
     public void setLottiContenuti(ResultSet ordine) throws SQLException {
         ArrayList<LottoOrdinato> lottiOrdinati = new ArrayList<>();
-        lottiOrdinati.add(new LottoOrdinato(ordine.getInt("ID_lotto"), ordine.getInt("N_farmaci")));
+        lottiOrdinati.add(new LottoOrdinato(ordine));
         this.lottiContenuti = lottiOrdinati;
     }
 
@@ -227,17 +220,7 @@ public class Ordine {
      * @return lista di farmaci
      */
     public ArrayList<Farmaco> getFarmaci() {
-        ArrayList<Farmaco> copiaFarmaci = new ArrayList<>();
-        for(Farmaco farmaco : this.farmaci) {
-            if(farmaco != null) {
-                try {
-                    copiaFarmaci.add(farmaco.clone());
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return copiaFarmaci;
+        return this.farmaci;
     }
 
     /**

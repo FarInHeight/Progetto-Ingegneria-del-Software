@@ -107,7 +107,8 @@ public class InterfacciaAutenticazione {
                 statementId.setInt(1,idCorriere);
                 ResultSet resultSetId = statementId.executeQuery();
                 if(resultSetId.next()){
-                    corriere = new Corriere("passwordNonValida");
+                    corriere = new Corriere();
+                    corriere.setNominativo("passwordNonValida");
                 }
             }
         } catch (SQLException e) {

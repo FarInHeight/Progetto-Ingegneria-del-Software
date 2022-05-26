@@ -7,10 +7,13 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Classe che permette al Sistema dell'Azienda di interfacciarsi col Database per organizzare la produzione dei {@code Farmaci}.
+ */
 public class InterfacciaAzienda {
 
     /**
-     * Metodo che ritorna tutti i Lotti contenuti nel database
+     * Metodo che ritorna tutti i {@code Lotti} attualmente contenuti nel database
      *
      * @return ArrayList di Lotto contenente tutti i Lotti del database
      */
@@ -32,7 +35,7 @@ public class InterfacciaAzienda {
     }
 
     /**
-     * Rimuove un particolare Lotto dal database. Il Lotto è indicato tramite il suo id.
+     * Rimuove un {@code Lotto} dal database.
      *
      * @param id intero identificativo del Lotto da rimuovere
      */
@@ -47,7 +50,7 @@ public class InterfacciaAzienda {
     }
 
     /**
-     * Aggiunge un Lotto passato come parametro al database.
+     * Aggiunge un {@code Lotto} passato come parametro al database.
      *
      * @param lotto riferimento al Lotto da inserire
      */
@@ -65,7 +68,7 @@ public class InterfacciaAzienda {
     }
 
     /**
-     * Modifica la quantità di Farmaci contenuti e ordinati di tutti i Lotti conenuti in un Ordine.
+     * Modifica la quantità di {@code Farmaci} contenuti e ordinati di tutti i {@code Lotti} conenuti in un {@code Ordine} in Prenotazione.
      * Le nuove quantità coincidono esattamente con la quantità di Farmaci presenti nell'Ordine.
      * Modifica la data di scadenza in base a quando sono stati prodotti i Farmaci.
      *
@@ -88,7 +91,7 @@ public class InterfacciaAzienda {
     }
 
     /**
-     * Ritorna tutti gli Ordini in stato di Prenotazione.
+     * Ritorna tutti gli {@code Ordini} in stato di Prenotazione.
      *
      * @return ArrayList contenente tutti gli Ordini prenotati
      */
@@ -101,7 +104,7 @@ public class InterfacciaAzienda {
             int previousID = -1;
             while(resultOrdini.next()) {
                 if (previousID == resultOrdini.getInt("id_ordine")) {
-                    ordini.get(ordini.size()-1).addLotto(new LottoOrdinato(resultOrdini.getInt("id_lotto"),resultOrdini.getInt("n_farmaci")));
+                    ordini.get(ordini.size()-1).addLotto(new LottoOrdinato(resultOrdini));
                 } else {
                     ordini.add(new Ordine(resultOrdini));
                 }
@@ -114,11 +117,11 @@ public class InterfacciaAzienda {
     }
 
     /**
-     * Modifica lo stato di un qualunque Ordine in Elaborazione
+     * Modifica lo stato di un {@code Ordine} in Elaborazione
      *
      * @param id_ordine identificativo dell'Ordine da mandare in elaborazione
      */
-    public void cambiaStatoInElaborazione(int id_ordine) {
+    public void modificaStatoInElaborazione(int id_ordine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update ordine set stato = 1 where id_ordine = ?");
             statement.setInt(1,id_ordine);

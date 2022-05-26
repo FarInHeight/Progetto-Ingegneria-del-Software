@@ -6,6 +6,10 @@ import com.progetto.azienda.produzione.GestioneProduzioneControl;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Gestisce il sistema di rifornimento dell'azienda.
+ * Fa eseguire periodicamente i metodi assocaiti alla produzione di nuovi {@code lotti} e la rimozione di lotti scaduti
+ */
 public class MainAzienda {
 
     public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package com.progetto.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
@@ -28,20 +30,25 @@ public class LottoOrdinato extends Lotto{
     /**
      * Costruttore per il Lotto associato ad un Ordine
      *
-     * @param idLotto  identificativo unico del lotto
-     * @param quantitaOrdine quantità di Farmaco del Lotto contenuta nel particolare Ordine
+     * @param lotto lotto nel database da cui creare l'oggetto lotto
      */
-    public LottoOrdinato(int idLotto, int quantitaOrdine) {
-        this.setIdLotto(idLotto);
-        this.quantitaOrdine = quantitaOrdine;
+    public LottoOrdinato(ResultSet lotto) throws SQLException {
+        super(lotto);
+        setQuantitaOrdine(lotto.getInt("n_farmaci"));
     }
 
     /**
      * Getter che ritorna la quantità di Farmaci del Lotto contenuti nell'Ordine a cui è associato
-     *
      * @return qunatità contenuta nell'Ordine
      */
     public int getQuantitaOrdine() {
         return quantitaOrdine;
+    }
+
+    public void setQuantitaOrdine(int quantitaOrdine) {
+        if (quantitaOrdine < 0) {
+            throw new IllegalArgumentException("quantitaOrdine = 0");
+        }
+        this.quantitaOrdine = quantitaOrdine;
     }
 }

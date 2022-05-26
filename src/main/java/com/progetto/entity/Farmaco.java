@@ -18,8 +18,6 @@ public class Farmaco implements Cloneable{
     /**
      * Costruttore per un Farmaco trattato dall'Azienda.
      * L'attributo dataScadenda è inizializzato a null e l'attributo quantita è inizializzato a -1.
-     * <p>
-     * Il costruttore non effettua nessun controllo sulla validità dei parametri passati
      *
      * @param nome nome del farmaco
      * @param principioAttivo principio attivo del farmaco
@@ -27,7 +25,6 @@ public class Farmaco implements Cloneable{
      */
     public Farmaco(String nome, String principioAttivo, int tipo) {
         this.setNome(nome);
-        this.setPrincipioAttivo(principioAttivo);
         this.setPrincipioAttivo(principioAttivo);
         this.setTipo(tipo);
         this.setDataScadenza(dataScadenza);
@@ -49,11 +46,6 @@ public class Farmaco implements Cloneable{
         this.tipo = tipo;
         this.dataScadenza = dataScadenza;
         this.quantita = quantita;
-    }
-
-    public Farmaco(String nome, String principioAttivo){
-        this.setNome(nome);
-        this.setPrincipioAttivo(principioAttivo);
     }
 
     /**
@@ -78,6 +70,10 @@ public class Farmaco implements Cloneable{
         this.principioAttivo = principioAttivo;
     }
 
+    /**
+     * Setter per la data di scadenza del farmaco
+     * @param dataScadenza data di scadenza del farmaco
+     */
     public void setDataScadenza(LocalDate dataScadenza) {
         if(dataScadenza == null) {
             throw new NullPointerException("Data di scadenza del farmaco = null");
@@ -107,44 +103,46 @@ public class Farmaco implements Cloneable{
         this.quantita = quantita;
     }
 
+    /**
+     * Getter per il nome del farmaco
+     * @return nome del farmaco
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Getter per il principio attivo del farmaco
+     * @return principio attivo del farmaco
+     */
     public String getPrincipioAttivo() {
         return principioAttivo;
     }
 
+    /**
+     * Getter per il tipo del farmaco
+     * @return tipo del farmaco
+     */
     public int getTipo() {
         return tipo;
     }
 
+    /**
+     * Getter per la data di scadenza del farmaco presente nel magazzino della farmacia
+     * @return data di scadenza del farmaco
+     */
     public LocalDate getDataScadenza() {
         return dataScadenza;
     }
 
     /**
-     * Metodo che ritorna l'attributo quantita di un oggetto Farmaco.
-     * @return intero che rappresenta la quantita di un certo Faramco presente nel magazzino
+     * Getter per la quantita di farmaco presente nel magazzino della {@code farmacia}
+     * @return quantita di faramco presente nel magazzino della farmacia
      */
     public int getQuantita() {
         return quantita;
     }
 
-    @Override
-    public Farmaco clone() throws CloneNotSupportedException {
-        return (Farmaco)super.clone();
-    }
-
-    @Override
-    public String toString() {
-        String descTipo = tipo==0?"da banco":"particolare";
-        if (dataScadenza == null || quantita == -1)  {
-            return "Farmaco: " + nome + " di tipo " + descTipo + " col principio attivo "+ principioAttivo;
-        } else {
-            return "Farmaco: " + nome + " di tipo " + descTipo + " col principio attivo. Sono presenti " + quantita + " farmaci con scadenza " + dataScadenza.format(DateTimeFormatter.ofPattern("d//MM/uuuu"));
-        }
-    }
 }
 
 //LocalDate.of(2022, 05, 23).format(DateTimeFormatter.ofPattern("d/MM/uuuu"))
