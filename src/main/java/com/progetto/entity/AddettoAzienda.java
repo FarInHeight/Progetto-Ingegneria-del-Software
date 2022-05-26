@@ -127,6 +127,14 @@ public class AddettoAzienda {
     }
 
     /**
+     * Getter per ottenere il nominativo dell'Addetto ("Nome Cognome")
+     * @return nominativo dell'Addetto
+     */
+    public String getNominativo() {
+        return nominativo;
+    }
+
+    /**
      * Implementazione del metodo {@code clone} ereditato dalla classe {@code Object}
      * @return copia dell'AddettoAzienda
      * @throws CloneNotSupportedException
@@ -136,11 +144,5 @@ public class AddettoAzienda {
         return new AddettoAzienda(this.getIdAddetto(), this.getNominativo(), this.getDataNascita(), this.getEmail(), this.getRecapitoTelefonico());
     }
 
-    /**
-     * Getter per ottenere il nominativo dell'Addetto ("Nome Cognome")
-     * @return nominativo dell'Addetto
-     */
-    public String getNominativo() {
-        return nominativo;
-    }
+
 }
