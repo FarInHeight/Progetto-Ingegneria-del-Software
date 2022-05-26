@@ -9,10 +9,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -76,8 +79,8 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
     }
 
     @FXML
-    private void visualizzaSegnalazioni() {
-        VisualizzaSegnalazioniControl visSegCtrl = new VisualizzaSegnalazioniControl(SchermataPrincipaleAddettoAzienda.addetto);
+    private void visualizzaSegnalazioni(ActionEvent event) {
+        VisualizzaSegnalazioniControl visSegCtrl = new VisualizzaSegnalazioniControl(SchermataPrincipaleAddettoAzienda.addetto, event);
     }
 
     @FXML

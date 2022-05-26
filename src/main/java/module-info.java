@@ -7,6 +7,7 @@ module com.progetto {
     exports com.progetto.farmacia.autenticazione;
     exports com.progetto.addetto.autenticazione;
     exports com.progetto.addetto;
+    exports com.progetto.corriere.autenticazione;
     opens com.progetto.farmacia.autenticazione to javafx.fxml;
     opens com.progetto.addetto.autenticazione to javafx.fxml;
     opens com.progetto.addetto.segnalazioni to javafx.fxml, javafx.graphics;
@@ -15,4 +16,5 @@ module com.progetto {
     opens com.progetto.farmacia.ordine to javafx.fxml;
     opens com.progetto.farmacia to javafx.fxml;
     opens com.progetto.corriere.autenticazione to javafx.graphics,javafx.fxml;
+    opens com.progetto.corriere to javafx.graphics,javafx.fxml;
 }

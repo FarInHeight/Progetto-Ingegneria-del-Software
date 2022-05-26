@@ -1,10 +1,8 @@
 package com.progetto.azienda.magazzino;
 
-import com.progetto.dbInterface.InterfacciaAzienda;
+import com.progetto.interfacciaDatabase.InterfacciaAzienda;
 import com.progetto.entity.Lotto;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

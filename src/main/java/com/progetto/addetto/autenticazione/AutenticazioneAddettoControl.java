@@ -1,7 +1,7 @@
 package com.progetto.addetto.autenticazione;
 
 import com.progetto.addetto.SchermataPrincipaleAddettoAzienda;
-import com.progetto.dbInterface.InterfacciaAutenticazione;
+import com.progetto.interfacciaDatabase.InterfacciaAutenticazione;
 import com.progetto.entity.AddettoAzienda;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -34,7 +34,7 @@ public class AutenticazioneAddettoControl {
             int id = Integer.parseInt(idAddetto.getText());
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             this.verificaCredenziali(this.getCredenziali(id,pwd));
-            stage.close(); //chiudo scgermata autenticazione
+            stage.close(); //chiudo schermata autenticazione
         } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             ErroreAutenticazione errAut = new ErroreAutenticazione(0);
@@ -77,11 +77,10 @@ public class AutenticazioneAddettoControl {
                 throw new CredentialException("passwordNonValida");
             }
             try {
-                AddettoAzienda addetto = addettoAzienda.clone();
-                SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(addetto);
+                SchermataPrincipaleAddettoAzienda schermataPrincipaleFarmacia = new SchermataPrincipaleAddettoAzienda(addettoAzienda);
                 Stage stage = new Stage();
                 schermataPrincipaleFarmacia.start(stage);
-            } catch (CloneNotSupportedException | IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

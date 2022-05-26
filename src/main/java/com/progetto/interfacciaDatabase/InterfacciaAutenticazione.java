@@ -1,4 +1,4 @@
-package com.progetto.dbInterface;
+package com.progetto.interfacciaDatabase;
 import com.progetto.entity.AddettoAzienda;
 import com.progetto.entity.Corriere;
 import com.progetto.entity.Farmacia;
@@ -15,7 +15,7 @@ public class InterfacciaAutenticazione {
      * Ritorna la tupla della tabella {@code Farmacia} corrispondente alle credenziali inserite
      * @param idFarmacia id della farmacia
      * @param password password della farmacia
-     * @return un {@code int} contenente l'id corrispondente alle credenziali inserite (se non sono corrette ritorna -1)
+     * @return un oggetto {@code Farmacia} contenente l'id corrispondente alle credenziali inserite (se non sono corrette ritorna {@code null})
      */
     public Farmacia getCredenzialiFarmacia(int idFarmacia, String password) throws CredentialException{
         Farmacia farmacia = new Farmacia();
@@ -47,6 +47,12 @@ public class InterfacciaAutenticazione {
         return farmacia;
     }
 
+    /**
+     * Ritorna la tupla della tabella {@code AddettoAzienda} corrispondente alle credenziali inserite
+     * @param idAddetto id dell'addetto
+     * @param password password dell'addetto
+     * @return un oggetto {@code AddettoAzienda} contenente l'id corrispondente alle credenziali inserite (se non sono corrette ritorna {@code null})
+     */
     public AddettoAzienda getCredenzialiAddettoAzienda(int idAddetto, String password){
         AddettoAzienda addetto = new AddettoAzienda();
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){

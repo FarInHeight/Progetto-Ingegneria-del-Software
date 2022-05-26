@@ -1,10 +1,8 @@
 package com.progetto.corriere.autenticazione;
 
 import com.progetto.corriere.SchermataPrincipaleCorriere;
-import com.progetto.dbInterface.InterfacciaAutenticazione;
+import com.progetto.interfacciaDatabase.InterfacciaAutenticazione;
 import com.progetto.entity.Corriere;
-import com.progetto.entity.Farmacia;
-import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.PasswordField;
