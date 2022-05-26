@@ -1,6 +1,6 @@
 package com.progetto.corriere;
 
-import com.progetto.corriere.gestioneSpedizioni.CreaListaSpedizioniControl;
+
 import com.progetto.entity.Corriere;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -64,7 +64,7 @@ public class SchermataPrincipaleCorriere extends Application {
     }
 
     public void visualizzaListaSpedizioni() {
-        CreaListaSpedizioniControl creaListaSpedizioniControl = new CreaListaSpedizioniControl();
-        creaListaSpedizioniControl.creaLista();
+        //CreaListaSpedizioniControl creaListaSpedizioniControl = new CreaListaSpedizioniControl();
+        //creaListaSpedizioniControl.creaLista();
     }
 }

@@ -14,5 +14,5 @@ module com.progetto {
     opens com.progetto.entity to javafx.base;
     opens com.progetto.farmacia.ordine to javafx.fxml;
     opens com.progetto.farmacia to javafx.fxml;
-    opens com.progetto.corriere.autenticazione to javafx.fxml;
+    opens com.progetto.corriere.autenticazione to javafx.graphics,javafx.fxml;
 }
