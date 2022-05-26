@@ -1,9 +1,8 @@
 package com.progetto.entity;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
@@ -27,6 +26,11 @@ public class EntryFormOrdine {
         Button rimuovi = new Button("RIMUOVI");
         rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
         rimuovi.setStyle("-fx-text-fill: white");
+        rimuovi.setOnAction(event -> {
+            TableView<EntryFormOrdine> tabella = (TableView<EntryFormOrdine>) ((Node) event.getSource()).getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+            EntryFormOrdine item = tabella.getSelectionModel().getSelectedItem();
+            tabella.getItems().remove(item);
+        });
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
