@@ -49,6 +49,15 @@ public class Farmaco implements Cloneable{
     }
 
     /**
+     * costruttore di un {@code Farmaco}
+     * @param nomeFarmaco nome del farmaco
+     * @param principioAttivo principio attivo del farmaco
+     */
+    public Farmaco(String nomeFarmaco, String principioAttivo){
+        this.setNome(nomeFarmaco);
+        this.setPrincipioAttivo(principioAttivo);
+    }
+    /**
      * setter per il nome del Farmaco
      * @param nome nome del farmaco
      */
