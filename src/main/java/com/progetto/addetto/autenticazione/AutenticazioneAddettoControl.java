@@ -34,7 +34,7 @@ public class AutenticazioneAddettoControl {
             int id = Integer.parseInt(idAddetto.getText());
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             this.verificaCredenziali(this.getCredenziali(id,pwd));
-            stage.close(); //chiudo scgermata autenticazione
+            stage.close(); //chiudo schermata autenticazione
         } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
             ErroreAutenticazione errAut = new ErroreAutenticazione(0);
