@@ -48,6 +48,8 @@ public class ListaSegnalazioni extends Application implements Initializable {
     private static ArrayList<EntryListaSegnalazioni> segnalazioni;
 
     private static GestioneSegnalazioniControl control;
+
+    private Stage stage;
     /**
      * Costruisce una {@code ListaSegnalazioni}
      */
@@ -97,19 +99,18 @@ public class ListaSegnalazioni extends Application implements Initializable {
         double stageWidth = 800;
         double stageHeight = 400;
 
-        Stage subStage = new Stage();
-        //centra la schermata
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
-        subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
+        this.stage = new Stage();
 
-        //mostra la schermata di login
-        subStage.setTitle("Lista Segnalazioni");
-        subStage.setScene(scene);
-        subStage.setMinWidth(stageWidth + 50);
-        subStage.setMinHeight(stageHeight);
-        subStage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
-        subStage.show();
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        this.stage.setX((screenBounds.getWidth() - stageWidth) / 2);
+        this.stage.setY((screenBounds.getHeight() - stageHeight) / 2);
+
+        this.stage.setTitle("Lista Segnalazioni");
+        this.stage.setScene(scene);
+        this.stage.setMinWidth(stageWidth + 50);
+        this.stage.setMinHeight(stageHeight);
+        this.stage.initOwner(stage);
+        this.stage.show();
     }
 
     /**
@@ -129,6 +130,14 @@ public class ListaSegnalazioni extends Application implements Initializable {
         for(EntryListaSegnalazioni entry : this.segnalazioni) {
             this.lista.getItems().add(entry);
         }
+    }
+
+    /**
+     * Metodoa accessibile solo dalle classi dello stesso package  per ottenere lo {@code Stage} della {@code ListaSegnalazioni}
+     * @return
+     */
+    Stage getStage() {
+        return this.stage;
     }
 
     @FXML

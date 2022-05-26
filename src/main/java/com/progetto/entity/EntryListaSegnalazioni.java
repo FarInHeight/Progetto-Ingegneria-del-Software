@@ -1,5 +1,8 @@
 package com.progetto.entity;
 
+import com.progetto.addetto.segnalazioni.GestioneSegnalazioniControl;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -32,17 +35,18 @@ public class EntryListaSegnalazioni {
         this.setNomeFarmacia(nomeFarmacia);
         this.setRecapitoTelefonicoFarmacia(recapitoTelefonicoFarmacia);
         this.setData(data.format(DateTimeFormatter.ofPattern("d/MM/uuuu")));
-        Button espandi = new Button("Espandi");
-        espandi.setBackground(Background.fill(Color.rgb(38, 189, 27)));
-        espandi.setStyle("-fx-text-fill: white");
-        Button rimuovi = new Button("Rimuovi");
-        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
-        rimuovi.setStyle("-fx-text-fill: white");
-        FlowPane flow = new FlowPane();
-        flow.getChildren().addAll(espandi, rimuovi);
-        flow.setAlignment(Pos.CENTER);
-        flow.setHgap(10); // dae8fc
-        this.strumenti = flow;
+    }
+
+    /**
+     * Metodo per impostare i pulsanti {@code espandi} e {@code rimuovi} di una {@code EntryListaSegnalazioni} presente
+     * nella {@code ListaSegnalazioni}
+     * @param strumenti pannello che contiene i pulsanti
+     */
+    public void setStrumenti(FlowPane strumenti) {
+        if(strumenti == null) {
+            throw new NullPointerException("Strumenti = null");
+        }
+        this.strumenti = strumenti;
     }
 
     private void setIdFarmacia(int idFarmacia) {
@@ -138,5 +142,13 @@ public class EntryListaSegnalazioni {
      */
     public String getRiepilogoOrdine() {
         return riepilogoOrdine;
+    }
+
+    /**
+     * Getter per ottenere il recapito telefonico della farmacia che ha effettuato la segnalazione
+     * @return recapito telefonico della farmacia
+     */
+    public String getRecapitoTelefonicoFarmacia() {
+        return this.recapitoTelefonicoFarmacia;
     }
 }

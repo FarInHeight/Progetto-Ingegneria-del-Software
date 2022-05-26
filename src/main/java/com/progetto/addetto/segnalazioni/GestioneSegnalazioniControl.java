@@ -4,7 +4,13 @@ import com.progetto.entity.AddettoAzienda;
 import com.progetto.entity.EntryListaSegnalazioni;
 import com.progetto.interfacciaDatabase.InterfacciaAddetto;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +28,8 @@ public class GestioneSegnalazioniControl {
 
     // stage associato all'evento
     private Stage stage;
+
+    private ListaSegnalazioni lista;
 
     /**
      * Costruttore della classe {@code GestioneSegnalazioniControl} che prende in input un oggetto di classe {@code AddettoAzienda}
@@ -56,14 +64,44 @@ public class GestioneSegnalazioniControl {
         this.event = event;
     }
 
+    private void setPulsanti(EntryListaSegnalazioni entry) {
+        // creazione dei pulsanti
+        Button espandi = new Button("Espandi");
+        espandi.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                GestioneSegnalazioniControl.this.clickSuEspandi(entry);
+            }
+        });
+        espandi.setBackground(Background.fill(Color.rgb(38, 189, 27)));
+        espandi.setStyle("-fx-text-fill: white");
+        Button rimuovi = new Button("Rimuovi");
+        rimuovi.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                GestioneSegnalazioniControl.this.clickSuRimuovi(entry);
+            }
+        });
+        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuovi.setStyle("-fx-text-fill: white");
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(espandi, rimuovi);
+        flow.setAlignment(Pos.CENTER);
+        flow.setHgap(10);
+        entry.setStrumenti(flow);
+    }
+
     /**
      * Metodo di avvio della
      */
     public void start() {
         InterfacciaAddetto db = new InterfacciaAddetto();
         ArrayList<EntryListaSegnalazioni> segnalazioni = db.getSegnalazioni();
+        for(EntryListaSegnalazioni entry : segnalazioni) {
+            this.setPulsanti(entry);
+        }
         this.stage.hide();  // nascondo lo stage attuale riferito alla schermata principale di addetto
-        ListaSegnalazioni lista = new ListaSegnalazioni(this.addetto, segnalazioni, this);
+        this.lista = new ListaSegnalazioni(this.addetto, segnalazioni, this);
         try {
             lista.start(this.stage);
         } catch(IOException exc) {
@@ -81,5 +119,26 @@ public class GestioneSegnalazioniControl {
     void clickSuIndietro(Stage substage) {
         substage.close();
         this.stage.show();
+    }
+
+    /**
+     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code espandi} di una entry della {@code ListaSegnalazioni}
+     * @param segnalazione segnalazione da espandere
+     */
+    public void clickSuEspandi(EntryListaSegnalazioni segnalazione) {
+        RiepilogoSegnalazione riepilogo = new RiepilogoSegnalazione(segnalazione);  // mostra a video il riepilogo
+        try {
+            riepilogo.start(this.lista.getStage());  // faccio partire la schermata di riepilogo
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code rimuovi} di una entry della {@code ListaSegnalazioni}
+     * @param segnalazione segnalazione da rimuovere
+     */
+    public void clickSuRimuovi(EntryListaSegnalazioni segnalazione) {
+
     }
 }
