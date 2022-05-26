@@ -46,11 +46,11 @@ public class Lotto {
      * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
     public Lotto(ResultSet lotto) throws SQLException {
-        setIdLotto(lotto.getInt("ID_lotto"));
-        setNomeFarmaco(lotto.getString("Farmaco_Nome"));
-        setDataScadenza(lotto.getDate("Data_scadenza"));
-        setQuantitaContenuta(lotto.getInt("N_contenuti"));
-        setQuantitaContenuta(lotto.getInt("N_ordinati"));
+        setIdLotto(lotto.getInt("id_lotto"));
+        setNomeFarmaco(lotto.getString("farmaco_nome"));
+        setDataScadenza(lotto.getDate("data_scadenza"));
+        setQuantitaContenuta(lotto.getInt("n_contenuti"));
+        setQuantitaOrdinata(lotto.getInt("n_ordinati"));
     }
 
     /**
