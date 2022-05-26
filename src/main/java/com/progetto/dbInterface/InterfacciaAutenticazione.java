@@ -1,5 +1,6 @@
 package com.progetto.dbInterface;
 import com.progetto.entity.AddettoAzienda;
+import com.progetto.entity.Corriere;
 import com.progetto.entity.Farmacia;
 import javax.security.auth.login.CredentialException;
 import java.sql.*;
@@ -76,4 +77,37 @@ public class InterfacciaAutenticazione {
         }
         return addetto;
     }
+
+    /**
+     * Ritorna la tupla della tabella {@code Corriere} corrispondente alle credenziali inserite
+     * @param idCorriere id del corriere
+     * @param password password del corriere
+     * @return un oggetto {@code Corriere}
+     */
+    public Corriere getCredenzialiCorriere(int idCorriere, String password) throws CredentialException{
+        Corriere corriere = null;
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("select * from corriere where id_corriere = ? and password = ?");
+            statement.setInt(1,idCorriere);
+            statement.setString(2,password);
+            ResultSet risultatoCorriere = statement.executeQuery();
+            if(risultatoCorriere.next()){
+                corriere = new Corriere(risultatoCorriere);
+            }
+            else{
+                PreparedStatement statementId = connection.prepareStatement("select id_corriere " +
+                        "from corriere " +
+                        "where id_corriere = ?");
+                statementId.setInt(1,idCorriere);
+                ResultSet resultSetId = statementId.executeQuery();
+                if(resultSetId.next()){
+                    corriere = new Corriere("passwordNonValida");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return corriere;
+    }
+
 }
