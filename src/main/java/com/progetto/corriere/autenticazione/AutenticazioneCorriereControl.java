@@ -21,7 +21,13 @@ import java.security.NoSuchAlgorithmException;
  * Control che gestisce l'autenticazione della farmacia
  */
 public class AutenticazioneCorriereControl {
-
+    /**
+     * istanzia l'oggetto dati in input l'id del corriere e la password
+     * @param idCorriere id della farmacia
+     * @param password password inserita dall'utente
+     * @param event evento che rappresenta il click del tasto login
+     * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
+     */
     public AutenticazioneCorriereControl(TextField idCorriere, PasswordField password, ActionEvent event) throws IOException {
         String pwd = this.creaDigest(password.getText());
         try {

@@ -137,10 +137,9 @@ public class AddettoAzienda {
     /**
      * Implementazione del metodo {@code clone} ereditato dalla classe {@code Object}
      * @return copia dell'AddettoAzienda
-     * @throws CloneNotSupportedException
      */
     @Override
-    public AddettoAzienda clone() throws CloneNotSupportedException {
+    public AddettoAzienda clone() {
         return new AddettoAzienda(this.getIdAddetto(), this.getNominativo(), this.getDataNascita(), this.getEmail(), this.getRecapitoTelefonico());
     }
 

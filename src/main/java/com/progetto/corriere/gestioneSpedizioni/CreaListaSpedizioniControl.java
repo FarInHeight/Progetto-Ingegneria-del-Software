@@ -16,6 +16,11 @@ public class CreaListaSpedizioniControl {
 
     private ArrayList<EntryListaSpedizioni> spedizioni;
     private Stage stage;
+
+    /**
+     * istanzia la control che gestisce la lista spedizioni
+     * @param event
+     */
     public CreaListaSpedizioniControl(Event event) {
         this.setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
     }

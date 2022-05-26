@@ -38,8 +38,8 @@ public class Corriere {
 
     /**
      * Costruttore per la classe {@code Corriere}
-     *
      * @param corriere tupla del database contenente le informazioni associate ad un corriere
+     * @throws SQLException se si verifica un problema con il database
      */
     public Corriere(ResultSet corriere) throws SQLException {
         setIdCorriere(corriere.getInt("id_corriere"));

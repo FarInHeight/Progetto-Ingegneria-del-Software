@@ -17,7 +17,7 @@ public class InterfacciaAutenticazione {
      * @param password password della farmacia
      * @return un oggetto {@code Farmacia} contenente l'id corrispondente alle credenziali inserite (se non sono corrette ritorna {@code null})
      */
-    public Farmacia getCredenzialiFarmacia(int idFarmacia, String password) throws CredentialException{
+    public Farmacia getCredenzialiFarmacia(int idFarmacia, String password){
         Farmacia farmacia = new Farmacia();
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select * from farmacia where id_farmacia = ? and password = ?");
@@ -90,7 +90,7 @@ public class InterfacciaAutenticazione {
      * @param password password del corriere
      * @return un oggetto {@code Corriere}
      */
-    public Corriere getCredenzialiCorriere(int idCorriere, String password) throws CredentialException{
+    public Corriere getCredenzialiCorriere(int idCorriere, String password){
         Corriere corriere = null;
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select * from corriere where id_corriere = ? and password = ?");

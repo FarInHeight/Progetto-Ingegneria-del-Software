@@ -25,7 +25,11 @@ public class EntryListaSegnalazioni {
      * Costruttore per istanziare una entry della {@code ListaSegnalazioni}
      * @param idSegnalazione id della segnalazione
      * @param idOrdine id dell'ordine per cui è stata generata la segnalazione
+     * @param riepilogoOrdine riepilogo dell'ordine per cui è stata generata la segnalazione
+     * @param  idFarmacia if della farmacia che ha generato la segnalazione
      * @param nomeFarmacia nome della farmacia che ha effettuato la segnalazione
+     * @param  recapitoTelefonicoFarmacia recapito telefonico della farmacia che ha generato la segnalazione
+     * @param  commento commento del farmacista
      * @param data data in cui è stata generata segnalazione
      */
     public EntryListaSegnalazioni(int idSegnalazione, int idOrdine, String riepilogoOrdine, int idFarmacia, String nomeFarmacia, String recapitoTelefonicoFarmacia, String commento, LocalDate data) {

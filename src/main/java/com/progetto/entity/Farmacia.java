@@ -98,6 +98,10 @@ public class Farmacia implements Cloneable{
         return indirizzo;
     }
 
+    /**
+     * getter per il recapito telefonico
+     * @return ritorna una {@code String} contenete il recapito telefonico della farmacia
+     */
     public String getRecapitoTelefonico() {
         return recapitoTelefonico;
     }
