@@ -76,11 +76,10 @@ public class AutenticazioneFarmaciaControl {
                 throw new CredentialException("passwordNonValida");
             }
             try {
-                Farmacia farm = farmacia.clone();
-                SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farm);
+                SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farmacia);
                 Stage stage = new Stage();
                 schermataPrincipaleFarmacia.start(stage);
-            } catch (CloneNotSupportedException | IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

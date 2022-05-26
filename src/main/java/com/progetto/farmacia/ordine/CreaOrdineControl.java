@@ -11,7 +11,11 @@ import java.io.IOException;
  */
 public class CreaOrdineControl{
 
-    public CreaOrdineControl(ActionEvent event) throws IOException {
+    public CreaOrdineControl(ActionEvent event) throws IOException{
+        start(event);
+    }
+
+    private void start(ActionEvent event) throws IOException{
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
         FormOrdine formOrdine = new FormOrdine();
         formOrdine.start(stage);

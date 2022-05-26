@@ -1,10 +1,7 @@
 package com.progetto.farmacia.ordine;
 
-import com.progetto.addetto.segnalazioni.ListaSegnalazioni;
-import com.progetto.entity.AddettoAzienda;
-import com.progetto.entity.Farmaco;
+import com.progetto.entity.EntryFormOrdine;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -31,23 +28,22 @@ public class FormOrdine extends Application implements Initializable {
 
     private static String nomeFarmacia;
 
+    private static EntryFormOrdine entryFormOrdine;
+
     @FXML
     private Text usernameLabel;
 
     @FXML
-    private static Farmaco farmaco;
+    private TableView<EntryFormOrdine> lista;
 
     @FXML
-    private TableView<Farmaco> lista;
+    private TableColumn<EntryFormOrdine, String> nomeFarmaco;
 
     @FXML
-    private TableColumn<Farmaco, String> nomeFarmaco;
+    private TableColumn<EntryFormOrdine, String> principioAttivo;
 
     @FXML
-    private TableColumn<Farmaco, String> principioAttivo;
-
-    @FXML
-    private TableColumn<AddettoAzienda, String> strumenti;
+    private TableColumn<EntryFormOrdine, FlowPane> strumenti;
 
     /**
      * costruisce un {@code FormOrdine}
@@ -70,8 +66,13 @@ public class FormOrdine extends Application implements Initializable {
         stage.close();
     }
 
+    @FXML
+    private void invia(ActionEvent event){
+
+    }
+
     /**
-     * permette di mostrare a schermo il form per effettuare gli ordini
+     * Metodo usato per mostrare a schermo il form per effettuare gli ordini
      * @param stage stage della schermata principale
      * @throws IOException se il caricamento del file fxml del form ordine non è andato a buon fine
      */
@@ -80,7 +81,7 @@ public class FormOrdine extends Application implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("formOrdine.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
-        double subStageWidth = 600;
+        double subStageWidth = 800;
         double subStageHeight = 400;
 
         Stage subStage = new Stage();
@@ -101,14 +102,19 @@ public class FormOrdine extends Application implements Initializable {
         subStage.show();
     }
 
+    /**
+     * Metodo usato per inzializzare il {@code FormOrdine}
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //LocalDate data = LocalDate.of(2022,2,2);
-        //Farmaco farm = new Farmaco("Farmaco a","Pinrcipio b", 0,data,3);
-        //FormOrdine.farmaco = farm;
         this.usernameLabel.setText(FormOrdine.nomeFarmacia);
-        this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nome"));
         this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
-        this.lista.getItems().add(FormOrdine.farmaco);
+        this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
+        this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+
+        entryFormOrdine = new EntryFormOrdine("farmaco A", "principiob");
+        this.lista.getItems().add(entryFormOrdine);
     }
 }

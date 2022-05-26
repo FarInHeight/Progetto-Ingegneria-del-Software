@@ -19,7 +19,7 @@ public class EntryListaSegnalazioni {
     private FlowPane strumenti;
 
     /**
-     * Costruttore per istanziare una entry della {code ListaSegnalazioni}
+     * Costruttore per istanziare una entry della {@code ListaSegnalazioni}
      * @param idSegnalazione id della segnalazione
      * @param idOrdine id dell'ordine per cui è stata generata la segnalazione
      * @param nomeFarmacia nome della farmacia che ha effettuato la segnalazione

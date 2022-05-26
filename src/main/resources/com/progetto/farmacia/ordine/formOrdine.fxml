@@ -26,11 +26,11 @@
    <center>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="274.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <center>
-            <TableView fx:id="lista" prefHeight="305.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="lista" prefHeight="305.0" prefWidth="600.0" style="-fx-alignment: CENTER;" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="nomeFarmaco" prefWidth="120.19999998807907" text="NOME FARMACO" />
-                <TableColumn fx:id="principioAttivo" prefWidth="143.40000915527344" text="PRINCIPIO ATTIVO" />
-                  <TableColumn fx:id="strumenti" prefWidth="75.0" text="STRUMENTI" />
+                <TableColumn fx:id="nomeFarmaco" prefWidth="120.19999998807907" style="-fx-alignment: CENTER;" text="NOME FARMACO" />
+                <TableColumn fx:id="principioAttivo" prefWidth="143.40000915527344" style="-fx-alignment: CENTER;" text="PRINCIPIO ATTIVO" />
+                  <TableColumn fx:id="strumenti" prefWidth="75.0" style="-fx-alignment: CENTER;" text="STRUMENTI" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -42,7 +42,7 @@
                <right>
                   <Button mnemonicParsing="false" style="-fx-background-color: #26bd1b;" text="CONFERMA ORDINE" textFill="WHITE" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
-                        <Insets right="25.0" />
+                        <Insets right="20.0" />
                      </BorderPane.margin>
                   </Button>
                </right>
