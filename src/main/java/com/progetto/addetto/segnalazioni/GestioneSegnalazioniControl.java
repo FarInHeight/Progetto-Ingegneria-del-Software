@@ -10,7 +10,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class VisualizzaSegnalazioniControl {
+/**
+ * Control che gestisce la visualizzazione
+ */
+public class GestioneSegnalazioniControl {
 
     private AddettoAzienda addetto;
 
@@ -21,17 +24,16 @@ public class VisualizzaSegnalazioniControl {
     private Stage stage;
 
     /**
-     * Costruttore della classe {@code VisualizzaSegnalazioniControl} che prende in input un oggetto di classe {@code AddettoAzienda}
+     * Costruttore della classe {@code GestioneSegnalazioniControl} che prende in input un oggetto di classe {@code AddettoAzienda}
      * e l'evento associato al click sul pulsante {@code visualizzaSegnalazioni}
      * @param addetto addetto dell'azienda
      * @param event evento di click
      */
-    public VisualizzaSegnalazioniControl(AddettoAzienda addetto, ActionEvent event) {
+    public GestioneSegnalazioniControl(AddettoAzienda addetto, ActionEvent event) {
         this.setAddettoAzienda(addetto);
         this.setEvent(event);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente
         this.setStage(stage);
-        this.start();
     }
 
     private void setStage(Stage stage) {
@@ -54,7 +56,10 @@ public class VisualizzaSegnalazioniControl {
         this.event = event;
     }
 
-    private void start() {
+    /**
+     * Metodo di avvio della
+     */
+    public void start() {
         InterfacciaAddetto db = new InterfacciaAddetto();
         ArrayList<EntryListaSegnalazioni> segnalazioni = db.getSegnalazioni();
         this.stage.hide();  // nascondo lo stage attuale riferito alla schermata principale di addetto
@@ -67,9 +72,10 @@ public class VisualizzaSegnalazioniControl {
     }
 
     /**
-     * Metodo tramite il quale un oggetto di tipo {@code ListaSegnalazioni} avvisa la {@code VisualizzaSegnalazioniControl}
+     * Metodo tramite il quale un oggetto di tipo {@code ListaSegnalazioni} avvisa la {@code GestioneSegnalazioniControl}
      * del click sul pulsante {@code indietro} e distrugge la ListaSegnalazioni.
-     * Il metood è stato creato senza
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
      * @param substage sotto-stage della ListaSegnalazionio da distuggere
      */
     void clickSuIndietro(Stage substage) {
