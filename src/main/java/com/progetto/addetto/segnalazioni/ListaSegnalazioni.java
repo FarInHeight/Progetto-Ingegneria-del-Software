@@ -121,13 +121,13 @@ public class ListaSegnalazioni extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ListaSegnalazioni.addetto.getNominativo());
-        idSegnalazione.setCellValueFactory(new PropertyValueFactory<>("idSegnalazione"));
-        idOrdine.setCellValueFactory(new PropertyValueFactory<>("idOrdine"));
-        nomeFarmacia.setCellValueFactory(new PropertyValueFactory<>("nomeFarmacia"));
-        data.setCellValueFactory(new PropertyValueFactory<>("data"));
-        strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+        this.idSegnalazione.setCellValueFactory(new PropertyValueFactory<>("idSegnalazione"));
+        this.idOrdine.setCellValueFactory(new PropertyValueFactory<>("idOrdine"));
+        this.nomeFarmacia.setCellValueFactory(new PropertyValueFactory<>("nomeFarmacia"));
+        this.data.setCellValueFactory(new PropertyValueFactory<>("data"));
+        this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
 
-        for(EntryListaSegnalazioni entry : this.segnalazioni) {
+        for(EntryListaSegnalazioni entry : ListaSegnalazioni.segnalazioni) {
             this.lista.getItems().add(entry);
         }
     }
