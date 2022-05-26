@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class GestioneProduzioneControl {
 
-    public void GestioneProduzione() {
+    public void gestioneProduzione() {
 
         InterfacciaAzienda db = new InterfacciaAzienda();
 
@@ -31,7 +31,7 @@ public class GestioneProduzioneControl {
         ArrayList<Lotto> lotti = db.getLotti();
 
         for(Lotto lotto : lotti) {
-            if (lotto.getQuantitaContenuta() != 0) {
+            if (lotto.getQuantitaContenuta() != 0 && lotto.getQuantitaOrdinata() != 0) {
                 Lotto newLotto = Lotto.lottoProdotto(lotto);
                 if (controllaQuantita(lotto)) {
                     db.addLotto(newLotto);

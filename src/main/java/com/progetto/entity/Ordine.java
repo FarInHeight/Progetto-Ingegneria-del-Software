@@ -1,5 +1,6 @@
 package com.progetto.entity;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -50,14 +51,14 @@ public class Ordine {
      * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
     public Ordine(ResultSet ordine) throws SQLException {
-        this.setIdOrdine(ordine.getInt("ID_ordine"));
-        this.setStato(ordine.getInt("Stato"));
+        this.setIdOrdine(ordine.getInt("id_ordine"));
+        this.setStato(ordine.getInt("stato"));
         this.setLottiContenuti(ordine);
-        this.setTipo(ordine.getInt("Tipo"));
-        this.setPeriodo(ordine.getInt("Periodo"));
-        this.setDataConsegna(ordine.getDate("Data_consegna").toLocalDate());
-        this.setNomeFarmacia(ordine.getString("Nome_farmacia"));
-        this.setIndirizzoConsegna(ordine.getString("Indirizzo"));
+        this.setTipo(ordine.getInt("tipo"));
+        this.setPeriodo(ordine.getInt("periodo"));
+        this.setDataConsegna(ordine.getDate("data_consegna"));
+        this.setNomeFarmacia(ordine.getString("nome"));
+        this.setIndirizzoConsegna(ordine.getString("indirizzo"));
     }
 
     /**
@@ -131,18 +132,31 @@ public class Ordine {
      * @param dataConsegna data di consegna
      */
     public void setDataConsegna(LocalDate dataConsegna) {
-        if(farmaci == null) {
+        if(dataConsegna == null) {
             throw new NullPointerException("Data di consegna = null");
         }
         this.dataConsegna = dataConsegna;
     }
 
     /**
+     * Setter per impostare la data di consegna dell'ordine.
+     * @param dataConsegna data di consegna
+     */
+    public void setDataConsegna(Date dataConsegna) {
+        if(dataConsegna == null) {
+            this.dataConsegna = null;
+        } else {
+            this.dataConsegna = dataConsegna.toLocalDate();
+        }
+    }
+
+
+    /**
      * Setter per impostare il nome della farmacia che ha effettuato l'ordine.
      * @param nomeFarmacia nome della farmacia
      */
     public void setNomeFarmacia(String nomeFarmacia) {
-        if(farmaci == null) {
+        if(nomeFarmacia == null) {
             throw new NullPointerException("Nome della Farmacia = null");
         }
         this.nomeFarmacia = nomeFarmacia;
@@ -153,7 +167,7 @@ public class Ordine {
      * @param indirizzoConsegna indirizzo di consegna
      */
     public void setIndirizzoConsegna(String indirizzoConsegna) {
-        if(farmaci == null) {
+        if(indirizzoConsegna == null) {
             throw new NullPointerException("Indirizzo di Consegna = null");
         }
         this.indirizzoConsegna = indirizzoConsegna;

@@ -1,5 +1,6 @@
 package com.progetto.entity;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -31,11 +32,11 @@ public class Lotto {
      * @param quantitaOrdinata quantità di Farmaco del Lotto già ordinata
      */
     public Lotto(int idLotto, String nomeFarmaco, LocalDate dataScadenza, int quantitaContenuta, int quantitaOrdinata) {
-        this.idLotto = idLotto;
-        this.nomeFarmaco = nomeFarmaco;
-        this.dataScadenza = dataScadenza;
-        this.quantitaContenuta = quantitaContenuta;
-        this.quantitaOrdinata = quantitaOrdinata;
+        setIdLotto(idLotto);
+        setNomeFarmaco(nomeFarmaco);
+        setDataScadenza(dataScadenza);
+        setQuantitaContenuta(quantitaContenuta);
+        setQuantitaOrdinata(quantitaOrdinata);
     }
 
     /**
@@ -45,11 +46,11 @@ public class Lotto {
      * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
     public Lotto(ResultSet lotto) throws SQLException {
-        this.idLotto = lotto.getInt("ID_lotto");
-        this.nomeFarmaco = lotto.getString("Farmaco_Nome");
-        this.dataScadenza = lotto.getDate("Data_scadenza").toLocalDate();
-        this.quantitaContenuta = lotto.getInt("N_contenuti");
-        this.quantitaOrdinata = lotto.getInt("N_ordinati");
+        setIdLotto(lotto.getInt("ID_lotto"));
+        setNomeFarmaco(lotto.getString("Farmaco_Nome"));
+        setDataScadenza(lotto.getDate("Data_scadenza"));
+        setQuantitaContenuta(lotto.getInt("N_contenuti"));
+        setQuantitaContenuta(lotto.getInt("N_ordinati"));
     }
 
     /**
@@ -79,13 +80,6 @@ public class Lotto {
     }
 
     /**
-     * Setter per l'ID del Lotto
-     */
-    public void setIdLotto(int idLotto) {
-        this.idLotto = idLotto;
-    }
-
-    /**
      * Getter per la quantità di Farmaco contenuta del Lotto
      * @return la quantità di Farmaco contenuta nel Lotto
      */
@@ -102,11 +96,50 @@ public class Lotto {
     }
 
     /**
+     * Setter per l'ID del Lotto
+     *
+     * @param idLotto id del lotto
+     */
+    public void setIdLotto(int idLotto) {
+        if (idLotto < 0) {
+            throw new IllegalArgumentException("idLotto < 0");
+        }
+        this.idLotto = idLotto;
+    }
+
+    /**
+     * Setter per il nome del farmaco contenuto
+     *
+     * @param nomeFarmaco nome del Faramco contenuto nel lotto
+     */
+    public void setNomeFarmaco(String nomeFarmaco) {
+        if (nomeFarmaco == null) {
+            throw new NullPointerException("nomeFarmaco = null");
+        }
+        this.nomeFarmaco = nomeFarmaco;
+    }
+
+    /**
      * Setter per la data di scadenza del Lotto
      * @param dataScadenza nuova data di scadenza
      */
     public void setDataScadenza(LocalDate dataScadenza) {
+        if (dataScadenza == null) {
+            throw new NullPointerException("dataScadenza = null");
+        }
         this.dataScadenza = dataScadenza;
+    }
+
+    /**
+     * Setter per la data di scadenza del Lotto
+     * @param dataScadenza nuova data di scadenza
+     */
+    public void setDataScadenza(Date dataScadenza) {
+        if (dataScadenza == null) {
+            this.dataScadenza = null;
+        } else {
+            this.dataScadenza = dataScadenza.toLocalDate();
+        }
     }
 
     /**
@@ -114,6 +147,10 @@ public class Lotto {
      * @param quantitaContenuta nuova quantità
      */
     public void setQuantitaContenuta(int quantitaContenuta) {
+
+        if (quantitaContenuta < 0) {
+            throw new IllegalArgumentException("quantitaContenuta < 0");
+        }
         this.quantitaContenuta = quantitaContenuta;
     }
 
@@ -122,6 +159,10 @@ public class Lotto {
      * @param quantitaOrdinata nuova quantità
      */
     public void setQuantitaOrdinata(int quantitaOrdinata) {
+
+        if (quantitaOrdinata < 0) {
+            throw new IllegalArgumentException("quantitaOrdinata < 0");
+        }
         this.quantitaOrdinata = quantitaOrdinata;
     }
 

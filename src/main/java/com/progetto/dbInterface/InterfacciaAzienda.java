@@ -17,9 +17,9 @@ public class InterfacciaAzienda {
     public ArrayList<Lotto> getLotti() {
 
         ArrayList<Lotto> lotti = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             Statement statement = connection.createStatement();
-            ResultSet resultLotti = statement.executeQuery("select * from lotto");
+            ResultSet resultLotti = statement.executeQuery("select * from lotto where data_scadenza != null ");
             while (resultLotti.next()) {
                 lotti.add(new Lotto(resultLotti));
             }
@@ -35,8 +35,8 @@ public class InterfacciaAzienda {
      * @param id intero identificativo del Lotto da rimuovere
      */
     public void rimuoviLotto(int id) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("delete from lotto where id_lotto = ?");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("update lotto set data_scadenza = null where id_lotto = ?");
             statement.setInt(1,id);
             statement.executeUpdate();
         } catch (Exception e) {
@@ -50,8 +50,8 @@ public class InterfacciaAzienda {
      * @param lotto riferimento al Lotto da inserire
      */
     public void addLotto(Lotto lotto) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("insert into lotto (data_scadenza, n_contenuti, n_ordinati, farmaco_nome) values (?,?,?,?)");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("insert into lotto values (null,?,?,?,?)");
             statement.setDate(1,Date.valueOf(lotto.getDataScadenza()));
             statement.setInt(2,lotto.getQuantitaContenuta());
             statement.setInt(3,lotto.getQuantitaOrdinata());
@@ -70,7 +70,7 @@ public class InterfacciaAzienda {
      * @param ordine Ordine prenotato del quale si vogliono riempire i Lotti
      */
     public void updateQuantitaLotti(Ordine ordine) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update lotto set n_contenuti = ?, n_ordinati = ?, data_scadenza = ? where id_lotto = ?");
             ArrayList<LottoOrdinato> lotti = ordine.getLottiContenuti();
             for (LottoOrdinato lotto : lotti) {
@@ -91,10 +91,11 @@ public class InterfacciaAzienda {
      * @return ArrayList contenente tutti gli Ordini prenotati
      */
     public ArrayList<Ordine> getOrdiniPrenotati() {
+
         ArrayList<Ordine> ordini = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             Statement statement = connection.createStatement();
-            ResultSet resultOrdini = statement.executeQuery("select * from ordine,composizione,lotto where stato = 3 AND id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto ORDER BY id_ordine");
+            ResultSet resultOrdini = statement.executeQuery("select * from ordine,composizione,lotto,farmacia where stato = 3 AND id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto AND id_farmacia = farmacia_id_farmacia ORDER BY id_ordine");
             int previousID = -1;
             while(resultOrdini.next()) {
                 if (previousID == resultOrdini.getInt("id_ordine")) {
@@ -116,7 +117,7 @@ public class InterfacciaAzienda {
      * @param id_ordine identificativo dell'Ordine da mandare in elaborazione
      */
     public void cambiaStatoInElaborazione(int id_ordine) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update ordine set stato = 1 where id_ordine = ?");
             statement.setInt(1,id_ordine);
             statement.executeUpdate();
