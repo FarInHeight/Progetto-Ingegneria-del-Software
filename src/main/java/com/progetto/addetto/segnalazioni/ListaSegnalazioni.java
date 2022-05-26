@@ -2,31 +2,26 @@ package com.progetto.addetto.segnalazioni;
 
 import com.progetto.entity.AddettoAzienda;
 import com.progetto.entity.EntryListaSegnalazioni;
-import com.progetto.entity.Segnalazione;
 import javafx.application.Application;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Locale;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ListaSegnalazioni extends Application implements Initializable {
@@ -49,6 +44,10 @@ public class ListaSegnalazioni extends Application implements Initializable {
     private TableColumn<EntryListaSegnalazioni, String> data;
     @FXML
     private TableColumn<EntryListaSegnalazioni, FlowPane> strumenti;
+
+    private static ArrayList<EntryListaSegnalazioni> segnalazioni;
+
+    private static VisualizzaSegnalazioniControl control;
     /**
      * Costruisce una {@code ListaSegnalazioni}
      */
@@ -59,18 +58,32 @@ public class ListaSegnalazioni extends Application implements Initializable {
      * Costruisce una {@code ListaSegnalazioni} secondo il contenuto nel DBMS dell'Azienda
      * @param addetto addetto che richiede la lista delle segnalazioni
      */
-    public ListaSegnalazioni(AddettoAzienda addetto){
+    public ListaSegnalazioni(AddettoAzienda addetto, ArrayList<EntryListaSegnalazioni> segnalazioni, VisualizzaSegnalazioniControl control){
         super();
         this.setAddettoAZienda(addetto);
+        this.setSegnalazioni(segnalazioni);
+        this.setControl(control);
     }
 
-    private void setAddettoAZienda(AddettoAzienda addetto){
+    private void setControl(VisualizzaSegnalazioniControl control) {
+        if(control == null){
+            throw new NullPointerException("Visualizza Segnalazioni Control = null");
+        }
+        ListaSegnalazioni.control = control;
+    }
+    private void setAddettoAZienda(AddettoAzienda addetto) {
         if(addetto == null){
             throw new NullPointerException("Addetto dell'Azienda = null");
         }
         ListaSegnalazioni.addetto = addetto;
     }
 
+    private void setSegnalazioni(ArrayList<EntryListaSegnalazioni> segnalazioni) {
+        if(segnalazioni == null){
+            throw new NullPointerException("Lista segnalazioni = null");
+        }
+        ListaSegnalazioni.segnalazioni = segnalazioni;
+    }
     /**
      * Metodo utilizzato per visualizzare la {@code ListaSegnalazioni} a schermo
      * @param stage
@@ -84,18 +97,19 @@ public class ListaSegnalazioni extends Application implements Initializable {
         double stageWidth = 800;
         double stageHeight = 400;
 
-
+        Stage subStage = new Stage();
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((screenBounds.getWidth() - stageWidth) / 2);
-        stage.setY((screenBounds.getHeight() - stageHeight) / 2);
+        subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
+        subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
         //mostra la schermata di login
-        stage.setTitle("Lista Segnalazioni");
-        stage.setScene(scene);
-        stage.setMinWidth(stageWidth + 50);
-        stage.setMinHeight(stageHeight);
-        stage.show();
+        subStage.setTitle("Lista Segnalazioni");
+        subStage.setScene(scene);
+        subStage.setMinWidth(stageWidth + 50);
+        subStage.setMinHeight(stageHeight);
+        subStage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
+        subStage.show();
     }
 
     /**
@@ -111,10 +125,15 @@ public class ListaSegnalazioni extends Application implements Initializable {
         nomeFarmacia.setCellValueFactory(new PropertyValueFactory<>("nomeFarmacia"));
         data.setCellValueFactory(new PropertyValueFactory<>("data"));
         strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+
+        for(EntryListaSegnalazioni entry : this.segnalazioni) {
+            this.lista.getItems().add(entry);
+        }
     }
 
     @FXML
-    private void indietro() {
-
+    private void indietro(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente
+        ListaSegnalazioni.control.clickSuIndietro(stage);
     }
 }

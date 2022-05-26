@@ -58,7 +58,11 @@ public class EntryListaSegnalazioni {
         this.recapitoTelefonicoFarmacia = recapitoTelefonicoFarmacia;
     }
 
-    private void setRiepilogoOrdine(String riepilogoOrdine) {
+    /**
+     * Setter per impostare il riepilogo dell'ordine associato alla segnalazione
+     * @param riepilogoOrdine riepilogo dell'ordine
+     */
+    public void setRiepilogoOrdine(String riepilogoOrdine) {
         if(riepilogoOrdine == null) {
             throw new NullPointerException("Riepilogo dell'ordine = null");
         }
@@ -126,5 +130,13 @@ public class EntryListaSegnalazioni {
      */
     public Segnalazione getSegnalazione() {
         return this.segnalazione;
+    }
+
+    /**
+     * Getter per ottenere il riepilogo dell'ordine associato alla segnalazione
+     * @return riepilogo dell'ordine
+     */
+    public String getRiepilogoOrdine() {
+        return riepilogoOrdine;
     }
 }
