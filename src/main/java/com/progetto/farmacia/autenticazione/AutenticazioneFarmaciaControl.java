@@ -1,5 +1,5 @@
 package com.progetto.farmacia.autenticazione;
-import com.progetto.dbInterface.InterfacciaAutenticazione;
+import com.progetto.interfacciaDatabase.InterfacciaAutenticazione;
 import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import javafx.event.ActionEvent;

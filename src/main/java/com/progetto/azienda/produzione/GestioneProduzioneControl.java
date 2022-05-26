@@ -1,13 +1,9 @@
 package com.progetto.azienda.produzione;
 
-import com.progetto.dbInterface.InterfacciaAzienda;
+import com.progetto.interfacciaDatabase.InterfacciaAzienda;
 import com.progetto.entity.Lotto;
 import com.progetto.entity.Ordine;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class GestioneProduzioneControl {

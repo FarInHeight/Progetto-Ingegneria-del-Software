@@ -1,4 +1,4 @@
-package com.progetto.dbInterface;
+package com.progetto.interfacciaDatabase;
 
 import com.progetto.entity.EntryListaSegnalazioni;
 

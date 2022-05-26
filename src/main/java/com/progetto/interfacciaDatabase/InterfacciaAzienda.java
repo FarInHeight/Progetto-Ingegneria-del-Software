@@ -1,4 +1,4 @@
-package com.progetto.dbInterface;
+package com.progetto.interfacciaDatabase;
 import com.progetto.entity.Lotto;
 import com.progetto.entity.LottoOrdinato;
 import com.progetto.entity.Ordine;

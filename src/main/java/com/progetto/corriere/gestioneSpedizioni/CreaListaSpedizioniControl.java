@@ -1,6 +1,6 @@
 package com.progetto.corriere.gestioneSpedizioni;
 
-import com.progetto.dbInterface.InterfacciaCorriere;
+import com.progetto.interfacciaDatabase.InterfacciaCorriere;
 import com.progetto.entity.Ordine;
 
 import java.util.ArrayList;
