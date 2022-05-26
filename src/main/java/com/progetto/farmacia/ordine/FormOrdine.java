@@ -1,6 +1,7 @@
 package com.progetto.farmacia.ordine;
 
 import com.progetto.entity.EntryFormOrdine;
+import com.progetto.entity.Farmaco;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,8 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
@@ -19,6 +19,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 /**
@@ -45,6 +46,9 @@ public class FormOrdine extends Application implements Initializable {
     @FXML
     private TableColumn<EntryFormOrdine, FlowPane> strumenti;
 
+    @FXML
+    private LinkedList<Spinner> spinners;
+
     /**
      * costruisce un {@code FormOrdine}
      */
@@ -68,7 +72,18 @@ public class FormOrdine extends Application implements Initializable {
 
     @FXML
     private void invia(ActionEvent event){
+        TableView<Cell> tabella = (TableView<Cell>) (((Node) event.getSource()).getParent().getParent().getChildrenUnmodifiable()).get(0);
+        LinkedList<Farmaco> farmaci = new LinkedList<Farmaco>();
 
+        for(int i = 0;i<1; i++) {
+            if(tabella.getColumns().get(0).getCellData(i) == null){
+                break;
+            }
+            String NomeFarmaco = (String) tabella.getColumns().get(0).getCellData(i).toString();
+            String princpioAttivo = (String) tabella.getColumns().get(1).getCellData(i).toString();
+            farmaci.add(new Farmaco(NomeFarmaco, princpioAttivo));
+        }
+        //richiama verificaCorrettazzaFarmaci passando LinkedList<Farmaco>
     }
 
     /**
@@ -115,6 +130,9 @@ public class FormOrdine extends Application implements Initializable {
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
 
         entryFormOrdine = new EntryFormOrdine("farmaco A", "principiob");
+        EntryFormOrdine e = new EntryFormOrdine("famraco B", "principioc");
         this.lista.getItems().add(entryFormOrdine);
+        this.lista.getItems().add(e);
+
     }
 }

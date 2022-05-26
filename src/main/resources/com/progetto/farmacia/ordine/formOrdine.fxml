@@ -40,7 +40,7 @@
          <top>
             <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <right>
-                  <Button mnemonicParsing="false" style="-fx-background-color: #26bd1b;" text="CONFERMA ORDINE" textFill="WHITE" BorderPane.alignment="CENTER">
+                  <Button onAction="#invia" mnemonicParsing="false" style="-fx-background-color: #26bd1b;" text="CONFERMA ORDINE" textFill="WHITE" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="20.0" />
                      </BorderPane.margin>
