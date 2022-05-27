@@ -26,6 +26,7 @@ public class SchermataLoginForm extends Application {
     //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
         AutenticazioneAddettoControl autAddettoCtrl = new AutenticazioneAddettoControl(this.id, this.password, event);
+        autAddettoCtrl.start();
     }
 
     /**

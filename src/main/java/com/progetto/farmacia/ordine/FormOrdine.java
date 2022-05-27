@@ -1,6 +1,7 @@
 package com.progetto.farmacia.ordine;
 
 import com.progetto.entity.EntryFormOrdine;
+import com.progetto.entity.Farmacia;
 import com.progetto.entity.Farmaco;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -27,9 +28,11 @@ import java.util.ResourceBundle;
  */
 public class FormOrdine extends Application implements Initializable {
 
-    private static String nomeFarmacia;
+    private static Farmacia farmacia;
 
     private static EntryFormOrdine entryFormOrdine;
+    private static CreaOrdineControl control;
+    private Stage stage;
 
     @FXML
     private Text usernameLabel;
@@ -55,17 +58,33 @@ public class FormOrdine extends Application implements Initializable {
     }
 
     /**
-     * costruisce un {@code FormOrdine} dato in input il nome della farmacia
-     * @param usernameLabel nome della farmacia
+     * costruisce un {@code FormOrdine} dato in input il nome della farmacia e la contrl {@code CreaOrdineControl}
+     * @param farmacia entity farmacia
+     * @param control control di crea ordine
      */
-    public FormOrdine(Text usernameLabel){
-        FormOrdine.nomeFarmacia = usernameLabel.getText();
+    public FormOrdine(Farmacia farmacia, CreaOrdineControl control){
+        this.setFarmacia(farmacia);
+        this.setControl(control);
+    }
+
+    private void setControl(CreaOrdineControl control){
+        if(control == null){
+            throw new NullPointerException("control = null");
+        }
+        FormOrdine.control = control;
+    }
+
+    private void setFarmacia(Farmacia farmacia) {
+        if(farmacia == null){
+            throw new NullPointerException("farmacia = null");
+        }
+        FormOrdine.farmacia = farmacia;
     }
 
     @FXML
     private void indietro(ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-        stage.close();
+        FormOrdine.control.clickSuIndietro(stage);
     }
 
     @FXML
@@ -94,25 +113,24 @@ public class FormOrdine extends Application implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("formOrdine.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
-        double subStageWidth = 800;
-        double subStageHeight = 400;
+        double stageWidth = 800;
+        double stageHeight = 400;
 
-        Stage subStage = new Stage();
+        this.stage = new Stage();
 
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        subStage.setX((screenBounds.getWidth() - subStageWidth) / 2);
-        subStage.setY((screenBounds.getHeight() - subStageHeight) / 2);
+        this.stage.setX((screenBounds.getWidth() - stageWidth) / 2);
+        this.stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        subStage.setTitle("Form ordine");
-        subStage.setScene(scene);
-        subStage.setHeight(subStageHeight);
-        subStage.setWidth(subStageWidth);
-        subStage.setMinWidth(subStageWidth);
-        subStage.setMinHeight(subStageHeight);
-        subStage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
-        subStage.initModality(Modality.WINDOW_MODAL);  //blocco il focus sulla schermata delle'errore
-        subStage.show();
+        this.stage.setTitle("Form ordine");
+        this.stage.setScene(scene);
+        this.stage.setHeight(stageHeight);
+        this.stage.setWidth(stageWidth);
+        this.stage.setMinWidth(stageWidth);
+        this.stage.setMinHeight(stageHeight);
+        this.stage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
+        this.stage.show();
     }
 
     /**
@@ -122,7 +140,7 @@ public class FormOrdine extends Application implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.usernameLabel.setText(FormOrdine.nomeFarmacia);
+        this.usernameLabel.setText(FormOrdine.farmacia.getNome());
         this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
