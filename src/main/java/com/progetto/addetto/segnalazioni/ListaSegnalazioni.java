@@ -14,22 +14,25 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
-
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che implementa la boundary {@code ListaSegnalazioni}
+ */
 public class ListaSegnalazioni extends Application implements Initializable {
     @FXML
     private static AddettoAzienda addetto;
 
     @FXML
     private Text usernameLabel;
+
+    private static TableView<EntryListaSegnalazioni> ref;  // riferimento per poter apportare modifiche dall'esterno
 
     @FXML
     private TableView<EntryListaSegnalazioni> lista;
@@ -90,8 +93,8 @@ public class ListaSegnalazioni extends Application implements Initializable {
     }
     /**
      * Metodo utilizzato per visualizzare la {@code ListaSegnalazioni} a schermo
-     * @param stage
-     * @throws IOException
+     * @param stage stage della lista
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -132,10 +135,13 @@ public class ListaSegnalazioni extends Application implements Initializable {
         for(EntryListaSegnalazioni entry : ListaSegnalazioni.segnalazioni) {
             this.lista.getItems().add(entry);
         }
+        ListaSegnalazioni.ref = this.lista;
     }
 
     /**
-     * Metodoa accessibile solo dalle classi dello stesso package  per ottenere lo {@code Stage} della {@code ListaSegnalazioni}
+     * Metodo per ottenere lo stage della lista delle segnalazioni e permettere ad un oggeto di classe {@code GestioneSegnalazioniControl}
+     * di distruggerlo. Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
      * @return stage della lista
      */
     Stage getStage() {
@@ -158,6 +164,6 @@ public class ListaSegnalazioni extends Application implements Initializable {
             throw new NullPointerException("Entry della lista in conferma eliminazione = null");
         }
         ListaSegnalazioni.segnalazioni.remove(entry);
-        this.lista.getItems().remove(entry);  // riga non funzionante
+        ListaSegnalazioni.ref.getItems().remove(entry);  // riga non funzionante
     }
 }

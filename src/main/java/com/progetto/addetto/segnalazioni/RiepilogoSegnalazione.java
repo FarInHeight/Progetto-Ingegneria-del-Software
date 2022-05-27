@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -20,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Classe che permette di visualizzare a schermo il riepilogo di una segnalazione
+ * Classe che implementa la boundary {@code RiepilogoSegnalazione}
  */
 public class RiepilogoSegnalazione extends Application implements Initializable {
 
@@ -50,7 +49,7 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
 
     /**
      * Costruisce un {@code RiepilogoSegnalazione} secondo il contenuto di una {@code EntryListaSegnalazioni}
-     * @param entry segnalazione
+     * @param entry segnalazione che caratterizza il riepilogo
      */
     public RiepilogoSegnalazione(EntryListaSegnalazioni entry){
         super();
@@ -66,8 +65,8 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
 
     /**
      * Metodo utilizzato per visualizzare il {@code RiepilogoSegnalazione} a schermo
-     * @param stage
-     * @throws IOException
+     * @param stage stage della schermata di riepilogo
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -93,7 +92,7 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
     }
 
     /**
-     * Metodo utilizzato per inizializzare il {@code RiepilogoSegnalazione}
+     * Metodo utilizzato per personalizzare il contenuto di un {@code RiepilogoSegnalazione} secondo la segnalazione associata
      * @param url
      * @param resourceBundle
      */

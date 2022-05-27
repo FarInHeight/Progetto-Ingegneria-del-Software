@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 
 
 /**
- * Control che gestisce l'autenticazione dell'Addetto dell'Azienda
+ * Classe che implementa la control {@code AutenticazioneAddettoControl}
  */
 public class AutenticazioneAddettoControl {
 
@@ -25,11 +25,11 @@ public class AutenticazioneAddettoControl {
     private PasswordField password;
     private ActionEvent event;
     /**
-     * istanzia l'oggetto dati in input l'id dell'Addetto dell'Azienda e la password
+     * Costruisce un oggetto di classe {@code AutenticazioneAddettoControl} dati in input l'id dell'Addetto dell'Azienda e la password
      * @param idAddetto id dell'Addetto
      * @param password password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
-     * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
+     * @exception IOException se non è possibile caricare il file {@code fxml} della schermata dell'errore
      */
     public AutenticazioneAddettoControl(TextField idAddetto, PasswordField password, ActionEvent event) {
         this.setIdAddetto(idAddetto);
@@ -58,6 +58,9 @@ public class AutenticazioneAddettoControl {
         this.event = event;
     }
 
+    /**
+     * Metodo di avvio di un oggetto di classe {@code AutenticazioneAddettoControl}
+     */
     public void start() {
         try {
             String pwd = this.creaDigest(password.getText());
