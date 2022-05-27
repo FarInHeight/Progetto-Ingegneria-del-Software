@@ -1,9 +1,11 @@
 package com.progetto.farmacia.ordine;
 
+import com.progetto.addetto.segnalazioni.GestioneSegnalazioniControl;
 import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmacia;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -21,11 +23,12 @@ import java.util.ArrayList;
  * Control che gestisce la creazione di un ordine
  */
 public class CreaOrdineControl{
-
     private Farmacia farmacia;
     private ActionEvent event;
     private Stage stage;
     private FormOrdine formOrdine;
+
+    private ElencoFarmaci elenco;
 
 
     /**
@@ -63,21 +66,17 @@ public class CreaOrdineControl{
     }
 
     private void setPulsantiListaFarmaci(EntryFormOrdine entry){
-        Button rimuovi = new Button("RIMUOVI");
-        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
-        rimuovi.setStyle("-fx-text-fill: white");
-        rimuovi.setOnAction(event -> {
-            TableView<EntryFormOrdine> tabella = (TableView<EntryFormOrdine>) ((Node) event.getSource()).getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-            EntryFormOrdine item = tabella.getSelectionModel().getSelectedItem();
-            tabella.getItems().remove(item);
+        Button aggiungi = new Button("AGGIUNGI");
+        aggiungi.setBackground(Background.fill(Color.rgb(0, 0, 200)));
+        aggiungi.setStyle("-fx-text-fill: white");
+        aggiungi.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                CreaOrdineControl.this.clickSuAggiungi(entry);
+            }
         });
-        Spinner<Integer> spinner = new Spinner<Integer>();
-        spinner.setEditable(true);
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
-        spinner.setValueFactory(valueFactory);
-        spinner.setMaxWidth(100);
         FlowPane flow = new FlowPane();
-        flow.getChildren().addAll(spinner, rimuovi);
+        flow.getChildren().addAll(aggiungi);
         flow.setAlignment(Pos.CENTER);
         flow.setHgap(10); // dae8fc
         entry.setStrumenti(flow);
@@ -87,10 +86,11 @@ public class CreaOrdineControl{
         Button rimuovi = new Button("RIMUOVI");
         rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
         rimuovi.setStyle("-fx-text-fill: white");
-        rimuovi.setOnAction(event -> {
-            TableView<EntryFormOrdine> tabella = (TableView<EntryFormOrdine>) ((Node) event.getSource()).getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-            EntryFormOrdine item = tabella.getSelectionModel().getSelectedItem();
-            tabella.getItems().remove(item);
+        rimuovi.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                CreaOrdineControl.this.clickSuRimuovi(entry);
+            }
         });
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);
@@ -104,14 +104,25 @@ public class CreaOrdineControl{
         entry.setStrumenti(flow);
     }
 
+    private void clickSuRimuovi(EntryFormOrdine entry) {
+        this.setPulsantiListaFarmaci(entry);
+        this.formOrdine.rimuoviFarmaco(entry);
+    }
+    private void clickSuAggiungi(EntryFormOrdine entry) {
+        this.setPulsantiFormOrdine(entry);
+        this.elenco.rimuoviFarmaco(entry);
+        this.formOrdine.aggiungiFarmaco(entry);
+    }
     public void clickSuAggungiFarmaci(Stage stage) throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaci();
         for(EntryFormOrdine entry : farmaci) {
             this.setPulsantiListaFarmaci(entry);
         }
-        ElencoFarmaci elencoFarmaci = new ElencoFarmaci(this,this.farmacia,farmaci);
-        elencoFarmaci.start(stage);
+        if(this.elenco == null) {
+            this.elenco = new ElencoFarmaci(this,this.farmacia,farmaci);
+        }
+        this.elenco.start(stage);
     }
 
     /**

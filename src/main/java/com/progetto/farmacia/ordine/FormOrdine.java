@@ -1,6 +1,8 @@
 package com.progetto.farmacia.ordine;
 
+import com.progetto.addetto.segnalazioni.ListaSegnalazioni;
 import com.progetto.entity.EntryFormOrdine;
+import com.progetto.entity.EntryListaSegnalazioni;
 import com.progetto.entity.Farmacia;
 import com.progetto.entity.Farmaco;
 import javafx.application.Application;
@@ -32,8 +34,10 @@ public class FormOrdine extends Application implements Initializable {
 
     //private static EntryFormOrdine entryFormOrdine;
     private static CreaOrdineControl control;
+
+    private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
     private Stage stage;
-    private ArrayList<EntryFormOrdine> entryFormOrdine;
+    private static ArrayList<EntryFormOrdine> farmaci;
     @FXML
     private Text usernameLabel;
 
@@ -65,8 +69,15 @@ public class FormOrdine extends Application implements Initializable {
     public FormOrdine(Farmacia farmacia, CreaOrdineControl control){
         this.setFarmacia(farmacia);
         this.setControl(control);
+        this.setFarmaci(new ArrayList<EntryFormOrdine>());
     }
 
+    private void setFarmaci(ArrayList<EntryFormOrdine> farmaci) {
+        if(farmaci == null){
+            throw new NullPointerException("Farmaci = null");
+        }
+        FormOrdine.farmaci = farmaci;
+    }
     private void setControl(CreaOrdineControl control){
         if(control == null){
             throw new NullPointerException("control = null");
@@ -160,9 +171,24 @@ public class FormOrdine extends Application implements Initializable {
         this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+        FormOrdine.ref = this.lista;
+    }
 
-        EntryFormOrdine e = new EntryFormOrdine("famraco B", "principioc");
-        this.lista.getItems().add(e);
+    public void aggiungiFarmaco(EntryFormOrdine entry) {
+        if(entry == null) {
+            throw new NullPointerException("Entry in aggiungi farmaco = null");
+        }
+        if(!FormOrdine.farmaci.contains(entry)) {
+            FormOrdine.farmaci.add(entry);
+            FormOrdine.ref.getItems().add(entry);
+        }
+    }
 
+    public void rimuoviFarmaco(EntryFormOrdine entry) {
+        if(entry == null) {
+            throw new NullPointerException("Entry in rimuovi farmaco di FormOrdine = null");
+        }
+        FormOrdine.farmaci.remove(entry);
+        FormOrdine.ref.getItems().remove(entry);
     }
 }
