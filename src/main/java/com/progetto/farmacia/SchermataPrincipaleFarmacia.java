@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * classe che implementa la boundart {@code SchermataPrincipaleFarmacia}
+ */
 public class SchermataPrincipaleFarmacia extends Application implements Initializable {
 
     private static Farmacia farmacia;
@@ -44,7 +47,8 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
 
     @FXML
     private void creaOrdine(ActionEvent event) throws IOException{
-        CreaOrdineControl creaOrdineControl = new CreaOrdineControl(event,this.usernameLabel);
+        CreaOrdineControl creaOrdineControl = new CreaOrdineControl(SchermataPrincipaleFarmacia.farmacia,event);
+        creaOrdineControl.start(event);
     }
 
     private void setFarmacia(Farmacia farmacia){
