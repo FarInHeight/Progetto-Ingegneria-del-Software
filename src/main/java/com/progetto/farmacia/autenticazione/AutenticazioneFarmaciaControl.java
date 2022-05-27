@@ -19,6 +19,9 @@ import java.security.NoSuchAlgorithmException;
  * Control che gestisce l'autenticazione della farmacia
  */
 public class AutenticazioneFarmaciaControl {
+    private TextField idFarmacia;
+    private PasswordField password;
+    private ActionEvent event;
 
     /**
      * istanzia l'oggetto dati in input l'id della farmacia e la password
@@ -28,27 +31,60 @@ public class AutenticazioneFarmaciaControl {
      * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
     public AutenticazioneFarmaciaControl(TextField idFarmacia, PasswordField password, ActionEvent event) throws IOException {
-        String pwd = this.creaDigest(password.getText());
+        this.setIdFarmacia(idFarmacia);
+        this.setPassword(password);
+        this.setEvent(event);
+    }
+
+    private void setIdFarmacia(TextField idFarmacia) {
+        if(idFarmacia == null) {
+            throw new NullPointerException("ID farmacia = null");
+        }
+        this.idFarmacia = idFarmacia;
+    }
+
+    private void setPassword(PasswordField password) {
+        if(password == null) {
+            throw new NullPointerException("Password farmacia = null");
+        }
+        this.password = password;
+    }
+
+    private void setEvent(ActionEvent event) {
+        if(event == null) {
+            throw new NullPointerException("Event = null");
+        }
+        this.event = event;
+    }
+
+    /**
+     * metodo per avviare la control
+     */
+    public void start(){
         try {
-            int id = Integer.parseInt(idFarmacia.getText());
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            this.verificaCredenziali(this.getCredenziali(id,pwd));
-            stage.close(); //chiudo scgermata autenticazione
-        } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            ErroreAutenticazione errAut = new ErroreAutenticazione(0);
-            errAut.start(stage);
-        } catch (CredentialException e){ //credenziali non corrette
-            if(e.getMessage().compareTo("idNonValido") == 0) {
+            String pwd = this.creaDigest(password.getText());
+            try {
+                int id = Integer.parseInt(idFarmacia.getText());
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-                ErroreAutenticazione errAut = new ErroreAutenticazione(2);
-                errAut.start(stage);
-            }
-            else if(e.getMessage().compareTo("passwordNonValida") == 0) {
+                this.verificaCredenziali(this.getCredenziali(id, pwd));
+                stage.close(); //chiudo scgermata autenticazione
+            } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-                ErroreAutenticazione errAut = new ErroreAutenticazione(1);
+                ErroreAutenticazione errAut = new ErroreAutenticazione(0);
                 errAut.start(stage);
+            } catch (CredentialException e) { //credenziali non corrette
+                if (e.getMessage().compareTo("idNonValido") == 0) {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                    ErroreAutenticazione errAut = new ErroreAutenticazione(2);
+                    errAut.start(stage);
+                } else if (e.getMessage().compareTo("passwordNonValida") == 0) {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                    ErroreAutenticazione errAut = new ErroreAutenticazione(1);
+                    errAut.start(stage);
+                }
             }
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 

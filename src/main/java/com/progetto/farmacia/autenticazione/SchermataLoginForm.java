@@ -24,6 +24,7 @@ public class SchermataLoginForm extends Application {
     //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
         AutenticazioneFarmaciaControl autFarmContr = new AutenticazioneFarmaciaControl(this.id, this.password, event);
+        autFarmContr.start();
     }
 
     /**
