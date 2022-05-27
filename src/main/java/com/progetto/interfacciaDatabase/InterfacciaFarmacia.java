@@ -8,6 +8,7 @@ import com.progetto.entity.Farmaco;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -16,18 +17,19 @@ import java.util.ArrayList;
  */
 public class InterfacciaFarmacia {
     /**
-     * Getter per ottenere un lista di oggetti della classe {@code Farmaco} che l'Azienda può produrre
-     * @return lista di segnalazioni
+     * Getter per ottenere un lista di oggetti della classe {@code EntryFormOrdine} riferiti ai farmaci presenti
+     * nel datatabse dell'Azienda
+     * @return lista di farmaci come entry del form ordine
      */
-    public ArrayList<EntryFormOrdine> getFarmaci() {
+    public ArrayList<EntryFormOrdine> getFarmaciEntry() {
         ArrayList<EntryFormOrdine> lista = new ArrayList<>();
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from farmaco");
             while(resultSet.next()) {
                 String nome = resultSet.getString("nome");
-                String principio_attivo = resultSet.getString("principio_attivo");
-                lista.add(new EntryFormOrdine(nome, principio_attivo));
+                String principioAttivo = resultSet.getString("principio_attivo");
+                lista.add(new EntryFormOrdine(nome, principioAttivo));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,6 +37,29 @@ public class InterfacciaFarmacia {
         return lista;
     }
 
+    /**
+     * Getter per ottenere un lista di oggetti della classe {@code Farmaco} per una particolare {@code Farmacia}
+     * @return lista di farmaci
+     */
+    public ArrayList<Farmaco> getFarmaci(int idFarmacia) {
+        ArrayList<Farmaco> lista = new ArrayList<>();
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbcatena", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("select * from farmaco where farmacia_id_farmacia = ?");
+            statement.setInt(1, idFarmacia);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                String nome = resultSet.getString("nome");
+                LocalDate dataScadenza = resultSet.getDate("data_scadenza").toLocalDate();
+                String principio_attivo = resultSet.getString("principio_attivo");
+                int tipo = resultSet.getInt("tipo");
+                int quantita = resultSet.getInt("quantita");
+                lista.add(new Farmaco(nome, principio_attivo, tipo, dataScadenza, quantita));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 
     /**
      * Metodo che ritorna entry della {@code SchermataMagazzino} contenenti tutti i farmaci nel magazzino della farmacia

@@ -116,7 +116,7 @@ public class CreaOrdineControl{
     }
     public void clickSuAggungiFarmaci(Stage stage) throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
-        ArrayList<EntryFormOrdine> farmaci = db.getFarmaci();
+        ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
         for(EntryFormOrdine entry : farmaci) {
             this.setPulsantiListaFarmaci(entry);
         }
