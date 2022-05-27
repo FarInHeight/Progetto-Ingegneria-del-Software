@@ -36,7 +36,9 @@ public class ElencoFarmaci extends Application implements Initializable {
 
     private static CreaOrdineControl control;
 
-    private static ArrayList<EntryFormOrdine> entryElencoFarmaci;
+    private static ArrayList<EntryFormOrdine> farmaci;
+
+    private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
     @FXML
     private TableView<EntryFormOrdine> lista;
 
@@ -64,7 +66,7 @@ public class ElencoFarmaci extends Application implements Initializable {
         if(entryElencoFarmaci == null){
             throw new NullPointerException("entryElencoFarmaci = null");
         }
-        ElencoFarmaci.entryElencoFarmaci = entryElencoFarmaci;
+        ElencoFarmaci.farmaci = entryElencoFarmaci;
     }
 
     private void setFarmacia(Farmacia farmacia){
@@ -128,8 +130,17 @@ public class ElencoFarmaci extends Application implements Initializable {
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
         this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
-        for(EntryFormOrdine entry : ElencoFarmaci.entryElencoFarmaci) {
+        for(EntryFormOrdine entry : ElencoFarmaci.farmaci) {
             this.lista.getItems().add(entry);
         }
+        ElencoFarmaci.ref = this.lista;
+    }
+
+    public void rimuoviFarmaco(EntryFormOrdine entry) {
+        if(entry == null) {
+            throw new NullPointerException("Entry in rimuovi farmaco di ElencoFarmaci = null");
+        }
+        ElencoFarmaci.farmaci.remove(entry);
+        ElencoFarmaci.ref.getItems().remove(entry);
     }
 }

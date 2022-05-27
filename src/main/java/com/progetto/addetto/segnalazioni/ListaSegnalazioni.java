@@ -164,6 +164,6 @@ public class ListaSegnalazioni extends Application implements Initializable {
             throw new NullPointerException("Entry della lista in conferma eliminazione = null");
         }
         ListaSegnalazioni.segnalazioni.remove(entry);
-        ListaSegnalazioni.ref.getItems().remove(entry);  // riga non funzionante
+        ListaSegnalazioni.ref.getItems().remove(entry);
     }
 }
