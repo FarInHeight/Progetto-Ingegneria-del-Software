@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -124,6 +125,9 @@ public class ElencoFarmaci extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ElencoFarmaci.farmacia.getNome());
+        this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
+        this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
+        this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
         for(EntryFormOrdine entry : ElencoFarmaci.entryElencoFarmaci) {
             this.lista.getItems().add(entry);
         }
