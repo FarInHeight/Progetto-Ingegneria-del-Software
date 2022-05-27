@@ -72,7 +72,7 @@ public class VisualizzaMagazzinoControl {
      */
     public void clickSuVisualizzaMagazzino(){
         //Richiedo i farmaci
-        setFarmaci(db.getFarmaci());
+        setFarmaci(db.getFarmaciMagazzino());
         //Asscoio i pulsanti
         for (EntryMagazzinoFarmacia farmaco : getFarmaci()) {
             this.setPulsanti(farmaco);

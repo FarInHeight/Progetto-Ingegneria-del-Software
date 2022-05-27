@@ -33,6 +33,8 @@ public class InterfacciaFarmacia {
             e.printStackTrace();
         }
         return lista;
+    }
+
 
     /**
      * Metodo che ritorna entry della {@code SchermataMagazzino} contenenti tutti i farmaci nel magazzino della farmacia
