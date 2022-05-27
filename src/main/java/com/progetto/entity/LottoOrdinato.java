@@ -45,6 +45,10 @@ public class LottoOrdinato extends Lotto{
         return quantitaOrdine;
     }
 
+    /**
+     * Setter per la quantita di farmaco assocaita ad un ordine
+     * @param quantitaOrdine qunatita di farmaco assocaita ad un ordine
+     */
     public void setQuantitaOrdine(int quantitaOrdine) {
         if (quantitaOrdine < 0) {
             throw new IllegalArgumentException("quantitaOrdine = 0");

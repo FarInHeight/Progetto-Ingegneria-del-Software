@@ -4,16 +4,22 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 
+/**
+ * Classe che modella una entry della {@code ListaSpedizioni}
+ */
 public class EntryListaSpedizioni {
 
     private Ordine ordine;
     private FlowPane strumenti;
 
+    /**
+     * Costruttore per la entry della lista spedizioni
+     * @param ordine ordine in spedizione
+     */
     public EntryListaSpedizioni(Ordine ordine) {
         setOrdine(ordine);
         this.strumenti = new FlowPane();
     }
-
 
     /**
      * getter per l'Ordine
