@@ -26,7 +26,7 @@ public class GestioneSegnalazioniControl {
     // evento associato al click sul pulsante visualizzaSegnalazioni
     private ActionEvent event;
 
-    // stage associato all'evento
+    // stage associato all'evento della schermata principale di addetto
     private Stage stage;
 
     private ListaSegnalazioni lista;
@@ -75,17 +75,17 @@ public class GestioneSegnalazioniControl {
         });
         espandi.setBackground(Background.fill(Color.rgb(38, 189, 27)));
         espandi.setStyle("-fx-text-fill: white");
-        Button rimuovi = new Button("Rimuovi");
-        rimuovi.setOnAction(new EventHandler<ActionEvent>() {
+        Button rimuoviSegnalazione = new Button("Rimuovi");
+        rimuoviSegnalazione.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 GestioneSegnalazioniControl.this.clickSuRimuovi(entry);
             }
         });
-        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
-        rimuovi.setStyle("-fx-text-fill: white");
+        rimuoviSegnalazione.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuoviSegnalazione.setStyle("-fx-text-fill: white");
         FlowPane flow = new FlowPane();
-        flow.getChildren().addAll(espandi, rimuovi);
+        flow.getChildren().addAll(espandi, rimuoviSegnalazione);
         flow.setAlignment(Pos.CENTER);
         flow.setHgap(10);
         entry.setStrumenti(flow);
@@ -139,6 +139,24 @@ public class GestioneSegnalazioniControl {
      * @param segnalazione segnalazione da rimuovere
      */
     public void clickSuRimuovi(EntryListaSegnalazioni segnalazione) {
-
+        RichiestaConfermaRimozione richiesta = new RichiestaConfermaRimozione(segnalazione, this);  // mostra a video un avviso di rimozione
+        try {
+            richiesta.start(this.lista.getStage());  // faccio partire la schermata di riepilogo
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    /**
+     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code elimina} di una entry della {@code RichiestaConfermaRimozione}.
+     * La {@code GestioneSegnalazioniControl} distrugge
+     * @param segnalazione segnalazione da rimuovere
+     */
+    public void clickSuElimina(Stage substage, EntryListaSegnalazioni segnalazione) {
+        //InterfacciaAddetto db = new InterfacciaAddetto();
+        //db.eliminaSegnalazione(segnalazione.getIdSegnalazione());
+        this.lista.confermaEliminazione(segnalazione);
+        substage.close();
+    }
+
 }

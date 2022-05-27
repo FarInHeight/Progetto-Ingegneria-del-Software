@@ -59,6 +59,8 @@ public class ListaSegnalazioni extends Application implements Initializable {
     /**
      * Costruisce una {@code ListaSegnalazioni} secondo il contenuto nel DBMS dell'Azienda
      * @param addetto addetto che richiede la lista delle segnalazioni
+     * @param segnalazioni lista delle segnalazioni
+     * @param control control che ha dato origine alla lista delle segnalazioni
      */
     public ListaSegnalazioni(AddettoAzienda addetto, ArrayList<EntryListaSegnalazioni> segnalazioni, GestioneSegnalazioniControl control){
         super();
@@ -107,7 +109,7 @@ public class ListaSegnalazioni extends Application implements Initializable {
 
         this.stage.setTitle("Lista Segnalazioni");
         this.stage.setScene(scene);
-        this.stage.setMinWidth(stageWidth + 50);
+        this.stage.setMinWidth(stageWidth);
         this.stage.setMinHeight(stageHeight);
         this.stage.initOwner(stage);
         this.stage.show();
@@ -134,15 +136,28 @@ public class ListaSegnalazioni extends Application implements Initializable {
 
     /**
      * Metodoa accessibile solo dalle classi dello stesso package  per ottenere lo {@code Stage} della {@code ListaSegnalazioni}
-     * @return
+     * @return stage della lista
      */
     Stage getStage() {
         return this.stage;
     }
 
+
     @FXML
     private void indietro(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente
         ListaSegnalazioni.control.clickSuIndietro(stage);
+    }
+
+    /**
+     * Metodo utilizzato per rimuovere una entry dalla {@code ListaSegnalazioni}
+     * @param entry segnalazione da rimuovere dalla lista
+     */
+    public void confermaEliminazione(EntryListaSegnalazioni entry) {
+        if(entry == null) {
+            throw new NullPointerException("Entry della lista in conferma eliminazione = null");
+        }
+        ListaSegnalazioni.segnalazioni.remove(entry);
+        this.lista.getItems().remove(entry);  // riga non funzionante
     }
 }

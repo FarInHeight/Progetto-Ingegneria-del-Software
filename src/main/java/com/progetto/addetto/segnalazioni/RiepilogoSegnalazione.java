@@ -2,12 +2,14 @@ package com.progetto.addetto.segnalazioni;
 
 import com.progetto.entity.EntryListaSegnalazioni;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -105,7 +107,12 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
     }
 
     @FXML
-    private void creaOrdine() {
+    private void creaOrdine(ActionEvent event) {
 
+    }
+
+    @FXML
+    private void chiudi(ActionEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo la finestra di riepilogo
     }
 }

@@ -57,4 +57,18 @@ public class InterfacciaAddetto {
         }
         return null;
     }
+
+    /**
+     * Metodo che permette di eliminare una segnalazione nel database dell'Azienda conoscendone l'ID
+     * @param idSegnalazione ID della segnalazione
+     */
+    public void eliminaSegnalazione(int idSegnalazione) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("delete from segnalazione where id_segnalazione = ?");
+            statement.setInt(1, idSegnalazione);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

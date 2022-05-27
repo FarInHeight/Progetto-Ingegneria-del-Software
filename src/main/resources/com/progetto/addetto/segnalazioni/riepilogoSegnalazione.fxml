@@ -61,7 +61,8 @@
                   <Font size="16.0" />
                </font>
             </TextArea>
-            <Button layoutX="242.0" layoutY="567.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#creaOrdine" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #26bd1b;" text="CREA ORDINE" textFill="WHITE" />
+            <Button layoutX="425.0" layoutY="568.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#creaOrdine" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #26bd1b;" text="CREA ORDINE" textFill="WHITE" />
+            <Button layoutX="57.0" layoutY="568.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiudi" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #ff4f42;" text="CHUDI" textFill="WHITE" />
          </children>
       </Pane>
    </center>
