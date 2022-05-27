@@ -7,7 +7,13 @@ import javafx.scene.layout.FlowPane;
 public class EntryListaSpedizioni {
 
     private Ordine ordine;
-    private final FlowPane strumenti;
+    private FlowPane strumenti;
+
+    public EntryListaSpedizioni(Ordine ordine) {
+        setOrdine(ordine);
+        this.strumenti = new FlowPane();
+    }
+
 
     /**
      * getter per l'Ordine
@@ -17,6 +23,10 @@ public class EntryListaSpedizioni {
         return ordine;
     }
 
+    /**
+     * Setter per l'ordine
+     * @param ordine da impostare
+     */
     public void setOrdine(Ordine ordine) {
         if (ordine == null) {
             throw new NullPointerException("ordine = null");
@@ -32,14 +42,13 @@ public class EntryListaSpedizioni {
         return strumenti;
     }
 
-    public EntryListaSpedizioni(Ordine ordine) {
-        setOrdine(ordine);
-        Button consegna = new Button("consegna");
-        //espandi.setBackground(Background.fill(Color.rgb(38, 189, 27)));
-        //espandi.setStyle("-fx-text-fill: white");
-        strumenti = new FlowPane();
-        strumenti.getChildren().add(consegna);
-        strumenti.setAlignment(Pos.CENTER);
+    /**
+     * Setter per gli strumenti
+     * @param strumenti strumenti
+     */
+    public void setStrumenti(Button strumenti) {
+        this.strumenti.getChildren().add(strumenti);
+        this.strumenti.setAlignment(Pos.CENTER);
     }
 
     /**

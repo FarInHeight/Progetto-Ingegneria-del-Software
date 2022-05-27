@@ -37,13 +37,65 @@ public class InterfacciaCorriere {
         return spedizioni;
     }
 
-    public void modificaStatoInSpedizione(int id_ordine) {
+    public void modificaStatoInSpedizione(int idOrdine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
-            PreparedStatement statement = connection.prepareStatement("update ordine set stato = 2 where id_ordine = ?");
-            statement.setInt(1,id_ordine);
+            PreparedStatement statement = connection.prepareStatement("update ordine " +
+                    "set stato = 2 " +
+                    "where id_ordine = ? AND stato = 1");
+            statement.setInt(1,idOrdine);
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public void modificaStatoInElaborazione(int idOrdine) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("update ordine " +
+                    "set stato = 1 " +
+                    "where id_ordine = ? AND stato = 2");
+            statement.setInt(1,idOrdine);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificaStatoInConsegnato(int idOrdine, String nominativo) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("update ordine " +
+                    "set stato = 3, firma_consegna = ?" +
+                    "where id_ordine = ? AND stato = 2");
+            statement.setInt(2,idOrdine);
+            statement.setString(1,nominativo);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void rimuoviLottiConsegnati(LottoOrdinato lotto) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statementQuantitaLotti = connection.prepareStatement("select * " +
+                    "from lotto " +
+                    "where id_lotto = ?");
+            statementQuantitaLotti.setInt(1,lotto.getIdLotto());
+            ResultSet lottoRicevuto = statementQuantitaLotti.executeQuery();
+            lottoRicevuto.next();
+            int nuovaQuantitaContenuta = lottoRicevuto.getInt("n_contenuti") - lotto.getQuantitaOrdine();
+            int nuovaQuantitaOrdinata = lottoRicevuto.getInt("n_ordinati") - lotto.getQuantitaOrdine();
+            System.out.println(nuovaQuantitaOrdinata + " " + nuovaQuantitaContenuta);
+
+            PreparedStatement statement = connection.prepareStatement("update lotto " +
+                    "set n_contenuti = ?, n_ordinati = ? " +
+                    "where id_lotto = ?");
+            statement.setInt(1,nuovaQuantitaContenuta);
+            statement.setInt(2,nuovaQuantitaOrdinata);
+            statement.setInt(3,lotto.getIdLotto());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

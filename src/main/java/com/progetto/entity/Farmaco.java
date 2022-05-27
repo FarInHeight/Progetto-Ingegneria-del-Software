@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Classe che descrive un {@code Farmaco} trattato dall'Azienda o presente nel magazzino della Farmacia.
  */
-public class Farmaco implements Cloneable{
+public class Farmaco {
 
 
     private String nome;
@@ -27,8 +27,6 @@ public class Farmaco implements Cloneable{
         this.setNome(nome);
         this.setPrincipioAttivo(principioAttivo);
         this.setTipo(tipo);
-        this.setDataScadenza(dataScadenza);
-        this.setQuantita(quantita);
     }
 
     /**
