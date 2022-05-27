@@ -96,7 +96,6 @@ public class ConfermaRicezioneSpedizioneControl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
