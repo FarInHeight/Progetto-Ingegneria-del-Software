@@ -136,6 +136,15 @@ public class ElencoFarmaci extends Application implements Initializable {
         ElencoFarmaci.ref = this.lista;
     }
 
+    public void aggiungiFarmaco(EntryFormOrdine entry) {
+        if(entry == null) {
+            throw new NullPointerException("Entry in aggiungi farmaco = null");
+        }
+        if(!ElencoFarmaci.farmaci.contains(entry)) {
+            ElencoFarmaci.farmaci.add(entry);
+            ElencoFarmaci.ref.getItems().add(entry);
+        }
+    }
     public void rimuoviFarmaco(EntryFormOrdine entry) {
         if(entry == null) {
             throw new NullPointerException("Entry in rimuovi farmaco di ElencoFarmaci = null");

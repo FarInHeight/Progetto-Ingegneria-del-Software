@@ -106,6 +106,7 @@ public class CreaOrdineControl{
 
     private void clickSuRimuovi(EntryFormOrdine entry) {
         this.setPulsantiListaFarmaci(entry);
+        this.elenco.aggiungiFarmaco(entry);
         this.formOrdine.rimuoviFarmaco(entry);
     }
     private void clickSuAggiungi(EntryFormOrdine entry) {
