@@ -88,7 +88,7 @@ public class ConfermaRicezioneSpedizioneControl {
     /**
      * Metodo che instanza un {@code RiepologoOrdineForm} per mostrare a schermo il riepologo della spedizione
      */
-    public void mostraRiepilogo() {
+    public void clickSuConsegna() {
         RiepilogoOrdineForm riepilogoOrdineForm = new RiepilogoOrdineForm(getSpedizione(), this);
         getStage().hide();
         try {
@@ -96,7 +96,6 @@ public class ConfermaRicezioneSpedizioneControl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -106,7 +105,7 @@ public class ConfermaRicezioneSpedizioneControl {
      *
      * @param nominativoFarmacista nominativo del farmacista che ha firmato la consegna, da inviare la database
      */
-    public void confermaRicezione(String nominativoFarmacista) {
+    public void clickSuConfermaRicezione(String nominativoFarmacista) {
         InterfacciaCorriere db = new InterfacciaCorriere();
         db.modificaStatoInConsegnato(spedizione.getIdOrdine(), nominativoFarmacista);
         ArrayList<LottoOrdinato> lotti = spedizione.getOrdine().getLottiContenuti();

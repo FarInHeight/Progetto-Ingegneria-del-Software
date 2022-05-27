@@ -1,7 +1,8 @@
 package com.progetto.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Classe che descrive un {@code Farmaco} trattato dall'Azienda o presente nel magazzino della Farmacia.
@@ -55,6 +56,20 @@ public class Farmaco {
         this.setNome(nomeFarmaco);
         this.setPrincipioAttivo(principioAttivo);
     }
+
+    /**
+     * costruttre di un {@code farmaco} a partire dal risultato di una query sul database
+     * @param farmaco risultato della query
+     * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
+     */
+    public Farmaco(ResultSet farmaco) throws SQLException {
+        this.setNome(farmaco.getString("nome"));
+        this.setPrincipioAttivo(farmaco.getString("principio_attivo"));
+        this.setDataScadenza(farmaco.getDate("data_scadenza").toLocalDate());
+        this.setTipo(farmaco.getInt("tipo"));
+        this.setQuantita(farmaco.getInt("quantita"));
+    }
+
     /**
      * setter per il nome del Farmaco
      * @param nome nome del farmaco
@@ -151,5 +166,3 @@ public class Farmaco {
     }
 
 }
-
-//LocalDate.of(2022, 05, 23).format(DateTimeFormatter.ofPattern("d/MM/uuuu"))
