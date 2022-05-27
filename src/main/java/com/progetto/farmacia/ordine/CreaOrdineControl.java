@@ -104,14 +104,14 @@ public class CreaOrdineControl{
         entry.setStrumenti(flow);
     }
 
-    public void clickSuAggungiFarmaci() throws IOException {
+    public void clickSuAggungiFarmaci(Stage stage) throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaci();
         for(EntryFormOrdine entry : farmaci) {
             this.setPulsantiListaFarmaci(entry);
         }
         ElencoFarmaci elencoFarmaci = new ElencoFarmaci(this,this.farmacia,farmaci);
-        elencoFarmaci.start(this.stage);
+        elencoFarmaci.start(stage);
     }
 
     /**

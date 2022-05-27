@@ -83,7 +83,8 @@ public class FormOrdine extends Application implements Initializable {
 
     @FXML
     private void aggiungiFarmaci(ActionEvent event) throws IOException{
-        FormOrdine.control.clickSuAggungiFarmaci();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+        FormOrdine.control.clickSuAggungiFarmaci(stage);
     }
 
     @FXML
