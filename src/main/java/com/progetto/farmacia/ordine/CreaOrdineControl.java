@@ -3,8 +3,6 @@ package com.progetto.farmacia.ordine;
 import com.progetto.entity.Farmacia;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -17,6 +15,7 @@ public class CreaOrdineControl{
     private ActionEvent event;
     private Stage stage;
     private FormOrdine formOrdine;
+
 
     /**
      * Costruttore che permette di creare una {@code CreaOrdineControl}
@@ -52,6 +51,19 @@ public class CreaOrdineControl{
         this.stage = stage;
     }
 
+    public void mostraElencoFarmaci() throws IOException {
+        ElencoFarmaci elencoFarmaci = new ElencoFarmaci(this,this.farmacia);
+        elencoFarmaci.start(this.stage);
+    }
+
+    /**
+     * ritorna lo stage corrente
+     * @return oggetto di tipo {@code Stage} contenente lo stage corrente
+     */
+    public Stage getStage() {
+        return this.stage;
+    }
+
     /**
      * Metodo tramite il quale un oggetto di tipo {@code FromOrdine} avvisa la {@code FormOrdineControl}
      * del click sul pulsante {@code indietro} e distrugge il form ordine.
@@ -66,10 +78,9 @@ public class CreaOrdineControl{
 
     /**
      * metodo di avvio della control
-     * @param event evento di pressione del pulsante cre ordine
      * @throws IOException se il caricamento del file fxml del form ordine non è andato a buon fine
      */
-    public void start(ActionEvent event) throws IOException{
+    public void start() throws IOException{
         this.stage.hide();
         this.formOrdine = new FormOrdine(this.farmacia,this);
         this.formOrdine.start(this.stage);

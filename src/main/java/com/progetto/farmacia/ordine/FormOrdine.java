@@ -15,11 +15,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -30,10 +30,10 @@ public class FormOrdine extends Application implements Initializable {
 
     private static Farmacia farmacia;
 
-    private static EntryFormOrdine entryFormOrdine;
+    //private static EntryFormOrdine entryFormOrdine;
     private static CreaOrdineControl control;
     private Stage stage;
-
+    private ArrayList<EntryFormOrdine> entryFormOrdine;
     @FXML
     private Text usernameLabel;
 
@@ -82,6 +82,12 @@ public class FormOrdine extends Application implements Initializable {
     }
 
     @FXML
+    private void aggiungiFarmaci(ActionEvent event) throws IOException{
+        CreaOrdineControl creaOrdineControl = new CreaOrdineControl(FormOrdine.farmacia, event);
+        creaOrdineControl.mostraElencoFarmaci();
+    }
+
+    @FXML
     private void indietro(ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
         FormOrdine.control.clickSuIndietro(stage);
@@ -96,8 +102,8 @@ public class FormOrdine extends Application implements Initializable {
             if(tabella.getColumns().get(0).getCellData(i) == null){
                 break;
             }
-            String NomeFarmaco = (String) tabella.getColumns().get(0).getCellData(i).toString();
-            String princpioAttivo = (String) tabella.getColumns().get(1).getCellData(i).toString();
+            String NomeFarmaco = tabella.getColumns().get(0).getCellData(i).toString();
+            String princpioAttivo = tabella.getColumns().get(1).getCellData(i).toString();
             farmaci.add(new Farmaco(NomeFarmaco, princpioAttivo));
         }
         //richiama verificaCorrettazzaFarmaci passando LinkedList<Farmaco>
@@ -145,9 +151,7 @@ public class FormOrdine extends Application implements Initializable {
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
 
-        entryFormOrdine = new EntryFormOrdine("farmaco A", "principiob");
         EntryFormOrdine e = new EntryFormOrdine("famraco B", "principioc");
-        this.lista.getItems().add(entryFormOrdine);
         this.lista.getItems().add(e);
 
     }
