@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
+
 import javax.security.auth.login.CredentialException;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -21,6 +23,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public class AutenticazioneAddettoControl {
 
+    private TextField idAddetto;
+    private PasswordField password;
+    private ActionEvent event;
     /**
      * istanzia l'oggetto dati in input l'id dell'Addetto dell'Azienda e la password
      * @param idAddetto id dell'Addetto
@@ -28,31 +33,60 @@ public class AutenticazioneAddettoControl {
      * @param event evento che rappresenta il click del tasto login
      * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
-    public AutenticazioneAddettoControl(TextField idAddetto, PasswordField password, ActionEvent event) throws IOException {
-        String pwd = this.creaDigest(password.getText());
-        try {
-            int id = Integer.parseInt(idAddetto.getText());
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            this.verificaCredenziali(this.getCredenziali(id,pwd));
-            stage.close(); //chiudo schermata autenticazione
-        } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-            ErroreAutenticazione errAut = new ErroreAutenticazione(0);
-            errAut.start(stage);
-        } catch (CredentialException e){ //credenziali non corrette
-            if(e.getMessage().compareTo("idNonValido") == 0) {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-                ErroreAutenticazione errAut = new ErroreAutenticazione(2);
-                errAut.start(stage);
-            }
-            else if(e.getMessage().compareTo("passwordNonValida") == 0) {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-                ErroreAutenticazione errAut = new ErroreAutenticazione(1);
-                errAut.start(stage);
-            }
-        }
+    public AutenticazioneAddettoControl(TextField idAddetto, PasswordField password, ActionEvent event) {
+        this.setIdAddetto(idAddetto);
+        this.setPassword(password);
+        this.setEvent(event);
     }
 
+    private void setIdAddetto(TextField idAddetto) {
+        if(idAddetto == null) {
+            throw new NullPointerException("ID addetto = null");
+        }
+        this.idAddetto = idAddetto;
+    }
+
+    private void setPassword(PasswordField password) {
+        if(password == null) {
+            throw new NullPointerException("Password addetto = null");
+        }
+        this.password = password;
+    }
+
+    private void setEvent(ActionEvent event) {
+        if(event == null) {
+            throw new NullPointerException("Event = null");
+        }
+        this.event = event;
+    }
+
+    public void start() {
+        try {
+            String pwd = this.creaDigest(password.getText());
+            try {
+                int id = Integer.parseInt(idAddetto.getText());
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                this.verificaCredenziali(this.getCredenziali(id, pwd));
+                stage.close(); //chiudo schermata autenticazione
+            } catch (NumberFormatException e) { //id farmacia inserito in un formato non corretto
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                ErroreAutenticazione errAut = new ErroreAutenticazione(0);
+                errAut.start(stage);
+            } catch (CredentialException e) { //credenziali non corrette
+                if (e.getMessage().compareTo("idNonValido") == 0) {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                    ErroreAutenticazione errAut = new ErroreAutenticazione(2);
+                    errAut.start(stage);
+                } else if (e.getMessage().compareTo("passwordNonValida") == 0) {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+                    ErroreAutenticazione errAut = new ErroreAutenticazione(1);
+                    errAut.start(stage);
+                }
+            }
+        } catch(IOException exc) {
+            exc.printStackTrace();
+        }
+    }
     private String creaDigest(String password){
         MessageDigest md = null;
         try {
