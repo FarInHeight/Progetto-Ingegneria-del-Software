@@ -18,6 +18,7 @@ public class Ordine {
     private LocalDate dataConsegna;
     private String nomeFarmacia;
     private String indirizzoConsegna;
+    private int idFarmacia;
     private ArrayList<LottoOrdinato> lottiContenuti;
 
     /**
@@ -57,6 +58,7 @@ public class Ordine {
         this.setDataConsegna(ordine.getDate("data_consegna"));
         this.setNomeFarmacia(ordine.getString("nome"));
         this.setIndirizzoConsegna(ordine.getString("indirizzo"));
+        this.setIdFarmacia(ordine.getInt("id_farmacia"));
     }
 
     /**
@@ -164,6 +166,17 @@ public class Ordine {
             throw new NullPointerException("Indirizzo di Consegna = null");
         }
         this.indirizzoConsegna = indirizzoConsegna;
+    }
+
+    /**
+     * Setter per l'id della farmacia che ha generato l'ordine
+     * @param idFarmacia id della farmacia che ha generato l'ordine
+     */
+    public void setIdFarmacia(int idFarmacia) {
+        if (idFarmacia < 0){
+            throw new IllegalArgumentException("idFarmacia < 0");
+        }
+        this.idFarmacia = idFarmacia;
     }
 
     /**
@@ -277,6 +290,14 @@ public class Ordine {
      */
     public String getIndirizzoConsegna() {
         return indirizzoConsegna;
+    }
+
+    /**
+     * Getter per l'id della farmacia che ha generato l'ordine
+     * @return id della farmacia che ha generato l'ordine
+     */
+    public int getIdFarmacia() {
+        return idFarmacia;
     }
 
     /**

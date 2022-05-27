@@ -17,10 +17,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che mostra a schermo il riepilogo di una spedizione
+ */
 public class RiepilogoOrdineForm extends Application implements Initializable {
 
     @FXML
@@ -35,19 +39,35 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
     private static ConfermaRicezioneSpedizioneControl control;
     private static EntryListaSpedizioni spedizione;
 
+    /**
+     * Costruttore per il RiepilogoOrdineForm
+     */
     public RiepilogoOrdineForm(){
         super();
     }
 
+    /**
+     * Costruttore per il RiepilogoOrdineForm
+     * @param spedizione spedizione di cui mostrare il riepilogo
+     * @param control control che permette di tornare a visualizzare la {@code ListaSpedizioni}
+     */
     public RiepilogoOrdineForm(EntryListaSpedizioni spedizione, ConfermaRicezioneSpedizioneControl control) {
         setSpedizione(spedizione);
         setControl(control);
     }
 
+    /**
+     * Getter per la control
+     * @return control
+     */
     public ConfermaRicezioneSpedizioneControl getControl() {
         return control;
     }
 
+    /**
+     * Setter per la control
+     * @param control control
+     */
     public void setControl(ConfermaRicezioneSpedizioneControl control) {
         if (control == null) {
             throw new NullPointerException("control = null");
@@ -55,10 +75,18 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
         RiepilogoOrdineForm.control = control;
     }
 
+    /**
+     * Getter per la spedizione di cui mostrare il riepilogo
+     * @return spedizione di cui mostrare il riepilogo
+     */
     public EntryListaSpedizioni getSpedizione() {
         return spedizione;
     }
 
+    /**
+     * Setter per la spedizione di cui mostrare il riepilogo
+     * @param spedizione spedizione di cui mostrare il riepilogo
+     */
     public void setSpedizione(EntryListaSpedizioni spedizione) {
         if (spedizione == null) {
             throw new NullPointerException("spedizione = null");
@@ -66,6 +94,11 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
         RiepilogoOrdineForm.spedizione = spedizione;
     }
 
+    /**
+     * Permette di mostrare a schermo il riepilogo di una spedizione
+     * @param stage stage della schermata
+     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     */
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("riepilogoOrdine.fxml"));
@@ -88,6 +121,9 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
         subStage.show();
     }
 
+    /**
+     * Metodo che inizializza la schermata inserendo i dati relativi alla spedizione
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -104,6 +140,10 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
         infoFarmacia.setText(spedizione.getOrdine().getNomeFarmacia() + ", " + spedizione.getOrdine().getIndirizzoConsegna());
     }
 
+    /**
+     * Metodo che permette di confermare la consegna di una spedizione
+     * @param event evento associato alla pressione del {@code button} conferma consegna
+     */
     @FXML
     public void confermaConsegna(ActionEvent event){
         String nominativo = nominativoFarmacista.getText();
@@ -113,6 +153,10 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
         }
     }
 
+    /**
+     * Permette di tornare indietro e visualizzare la {@code ListaSpedizioni}
+     * @param event evento associato alla pressione del {@code button} consegna
+     */
     @FXML
     private void indietro(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

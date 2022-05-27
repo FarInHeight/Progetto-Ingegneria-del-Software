@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che gestisce la schermata principale del correre
+ */
 public class SchermataPrincipaleCorriere extends Application implements Initializable{
 
     @FXML
@@ -38,21 +41,29 @@ public class SchermataPrincipaleCorriere extends Application implements Initiali
         this.setCorriere(corriere);
     }
 
-    private void setCorriere(Corriere corriere){
+    /**
+     * Setter per il {@code corriere}
+     * @param corriere corriere da associare alla schermata
+     */
+    public void setCorriere(Corriere corriere){
         if(corriere == null){
             throw new NullPointerException("corriere = null");
         }
         SchermataPrincipaleCorriere.corriere = corriere;
     }
 
+    /**
+     * Getter per il {@code corriere}
+     * @return corriere associato alla schermata
+     */
     public static Corriere getCorriere() {
         return corriere;
     }
 
     /**
      * Metodo utilizzato per visualizzare la {@code SchermataPrincipaleCorriere} a schermo
-     * @param stage
-     * @throws IOException
+     * @param stage stage corrente
+     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -75,6 +86,11 @@ public class SchermataPrincipaleCorriere extends Application implements Initiali
         stage.show();
     }
 
+    /**
+     * Metodo per effettuare il logout e tornare alla {@code SchermataAutenticazioneForm}
+     * @param event evento associato alla pressione del {@code button} di logout
+     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     */
     @FXML
     private void logout(ActionEvent event) throws IOException {
         LogoutControl logoutControl = new LogoutControl(event);
@@ -82,14 +98,17 @@ public class SchermataPrincipaleCorriere extends Application implements Initiali
 
     /**
      * Metodo utilizzato per personalizzare la {@code SchermataPrincipaleAddettoAzienda} dell'Addetto
-     * @param url
-     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(SchermataPrincipaleCorriere.corriere.getNominativo());
     }
 
+    /**
+     * Metodo usato per iniziare la creazione della {@code ListaSpedizioni}
+     * @param event evento associato alla pressione del {@code button} visualizza spedizioni
+     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     */
     @FXML
     private void visualizzaListaSpedizioni(ActionEvent event) throws IOException {
         CreaListaSpedizioniControl creaListaSpedizioniControl = new CreaListaSpedizioniControl(event);

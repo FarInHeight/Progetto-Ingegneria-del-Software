@@ -25,14 +25,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che gestisce e mostra a schermo la lista delle spedizioni
+ */
 public class ListaSpedizioni extends Application implements Initializable {
 
     @FXML
     private Text usernameLabel;
-
     @FXML
     private TableView<EntryListaSpedizioni> lista;
-
     @FXML
     private TableColumn<EntryListaSegnalazioni, Integer> idOrdine;
     @FXML
@@ -43,17 +44,28 @@ public class ListaSpedizioni extends Application implements Initializable {
     private TableColumn<EntryListaSegnalazioni, FlowPane> strumenti;
 
     private static ArrayList<EntryListaSpedizioni> spedizioni;
-
     private static CreaListaSpedizioniControl creaListaSpedizioniControl;
 
-    public ListaSpedizioni(){ }
+    /**
+     * Costruttore per la lista spedizioni
+     */
+    public ListaSpedizioni(){ super(); }
 
+    /**
+     * Costruttore per la lista spedizioni
+     * @param spedizioni spedizioni da mostrare a schermo
+     * @param creaListaSpedizioniControl control tramite il quale è possibile tornare alla schermata precedente
+     */
     public ListaSpedizioni(ArrayList<EntryListaSpedizioni> spedizioni, CreaListaSpedizioniControl creaListaSpedizioniControl) {
         super();
         setSpedizioni(spedizioni);
         setCreaListaSpedizioniControl(creaListaSpedizioniControl);
     }
 
+    /**
+     * Setter per la lista delle spedizioni da mostrare
+     * @param spedizioni lista delle spedizioni da mostrare
+     */
     public void setSpedizioni(ArrayList<EntryListaSpedizioni> spedizioni) {
         if (spedizioni == null) {
             throw new NullPointerException("spedizioni = null");
@@ -61,10 +73,18 @@ public class ListaSpedizioni extends Application implements Initializable {
         ListaSpedizioni.spedizioni = spedizioni;
     }
 
+    /**
+     * Getter per le spedizioni
+     * @return spedizioni
+     */
     public static ArrayList<EntryListaSpedizioni> getSpedizioni(){
         return spedizioni;
     }
 
+    /**
+     * Setter per la control della scheramta
+     * @param creaListaSpedizioniControl control della schermata
+     */
     public void setCreaListaSpedizioniControl(CreaListaSpedizioniControl creaListaSpedizioniControl) {
         if (creaListaSpedizioniControl == null) {
             throw new NullPointerException("control = null");
@@ -72,6 +92,11 @@ public class ListaSpedizioni extends Application implements Initializable {
         ListaSpedizioni.creaListaSpedizioniControl = creaListaSpedizioniControl;
     }
 
+    /**
+     * Permette di mostrare la schermata con la lista delle spedizioni
+     * @param stage stage della schermata
+     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listaSpedizioni.fxml"));
@@ -94,6 +119,9 @@ public class ListaSpedizioni extends Application implements Initializable {
         subStage.show();
     }
 
+    /**
+     * Metodo che inizializza la schermata inserendo i dati relativi alle spedizioni
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(SchermataPrincipaleCorriere.getCorriere().getNominativo());
@@ -112,8 +140,11 @@ public class ListaSpedizioni extends Application implements Initializable {
 
     }
 
+    /**
+     * Metodo che aggiorna la schermata in base alle spedizioni da mostrare
+     */
     public void update(){
-        this.lista.getItems().removeAll();
+        this.lista.getItems().clear();
         if (ListaSpedizioni.spedizioni!=null) {
             for(EntryListaSpedizioni spedizione : ListaSpedizioni.spedizioni) {
                 this.lista.getItems().add(spedizione);
@@ -123,12 +154,21 @@ public class ListaSpedizioni extends Application implements Initializable {
         }
     }
 
+    /**
+     * Metodo che crea la control relativa alla consegna delle spedizioni
+     * @param event evento associato alla pressione del {@code button} consegna
+     * @param spedizione spedizione da consegnare
+     */
     public void consegna(ActionEvent event,EntryListaSpedizioni spedizione) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         ConfermaRicezioneSpedizioneControl confermaRicezioneSpedizioneControl = new ConfermaRicezioneSpedizioneControl(stage, spedizione, this);
         confermaRicezioneSpedizioneControl.mostraRiepilogo();
     }
 
+    /**
+     * Permette di tornare indietro e visualizzare la {@code SchermataPrincipaleCorriere}
+     * @param event evento associato alla pressione del {@code button} logout
+     */
     @FXML
     private void indietro(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente

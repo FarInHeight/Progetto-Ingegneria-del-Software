@@ -8,6 +8,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Classe che permette al corriere di interfacciarsi col database
+ */
 public class InterfacciaCorriere {
 
     /**
@@ -37,6 +40,10 @@ public class InterfacciaCorriere {
         return spedizioni;
     }
 
+    /**
+     * Modifica lo stato di un ordine in elaborazione, cambiandolo in spedizione
+     * @param idOrdine ordine di cui modificare lo stato
+     */
     public void modificaStatoInSpedizione(int idOrdine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update ordine " +
@@ -49,6 +56,10 @@ public class InterfacciaCorriere {
         }
     }
 
+    /**
+     * Modifica lo stato di un ordine in spedizione, cambiandolo in elaborazione
+     * @param idOrdine ordine di cui modificare lo stato
+     */
     public void modificaStatoInElaborazione(int idOrdine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update ordine " +
@@ -61,10 +72,14 @@ public class InterfacciaCorriere {
         }
     }
 
+    /**
+     * Modifica lo stato di un ordine in spedizione, cambiandolo in consegnato
+     * @param idOrdine ordine di cui modificare lo stato
+     */
     public void modificaStatoInConsegnato(int idOrdine, String nominativo) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update ordine " +
-                    "set stato = 3, firma_consegna = ?" +
+                    "set stato = 4, firma_consegna = ?" +
                     "where id_ordine = ? AND stato = 2");
             statement.setInt(2,idOrdine);
             statement.setString(1,nominativo);
@@ -74,6 +89,10 @@ public class InterfacciaCorriere {
         }
     }
 
+    /**
+     * Metodo che rimuove dai lotti del database i farmaci consegnati con un ordine
+     * @param lotto lotto associato ad un ordine di cui rimuovere farmaci
+     */
     public void rimuoviLottiConsegnati(LottoOrdinato lotto) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             PreparedStatement statementQuantitaLotti = connection.prepareStatement("select * " +
@@ -84,7 +103,6 @@ public class InterfacciaCorriere {
             lottoRicevuto.next();
             int nuovaQuantitaContenuta = lottoRicevuto.getInt("n_contenuti") - lotto.getQuantitaOrdine();
             int nuovaQuantitaOrdinata = lottoRicevuto.getInt("n_ordinati") - lotto.getQuantitaOrdine();
-            System.out.println(nuovaQuantitaOrdinata + " " + nuovaQuantitaContenuta);
 
             PreparedStatement statement = connection.prepareStatement("update lotto " +
                     "set n_contenuti = ?, n_ordinati = ? " +
@@ -93,6 +111,61 @@ public class InterfacciaCorriere {
             statement.setInt(2,nuovaQuantitaOrdinata);
             statement.setInt(3,lotto.getIdLotto());
             statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Crea un ordine in stato di elaborazione a partire ad un ordine consegnato
+     * @param ordine ordine consegnato
+     */
+    public void prenotaOrdine(Ordine ordine) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            //Inserisco l'Ordine
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,?,?,3,?,null,?)");
+            statement.setDate(1,Date.valueOf(LocalDate.now().plusWeeks(ordine.getPeriodo())));
+            statement.setInt(2,ordine.getTipo());
+            statement.setInt(3,ordine.getPeriodo());
+            statement.setInt(4,ordine.getIdFarmacia());
+            statement.executeUpdate();
+
+            //Ottengo il nuovo id
+            Statement statementOrdine = connection.createStatement();
+            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
+                    "from ordine " +
+                    "order by id_ordine desc " +
+                    "limit 1");
+            ultimoOrdine.next();
+            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
+
+
+            //Aggiungo i lotti vuoti
+            ArrayList<LottoOrdinato> lottiDaPrenotare = ordine.getLottiContenuti();
+            for (LottoOrdinato lotto : lottiDaPrenotare) {
+                //Ottengo l'ultimo id
+                Statement statementLotto = connection.createStatement();
+                ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
+                        "from lotto " +
+                        "order by id_lotto desc " +
+                        "limit 1");
+                ultimoLotto.next();
+                int ultimoIdLotto = ultimoLotto.getInt("id_lotto");
+
+                //aggiungo il lotto vuoto
+                statement = connection.prepareStatement("insert into lotto values (?,?,0,0,?)");
+                statement.setInt(1,ultimoIdLotto+1);
+                statement.setDate(2,Date.valueOf(LocalDate.now().plusYears(2)));
+                statement.setString(3,lotto.getNomeFarmaco());
+                statement.executeUpdate();
+
+                //collego il lotto all'ordine
+                statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+                statement.setInt(1,lotto.getQuantitaOrdine());
+                statement.setInt(2,ultimoIdOrdine);
+                statement.setInt(3,ultimoIdLotto+1);
+                statement.executeUpdate();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
