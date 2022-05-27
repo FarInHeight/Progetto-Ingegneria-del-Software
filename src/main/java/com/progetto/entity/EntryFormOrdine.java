@@ -23,26 +23,6 @@ public class EntryFormOrdine {
     public EntryFormOrdine(String nomeFarmaco, String principioAttivo) {
         this.setNomeFarmaco(nomeFarmaco);
         this.setPrincipioAttivo(principioAttivo);
-
-        Button rimuovi = new Button("RIMUOVI");
-        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
-        rimuovi.setStyle("-fx-text-fill: white");
-        rimuovi.setOnAction(event -> {
-            TableView<EntryFormOrdine> tabella = (TableView<EntryFormOrdine>) ((Node) event.getSource()).getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-            EntryFormOrdine item = tabella.getSelectionModel().getSelectedItem();
-            tabella.getItems().remove(item);
-        });
-        Spinner<Integer> spinner = new Spinner<Integer>();
-        spinner.setEditable(true);
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
-        spinner.setValueFactory(valueFactory);
-        spinner.setMaxWidth(100);
-        FlowPane flow = new FlowPane();
-        flow.getChildren().addAll(spinner, rimuovi);
-        flow.setAlignment(Pos.CENTER);
-        flow.setHgap(10); // dae8fc
-        this.setStrumenti(flow);
-
     }
 
     /**

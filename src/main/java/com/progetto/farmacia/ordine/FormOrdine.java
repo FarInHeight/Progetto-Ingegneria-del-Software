@@ -1,8 +1,6 @@
 package com.progetto.farmacia.ordine;
 
-import com.progetto.addetto.segnalazioni.ListaSegnalazioni;
 import com.progetto.entity.EntryFormOrdine;
-import com.progetto.entity.EntryListaSegnalazioni;
 import com.progetto.entity.Farmacia;
 import com.progetto.entity.Farmaco;
 import javafx.application.Application;
