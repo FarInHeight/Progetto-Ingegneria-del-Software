@@ -3,9 +3,11 @@ package com.progetto.addetto.autenticazione;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
+/**
+ * Classe che implementa la control {@code LogoutControl}
+ */
 public class LogoutControl {
     public LogoutControl(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente

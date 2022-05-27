@@ -9,13 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +34,7 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
         super();
     }
     /**
-     * Costruisce una {@code SchermataPricipaleAddettoAzienda} data in input un oggetto di tipo {@code AddettoAzienda}
+     * Costruisce una {@code SchermataPricipaleAddettoAzienda} dato in input un oggetto di tipo {@code AddettoAzienda}
      * @param addetto farmacia associata alla schermata
      */
     public SchermataPrincipaleAddettoAzienda(AddettoAzienda addetto){
@@ -54,8 +51,8 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
 
     /**
      * Metodo utilizzato per visualizzare la {@code SchermataPrincipaleAddettoAzienda} a schermo
-     * @param stage
-     * @throws IOException
+     * @param stage stage della schermata
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
