@@ -83,7 +83,7 @@ public class CreaOrdineControl{
         entry.setStrumenti(flow);
     }
 
-    private void setPulsantiFromOrdine(EntryFormOrdine entry){
+    private void setPulsantiFormOrdine(EntryFormOrdine entry){
         Button rimuovi = new Button("RIMUOVI");
         rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
         rimuovi.setStyle("-fx-text-fill: white");
