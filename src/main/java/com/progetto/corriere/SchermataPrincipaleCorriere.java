@@ -1,6 +1,5 @@
 package com.progetto.corriere;
 
-
 import com.progetto.addetto.autenticazione.LogoutControl;
 import com.progetto.corriere.gestioneSpedizioni.CreaListaSpedizioniControl;
 import com.progetto.entity.Corriere;
@@ -14,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

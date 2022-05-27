@@ -8,8 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
-
 import javax.security.auth.login.CredentialException;
 import java.io.IOException;
 import java.math.BigInteger;

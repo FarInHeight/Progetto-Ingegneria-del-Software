@@ -45,6 +45,10 @@ public class EntryFormOrdine {
 
     }
 
+    /**
+     * setter per gli strumenti di una entry di {@code FormOrdine}
+     * @param strumenti strumenti della entry
+     */
     public void setStrumenti(FlowPane strumenti){
         if(strumenti == null){
             throw new NullPointerException("strumenti == null");

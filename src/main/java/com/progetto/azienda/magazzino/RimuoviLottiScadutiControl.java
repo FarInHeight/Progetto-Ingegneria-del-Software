@@ -2,7 +2,6 @@ package com.progetto.azienda.magazzino;
 
 import com.progetto.interfacciaDatabase.InterfacciaAzienda;
 import com.progetto.entity.Lotto;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
