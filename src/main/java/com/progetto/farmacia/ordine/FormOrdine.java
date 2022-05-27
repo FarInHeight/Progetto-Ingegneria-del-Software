@@ -81,6 +81,16 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.farmacia = farmacia;
     }
 
+    /**
+     * Metodo per ottenere lo stage del form ordine e permettere ad un oggeto di classe {@code FormOrdineControl}
+     * di mostrarlo. Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @return stage della lista
+     */
+    Stage getStage(){
+        return this.stage;
+    }
+
     @FXML
     private void aggiungiFarmaci(ActionEvent event) throws IOException{
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente

@@ -131,7 +131,8 @@ public class CreaOrdineControl{
      */
     void clickSuIndietro(Stage substage){
         substage.close();
-        this.stage.show();
+        this.formOrdine.getStage().show();
+
     }
 
     /**
