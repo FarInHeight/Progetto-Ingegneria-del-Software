@@ -9,6 +9,7 @@ import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -59,6 +60,18 @@ public class InterfacciaFarmacia {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    public void rimuoviFarmaco(int idFarmacia, Farmaco farmaco) {
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbcatena", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("delete from farmaco where farmacia_id_farmacia = ? and nome = ? and data_scadenza = ?");
+            statement.setInt(1, idFarmacia);
+            statement.setString(2, farmaco.getNome());
+            statement.setString(3, farmaco.getDataScadenza().toString());
+            ResultSet resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
