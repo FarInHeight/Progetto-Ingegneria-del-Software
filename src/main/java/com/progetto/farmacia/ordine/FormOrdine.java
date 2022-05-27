@@ -83,8 +83,7 @@ public class FormOrdine extends Application implements Initializable {
 
     @FXML
     private void aggiungiFarmaci(ActionEvent event) throws IOException{
-        CreaOrdineControl creaOrdineControl = new CreaOrdineControl(FormOrdine.farmacia, event);
-        creaOrdineControl.mostraElencoFarmaci();
+        FormOrdine.control.clickSuAggungiFarmaci();
     }
 
     @FXML

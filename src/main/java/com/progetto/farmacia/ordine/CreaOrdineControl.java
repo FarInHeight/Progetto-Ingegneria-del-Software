@@ -104,7 +104,7 @@ public class CreaOrdineControl{
         entry.setStrumenti(flow);
     }
 
-    public void mostraElencoFarmaci() throws IOException {
+    public void clickSuAggungiFarmaci() throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaci();
         for(EntryFormOrdine entry : farmaci) {
