@@ -2,6 +2,7 @@ package com.progetto.farmacia;
 
 import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.autenticazione.LogoutControl;
+import com.progetto.farmacia.magazzino.VisualizzaMagazzinoControl;
 import com.progetto.farmacia.ordine.CreaOrdineControl;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -40,6 +41,15 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
         super();
         this.setFarmacia(farmacia);
     }
+
+    /**
+     * Getter per la farmacia associata alla schermata
+     * @return farmacia assocaita alla schermata
+     */
+    public static Farmacia getFarmacia() {
+        return farmacia;
+    }
+
     @FXML
     private void logout(ActionEvent event) throws IOException{
         LogoutControl logoutControl = new LogoutControl(event);
@@ -49,6 +59,12 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
     private void creaOrdine(ActionEvent event) throws IOException{
         CreaOrdineControl creaOrdineControl = new CreaOrdineControl(SchermataPrincipaleFarmacia.farmacia,event);
         creaOrdineControl.start(event);
+    }
+
+    @FXML
+    private void visualizzaMagazzino(ActionEvent event) {
+        VisualizzaMagazzinoControl visualizzaMagazzinoControl = new VisualizzaMagazzinoControl(event);
+        visualizzaMagazzinoControl.clickSuVisualizzaMagazzino();
     }
 
     private void setFarmacia(Farmacia farmacia){

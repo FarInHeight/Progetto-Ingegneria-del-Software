@@ -148,7 +148,7 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
     public void confermaConsegna(ActionEvent event){
         String nominativo = nominativoFarmacista.getText();
         if (!(nominativo == null || nominativo.equals(""))) {
-            getControl().confermaRicezione(nominativo);
+            getControl().clickSuConfermaRicezione(nominativo);
             indietro(event);
         }
     }

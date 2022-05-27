@@ -137,7 +137,6 @@ public class ListaSpedizioni extends Application implements Initializable {
                 pulsanteConsegna.setOnAction(event -> consegna(event, spedizione));
             }
         }
-
     }
 
     /**
@@ -162,12 +161,12 @@ public class ListaSpedizioni extends Application implements Initializable {
     public void consegna(ActionEvent event,EntryListaSpedizioni spedizione) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         ConfermaRicezioneSpedizioneControl confermaRicezioneSpedizioneControl = new ConfermaRicezioneSpedizioneControl(stage, spedizione, this);
-        confermaRicezioneSpedizioneControl.mostraRiepilogo();
+        confermaRicezioneSpedizioneControl.clickSuConsegna();
     }
 
     /**
      * Permette di tornare indietro e visualizzare la {@code SchermataPrincipaleCorriere}
-     * @param event evento associato alla pressione del {@code button} logout
+     * @param event evento associato alla pressione del {@code button} indietro
      */
     @FXML
     private void indietro(ActionEvent event) {
