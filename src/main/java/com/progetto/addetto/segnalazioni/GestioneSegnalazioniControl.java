@@ -12,12 +12,11 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Control che gestisce la visualizzazione
+ * Classe che implementa la control {@code GestioneSegnalazioniControl}
  */
 public class GestioneSegnalazioniControl {
 
@@ -92,7 +91,7 @@ public class GestioneSegnalazioniControl {
     }
 
     /**
-     * Metodo di avvio della
+     * Metodo di avvio di un oggetto di classe {@code GestioneSegnalazioneControl}
      */
     public void start() {
         InterfacciaAddetto db = new InterfacciaAddetto();
@@ -123,9 +122,12 @@ public class GestioneSegnalazioniControl {
 
     /**
      * Metodo che viene richiamato quasi si fa un click sul pulsante {@code espandi} di una entry della {@code ListaSegnalazioni}
+     * e si visualizza a schermo un oggetto di classe {@code RiepilogoSegnalazione}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
      * @param segnalazione segnalazione da espandere
      */
-    public void clickSuEspandi(EntryListaSegnalazioni segnalazione) {
+     void clickSuEspandi(EntryListaSegnalazioni segnalazione) {
         RiepilogoSegnalazione riepilogo = new RiepilogoSegnalazione(segnalazione);  // mostra a video il riepilogo
         try {
             riepilogo.start(this.lista.getStage());  // faccio partire la schermata di riepilogo
@@ -136,9 +138,12 @@ public class GestioneSegnalazioniControl {
 
     /**
      * Metodo che viene richiamato quasi si fa un click sul pulsante {@code rimuovi} di una entry della {@code ListaSegnalazioni}
+     * e si visualizza a schermo un oggetto di classe {@code RichiestaConfermaRimozione}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
      * @param segnalazione segnalazione da rimuovere
      */
-    public void clickSuRimuovi(EntryListaSegnalazioni segnalazione) {
+    void clickSuRimuovi(EntryListaSegnalazioni segnalazione) {
         RichiestaConfermaRimozione richiesta = new RichiestaConfermaRimozione(segnalazione, this);  // mostra a video un avviso di rimozione
         try {
             richiesta.start(this.lista.getStage());  // faccio partire la schermata di riepilogo
@@ -149,14 +154,14 @@ public class GestioneSegnalazioniControl {
 
     /**
      * Metodo che viene richiamato quasi si fa un click sul pulsante {@code elimina} di una entry della {@code RichiestaConfermaRimozione}.
-     * La {@code GestioneSegnalazioniControl} distrugge
+     * La {@code GestioneSegnalazioniControl} aggiorna il database dell'Azienda ed elimina la entry della segnalazione dalla {@code ListaSegnalazioni}.
+     * @param substage stage della richiesta di conferma rimozione
      * @param segnalazione segnalazione da rimuovere
      */
-    public void clickSuElimina(Stage substage, EntryListaSegnalazioni segnalazione) {
-        //InterfacciaAddetto db = new InterfacciaAddetto();
-        //db.eliminaSegnalazione(segnalazione.getIdSegnalazione());
+     void clickSuElimina(Stage substage, EntryListaSegnalazioni segnalazione) {
+        InterfacciaAddetto db = new InterfacciaAddetto();
+        db.eliminaSegnalazione(segnalazione.getIdSegnalazione());
         this.lista.confermaEliminazione(segnalazione);
         substage.close();
     }
-
 }

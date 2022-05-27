@@ -14,11 +14,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che implementa la boundary {@code RichiestaConfermaRimozione}
+ */
 public class RichiestaConfermaRimozione extends Application implements Initializable {
     @FXML
     private Text messaggio;
@@ -58,8 +60,8 @@ public class RichiestaConfermaRimozione extends Application implements Initializ
 
     /**
      * Metodo utilizzato per visualizzare la {@code RichiestaConfermaRimozione} a schermo
-     * @param stage
-     * @throws IOException
+     * @param stage stage della richiesta di conferma della rimozione
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {

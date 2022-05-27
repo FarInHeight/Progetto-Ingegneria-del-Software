@@ -10,23 +10,25 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
+/**
+ * Classe che implementa la boundary {@code ErroreAutenticazione}
+ */
 public class ErroreAutenticazione extends Application {
 
     private int tipo;
 
     /**
-     * costruire un istanza di {@code ErroreAutenticazione}
+     * Costruisce un'istanza di {@code ErroreAutenticazione}
      */
     public ErroreAutenticazione(){
         super();
     }
 
     /**
-     * costruire un istanza di {@code ErroreAutenticazione} dato in input il tipo di errore
-     * @param tipo di errore (0 per username errato, 1 per password errata)
+     * Costruisce un'istanza di {@code ErroreAutenticazione} dato in input il tipo di errore ([0] per username errato, [1] per password errata)
+     * @param tipo di errore
      */
     public ErroreAutenticazione(int tipo){
         super();
@@ -39,7 +41,7 @@ public class ErroreAutenticazione extends Application {
 
     /**
      * permette di mostrare la schermata di errore
-     * @param stage {@code stage} della schermata di login
+     * @param stage oggetto di classe {@code Stage} della schermata di login
      * @throws IOException se non è possibile caricare il file fxml della schermata di errore
      */
     @Override

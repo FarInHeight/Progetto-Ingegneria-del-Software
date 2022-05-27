@@ -10,11 +10,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
- * Rappresenta la schermata di login dell'Addetto dell'Azienda
+ * Classe che implementa la boundary {@code SchermataLoginForm}
  */
 public class SchermataLoginForm extends Application {
 
@@ -32,7 +31,7 @@ public class SchermataLoginForm extends Application {
     /**
      * Permette di mostrare la schermata di login
      * @param stage stage della schermata
-     * @throws IOException se il caricamento del file fxml non è andato a buon fine
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
