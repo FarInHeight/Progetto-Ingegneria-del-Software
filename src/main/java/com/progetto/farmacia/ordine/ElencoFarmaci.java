@@ -12,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -53,10 +52,18 @@ public class ElencoFarmaci extends Application implements Initializable {
         super();
     }
 
-    public ElencoFarmaci(CreaOrdineControl control, Farmacia farmacia) {
+    public ElencoFarmaci(CreaOrdineControl control, Farmacia farmacia, ArrayList<EntryFormOrdine> farmaci) {
         super();
         this.setFarmacia(farmacia);
+        this.setEntryElencoFarmaci(farmaci);
         this.setControl(control);
+    }
+
+    private void setEntryElencoFarmaci(ArrayList<EntryFormOrdine> entryElencoFarmaci) {
+        if(entryElencoFarmaci == null){
+            throw new NullPointerException("entryElencoFarmaci = null");
+        }
+        ElencoFarmaci.entryElencoFarmaci = entryElencoFarmaci;
     }
 
     private void setFarmacia(Farmacia farmacia){
@@ -117,7 +124,8 @@ public class ElencoFarmaci extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ElencoFarmaci.farmacia.getNome());
+        for(EntryFormOrdine entry : ElencoFarmaci.entryElencoFarmaci) {
+            this.lista.getItems().add(entry);
+        }
     }
 }
-
-

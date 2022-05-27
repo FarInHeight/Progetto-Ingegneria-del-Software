@@ -1,10 +1,21 @@
 package com.progetto.farmacia.ordine;
 
+import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmacia;
+import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Control che gestisce la creazione di un ordine
@@ -51,8 +62,55 @@ public class CreaOrdineControl{
         this.stage = stage;
     }
 
+    private void setPulsantiListaFarmaci(EntryFormOrdine entry){
+        Button rimuovi = new Button("RIMUOVI");
+        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuovi.setStyle("-fx-text-fill: white");
+        rimuovi.setOnAction(event -> {
+            TableView<EntryFormOrdine> tabella = (TableView<EntryFormOrdine>) ((Node) event.getSource()).getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+            EntryFormOrdine item = tabella.getSelectionModel().getSelectedItem();
+            tabella.getItems().remove(item);
+        });
+        Spinner<Integer> spinner = new Spinner<Integer>();
+        spinner.setEditable(true);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
+        spinner.setValueFactory(valueFactory);
+        spinner.setMaxWidth(100);
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(spinner, rimuovi);
+        flow.setAlignment(Pos.CENTER);
+        flow.setHgap(10); // dae8fc
+        entry.setStrumenti(flow);
+    }
+
+    private void setPulsantiFromOrdine(EntryFormOrdine entry){
+        Button rimuovi = new Button("RIMUOVI");
+        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuovi.setStyle("-fx-text-fill: white");
+        rimuovi.setOnAction(event -> {
+            TableView<EntryFormOrdine> tabella = (TableView<EntryFormOrdine>) ((Node) event.getSource()).getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+            EntryFormOrdine item = tabella.getSelectionModel().getSelectedItem();
+            tabella.getItems().remove(item);
+        });
+        Spinner<Integer> spinner = new Spinner<Integer>();
+        spinner.setEditable(true);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
+        spinner.setValueFactory(valueFactory);
+        spinner.setMaxWidth(100);
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(spinner, rimuovi);
+        flow.setAlignment(Pos.CENTER);
+        flow.setHgap(10); // dae8fc
+        entry.setStrumenti(flow);
+    }
+
     public void mostraElencoFarmaci() throws IOException {
-        ElencoFarmaci elencoFarmaci = new ElencoFarmaci(this,this.farmacia);
+        InterfacciaFarmacia db = new InterfacciaFarmacia();
+        ArrayList<EntryFormOrdine> farmaci = db.getFarmaci();
+        for(EntryFormOrdine entry : farmaci) {
+            this.setPulsantiListaFarmaci(entry);
+        }
+        ElencoFarmaci elencoFarmaci = new ElencoFarmaci(this,this.farmacia,farmaci);
         elencoFarmaci.start(this.stage);
     }
 
