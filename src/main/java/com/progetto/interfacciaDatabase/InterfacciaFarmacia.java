@@ -1,15 +1,11 @@
 package com.progetto.interfacciaDatabase;
 
 import com.progetto.entity.EntryFormOrdine;
-import com.progetto.entity.EntryListaSegnalazioni;
 import com.progetto.entity.Farmaco;
 import com.progetto.entity.EntryMagazzinoFarmacia;
-import com.progetto.entity.Farmaco;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
-
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**

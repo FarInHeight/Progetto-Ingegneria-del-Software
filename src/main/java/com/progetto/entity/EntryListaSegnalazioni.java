@@ -1,14 +1,6 @@
 package com.progetto.entity;
 
-import com.progetto.addetto.segnalazioni.GestioneSegnalazioniControl;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
