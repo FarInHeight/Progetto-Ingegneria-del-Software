@@ -18,7 +18,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -114,14 +113,9 @@ public class ElencoFarmaci extends Application implements Initializable {
      * @param event evento associato alla pressione del {@code button} indietro
      */
     @FXML
-    private void indietro(ActionEvent event) {
+    private void conferma(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente
-        ElencoFarmaci.control.clickSuIndietro(stage);
-    }
-
-    @FXML
-    private void invia(ActionEvent event){
-
+        ElencoFarmaci.control.clickSuConferma(stage);
     }
 
     @Override

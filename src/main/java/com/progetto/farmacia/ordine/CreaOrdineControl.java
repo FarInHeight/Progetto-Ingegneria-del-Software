@@ -1,6 +1,5 @@
 package com.progetto.farmacia.ordine;
 
-import com.progetto.addetto.segnalazioni.GestioneSegnalazioniControl;
 import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmacia;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
@@ -11,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
@@ -143,8 +141,12 @@ public class CreaOrdineControl{
      */
     void clickSuIndietro(Stage substage){
         substage.close();
-        this.formOrdine.getStage().show();
+        this.stage.show();
+    }
 
+    void clickSuConferma(Stage substage){
+        substage.close();
+        this.formOrdine.getStage().show();
     }
 
     /**
