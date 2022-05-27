@@ -23,6 +23,7 @@ public class EntryFormOrdine {
     public EntryFormOrdine(String nomeFarmaco, String principioAttivo) {
         this.setNomeFarmaco(nomeFarmaco);
         this.setPrincipioAttivo(principioAttivo);
+
         Button rimuovi = new Button("RIMUOVI");
         rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
         rimuovi.setStyle("-fx-text-fill: white");
@@ -40,7 +41,15 @@ public class EntryFormOrdine {
         flow.getChildren().addAll(spinner, rimuovi);
         flow.setAlignment(Pos.CENTER);
         flow.setHgap(10); // dae8fc
-        this.strumenti = flow;
+        this.setStrumenti(flow);
+
+    }
+
+    public void setStrumenti(FlowPane strumenti){
+        if(strumenti == null){
+            throw new NullPointerException("strumenti == null");
+        }
+        this.strumenti = strumenti;
     }
 
     private void setNomeFarmaco(String nomeFarmaco) {

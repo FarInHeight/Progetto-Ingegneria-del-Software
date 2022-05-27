@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.corriere.gestioneSpedizioni.RiepilogoOrdineForm">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.corriere.gestioneSpedizioni.RiepilogoOrdineForm">
    <top>
       <BorderPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
          <top>
@@ -21,7 +20,7 @@
          <left>
             <Button mnemonicParsing="false" onAction="#indietro" style="-fx-background-color: #ff9933; -fx-text-fill: WHITE;" text="INDIETRO" translateX="8.0" translateY="-10.0" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="12.0" />
+                  <Font size="15.0" />
                </font>
             </Button>
          </left>
@@ -30,11 +29,15 @@
    <center>
       <Pane prefHeight="435.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="51.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIEPILOGO ORDINE:" />
+            <Text layoutX="51.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIEPILOGO ORDINE:">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
             <TextArea fx:id="riepilogoOrdineTextArea" layoutX="52.0" layoutY="40.0" prefHeight="115.0" prefWidth="499.0" />
             <Text layoutX="51.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INFORMAZIONI CONSEGNA:">
                <font>
-                  <Font size="14.0" />
+                  <Font size="15.0" />
                </font>
             </Text>
             <Text fx:id="infoFarmacia" layoutX="52.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Farmacia NomeFarmacia, via ViaFarmacia" />

@@ -1,12 +1,21 @@
 package com.progetto.farmacia.ordine;
 
+import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmacia;
+import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Control che gestisce la creazione di un ordine
@@ -17,6 +26,7 @@ public class CreaOrdineControl{
     private ActionEvent event;
     private Stage stage;
     private FormOrdine formOrdine;
+
 
     /**
      * Costruttore che permette di creare una {@code CreaOrdineControl}
@@ -52,6 +62,66 @@ public class CreaOrdineControl{
         this.stage = stage;
     }
 
+    private void setPulsantiListaFarmaci(EntryFormOrdine entry){
+        Button rimuovi = new Button("RIMUOVI");
+        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuovi.setStyle("-fx-text-fill: white");
+        rimuovi.setOnAction(event -> {
+            TableView<EntryFormOrdine> tabella = (TableView<EntryFormOrdine>) ((Node) event.getSource()).getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+            EntryFormOrdine item = tabella.getSelectionModel().getSelectedItem();
+            tabella.getItems().remove(item);
+        });
+        Spinner<Integer> spinner = new Spinner<Integer>();
+        spinner.setEditable(true);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
+        spinner.setValueFactory(valueFactory);
+        spinner.setMaxWidth(100);
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(spinner, rimuovi);
+        flow.setAlignment(Pos.CENTER);
+        flow.setHgap(10); // dae8fc
+        entry.setStrumenti(flow);
+    }
+
+    private void setPulsantiFormOrdine(EntryFormOrdine entry){
+        Button rimuovi = new Button("RIMUOVI");
+        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuovi.setStyle("-fx-text-fill: white");
+        rimuovi.setOnAction(event -> {
+            TableView<EntryFormOrdine> tabella = (TableView<EntryFormOrdine>) ((Node) event.getSource()).getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+            EntryFormOrdine item = tabella.getSelectionModel().getSelectedItem();
+            tabella.getItems().remove(item);
+        });
+        Spinner<Integer> spinner = new Spinner<Integer>();
+        spinner.setEditable(true);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
+        spinner.setValueFactory(valueFactory);
+        spinner.setMaxWidth(100);
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(spinner, rimuovi);
+        flow.setAlignment(Pos.CENTER);
+        flow.setHgap(10); // dae8fc
+        entry.setStrumenti(flow);
+    }
+
+    public void clickSuAggungiFarmaci(Stage stage) throws IOException {
+        InterfacciaFarmacia db = new InterfacciaFarmacia();
+        ArrayList<EntryFormOrdine> farmaci = db.getFarmaci();
+        for(EntryFormOrdine entry : farmaci) {
+            this.setPulsantiListaFarmaci(entry);
+        }
+        ElencoFarmaci elencoFarmaci = new ElencoFarmaci(this,this.farmacia,farmaci);
+        elencoFarmaci.start(stage);
+    }
+
+    /**
+     * ritorna lo stage corrente
+     * @return oggetto di tipo {@code Stage} contenente lo stage corrente
+     */
+    public Stage getStage() {
+        return this.stage;
+    }
+
     /**
      * Metodo tramite il quale un oggetto di tipo {@code FromOrdine} avvisa la {@code FormOrdineControl}
      * del click sul pulsante {@code indietro} e distrugge il form ordine.
@@ -61,15 +131,15 @@ public class CreaOrdineControl{
      */
     void clickSuIndietro(Stage substage){
         substage.close();
-        this.stage.show();
+        this.formOrdine.getStage().show();
+
     }
 
     /**
      * metodo di avvio della control
-     * @param event evento di pressione del pulsante cre ordine
      * @throws IOException se il caricamento del file fxml del form ordine non è andato a buon fine
      */
-    public void start(ActionEvent event) throws IOException{
+    public void start() throws IOException{
         this.stage.hide();
         this.formOrdine = new FormOrdine(this.farmacia,this);
         this.formOrdine.start(this.stage);

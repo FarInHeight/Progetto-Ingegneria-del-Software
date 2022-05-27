@@ -58,7 +58,7 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
     @FXML
     private void creaOrdine(ActionEvent event) throws IOException{
         CreaOrdineControl creaOrdineControl = new CreaOrdineControl(SchermataPrincipaleFarmacia.farmacia,event);
-        creaOrdineControl.start(event);
+        creaOrdineControl.start();
     }
 
     @FXML
