@@ -1,8 +1,8 @@
 package com.progetto.corriere.gestioneSpedizioni;
 
-import com.progetto.addetto.segnalazioni.ListaSegnalazioni;
 import com.progetto.corriere.SchermataPrincipaleCorriere;
-import com.progetto.entity.*;
+import com.progetto.entity.EntryListaSegnalazioni;
+import com.progetto.entity.EntryListaSpedizioni;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -60,6 +61,10 @@ public class ListaSpedizioni extends Application implements Initializable {
         ListaSpedizioni.spedizioni = spedizioni;
     }
 
+    public static ArrayList<EntryListaSpedizioni> getSpedizioni(){
+        return spedizioni;
+    }
+
     public void setCreaListaSpedizioniControl(CreaListaSpedizioniControl creaListaSpedizioniControl) {
         if (creaListaSpedizioniControl == null) {
             throw new NullPointerException("control = null");
@@ -92,17 +97,36 @@ public class ListaSpedizioni extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(SchermataPrincipaleCorriere.getCorriere().getNominativo());
-        idOrdine.setCellValueFactory(new PropertyValueFactory<>("idOrdine"));
-        nomeFarmacia.setCellValueFactory(new PropertyValueFactory<>("nomeFarmacia"));
-        indirizzoConsegna.setCellValueFactory(new PropertyValueFactory<>("indirizzoConsegna"));
-        strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+        this.idOrdine.setCellValueFactory(new PropertyValueFactory<>("idOrdine"));
+        this.nomeFarmacia.setCellValueFactory(new PropertyValueFactory<>("nomeFarmacia"));
+        this.indirizzoConsegna.setCellValueFactory(new PropertyValueFactory<>("indirizzoConsegna"));
+        this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
 
         if (ListaSpedizioni.spedizioni!=null) {
             for(EntryListaSpedizioni spedizione : ListaSpedizioni.spedizioni) {
                 this.lista.getItems().add(spedizione);
+                Button pulsanteConsegna = (Button)spedizione.getStrumenti().getChildren().get(0);
+                pulsanteConsegna.setOnAction(event -> consegna(event, spedizione));
             }
         }
 
+    }
+
+    public void update(){
+        this.lista.getItems().removeAll();
+        if (ListaSpedizioni.spedizioni!=null) {
+            for(EntryListaSpedizioni spedizione : ListaSpedizioni.spedizioni) {
+                this.lista.getItems().add(spedizione);
+                Button pulsanteConsegna = (Button)spedizione.getStrumenti().getChildren().get(0);
+                pulsanteConsegna.setOnAction(event -> consegna(event, spedizione));
+            }
+        }
+    }
+
+    public void consegna(ActionEvent event,EntryListaSpedizioni spedizione) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        ConfermaRicezioneSpedizioneControl confermaRicezioneSpedizioneControl = new ConfermaRicezioneSpedizioneControl(stage, spedizione, this);
+        confermaRicezioneSpedizioneControl.mostraRiepilogo();
     }
 
     @FXML
