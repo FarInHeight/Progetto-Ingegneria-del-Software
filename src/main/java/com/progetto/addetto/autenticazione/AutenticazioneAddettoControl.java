@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
 /**
  * Classe che implementa la control {@code AutenticazioneAddettoControl}
  */
@@ -29,7 +28,6 @@ public class AutenticazioneAddettoControl {
      * @param idAddetto id dell'Addetto
      * @param password password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
-     * @exception IOException se non è possibile caricare il file {@code fxml} della schermata dell'errore
      */
     public AutenticazioneAddettoControl(TextField idAddetto, PasswordField password, ActionEvent event) {
         this.setIdAddetto(idAddetto);

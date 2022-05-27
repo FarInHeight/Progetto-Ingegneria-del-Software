@@ -29,11 +29,11 @@ public class Corriere {
      * @param recapitoTelefonico recapito telefonico del corriere
      */
     public Corriere(int idCorriere, String nominativo, LocalDate dataNascita, String email, String recapitoTelefonico) {
-        setIdCorriere(idCorriere);
-        setNominativo(nominativo);
-        setDataNascita(dataNascita);
-        setEmail(email);
-        setRecapitoTelefonico(recapitoTelefonico);
+        this.setIdCorriere(idCorriere);
+        this.setNominativo(nominativo);
+        this.setDataNascita(dataNascita);
+        this.setEmail(email);
+        this.setRecapitoTelefonico(recapitoTelefonico);
     }
 
     /**

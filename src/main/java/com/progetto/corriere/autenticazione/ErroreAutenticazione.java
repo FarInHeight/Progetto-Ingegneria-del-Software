@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class ErroreAutenticazione extends Application {

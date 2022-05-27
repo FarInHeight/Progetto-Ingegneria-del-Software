@@ -10,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
@@ -26,6 +25,7 @@ public class SchermataLoginForm extends Application {
     //verifica le credenziali inserite
     private void login(ActionEvent event) throws IOException{
         AutenticazioneCorriereControl autenticazioneCorriereControl = new AutenticazioneCorriereControl(this.id, this.password, event);
+        autenticazioneCorriereControl.start();
     }
 
     /**

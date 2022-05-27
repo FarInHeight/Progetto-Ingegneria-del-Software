@@ -3,7 +3,6 @@ package com.progetto.azienda.produzione;
 import com.progetto.interfacciaDatabase.InterfacciaAzienda;
 import com.progetto.entity.Lotto;
 import com.progetto.entity.Ordine;
-
 import java.util.ArrayList;
 
 /**
