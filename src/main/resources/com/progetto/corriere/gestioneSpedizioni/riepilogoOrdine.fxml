@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.corriere.gestioneSpedizioni.RiepilogoOrdineForm">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.corriere.gestioneSpedizioni.RiepilogoOrdineForm">
    <top>
       <BorderPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
          <top>
@@ -21,7 +18,7 @@
             <Text fx:id="campoIDOrdine" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Ordine" translateX="-20.0" translateY="-10.0" BorderPane.alignment="CENTER" />
          </right>
          <left>
-            <Button mnemonicParsing="false" onAction="#indietro" style="-fx-background-color: #ff9933; -fx-text-fill: WHITE;" text="Indietro" translateX="8.0" translateY="-10.0" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#indietro" style="-fx-background-color: #ff9933; -fx-text-fill: WHITE;" text="INDIETRO" translateX="8.0" translateY="-10.0" BorderPane.alignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
@@ -34,7 +31,7 @@
          <children>
             <Text layoutX="51.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIEPILOGO ORDINE:">
                <font>
-                  <Font size="15.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Text>
             <TextArea fx:id="riepilogoOrdineTextArea" layoutX="52.0" layoutY="40.0" prefHeight="115.0" prefWidth="499.0" />
@@ -45,7 +42,7 @@
             </Text>
             <Text fx:id="infoFarmacia" layoutX="52.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Farmacia NomeFarmacia, via ViaFarmacia" />
             <TextField fx:id="nominativoFarmacista" layoutX="51.0" layoutY="273.0" prefHeight="27.0" prefWidth="204.0" />
-            <Button layoutX="302.0" layoutY="273.0" mnemonicParsing="false" onAction="#confermaConsegna" style="-fx-background-color: #26bd1b; -fx-text-fill: WHITE;" text="Conferma Consegna" />
+            <Button layoutX="302.0" layoutY="273.0" mnemonicParsing="false" onAction="#confermaConsegna" style="-fx-background-color: #26bd1b; -fx-text-fill: WHITE;" text="CONFERMA CONSEGNA" />
          </children>
       </Pane>
    </center>
