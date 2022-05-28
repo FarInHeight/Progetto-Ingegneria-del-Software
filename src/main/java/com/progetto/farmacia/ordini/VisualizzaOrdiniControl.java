@@ -1,9 +1,17 @@
 package com.progetto.farmacia.ordini;
 
+import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 
 /**
  * Classe che implementa la control {@code VisualizzaOrdiniControl}
@@ -41,17 +49,42 @@ public class VisualizzaOrdiniControl {
         this.stage = stage;
     }
 
-    /**
-     * Metodo tramite il quale un oggetto di tipo {@code ListaOrdini} avvisa la {@code VisualizzaOrdiniControl}
-     * del click sul pulsante {@code indietro} e distrugge la ListaOrdini.
-     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
-     * che si trovano nello stesso package.
-     * @param substage sotto-stage della ListaOrdini da distuggere
-     */
-    void clickSuIndietro(Stage substage) {
-        substage.close();
-        this.stage.show();
+    private void setPulsanti(EntryListaOrdini entry) {
+        // creazione dei pulsanti
+        Button carica = new Button("CARICA");
+        carica.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                VisualizzaOrdiniControl.this.clickSuCarica(entry);
+            }
+        });
+        carica.setBackground(Background.fill(Color.rgb(38, 189, 27)));
+        carica.setStyle("-fx-text-fill: white");
+        Button modifica = new Button("MODIFICA");
+        modifica.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                VisualizzaOrdiniControl.this.clickSuModifica(entry);
+            }
+        });
+        modifica.setBackground(Background.fill(Color.rgb(0, 0, 200)));
+        modifica.setStyle("-fx-text-fill: white");
+        Button cancella = new Button("CANCELLA");
+        cancella.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                VisualizzaOrdiniControl.this.clickSuModifica(entry);
+            }
+        });
+        cancella.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        cancella.setStyle("-fx-text-fill: white");
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(carica, modifica, cancella);
+        flow.setAlignment(Pos.CENTER);
+        flow.setHgap(10);
+        entry.setStrumenti(flow);
     }
+
     /**
      * Metodo di avvio di un oggetto di classe {@code VisualizzaOrdiniControl}
      */
@@ -63,5 +96,41 @@ public class VisualizzaOrdiniControl {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Metodo tramite il quale un oggetto di tipo {@code ListaOrdini} avvisa la {@code VisualizzaOrdiniControl}
+     * del click sul pulsante {@code indietro} e distrugge la ListaOrdini.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param substage sotto-stage della ListaOrdini da distuggere
+     */
+    void clickSuIndietro(Stage substage) {
+        substage.close();
+        this.stage.show();
+    }
+
+    /**
+     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code carica} di una entry della {@code ListaOrdini}.
+     * @param entry segnalazione da rimuovere
+     */
+    void clickSuCarica(EntryListaOrdini entry) {
+
+    }
+
+    /**
+     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code modifica} di una entry della {@code ListaOrdini}.
+     * @param entry segnalazione da rimuovere
+     */
+    void clickSuModifica(EntryListaOrdini entry) {
+
+    }
+
+    /**
+     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code cancella} di una entry della {@code ListaOrdini}.
+     * @param entry segnalazione da rimuovere
+     */
+    void clickSuCancella(EntryListaOrdini entry) {
+
     }
 }

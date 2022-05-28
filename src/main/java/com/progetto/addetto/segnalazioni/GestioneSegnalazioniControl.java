@@ -65,7 +65,7 @@ public class GestioneSegnalazioniControl {
 
     private void setPulsanti(EntryListaSegnalazioni entry) {
         // creazione dei pulsanti
-        Button espandi = new Button("Espandi");
+        Button espandi = new Button("ESPANDI");
         espandi.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -74,7 +74,7 @@ public class GestioneSegnalazioniControl {
         });
         espandi.setBackground(Background.fill(Color.rgb(38, 189, 27)));
         espandi.setStyle("-fx-text-fill: white");
-        Button rimuoviSegnalazione = new Button("Rimuovi");
+        Button rimuoviSegnalazione = new Button("RIMUOVI");
         rimuoviSegnalazione.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -153,7 +153,7 @@ public class GestioneSegnalazioniControl {
     }
 
     /**
-     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code elimina} di una entry della {@code RichiestaConfermaRimozione}.
+     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code elimina} della {@code RichiestaConfermaRimozione}.
      * La {@code GestioneSegnalazioniControl} aggiorna il database dell'Azienda ed elimina la entry della segnalazione dalla {@code ListaSegnalazioni}.
      * @param substage stage della richiesta di conferma rimozione
      * @param segnalazione segnalazione da rimuovere
