@@ -100,9 +100,9 @@ public class VerificaCorrettezzaOrdineControl {
                     break;
                 }
                 if (i == lottiRichiesti.size() - 1 && numeroFarmaci != 0 && numeroFarmaci < farmaco.getQuantita()) {  //non ci sono abbastanza farmaci
-                    this.farmaciParzialmenteDisponibili.add(farmaco);
+                    VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili.add(farmaco);
                     for (Lotto lottoTemp : lottiTemp) {
-                        this.lottiParzialmenteDisponibili.add(lottoTemp);
+                        VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili.add(lottoTemp);
                     }
                     break;
                 }
@@ -114,9 +114,9 @@ public class VerificaCorrettezzaOrdineControl {
     }
 
     private void verificaScadenza(){
-        ArrayList<Farmaco> farmaciDisponibiliAvvisoScadenza = new ArrayList<>();
-        ArrayList<Lotto> lottiDisponibiliAvvisoScadenza = new ArrayList<>();
         if(VerificaCorrettezzaOrdineControl.farmaciNonDisponibili.size() == 0 && VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili.size() == 0){  //ci sono abbastanza farmaci per soddisfare l'ordine
+            ArrayList<Farmaco> farmaciDisponibiliAvvisoScadenza = new ArrayList<>();
+            ArrayList<Lotto> lottiDisponibiliAvvisoScadenza = new ArrayList<>();
             for(Farmaco farmacoDisponibile : VerificaCorrettezzaOrdineControl.farmaciDisponibili){
                 for(Lotto lottoDisponibile : VerificaCorrettezzaOrdineControl.lottiDisponibili){
                     if(lottoDisponibile.getNomeFarmaco().compareTo(farmacoDisponibile.getNome()) == 0){
@@ -136,7 +136,7 @@ public class VerificaCorrettezzaOrdineControl {
 
                 AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, VerificaCorrettezzaOrdineControl.farmacia);
                 try {
-                    avvisoScadenza.start(this.stage);
+                    avvisoScadenza.start(VerificaCorrettezzaOrdineControl.stage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -150,38 +150,39 @@ public class VerificaCorrettezzaOrdineControl {
             //viene mostrato a schermo la SchermataErroreQuantita
 
 
-            //alternativa presione pulsante conferma per ricevere parte dei farmaci
+        }
+    }
 
-            ArrayList<Farmaco> farmaciParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
-            ArrayList<Lotto> lottiParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
-            for (Farmaco farmacoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili) {
-                for (Lotto lottoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili) {
-                    if (lottoParzialmenteDisponibile.getNomeFarmaco().compareTo(farmacoParzialmenteDisponibile.getNome()) == 0) {
-                        if (Duration.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).toDays() >= 59) {
-                            farmaciParzialmenteDisponibiliAvvisoScadenza.add(farmacoParzialmenteDisponibile);
-                            lottiParzialmenteDisponibiliAvvisoScadenza.add(lottoParzialmenteDisponibile);
-                        }
+    private static void effettuaOrdineParziale(){
+        ArrayList<Farmaco> farmaciParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
+        ArrayList<Lotto> lottiParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
+        for (Farmaco farmacoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili) {
+            for (Lotto lottoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili) {
+                if (lottoParzialmenteDisponibile.getNomeFarmaco().compareTo(farmacoParzialmenteDisponibile.getNome()) == 0) {
+                    if (Duration.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).toDays() >= 59) {
+                        farmaciParzialmenteDisponibiliAvvisoScadenza.add(farmacoParzialmenteDisponibile);
+                        lottiParzialmenteDisponibiliAvvisoScadenza.add(lottoParzialmenteDisponibile);
                     }
                 }
             }
+        }
 
-            //se ci sono farmaci che scdranno fra meno di 2 mesi
-            if(farmaciParzialmenteDisponibiliAvvisoScadenza.size() != 0) {
-                String farmaciPerAvviso = "";
-                for (Farmaco farmacoInScadenza : farmaciParzialmenteDisponibiliAvvisoScadenza) {
-                    farmaciPerAvviso += (farmacoInScadenza.getNome() + "\t" + farmacoInScadenza.getPrincipioAttivo() + "\n");
-                }
+        //se ci sono farmaci che scadranno fra meno di 2 mesi
+        if(farmaciParzialmenteDisponibiliAvvisoScadenza.size() != 0) {
+            String farmaciPerAvviso = "";
+            for (Farmaco farmacoInScadenza : farmaciParzialmenteDisponibiliAvvisoScadenza) {
+                farmaciPerAvviso += (farmacoInScadenza.getNome() + "\t" + farmacoInScadenza.getPrincipioAttivo() + "\n");
+            }
 
-                AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, VerificaCorrettezzaOrdineControl.farmacia);
-                try {
-                    avvisoScadenza.start(VerificaCorrettezzaOrdineControl.stage);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, VerificaCorrettezzaOrdineControl.farmacia);
+            try {
+                avvisoScadenza.start(VerificaCorrettezzaOrdineControl.stage);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            else{
-                VerificaCorrettezzaOrdineControl.effettuaOrdine();
-            }
+        }
+        else{
+            VerificaCorrettezzaOrdineControl.effettuaOrdine();
         }
     }
 
@@ -222,6 +223,11 @@ public class VerificaCorrettezzaOrdineControl {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
     }
 
+    static  void clickSuConferma(ActionEvent event){
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
+        VerificaCorrettezzaOrdineControl.effettuaOrdineParziale();
+
+    }
     public void start(){
         this.ottieniLotti();
         this.verificaQuantita();
