@@ -120,7 +120,7 @@ public class SchermataMagazzino extends Application implements Initializable {
         subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
         subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        //mostra la schermata di login
+        //mostra la schermata del magazzino
         subStage.setTitle("Magazzino");
         subStage.setScene(scene);
         subStage.setMinWidth(stageWidth + 50);
@@ -151,15 +151,28 @@ public class SchermataMagazzino extends Application implements Initializable {
     }
 
     /**
+     * Metodo che aggiorna la schermata a seguito della rimozione di alcuni farmaci
+     */
+    public void update(){
+        this.lista.getItems().clear();
+        if (SchermataMagazzino.getFarmaci()!=null) {
+            for(EntryMagazzinoFarmacia farmaco : SchermataMagazzino.getFarmaci()) {
+                if (farmaco.getQuantita() != 0) {
+                    this.lista.getItems().add(farmaco);
+                }
+            }
+        }
+    }
+
+    /**
      * Metodo che crea la control relativa alla rimozione di un farmaco
      * @param event evento associato alla pressione del {@code button} rimuovi farmaco
      * @param farmaco farmaco da rimuovere
      */
     public void rimuoviFarmaco(ActionEvent event,EntryMagazzinoFarmacia farmaco) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //ConfermaRicezioneSpedizioneControl confermaRicezioneSpedizioneControl = new ConfermaRicezioneSpedizioneControl(stage, spedizione, this);
-        //confermaRicezioneSpedizioneControl.mostraRiepilogo();
-        System.out.println("Rimuovi");
+        RimuoviFarmaciControl rimuoviFarmaciControl = new RimuoviFarmaciControl(farmaco,stage,this);
+        rimuoviFarmaciControl.clickSuRimuoviFarmaco();
     }
 
     /**
