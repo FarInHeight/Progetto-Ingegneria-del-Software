@@ -4,7 +4,6 @@ import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmacia;
 import com.progetto.entity.Farmaco;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +32,7 @@ public class FormOrdine extends Application implements Initializable {
     private static CreaOrdineControl control;
 
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
-    private Stage stage;
+    private static Stage stage;
     private static ArrayList<EntryFormOrdine> farmaci;
     @FXML
     private Text usernameLabel;
@@ -126,7 +125,7 @@ public class FormOrdine extends Application implements Initializable {
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
 
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia);
+        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage());
         verCorrOrdCtrl.start();
     }
 
