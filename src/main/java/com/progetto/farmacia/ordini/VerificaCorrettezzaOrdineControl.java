@@ -12,13 +12,14 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * classe che si occupa di verificare la correttezza di un ordine e rgistrarlo nel dbms
  */
 public class VerificaCorrettezzaOrdineControl {
 
-    private Stage stage; //stage del form ordine
+    private static Stage stage; //stage del form ordine
     private static Farmacia farmacia;
 
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
@@ -173,7 +174,7 @@ public class VerificaCorrettezzaOrdineControl {
 
                 AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, VerificaCorrettezzaOrdineControl.farmacia);
                 try {
-                    avvisoScadenza.start(this.stage);
+                    avvisoScadenza.start(VerificaCorrettezzaOrdineControl.stage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -204,7 +205,12 @@ public class VerificaCorrettezzaOrdineControl {
                 db.prenotaOrdine(farmaco.getNome());
             }
         }
-        //mostra messaggio conferma ordine
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
+        try {
+            messaggioConfermaOrdine.start(VerificaCorrettezzaOrdineControl.stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     static void clickSuConfermaOrdine(ActionEvent event){
@@ -215,7 +221,6 @@ public class VerificaCorrettezzaOrdineControl {
     static void clickSuAnnullaOrdine(ActionEvent event){
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
     }
-
 
     public void start(){
         this.ottieniLotti();
