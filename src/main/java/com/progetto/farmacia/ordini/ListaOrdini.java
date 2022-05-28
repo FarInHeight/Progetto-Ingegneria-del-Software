@@ -122,7 +122,7 @@ public class ListaOrdini extends Application implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ListaOrdini.farmacia.getNome());
         this.idOrdine.setCellValueFactory(new PropertyValueFactory<>("idOrdine"));
-        this.farmaci.setCellValueFactory(new PropertyValueFactory<>("farmaci"));
+        this.farmaci.setCellValueFactory(new PropertyValueFactory<>("farmaciStringa"));
         this.stato.setCellValueFactory(new PropertyValueFactory<>("stato"));
         this.tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         this.dataConsegna.setCellValueFactory(new PropertyValueFactory<>("dataConsegna"));

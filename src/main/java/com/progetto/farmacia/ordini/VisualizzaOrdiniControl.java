@@ -2,6 +2,7 @@ package com.progetto.farmacia.ordini;
 
 import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
+import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -11,6 +12,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 
 /**
@@ -67,7 +70,7 @@ public class VisualizzaOrdiniControl {
                 VisualizzaOrdiniControl.this.clickSuModifica(entry);
             }
         });
-        modifica.setBackground(Background.fill(Color.rgb(0, 0, 200)));
+        modifica.setBackground(Background.fill(Color.rgb(150, 120, 0)));
         modifica.setStyle("-fx-text-fill: white");
         Button cancella = new Button("CANCELLA");
         cancella.setOnAction(new EventHandler<ActionEvent>() {
@@ -82,6 +85,7 @@ public class VisualizzaOrdiniControl {
         flow.getChildren().addAll(carica, modifica, cancella);
         flow.setAlignment(Pos.CENTER);
         flow.setHgap(10);
+        flow.setVgap(10);
         entry.setStrumenti(flow);
     }
 
@@ -89,8 +93,13 @@ public class VisualizzaOrdiniControl {
      * Metodo di avvio di un oggetto di classe {@code VisualizzaOrdiniControl}
      */
     public void start() {
+        InterfacciaFarmacia db = new InterfacciaFarmacia();
+        ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
+        for(EntryListaOrdini entry : ordini) {
+            this.setPulsanti(entry);
+        }
         this.stage.hide();
-        //this.listaOrdini = new ListaOrdini(this.farmacia,this);
+        this.listaOrdini = new ListaOrdini(this.farmacia, ordini, this);
         try {
             this.listaOrdini.start(this.stage);
         } catch (Exception e) {

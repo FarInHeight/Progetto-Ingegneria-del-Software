@@ -34,7 +34,7 @@
                 <TableColumn fx:id="farmaci" editable="false" prefWidth="126.0" style="-fx-alignment: CENTER;" text="FARMACI " />
                   <TableColumn fx:id="stato" editable="false" prefWidth="131.0" style="-fx-alignment: CENTER;" text="STATO" />
                   <TableColumn fx:id="tipo" editable="false" prefWidth="68.0" style="-fx-alignment: CENTER;" text="TIPO" />
-                  <TableColumn fx:id="dataConsegna" prefWidth="198.0" text="DATA DI CONSEGNA" />
+                  <TableColumn fx:id="dataConsegna" prefWidth="198.0" style="-fx-alignment: CENTER;" text="DATA DI CONSEGNA" />
                   <TableColumn fx:id="strumenti" editable="false" prefWidth="201.0" sortable="false" style="-fx-alignment: CENTER;" text="STRUMENTI" />
               </columns>
                <columnResizePolicy>

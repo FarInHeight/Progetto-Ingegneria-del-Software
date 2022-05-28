@@ -40,6 +40,14 @@ public class EntryListaOrdini {
         return this.ordine.getFarmaci();
     }
 
+    public String getFarmaciStringa() {
+        String farmaci = "";
+        for(Farmaco farmaco : this.ordine.getFarmaci()) {
+            farmaci += farmaco.getNome() + " " + farmaco.getQuantita() + "\n";
+        }
+        return farmaci.stripTrailing();
+    }
+
     public String getStato() {
         return this.ordine.getStatoStringa();
     }

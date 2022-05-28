@@ -45,7 +45,6 @@ public class Ordine {
 
     /**
      * Costruttore che genera un Ordine a partire dal risultato di una query sul database
-     *
      * @param ordine risultato della query composta da una sola tupla
      * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
