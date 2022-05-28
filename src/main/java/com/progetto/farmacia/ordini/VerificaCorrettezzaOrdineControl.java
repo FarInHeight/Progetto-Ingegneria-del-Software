@@ -46,7 +46,7 @@ public class VerificaCorrettezzaOrdineControl {
         if(stage == null){
             throw new NullPointerException("stage = null");
         }
-        this.stage = stage;
+        VerificaCorrettezzaOrdineControl.stage = stage;
     }
     private void setFarmacia(Farmacia farmacia){
         if(farmacia == null){
@@ -133,7 +133,6 @@ public class VerificaCorrettezzaOrdineControl {
                 for (Farmaco farmacoInScadenza : farmaciDisponibiliAvvisoScadenza) {
                     farmaciPerAvviso += (farmacoInScadenza.getNome() + "\t" + farmacoInScadenza.getPrincipioAttivo() + "\n");
                 }
-
                 AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, VerificaCorrettezzaOrdineControl.farmacia);
                 try {
                     avvisoScadenza.start(new Stage());
