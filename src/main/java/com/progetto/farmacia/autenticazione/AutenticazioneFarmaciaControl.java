@@ -1,4 +1,5 @@
 package com.progetto.farmacia.autenticazione;
+import com.progetto.farmacia.magazzino.Tempo;
 import com.progetto.interfacciaDatabase.InterfacciaAutenticazione;
 import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
@@ -115,6 +116,8 @@ public class AutenticazioneFarmaciaControl {
                 SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farmacia);
                 Stage stage = new Stage();
                 schermataPrincipaleFarmacia.start(stage);
+                Tempo tempo = new Tempo(farmacia);
+                tempo.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }

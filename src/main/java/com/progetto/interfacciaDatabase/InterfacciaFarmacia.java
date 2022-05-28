@@ -60,13 +60,18 @@ public class InterfacciaFarmacia {
         return lista;
     }
 
+    /**
+     * Metodo che permette di rimuovere un {@code Farmaco} dal database della Catena Farmaceutico noto l'ID della {@code Farmacia}
+     * @param idFarmacia id della farmacia che intende rimuovere il farmaco
+     * @param farmaco farmaco da rimuovere
+     */
     public void rimuoviFarmaco(int idFarmacia, Farmaco farmaco) {
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbcatena", "root","password")){
             PreparedStatement statement = connection.prepareStatement("delete from farmaco where farmacia_id_farmacia = ? and nome = ? and data_scadenza = ?");
             statement.setInt(1, idFarmacia);
             statement.setString(2, farmaco.getNome());
             statement.setString(3, farmaco.getDataScadenza().toString());
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

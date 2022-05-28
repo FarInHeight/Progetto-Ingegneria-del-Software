@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -66,6 +67,12 @@ public class AvvisoFarmaciScaduti extends Application implements Initializable {
         }
         AvvisoFarmaciScaduti.farmacia = farmacia;
     }
+
+    /**
+     * Metodo utilizzato per visualizzare un oggetto di tipo {@code AvvisoFarmaciScaduti} a schermo
+     * @param stage stage della lista
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
+     */
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("avvisoFarmaciScaduti.fxml"));
@@ -74,20 +81,25 @@ public class AvvisoFarmaciScaduti extends Application implements Initializable {
         double stageWidth = 600;
         double stageHeight = 600;
 
-        Stage subStage = new Stage();
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
-        subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
+        stage.setX(((screenBounds.getWidth() - stageWidth) / 2 + stageWidth));
+        stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        subStage.setTitle("Richiesta Rimozione Segnalazione");
-        subStage.setScene(scene);
-        subStage.setMinWidth(stageWidth);
-        subStage.setMinHeight(stageHeight);
-        subStage.initOwner(stage); //imposto come proprietario del Riepilogo la Lista Spedizioni
-        subStage.show();
+        stage.setTitle("Richiesta Rimozione Segnalazione");
+        stage.setScene(scene);
+        stage.setMinWidth(stageWidth);
+        stage.setMinHeight(stageHeight);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
+    /**
+     * Metodo utilizzato per personalizzare un oggetto di tipo {@code AvvisoFarmaciScaduti} in base ai farmaci scaduti,
+     * ai farmaci che stanno per scadere e alla farmacia che ha effettuato il login nel Sistema.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.farmaciScadutiText.setText(AvvisoFarmaciScaduti.farmaciScaduti);
@@ -96,7 +108,7 @@ public class AvvisoFarmaciScaduti extends Application implements Initializable {
     }
 
     @FXML
-    public void chiudi(ActionEvent event) {
+    private void chiudi(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
     }
 }
