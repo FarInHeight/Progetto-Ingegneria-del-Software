@@ -89,7 +89,7 @@ public class AvvisoFarmaciScaduti extends Application implements Initializable {
         stage.setTitle("Richiesta Rimozione Segnalazione");
         stage.setScene(scene);
         stage.setMinWidth(stageWidth);
-        stage.setMinHeight(stageHeight);
+        stage.setMinHeight(stageHeight + 50);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
