@@ -83,15 +83,17 @@ public class AvvisoScadenza extends Application implements Initializable {
         Scene scene = new Scene(fxmlLoader.load(), 600, 600);
 
         double stageWidth = 600;
-        double stageHeight = 600;
+        double stageHeight = 650;
 
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX(((screenBounds.getWidth() - stageWidth) / 2 + stageWidth));
+        stage.setX((screenBounds.getWidth() - stageWidth) / 2 );
         stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
         stage.setTitle("Avviso Scadenza");
         stage.setScene(scene);
+        stage.setHeight(stageHeight);
+        stage.setWidth(stageHeight);
         stage.setMinWidth(stageWidth);
         stage.setMinHeight(stageHeight);
         stage.initModality(Modality.APPLICATION_MODAL);

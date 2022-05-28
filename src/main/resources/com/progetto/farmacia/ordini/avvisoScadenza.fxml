@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.AvvisoScadenza">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.AvvisoScadenza">
    <top>
       <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #ff9933; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
          <top>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AVVISO FARMACI SCADUTI" translateY="13.0" BorderPane.alignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AVVISO SCADENZA FARMACI" translateY="13.0" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Text>
@@ -35,8 +35,8 @@
                   <Font size="16.0" />
                </font>
             </TextArea>
-            <Button layoutX="131.0" layoutY="489.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#confermaOrdine" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: #26bd1b;" text="CONFERMA ORDINE" textFill="WHITE" />
-            <Button layoutX="333.0" layoutY="489.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#annullaOrdine" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: #ff4f42;" text="ANNULLA ORDINE" textFill="WHITE" />
+            <Button layoutX="340.0" layoutY="489.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#confermaOrdine" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: #26bd1b;" text="CONFERMA ORDINE" textFill="WHITE" />
+            <Button layoutX="131.0" layoutY="489.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#annullaOrdine" prefHeight="30.0" prefWidth="134.0" style="-fx-background-color: #ff4f42;" text="ANNULLA ORDINE" textFill="WHITE" />
          </children>
       </Pane>
    </center>
