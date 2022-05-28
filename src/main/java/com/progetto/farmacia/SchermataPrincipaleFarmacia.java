@@ -68,6 +68,11 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
         visualizzaMagazzinoControl.clickSuVisualizzaMagazzino();
     }
 
+    @FXML
+    private void visualizzaOrdini(ActionEvent event) {
+
+    }
+
     private void setFarmacia(Farmacia farmacia){
         if(farmacia == null){
             throw new NullPointerException("farmacia = null");
