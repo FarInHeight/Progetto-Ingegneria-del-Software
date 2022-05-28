@@ -113,7 +113,7 @@ public class GestioneSegnalazioniControl {
      * del click sul pulsante {@code indietro} e distrugge la ListaSegnalazioni.
      * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
      * che si trovano nello stesso package.
-     * @param substage sotto-stage della ListaSegnalazionio da distuggere
+     * @param substage sotto-stage della ListaSegnalazioni da distuggere
      */
     void clickSuIndietro(Stage substage) {
         substage.close();

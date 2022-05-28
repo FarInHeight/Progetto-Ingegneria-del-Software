@@ -5,6 +5,7 @@ import com.progetto.farmacia.autenticazione.LogoutControl;
 import com.progetto.farmacia.magazzino.VerificaEsaurimentoFarmaciControl;
 import com.progetto.farmacia.magazzino.VisualizzaMagazzinoControl;
 import com.progetto.farmacia.ordini.CreaOrdineControl;
+import com.progetto.farmacia.ordini.VisualizzaOrdiniControl;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,7 +71,8 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
 
     @FXML
     private void visualizzaOrdini(ActionEvent event) {
-
+        VisualizzaOrdiniControl control = new VisualizzaOrdiniControl(SchermataPrincipaleFarmacia.farmacia, event);
+        control.start();
     }
 
     private void setFarmacia(Farmacia farmacia){

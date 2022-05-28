@@ -26,13 +26,10 @@ import java.util.ResourceBundle;
  * Classe che implementa la boundary {@code ListaSegnalazioni}
  */
 public class ListaSegnalazioni extends Application implements Initializable {
-    @FXML
     private static AddettoAzienda addetto;
-
+    private static TableView<EntryListaSegnalazioni> ref;  // riferimento per poter apportare modifiche dall'esterno
     @FXML
     private Text usernameLabel;
-
-    private static TableView<EntryListaSegnalazioni> ref;  // riferimento per poter apportare modifiche dall'esterno
 
     @FXML
     private TableView<EntryListaSegnalazioni> lista;

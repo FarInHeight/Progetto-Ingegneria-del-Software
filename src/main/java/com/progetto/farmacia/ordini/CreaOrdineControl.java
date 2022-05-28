@@ -150,8 +150,8 @@ public class CreaOrdineControl{
     }
 
     /**
-     * metodo di avvio della control
-     * @throws IOException se il caricamento del file fxml del form ordine non è andato a buon fine
+     * Metodo di avvio della control
+     * @throws IOException se il caricamento del file {@code fxml} del form ordine non è andato a buon fine
      */
     public void start() throws IOException{
         this.stage.hide();
