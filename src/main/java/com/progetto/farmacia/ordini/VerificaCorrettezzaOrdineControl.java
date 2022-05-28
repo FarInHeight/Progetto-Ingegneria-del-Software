@@ -233,6 +233,6 @@ public class VerificaCorrettezzaOrdineControl {
     public void start(){
         this.ottieniLotti();
         this.verificaQuantita();
-        //verificaScadenza()
+        this.verificaScadenza();
     }
 }
