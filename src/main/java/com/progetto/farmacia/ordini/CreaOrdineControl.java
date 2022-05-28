@@ -1,4 +1,4 @@
-package com.progetto.farmacia.ordine;
+package com.progetto.farmacia.ordini;
 
 import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmacia;

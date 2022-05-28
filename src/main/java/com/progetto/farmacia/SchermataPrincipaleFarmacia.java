@@ -4,7 +4,7 @@ import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.autenticazione.LogoutControl;
 import com.progetto.farmacia.magazzino.VerificaEsaurimentoFarmaciControl;
 import com.progetto.farmacia.magazzino.VisualizzaMagazzinoControl;
-import com.progetto.farmacia.ordine.CreaOrdineControl;
+import com.progetto.farmacia.ordini.CreaOrdineControl;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,7 +1,6 @@
-package com.progetto.farmacia.ordine;
+package com.progetto.farmacia.ordini;
 
 import com.progetto.entity.Farmacia;
-import com.progetto.farmacia.magazzino.AvvisoFarmaciScaduti;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;

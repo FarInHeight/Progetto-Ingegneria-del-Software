@@ -1,4 +1,4 @@
-package com.progetto.farmacia.ordine;
+package com.progetto.farmacia.ordini;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
