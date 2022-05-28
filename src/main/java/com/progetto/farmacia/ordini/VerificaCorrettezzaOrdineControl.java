@@ -68,7 +68,7 @@ public class VerificaCorrettezzaOrdineControl {
         this.lotti = lotti;
     }
 
-    private void ottieniLotti(){  //funziona, già testato
+    private void ottieniLotti(){
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         this.setLotti(db.getLotti());
     }
@@ -177,7 +177,7 @@ public class VerificaCorrettezzaOrdineControl {
 
             AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, VerificaCorrettezzaOrdineControl.farmacia);
             try {
-                avvisoScadenza.start(VerificaCorrettezzaOrdineControl.stage);
+                avvisoScadenza.start(new Stage());
             } catch (IOException e) {
                 e.printStackTrace();
             }

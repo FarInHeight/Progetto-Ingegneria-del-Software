@@ -19,8 +19,8 @@ public class SchermataErroreQuantita extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schermataErroreQuantita.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 350);
 
-        double stageWidth = 400;
-        double stageHeight = 350;
+        double stageWidth = 410;
+        double stageHeight = 360;
 
         Stage subStage = new Stage();
         //centra la schermata
@@ -30,6 +30,8 @@ public class SchermataErroreQuantita extends Application {
 
         subStage.setTitle("Problema Quantità");
         subStage.setScene(scene);
+        subStage.setWidth(stageWidth);
+        subStage.setHeight(stageHeight);
         subStage.setMinWidth(stageWidth);
         subStage.setMinHeight(stageHeight);
         subStage.initOwner(stage); //imposto come proprietario del Riepilogo la Lista Spedizioni
