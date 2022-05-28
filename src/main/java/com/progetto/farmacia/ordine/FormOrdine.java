@@ -126,7 +126,8 @@ public class FormOrdine extends Application implements Initializable {
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
 
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,farmacia);
+        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia);
+        verCorrOrdCtrl.start();
     }
 
     /**

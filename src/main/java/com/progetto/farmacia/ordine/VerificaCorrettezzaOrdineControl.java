@@ -165,8 +165,8 @@ public class VerificaCorrettezzaOrdineControl {
 
 
     public void start(){
-        //ottieniLotti()
-        //verificaQuantita()
+        this.ottieniLotti();
+        this.verificaQuantita();
         //verificaScadenza()
     }
 }
