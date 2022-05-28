@@ -116,7 +116,7 @@ public class AutenticazioneFarmaciaControl {
                 SchermataPrincipaleFarmacia schermataPrincipaleFarmacia = new SchermataPrincipaleFarmacia(farmacia);
                 Stage stage = new Stage();
                 schermataPrincipaleFarmacia.start(stage);
-                Tempo tempo = new Tempo(farmacia);
+                Tempo tempo = Tempo.getInstance(farmacia);
                 tempo.start();
             } catch (IOException e) {
                 e.printStackTrace();
