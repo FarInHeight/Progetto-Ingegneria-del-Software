@@ -120,7 +120,7 @@ public class VerificaCorrettezzaOrdineControl {
             for(Farmaco farmacoDisponibile : VerificaCorrettezzaOrdineControl.farmaciDisponibili){
                 for(Lotto lottoDisponibile : VerificaCorrettezzaOrdineControl.lottiDisponibili){
                     if(lottoDisponibile.getNomeFarmaco().compareTo(farmacoDisponibile.getNome()) == 0){
-                        if(Period.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).getMonths() >= 2){
+                        if(Period.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).getMonths() < 2){
                             farmaciDisponibiliAvvisoScadenza.add(farmacoDisponibile);
                             lottiDisponibiliAvvisoScadenza.add(lottoDisponibile);
                         }
@@ -160,7 +160,7 @@ public class VerificaCorrettezzaOrdineControl {
         for (Farmaco farmacoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili) {
             for (Lotto lottoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili) {
                 if (lottoParzialmenteDisponibile.getNomeFarmaco().compareTo(farmacoParzialmenteDisponibile.getNome()) == 0) {
-                    if (Period.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).getMonths()>=2) {
+                    if (Period.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).getMonths()<2) {
                         farmaciParzialmenteDisponibiliAvvisoScadenza.add(farmacoParzialmenteDisponibile);
                         lottiParzialmenteDisponibiliAvvisoScadenza.add(lottoParzialmenteDisponibile);
                     }
