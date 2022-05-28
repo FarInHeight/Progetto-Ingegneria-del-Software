@@ -25,7 +25,6 @@ public class VerificaEsaurimentoFarmaciControl {
      * Se la quantità è inferiore a 50 e non vi sono ordini in arrivo che contengono almeno 200 di quel farmaco viene creato un nuovo ordine.
      */
     public void verificaEsaurimento(){
-        System.out.println("verifica");
         ArrayList<Farmaco> farmaci = db.getFarmaciDaBanco();
         for (Farmaco farmaco : farmaci) {
             if (farmaco.getQuantita() < 50) {

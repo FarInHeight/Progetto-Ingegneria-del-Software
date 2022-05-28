@@ -44,6 +44,6 @@ public class SchermataErroreQuantita extends Application {
 
     @FXML
     private void conferma(ActionEvent event) {
-
+        VerificaCorrettezzaOrdineControl.clickSuConferma(event);
     }
 }
