@@ -80,7 +80,7 @@ public class AvvisoFarmaciScaduti extends Application implements Initializable {
         subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
         subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        subStage.setTitle("Richiesta Rimozione Segnalazione");
+        subStage.setTitle("Avviso Farmaci Scaduti");
         subStage.setScene(scene);
         subStage.setMinWidth(stageWidth);
         subStage.setMinHeight(stageHeight);
