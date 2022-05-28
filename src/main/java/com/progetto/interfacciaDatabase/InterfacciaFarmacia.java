@@ -181,6 +181,11 @@ public class InterfacciaFarmacia {
         return quantita;
     }
 
+    /**
+     * Aggiunge un ordine in prenotazione con 200 quantità del farmaco specificato.
+     * Associa all'ordine dei nuovi lotti
+     * @param nome nome del farmaco da ordinare
+     */
     public void prenotaOrdine(String nome) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             //Inserisco l'Ordine
