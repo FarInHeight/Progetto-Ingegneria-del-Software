@@ -1,5 +1,6 @@
 package com.progetto.interfacciaDatabase;
 
+import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.EntryListaSegnalazioni;
 
 import java.sql.*;
@@ -70,5 +71,26 @@ public class InterfacciaAddetto {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Getter per ottenere un lista di oggetti della classe {@code EntryFormOrdine} riferiti ai farmaci presenti
+     * nel datatabse dell'Azienda
+     * @return lista di farmaci come entry del form ordine
+     */
+    public ArrayList<EntryFormOrdine> getFarmaciEntry() {
+        ArrayList<EntryFormOrdine> lista = new ArrayList<>();
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from farmaco");
+            while(resultSet.next()) {
+                String nome = resultSet.getString("nome");
+                String principioAttivo = resultSet.getString("principio_attivo");
+                lista.add(new EntryFormOrdine(nome, principioAttivo));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 }
