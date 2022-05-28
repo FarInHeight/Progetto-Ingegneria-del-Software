@@ -123,11 +123,10 @@ public class InterfacciaCorriere {
     public void prenotaOrdine(Ordine ordine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,?,?,3,?,null,?)");
-            statement.setDate(1,Date.valueOf(LocalDate.now().plusWeeks(ordine.getPeriodo())));
-            statement.setInt(2,ordine.getTipo());
-            statement.setInt(3,ordine.getPeriodo());
-            statement.setInt(4,ordine.getIdFarmacia());
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,null,?,3,?,null,?)");
+            statement.setInt(1,ordine.getTipo());
+            statement.setInt(2,ordine.getPeriodo());
+            statement.setInt(3,ordine.getIdFarmacia());
             statement.executeUpdate();
 
             //Ottengo il nuovo id

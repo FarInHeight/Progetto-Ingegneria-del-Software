@@ -3,6 +3,7 @@ package com.progetto.interfacciaDatabase;
 import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmaco;
 import com.progetto.entity.EntryMagazzinoFarmacia;
+import com.progetto.entity.LottoOrdinato;
 import com.progetto.entity.Lotto;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import java.sql.*;
@@ -145,5 +146,82 @@ public class InterfacciaFarmacia {
             e.printStackTrace();
         }
 
+    }
+
+    public ArrayList<Farmaco> getFarmaciDaBanco() {
+        ArrayList<Farmaco> farmaci = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("select * from farmaco where farmacia_id_farmacia = ? AND tipo = 0");
+            statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+            ResultSet resulFarmaci = statement.executeQuery();
+            while (resulFarmaci.next()) {
+                farmaci.add(new Farmaco(resulFarmaci));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return farmaci;
+    }
+
+    public int controllaQuantitaOrdinata(String nome) {
+
+        int quantita = 0;
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbazienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("select sum(n_farmaci) as totale " +
+                    "from ordine,composizione,lotto " +
+                    "where id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto AND farmacia_id_farmacia = ? AND farmaco_nome = ?");
+            statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+            statement.setString(2,nome);
+            ResultSet resulFarmaci = statement.executeQuery();
+            resulFarmaci.next();
+            quantita = resulFarmaci.getInt("totale");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return quantita;
+    }
+
+    public void prenotaOrdine(String nome) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            //Inserisco l'Ordine
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,null,2,3,0,null,?)");
+            statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+            statement.executeUpdate();
+
+            //Ottengo il nuovo id
+            Statement statementOrdine = connection.createStatement();
+            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
+                    "from ordine " +
+                    "order by id_ordine desc " +
+                    "limit 1");
+            ultimoOrdine.next();
+            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
+
+
+            //Aggiungo il lotto vuoto
+            //Ottengo l'ultimo id
+            Statement statementLotto = connection.createStatement();
+            ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
+                    "from lotto " +
+                    "order by id_lotto desc " +
+                    "limit 1");
+            ultimoLotto.next();
+            int ultimoIdLotto = ultimoLotto.getInt("id_lotto");
+
+            //aggiungo il lotto vuoto
+            statement = connection.prepareStatement("insert into lotto values (?,null,0,0,?)");
+            statement.setInt(1,ultimoIdLotto+1);
+            statement.setString(2,nome);
+            statement.executeUpdate();
+
+            //collego il lotto all'ordine
+            statement = connection.prepareStatement("insert into composizione values (200,?,?)");
+            statement.setInt(1,ultimoIdOrdine);
+            statement.setInt(2,ultimoIdLotto+1);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
