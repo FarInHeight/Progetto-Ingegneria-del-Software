@@ -148,6 +148,10 @@ public class InterfacciaFarmacia {
 
     }
 
+    /**
+     * Metodo che ritorna tutti i farmaci da banco nel magazzino della farmacia
+     * @return farmaci da banco
+     */
     public ArrayList<Farmaco> getFarmaciDaBanco() {
         ArrayList<Farmaco> farmaci = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){
@@ -163,13 +167,18 @@ public class InterfacciaFarmacia {
         return farmaci;
     }
 
+    /**
+     * Metodo che ritorna, controllando tutti gli ordini, la quantita di un certo farmaco in arrivo alla farmacia
+     * @param nome nome del farmaco
+     * @return quantita in arrivo
+     */
     public int controllaQuantitaOrdinata(String nome) {
 
         int quantita = 0;
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbazienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select sum(n_farmaci) as totale " +
                     "from ordine,composizione,lotto " +
-                    "where id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto AND farmacia_id_farmacia = ? AND farmaco_nome = ?");
+                    "where id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto AND farmacia_id_farmacia = ? AND farmaco_nome = ? AND stato <> 5");
             statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             statement.setString(2,nome);
             ResultSet resulFarmaci = statement.executeQuery();
@@ -189,7 +198,7 @@ public class InterfacciaFarmacia {
     public void prenotaOrdine(String nome) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,null,2,3,0,null,?)");
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,null,1,3,0,null,?)");
             statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             statement.executeUpdate();
 

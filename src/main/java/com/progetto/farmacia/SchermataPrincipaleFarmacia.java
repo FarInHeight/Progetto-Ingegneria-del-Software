@@ -2,6 +2,7 @@ package com.progetto.farmacia;
 
 import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.autenticazione.LogoutControl;
+import com.progetto.farmacia.magazzino.VerificaEsaurimentoFarmaciControl;
 import com.progetto.farmacia.magazzino.VisualizzaMagazzinoControl;
 import com.progetto.farmacia.ordine.CreaOrdineControl;
 import javafx.application.Application;
@@ -98,6 +99,10 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
         stage.setMinWidth(stageWidth);
         stage.setMinHeight(stageHeight);
         stage.show();
+
+        //Funziona, va settato il timer
+        VerificaEsaurimentoFarmaciControl verificaEsaurimentoFarmaciControl = new VerificaEsaurimentoFarmaciControl();
+        verificaEsaurimentoFarmaciControl.verificaEsaurimento();
     }
 
     @Override
