@@ -141,21 +141,21 @@ public class FormOrdine extends Application implements Initializable {
         double stageWidth = 800;
         double stageHeight = 400;
 
-        this.stage = new Stage();
+        FormOrdine.stage = new Stage();
 
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        this.stage.setX((screenBounds.getWidth() - stageWidth) / 2);
-        this.stage.setY((screenBounds.getHeight() - stageHeight) / 2);
+        FormOrdine.stage.setX((screenBounds.getWidth() - stageWidth) / 2);
+        FormOrdine.stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        this.stage.setTitle("Form ordine");
-        this.stage.setScene(scene);
-        this.stage.setHeight(stageHeight);
-        this.stage.setWidth(stageWidth);
-        this.stage.setMinWidth(stageWidth);
-        this.stage.setMinHeight(stageHeight);
-        this.stage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
-        this.stage.show();
+        FormOrdine.stage.setTitle("Form Ordine");
+        FormOrdine.stage.setScene(scene);
+        FormOrdine.stage.setHeight(stageHeight);
+        FormOrdine.stage.setWidth(stageWidth);
+        FormOrdine.stage.setMinWidth(stageWidth);
+        FormOrdine.stage.setMinHeight(stageHeight);
+        FormOrdine.stage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
+        FormOrdine.stage.show();
     }
 
     /**
