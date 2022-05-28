@@ -150,6 +150,17 @@ public class SchermataMagazzino extends Application implements Initializable {
         }
     }
 
+    public void update(){
+        this.lista.getItems().clear();
+        if (SchermataMagazzino.getFarmaci()!=null) {
+            for(EntryMagazzinoFarmacia farmaco : SchermataMagazzino.getFarmaci()) {
+                if (farmaco.getQuantita() != 0) {
+                    this.lista.getItems().add(farmaco);
+                }
+            }
+        }
+    }
+
     /**
      * Metodo che crea la control relativa alla rimozione di un farmaco
      * @param event evento associato alla pressione del {@code button} rimuovi farmaco
@@ -157,9 +168,8 @@ public class SchermataMagazzino extends Application implements Initializable {
      */
     public void rimuoviFarmaco(ActionEvent event,EntryMagazzinoFarmacia farmaco) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //ConfermaRicezioneSpedizioneControl confermaRicezioneSpedizioneControl = new ConfermaRicezioneSpedizioneControl(stage, spedizione, this);
-        //confermaRicezioneSpedizioneControl.mostraRiepilogo();
-        System.out.println("Rimuovi");
+        RimuoviFarmaciControl rimuoviFarmaciControl = new RimuoviFarmaciControl(farmaco,stage,this);
+        rimuoviFarmaciControl.clickSuRimuoviFarmaco();
     }
 
     /**
