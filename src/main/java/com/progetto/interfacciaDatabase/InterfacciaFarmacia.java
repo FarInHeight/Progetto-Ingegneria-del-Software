@@ -110,4 +110,40 @@ public class InterfacciaFarmacia {
         }
         return lotti;
     }
+
+
+    /**
+     * Metodo che rimuove delle quantita dai farmaci nel db della catena
+     * @param nome nome del farmaco di cui modificare la quantita
+     * @param dataScadenza data di scadenza del farmaco di cui modificare la quantita
+     * @param quantitaDaRimuovere quantita da rimuovere
+     * @param quantitaAttuale quantita attuale di farmaco nel magazzino
+     */
+    public void rimuoviQuantita(String nome, LocalDate dataScadenza, int quantitaDaRimuovere, int quantitaAttuale) {
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){
+            if (quantitaAttuale == quantitaDaRimuovere) {
+                PreparedStatement statement = connection.prepareStatement("delete from farmaco " +
+                        "where farmacia_id_farmacia = ? AND nome = ? AND data_scadenza = ?");
+                statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                statement.setString(2,nome);
+                statement.setDate(3,Date.valueOf(dataScadenza));
+                statement.executeUpdate();
+            } else if (quantitaAttuale > quantitaDaRimuovere) {
+                PreparedStatement statement = connection.prepareStatement("update farmaco " +
+                        "set quantita = ? " +
+                        "where farmacia_id_farmacia = ? AND nome = ? AND data_scadenza = ?");
+                statement.setInt(1,quantitaAttuale-quantitaDaRimuovere);
+                statement.setInt(2,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                statement.setString(3,nome);
+                statement.setDate(4,Date.valueOf(dataScadenza));
+                statement.executeUpdate();
+            } else {
+                throw new IllegalArgumentException("quantita attuale < quantita da rimuovere");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
