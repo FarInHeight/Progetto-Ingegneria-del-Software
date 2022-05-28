@@ -89,6 +89,13 @@ public class InterfacciaFarmacia {
         return farmaci;
     }
 
+    /**
+     * Metodo che rimuove delle quantita dai farmaci nel db della catena
+     * @param nome nome del farmaco di cui modificare la quantita
+     * @param dataScadenza data di scadenza del farmaco di cui modificare la quantita
+     * @param quantitaDaRimuovere quantita da rimuovere
+     * @param quantitaAttuale quantita attuale di farmaco nel magazzino
+     */
     public void rimuoviQuantita(String nome, LocalDate dataScadenza, int quantitaDaRimuovere, int quantitaAttuale) {
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){

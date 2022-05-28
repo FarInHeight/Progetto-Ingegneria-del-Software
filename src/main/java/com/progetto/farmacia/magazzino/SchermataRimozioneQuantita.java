@@ -17,9 +17,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che gestisce la schermata in cui il farmacista può inserire le quantità di farmaco da rimuovere
+ */
 public class SchermataRimozioneQuantita extends Application implements Initializable {
 
     @FXML
@@ -35,18 +39,34 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
     private static EntryMagazzinoFarmacia farmaco;
     private static RimuoviFarmaciControl control;
 
+    /**
+     * Costruttore
+     */
     public SchermataRimozioneQuantita(){super();}
 
+    /**
+     * Costruttore
+     * @param farmaco farmaco di cui rimuovere una quantita
+     * @param control control che permette di tornare alla schermata magazzino
+     */
     public SchermataRimozioneQuantita(EntryMagazzinoFarmacia farmaco, RimuoviFarmaciControl control){
         super();
         setControl(control);
         setFarmaco(farmaco);
     }
 
+    /**
+     * Getter per il farmaco
+     * @return farmaco
+     */
     public static EntryMagazzinoFarmacia getFarmaco() {
         return farmaco;
     }
 
+    /**
+     * Setter per il farmaco
+     * @param farmaco farmaco
+     */
     public static void setFarmaco(EntryMagazzinoFarmacia farmaco) {
         if (farmaco == null) {
             throw new NullPointerException("farmaco = null");
@@ -54,10 +74,18 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
         SchermataRimozioneQuantita.farmaco = farmaco;
     }
 
+    /**
+     * Getter per la control
+     * @return control
+     */
     public static RimuoviFarmaciControl getControl() {
         return control;
     }
 
+    /**
+     * Setter per la control
+     * @param control control
+     */
     public static void setControl(RimuoviFarmaciControl control) {
         if (control == null) {
             throw new NullPointerException("control = null");
@@ -65,6 +93,11 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
         SchermataRimozioneQuantita.control = control;
     }
 
+    /**
+     * Permette di mostrare la schermata da cui rimuovere le quantita di un farmaco
+     * @param stage stage della schermata
+     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     */
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schermataRimozioneQuantita.fxml"));
@@ -87,6 +120,9 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
         subStage.show();
     }
 
+    /**
+     * Metodo che inizializza la schermata inserendo i dati relativi al farmaco in questione
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Inizializzo le scritte
@@ -103,6 +139,10 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
 
     }
 
+    /**
+     * Metodo che interagisce con la control per la rimozione della quantita specificata
+     * @param event evento associato alla pressione del {@code button} conferma rimozione
+     */
     @FXML
     private void confermaRimozione(ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -112,7 +152,7 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
 
     /**
      * Permette di tornare indietro e visualizzare la {@code SchermataMagazzino}
-     * @param event evento associato alla pressione del {@code button} consegna
+     * @param event evento associato alla pressione del {@code button} indietro
      */
     @FXML
     private void indietro(ActionEvent event) {

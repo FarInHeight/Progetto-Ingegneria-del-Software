@@ -120,7 +120,7 @@ public class SchermataMagazzino extends Application implements Initializable {
         subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
         subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        //mostra la schermata di login
+        //mostra la schermata del magazzino
         subStage.setTitle("Magazzino");
         subStage.setScene(scene);
         subStage.setMinWidth(stageWidth + 50);
@@ -150,6 +150,9 @@ public class SchermataMagazzino extends Application implements Initializable {
         }
     }
 
+    /**
+     * Metodo che aggiorna la schermata a seguito della rimozione di alcuni farmaci
+     */
     public void update(){
         this.lista.getItems().clear();
         if (SchermataMagazzino.getFarmaci()!=null) {
