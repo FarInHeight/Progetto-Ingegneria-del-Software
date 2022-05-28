@@ -68,7 +68,7 @@ public class VerificaCorrettezzaOrdineControl {
         this.lotti = lotti;
     }
 
-    private void ottieniLotti(){
+    private void ottieniLotti(){  //funziona, già testato
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         this.setLotti(db.getLotti());
     }
@@ -190,12 +190,12 @@ public class VerificaCorrettezzaOrdineControl {
     private static void effettuaOrdine(){
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         if(VerificaCorrettezzaOrdineControl.farmaciDisponibili.size() == 0) {
-            Ordine ordine = new Ordine(0, 1, VerificaCorrettezzaOrdineControl.farmaciDisponibili, 2, 1, LocalDate.now().plusDays(7), VerificaCorrettezzaOrdineControl.farmacia.getNome(), VerificaCorrettezzaOrdineControl.farmacia.getIndirizzo());
+            Ordine ordine = new Ordine(1, 1, VerificaCorrettezzaOrdineControl.farmaciDisponibili, 2, 1, LocalDate.now().plusDays(7), VerificaCorrettezzaOrdineControl.farmacia.getNome(), VerificaCorrettezzaOrdineControl.farmacia.getIndirizzo());
             db.elaboraOrdineNonPeriodico(ordine, VerificaCorrettezzaOrdineControl.lottiDisponibili, VerificaCorrettezzaOrdineControl.farmaciDisponibili);
             db.aggiornaLotti(VerificaCorrettezzaOrdineControl.lottiDisponibili, VerificaCorrettezzaOrdineControl.farmaciDisponibili);
         }
         if(VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili.size() != 0){
-            Ordine ordine = new Ordine(0,1,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili,2,1,LocalDate.now().plusDays(7),VerificaCorrettezzaOrdineControl.farmacia.getNome(),VerificaCorrettezzaOrdineControl.farmacia.getIndirizzo());
+            Ordine ordine = new Ordine(1,1,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili,2,1,LocalDate.now().plusDays(7),VerificaCorrettezzaOrdineControl.farmacia.getNome(),VerificaCorrettezzaOrdineControl.farmacia.getIndirizzo());
             db.elaboraOrdineNonPeriodico(ordine,VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili);
             db.aggiornaLotti(VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili);
             for(Farmaco farmaco : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili){
