@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
-import java.util.Optional;
 
 /**
  * classe che si occupa di verificare la correttezza di un ordine e rgistrarlo nel dbms
@@ -120,7 +120,7 @@ public class VerificaCorrettezzaOrdineControl {
             for(Farmaco farmacoDisponibile : VerificaCorrettezzaOrdineControl.farmaciDisponibili){
                 for(Lotto lottoDisponibile : VerificaCorrettezzaOrdineControl.lottiDisponibili){
                     if(lottoDisponibile.getNomeFarmaco().compareTo(farmacoDisponibile.getNome()) == 0){
-                        if(Duration.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).toDays() >= 59){
+                        if(Period.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).getMonths() >= 2){
                             farmaciDisponibiliAvvisoScadenza.add(farmacoDisponibile);
                             lottiDisponibiliAvvisoScadenza.add(lottoDisponibile);
                         }
@@ -161,7 +161,7 @@ public class VerificaCorrettezzaOrdineControl {
         for (Farmaco farmacoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili) {
             for (Lotto lottoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili) {
                 if (lottoParzialmenteDisponibile.getNomeFarmaco().compareTo(farmacoParzialmenteDisponibile.getNome()) == 0) {
-                    if (Duration.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).toDays() >= 59) {
+                    if (Period.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).getMonths()>=2) {
                         farmaciParzialmenteDisponibiliAvvisoScadenza.add(farmacoParzialmenteDisponibile);
                         lottiParzialmenteDisponibiliAvvisoScadenza.add(lottoParzialmenteDisponibile);
                     }
