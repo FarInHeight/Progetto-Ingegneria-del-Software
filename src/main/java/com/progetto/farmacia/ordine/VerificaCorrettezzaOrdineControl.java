@@ -101,55 +101,67 @@ public class VerificaCorrettezzaOrdineControl {
     }
 
     private void verificaScadenza(){
+        ArrayList<Farmaco> farmaciDisponibiliAvvisoScadenza = new ArrayList<>();
+        ArrayList<Lotto> lottiDisponibiliAvvisoScadenza = new ArrayList<>();
         if(this.farmaciNonDisponibili.size() == 0 && this.farmaciParzialmenteDisponibili.size() == 0){  //ci sono abbastanza farmaci per soddisfare l'ordine
             for(Farmaco farmacoDisponibile : this.farmaciDisponibili){
                 for(Lotto lottoDisponibile : this.lottiDisponibili){
                     if(lottoDisponibile.getNomeFarmaco().compareTo(farmacoDisponibile.getNome()) == 0){
                         if(Duration.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).toDays() >= 59){
-                            //mostra avviso scadenza
-                            //alternativa pressione pulsante conferma
-                            //alternativa pressione pulsante anulla (caso d'uso termina)
+                            farmaciDisponibiliAvvisoScadenza.add(farmacoDisponibile);
+                            lottiDisponibiliAvvisoScadenza.add(lottoDisponibile);
                         }
                     }
                 }
             }
+
+            //mostra avviso scadenza
             //il farmacista ha premuto il pulsante conferma per le scadenze
             Ordine ordine = new Ordine(0,1,this.farmaciDisponibili,2,1,LocalDate.now().plusDays(7) ,this.farmacia.getNome(),this.farmacia.getIndirizzo());
+
             //aggiungi ordine nel db
             //aggiornamento quantità lotti del db
             //mostra messaggio conferma ordine
+
+
+            //il farmacista ha premuto il pulsante anulla per la scadenza (caso d'uso termina)
+
+
         }
         else {//non ci sono abbastanza farmaci per soddisfare l'ordine
             //viene mostrato a schermo la SchermataErroreQuantita
 
+
             //alternativa presione pulsante conferma per ricevere parte dei farmaci
+            ArrayList<Farmaco> farmaciParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
+            ArrayList<Lotto> lottiParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
             for (Farmaco farmacoParzialmenteDisponibile : this.farmaciParzialmenteDisponibili) {
                 for (Lotto lottoParzialmenteDisponibile : this.lottiParzialmenteDisponibili) {
                     if (lottoParzialmenteDisponibile.getNomeFarmaco().compareTo(farmacoParzialmenteDisponibile.getNome()) == 0) {
                         if (Duration.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).toDays() >= 59) {
-                            //mostra avviso scadenza
-                            //alternativa pressione pulsante conferma
-                            //alternativa pressione pulsante anulla (caso d'uso termina)
+                            farmaciParzialmenteDisponibiliAvvisoScadenza.add(farmacoParzialmenteDisponibile);
+                            lottiParzialmenteDisponibiliAvvisoScadenza.add(lottoParzialmenteDisponibile);
                         }
                     }
                 }
             }
+
+            //mostra avviso scadenza
+
 
             //il farmacista ha premuto il pulsante conferma per le scadenze
             Ordine ordine = new Ordine(0,1,this.farmaciParzialmenteDisponibili,2,1,LocalDate.now().plusDays(7),this.farmacia.getNome(),this.farmacia.getIndirizzo());
             //aggiungi ordine nel db per i farmaci presenti
             //aggiornamento quantità lotti del db
-
             //aggiunta ordine nel db in stato di prenotato per i farmaci non presenti in magazzino
-
             //mostra messaggio di conferma ordine
 
+            //il farmacista ha premuto il pulsante anulla per la scadenza (caso d'uso termina)
 
-            //alternativa pressione pulsante annulla per ricevere parte dei farmaci (caso d'uso termina)
+            //il farmacista ha premuto il pulsante annulla per ricevere parte dei farmaci (caso d'uso termina)
         }
 
     }
-
 
 
     public void start(){
