@@ -136,7 +136,7 @@ public class VerificaCorrettezzaOrdineControl {
 
                 AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, VerificaCorrettezzaOrdineControl.farmacia);
                 try {
-                    avvisoScadenza.start(VerificaCorrettezzaOrdineControl.stage);
+                    avvisoScadenza.start(new Stage());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
