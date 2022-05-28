@@ -120,7 +120,7 @@ public class VerificaCorrettezzaOrdineControl {
             for(Farmaco farmacoDisponibile : VerificaCorrettezzaOrdineControl.farmaciDisponibili){
                 for(Lotto lottoDisponibile : VerificaCorrettezzaOrdineControl.lottiDisponibili){
                     if(lottoDisponibile.getNomeFarmaco().compareTo(farmacoDisponibile.getNome()) == 0){
-                        if(Period.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).getMonths() >= 2){
+                        if(Period.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).getMonths() < 2){
                             farmaciDisponibiliAvvisoScadenza.add(farmacoDisponibile);
                             lottiDisponibiliAvvisoScadenza.add(lottoDisponibile);
                         }
@@ -160,7 +160,7 @@ public class VerificaCorrettezzaOrdineControl {
         for (Farmaco farmacoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili) {
             for (Lotto lottoParzialmenteDisponibile : VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili) {
                 if (lottoParzialmenteDisponibile.getNomeFarmaco().compareTo(farmacoParzialmenteDisponibile.getNome()) == 0) {
-                    if (Period.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).getMonths()>=2) {
+                    if (Period.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).getMonths()<2) {
                         farmaciParzialmenteDisponibiliAvvisoScadenza.add(farmacoParzialmenteDisponibile);
                         lottiParzialmenteDisponibiliAvvisoScadenza.add(lottoParzialmenteDisponibile);
                     }
@@ -177,7 +177,7 @@ public class VerificaCorrettezzaOrdineControl {
 
             AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, VerificaCorrettezzaOrdineControl.farmacia);
             try {
-                avvisoScadenza.start(VerificaCorrettezzaOrdineControl.stage);
+                avvisoScadenza.start(new Stage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -190,12 +190,12 @@ public class VerificaCorrettezzaOrdineControl {
     private static void effettuaOrdine(){
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         if(VerificaCorrettezzaOrdineControl.farmaciDisponibili.size() == 0) {
-            Ordine ordine = new Ordine(0, 1, VerificaCorrettezzaOrdineControl.farmaciDisponibili, 2, 1, LocalDate.now().plusDays(7), VerificaCorrettezzaOrdineControl.farmacia.getNome(), VerificaCorrettezzaOrdineControl.farmacia.getIndirizzo());
+            Ordine ordine = new Ordine(1, 1, VerificaCorrettezzaOrdineControl.farmaciDisponibili, 2, 1, LocalDate.now().plusDays(7), VerificaCorrettezzaOrdineControl.farmacia.getNome(), VerificaCorrettezzaOrdineControl.farmacia.getIndirizzo());
             db.elaboraOrdineNonPeriodico(ordine, VerificaCorrettezzaOrdineControl.lottiDisponibili, VerificaCorrettezzaOrdineControl.farmaciDisponibili);
             db.aggiornaLotti(VerificaCorrettezzaOrdineControl.lottiDisponibili, VerificaCorrettezzaOrdineControl.farmaciDisponibili);
         }
         if(VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili.size() != 0){
-            Ordine ordine = new Ordine(0,1,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili,2,1,LocalDate.now().plusDays(7),VerificaCorrettezzaOrdineControl.farmacia.getNome(),VerificaCorrettezzaOrdineControl.farmacia.getIndirizzo());
+            Ordine ordine = new Ordine(1,1,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili,2,1,LocalDate.now().plusDays(7),VerificaCorrettezzaOrdineControl.farmacia.getNome(),VerificaCorrettezzaOrdineControl.farmacia.getIndirizzo());
             db.elaboraOrdineNonPeriodico(ordine,VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili);
             db.aggiornaLotti(VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili);
             for(Farmaco farmaco : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili){
