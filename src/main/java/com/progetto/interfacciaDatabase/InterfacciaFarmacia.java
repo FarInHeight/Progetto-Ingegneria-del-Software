@@ -3,6 +3,7 @@ package com.progetto.interfacciaDatabase;
 import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmaco;
 import com.progetto.entity.EntryMagazzinoFarmacia;
+import com.progetto.entity.Lotto;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import java.sql.*;
 import java.time.LocalDate;
@@ -87,5 +88,26 @@ public class InterfacciaFarmacia {
             e.printStackTrace();
         }
         return farmaci;
+    }
+
+    /**
+     * Metodo che ritorna tutti i {@code Lotti} attualmente contenuti nel database
+     * @return ArrayList di Lotto contenente tutti i Lotti del database
+     */
+    public ArrayList<Lotto> getLotti() {
+
+        ArrayList<Lotto> lotti = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            Statement statement = connection.createStatement();
+            ResultSet resultLotti = statement.executeQuery("SELECT * " +
+                    "FROM lotto " +
+                    "WHERE data_scadenza IS NOT NULL ");
+            while (resultLotti.next()) {
+                lotti.add(new Lotto(resultLotti));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lotti;
     }
 }

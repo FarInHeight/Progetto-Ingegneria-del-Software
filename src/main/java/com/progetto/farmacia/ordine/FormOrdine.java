@@ -4,6 +4,7 @@ import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmacia;
 import com.progetto.entity.Farmaco;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 /**
@@ -30,7 +30,6 @@ public class FormOrdine extends Application implements Initializable {
 
     private static Farmacia farmacia;
 
-    //private static EntryFormOrdine entryFormOrdine;
     private static CreaOrdineControl control;
 
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
@@ -114,18 +113,20 @@ public class FormOrdine extends Application implements Initializable {
 
     @FXML
     private void invia(ActionEvent event){
-        TableView<Cell> tabella = (TableView<Cell>) (((Node) event.getSource()).getParent().getParent().getChildrenUnmodifiable()).get(0);
-        LinkedList<Farmaco> farmaci = new LinkedList<Farmaco>();
+        ArrayList<Farmaco> farmaci = new ArrayList<>();
 
-        for(int i = 0;i<1; i++) {
-            if(tabella.getColumns().get(0).getCellData(i) == null){
+        for(int i = 0;; i++) {
+            if(this.lista.getColumns().get(0).getCellData(i) == null){
                 break;
             }
-            String NomeFarmaco = tabella.getColumns().get(0).getCellData(i).toString();
-            String princpioAttivo = tabella.getColumns().get(1).getCellData(i).toString();
-            farmaci.add(new Farmaco(NomeFarmaco, princpioAttivo));
+            String nomeFarmaco = this.lista.getColumns().get(0).getCellData(i).toString();
+            String princpioAttivo = this.lista.getColumns().get(1).getCellData(i).toString();
+            Spinner<Integer> spinner = (Spinner<Integer>) this.strumenti.getCellData(0).getChildren().get(0);
+            int quantita = spinner.getValue();
+            farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        //richiama verificaCorrettazzaFarmaci passando LinkedList<Farmaco>
+
+        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,farmacia);
     }
 
     /**
