@@ -146,10 +146,12 @@ public class VerificaCorrettezzaOrdineControl {
             }
         }
         else {//non ci sono abbastanza farmaci per soddisfare l'ordine
-
-            //viene mostrato a schermo la SchermataErroreQuantita
-
-
+            SchermataErroreQuantita schermataErroreQuantita = new SchermataErroreQuantita();
+            try {
+                schermataErroreQuantita.start(VerificaCorrettezzaOrdineControl.stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
