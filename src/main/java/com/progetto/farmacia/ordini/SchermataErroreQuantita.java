@@ -17,6 +17,8 @@ import java.io.IOException;
  * Classe che modella la boundary {@code SchermataErroreQuantita}
  */
 public class SchermataErroreQuantita extends Application {
+
+    private static VerificaCorrettezzaOrdineControl control;
     /**
      * Metodo utilizzato per visualizzare la {@code SchermataErroreQuantita} a schermo
      * @param stage stage della schermata di errore
@@ -47,6 +49,16 @@ public class SchermataErroreQuantita extends Application {
         subStage.show();
     }
 
+    public SchermataErroreQuantita(VerificaCorrettezzaOrdineControl control) {
+        this.setControl(control);
+    }
+    private void setControl(VerificaCorrettezzaOrdineControl control) {
+        if(control == null) {
+            throw new NullPointerException("Control = null");
+        }
+        SchermataErroreQuantita.control = control;
+    }
+
     @FXML
     private void annulla(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
@@ -54,6 +66,6 @@ public class SchermataErroreQuantita extends Application {
 
     @FXML
     private void conferma(ActionEvent event) {
-        VerificaCorrettezzaOrdineControl.clickSuConferma(event);
+       SchermataErroreQuantita.control.clickSuConferma(event);
     }
 }
