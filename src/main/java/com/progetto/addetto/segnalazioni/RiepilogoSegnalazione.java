@@ -113,7 +113,7 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
     private void creaOrdine(ActionEvent event) {
         Farmacia farmacia = new Farmacia(RiepilogoSegnalazione.entry.getIdFarmacia(), RiepilogoSegnalazione.entry.getNomeFarmacia(), "", RiepilogoSegnalazione.entry.getRecapitoTelefonicoFarmacia());
         try {
-            CreaOrdineControl control = new CreaOrdineControl(farmacia, RiepilogoSegnalazione.stage, event);
+            CreaOrdineControl control = new CreaOrdineControl(farmacia, RiepilogoSegnalazione.stage);
             control.start();
         } catch (IOException e) {
             throw new RuntimeException(e);

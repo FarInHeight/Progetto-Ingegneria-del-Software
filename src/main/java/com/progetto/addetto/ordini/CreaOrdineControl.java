@@ -22,7 +22,6 @@ import java.util.ArrayList;
  */
 public class CreaOrdineControl{
     private Farmacia farmacia;
-    private ActionEvent event;
     private Stage stage;
     private FormOrdine formOrdine;
 
@@ -31,14 +30,13 @@ public class CreaOrdineControl{
 
     /**
      * Costruttore che permette di creare una {@code CreaOrdineControl}
-     * @param event evento di pressione del pulsante crea ordine
+     * @param stage stage della lista delle segnalazioni (utlizzato per tornare indietro quando si clicca sul pulsante
+     *              {@code indietro} del {@code FormOrdine})
      * @throws IOException se il caricamento del file {@code fxml} della schermata non è andato a buon fine
      */
-    public CreaOrdineControl(Farmacia farmacia, Stage stage, ActionEvent event) throws IOException{
+    public CreaOrdineControl(Farmacia farmacia, Stage stage) throws IOException{
         this.setFarmacia(farmacia);
         this.setStage(stage);
-        this.setEvent(event);
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo la schermata di riepilogo
     }
 
     private void setFarmacia(Farmacia farmacia) {
@@ -46,13 +44,6 @@ public class CreaOrdineControl{
             throw new NullPointerException("farmacia = null");
         }
         this.farmacia = farmacia;
-    }
-
-    private void setEvent(ActionEvent event){
-        if(event == null){
-            throw new NullPointerException("event = null");
-        }
-        this.event = event;
     }
 
     private void setStage(Stage stage) {
