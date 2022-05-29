@@ -27,13 +27,13 @@ import java.util.ResourceBundle;
 public class SchermataRimozioneQuantita extends Application implements Initializable {
 
     @FXML
-    Text usernameLabel;
+    private Text usernameLabel;
     @FXML
-    Text infoFarmaco;
+    private Text infoFarmaco;
     @FXML
-    Text quantitaAttuale;
+    private Text quantitaAttuale;
     @FXML
-    Pane spinnerPane;
+    private Pane spinnerPane;
 
     private static Spinner<Integer> spinner;
     private static EntryMagazzinoFarmacia farmaco;
@@ -126,16 +126,15 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Inizializzo le scritte
-        usernameLabel.setText(SchermataPrincipaleFarmacia.getFarmacia().getNome());
-        infoFarmaco.setText(getFarmaco().getNome() + ", " + getFarmaco().getPrincipioAttivo() + ", " + getFarmaco().getDataScadenza());
-        quantitaAttuale.setText(quantitaAttuale.getText() + " " + getFarmaco().getQuantita());
-
+        this.usernameLabel.setText(SchermataPrincipaleFarmacia.getFarmacia().getNome());
+        this.infoFarmaco.setText(getFarmaco().getNome() + "\t" + getFarmaco().getPrincipioAttivo() + "\t" + getFarmaco().getDataScadenza());
+        this.quantitaAttuale.setText(Integer.toString(getFarmaco().getQuantita()));
         //Creo lo spinner e lo aggiungo
-        spinner = new Spinner<>();
-        spinner.setEditable(true);
+        SchermataRimozioneQuantita.spinner = new Spinner<>();
+        SchermataRimozioneQuantita.spinner.setEditable(true);
         SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, getFarmaco().getQuantita());
-        spinner.setValueFactory(spinnerValueFactory);
-        spinnerPane.getChildren().add(spinner);
+        SchermataRimozioneQuantita.spinner.setValueFactory(spinnerValueFactory);
+        this.spinnerPane.getChildren().add(spinner);
 
     }
 
