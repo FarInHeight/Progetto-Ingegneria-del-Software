@@ -1,14 +1,21 @@
 package com.progetto.entity;
 
 import javafx.scene.layout.FlowPane;
-
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Classe che rappresenta una entry dalla {@code ListaOrdini}
+ */
 public class EntryListaOrdini {
     private Ordine ordine;
+
     private FlowPane strumenti;
 
+    /**
+     * Costruttore della {@code EntryListaOrdini} che prende in input l'ordine al quale si riferisce
+     * @param ordine
+     */
     public EntryListaOrdini(Ordine ordine) {
         this.setOrdine(ordine);
     }
@@ -32,14 +39,26 @@ public class EntryListaOrdini {
         this.strumenti = strumenti;
     }
 
+    /**
+     * Getter per ottenere l'ID dell'ordine associato alla entry
+     * @return ID dell'ordine
+     */
     public int getIdOrdine() {
         return this.ordine.getIdOrdine();
     }
 
+    /**
+     * Getter per ottenere i farmaci associati all'ordine della {@code EntryListaOrdini}
+     * @return farmaci contenuti nell'ordine
+     */
     public ArrayList<Farmaco> getFarmaci() {
         return this.ordine.getFarmaci();
     }
 
+    /**
+     * Getter per ottenere i farmaci associati all'ordine della {@code EntryListaOrdini} come stringa (nome e quantità)
+     * @return farmaci contenuti nell'ordine
+     */
     public String getFarmaciStringa() {
         String farmaci = "";
         for(Farmaco farmaco : this.ordine.getFarmaci()) {
@@ -48,19 +67,43 @@ public class EntryListaOrdini {
         return farmaci.stripTrailing();
     }
 
+    /**
+     * Getter per ottenere lo stato dell'ordine associato alla entry
+     * @return stato dell'ordine
+     */
     public String getStato() {
         return this.ordine.getStatoStringa();
     }
 
+    /**
+     * Getter per ottenere il tipo dell'ordine associato alla entry
+     * @return tipo dell'ordine
+     */
     public String getTipo() {
         return this.ordine.getTipoStringa();
     }
 
+    /**
+     * Getter per ottenere la data di consegna dell'ordine associato alla entry
+     * @return data di consegna dell'ordine
+     */
     public String getDataConsegna() {
         return this.ordine.getDataConsegna().format(DateTimeFormatter.ofPattern("d/MM/uuuu"));
     }
 
+    /**
+     * Getter per ottenere i pulsanti associati alla {@code EntryListaOrdini}
+     * @return pulsanti associati alla entry
+     */
     public FlowPane getStrumenti() {
         return this.strumenti;
+    }
+
+    /**
+     * Getter per ottenere un oggetto di tipo {@code Ordine} associato alla entry
+     * @return ordine associato alla entry
+     */
+    public Ordine getOrdine() {
+        return ordine;
     }
 }

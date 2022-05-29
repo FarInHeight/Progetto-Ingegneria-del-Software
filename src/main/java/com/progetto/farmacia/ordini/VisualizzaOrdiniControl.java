@@ -13,6 +13,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -64,6 +65,10 @@ public class VisualizzaOrdiniControl {
         carica.setBackground(Background.fill(Color.rgb(38, 180, 27)));
         carica.setStyle("-fx-text-fill: white");
         carica.setPrefWidth(80);
+        if(entry.getOrdine().getStato() != 4) {
+            carica.setVisible(false);
+            carica.setManaged(false);
+        }
         Button modifica = new Button("MODIFICA");
         modifica.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -71,9 +76,13 @@ public class VisualizzaOrdiniControl {
                 VisualizzaOrdiniControl.this.clickSuModifica(entry);
             }
         });
-        modifica.setBackground(Background.fill(Color.rgb(150, 170, 120)));
+        modifica.setBackground(Background.fill(Color.rgb(190, 190, 120)));
         modifica.setStyle("-fx-text-fill: white");
         modifica.setPrefWidth(80);
+        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() )) {
+            modifica.setVisible(false);
+            modifica.setManaged(false);
+        }
         Button cancella = new Button("CANCELLA");
         cancella.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -84,6 +93,10 @@ public class VisualizzaOrdiniControl {
         cancella.setBackground(Background.fill(Color.rgb(210, 79, 66)));
         cancella.setStyle("-fx-text-fill: white");
         cancella.setPrefWidth(80);
+        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() )) {
+            cancella.setVisible(false);
+            cancella.setManaged(false);
+        }
         FlowPane flow = new FlowPane();
         flow.getChildren().addAll(carica, modifica, cancella);
         flow.setAlignment(Pos.CENTER);
