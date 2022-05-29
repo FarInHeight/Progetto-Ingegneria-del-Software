@@ -298,18 +298,18 @@ public class InterfacciaFarmacia {
     public void aggiornaLotti(ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("update lotto set  n_ordinati = ? where id_lotto = ?");
+            PreparedStatement statement = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
             for(Farmaco farmaco : farmaci){
                 for(Lotto lotto : lotti){
                     if(farmaco.getNome().compareTo(lotto.getNomeFarmaco()) == 0){
                         if(lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata() > farmaco.getQuantita()){
-                            statement.setInt(1,lotto.getIdLotto());
-                            statement.setInt(2, farmaco.getQuantita());
+                            statement.setInt(1, farmaco.getQuantita());
+                            statement.setInt(2,lotto.getIdLotto());
                             statement.executeUpdate();
                         }
                         else{
-                            statement.setInt(1,lotto.getIdLotto());
-                            statement.setInt(2,lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
+                            statement.setInt(1,lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
+                            statement.setInt(2,lotto.getIdLotto());
                             statement.executeUpdate();
                         }
                     }
