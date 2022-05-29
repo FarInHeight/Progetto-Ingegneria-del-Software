@@ -1,5 +1,6 @@
 package com.progetto.farmacia.ordini;
 
+import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
@@ -87,7 +88,7 @@ public class VisualizzaOrdiniControl {
         cancella.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                VisualizzaOrdiniControl.this.clickSuModifica(entry);
+                VisualizzaOrdiniControl.this.clickSuCancella(entry);
             }
         });
         cancella.setBackground(Background.fill(Color.rgb(210, 79, 66)));
@@ -137,7 +138,7 @@ public class VisualizzaOrdiniControl {
 
     /**
      * Metodo che viene richiamato quasi si fa un click sul pulsante {@code carica} di una entry della {@code ListaOrdini}.
-     * @param entry segnalazione da rimuovere
+     * @param entry ordine da caricare
      */
     void clickSuCarica(EntryListaOrdini entry) {
 
@@ -145,7 +146,7 @@ public class VisualizzaOrdiniControl {
 
     /**
      * Metodo che viene richiamato quasi si fa un click sul pulsante {@code modifica} di una entry della {@code ListaOrdini}.
-     * @param entry segnalazione da rimuovere
+     * @param entry ordine da modificare
      */
     void clickSuModifica(EntryListaOrdini entry) {
 
@@ -153,9 +154,9 @@ public class VisualizzaOrdiniControl {
 
     /**
      * Metodo che viene richiamato quasi si fa un click sul pulsante {@code cancella} di una entry della {@code ListaOrdini}.
-     * @param entry segnalazione da rimuovere
+     * @param entry ordine da rimuovere
      */
     void clickSuCancella(EntryListaOrdini entry) {
-
+        this.listaOrdini.cancellaOrdine(entry);
     }
 }

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.magazzino.SchermataRimozioneQuantita">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.magazzino.SchermataRimozioneQuantita">
 <top>
-    <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #dae8fc;" BorderPane.alignment="CENTER">
+    <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
         <top>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RIMOZIONE " textAlignment="CENTER" translateY="15.0" BorderPane.alignment="CENTER">
                 <font>
@@ -17,27 +15,36 @@
             </Text>
         </top>
         <right>
-            <Text fx:id="idFarmacia" strokeType="OUTSIDE" strokeWidth="0.0" text="id farmacia" translateX="-20.0" translateY="-12.0" BorderPane.alignment="CENTER" />
+            <Text fx:id="usernameLabel" strokeType="OUTSIDE" strokeWidth="0.0" translateX="-20.0" translateY="-12.0" BorderPane.alignment="CENTER" />
         </right>
         <left>
             <Button maxHeight="-Infinity" maxWidth="60.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: orange;" text="INDIETRO" textFill="WHITE" translateX="20.0" translateY="-10.0" BorderPane.alignment="CENTER" />
         </left>
     </BorderPane>
 </top>
-<center>
-    <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <center>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Text layoutX="73.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FARMACO:" />
-                  <Text fx:id="infoFarmaco" layoutX="73.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nomeFarmaco, principioAttivo, dataScadenza" wrappingWidth="404.21630859375" />
-                  <Text fx:id="quantitaAttuale" layoutX="73.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITÀ ATTUALE: " wrappingWidth="359.99169921875" />
-                  <Text layoutX="73.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITÀ DA RIMUOVERE:" />
-                  <Pane fx:id="spinnerPane" layoutX="73.0" layoutY="186.0" prefHeight="39.0" prefWidth="200.0" />
-                  <Button layoutX="275.0" layoutY="186.0" mnemonicParsing="false" onAction="#confermaRimozione" style="-fx-background-color: #00F000;" text="CONFERMA RIMOZIONE" textFill="WHITE" />
-               </children>
-            </Pane>
-         </center>
-    </BorderPane>
-</center>
+   <center>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="211.0" prefWidth="388.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="16.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FARMACO:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fx:id="infoFarmaco" layoutX="16.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nomeFarmaco, principioAttivo, dataScadenza" wrappingWidth="404.21630859375" />
+            <Text layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITÀ ATTUALE: " wrappingWidth="128.99168395996094">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text layoutX="14.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITÀ DA RIMUOVERE:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Pane fx:id="spinnerPane" layoutX="14.0" layoutY="162.0" prefHeight="39.0" prefWidth="200.0" />
+            <Button layoutX="227.0" layoutY="162.0" mnemonicParsing="false" onAction="#confermaRimozione" style="-fx-background-color: #26bd1b;" text="CONFERMA RIMOZIONE" textFill="WHITE" />
+            <Text fx:id="quantitaAttuale" layoutX="16.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="quantita" wrappingWidth="88.21629333496094" />
+         </children>
+      </Pane>
+   </center>
 </BorderPane>

@@ -27,13 +27,13 @@ import java.util.ResourceBundle;
 public class SchermataRimozioneQuantita extends Application implements Initializable {
 
     @FXML
-    Text idFarmacia;
+    private Text usernameLabel;
     @FXML
-    Text infoFarmaco;
+    private Text infoFarmaco;
     @FXML
-    Text quantitaAttuale;
+    private Text quantitaAttuale;
     @FXML
-    Pane spinnerPane;
+    private Pane spinnerPane;
 
     private static Spinner<Integer> spinner;
     private static EntryMagazzinoFarmacia farmaco;
@@ -103,8 +103,8 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schermataRimozioneQuantita.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 300);
 
-        double stageWidth = 600;
-        double stageHeight = 300;
+        double stageWidth = 500;
+        double stageHeight = 340;
 
         Stage subStage = new Stage();
         //centra la schermata
@@ -113,7 +113,7 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
         subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
         //mostra la schermata di rimozione quantita
-        subStage.setTitle("RimuoviFarmaco");
+        subStage.setTitle("Rimuovi Farmaco");
         subStage.setScene(scene);
         subStage.setMinWidth(stageWidth + 50);
         subStage.setMinHeight(stageHeight);
@@ -126,16 +126,15 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Inizializzo le scritte
-        idFarmacia.setText("Id: " + SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
-        infoFarmaco.setText(getFarmaco().getNome() + ", " + getFarmaco().getPrincipioAttivo() + ", " + getFarmaco().getDataScadenza());
-        quantitaAttuale.setText(quantitaAttuale.getText() + " " + getFarmaco().getQuantita());
-
+        this.usernameLabel.setText(SchermataPrincipaleFarmacia.getFarmacia().getNome());
+        this.infoFarmaco.setText(getFarmaco().getNome() + "\t" + getFarmaco().getPrincipioAttivo() + "\t" + getFarmaco().getDataScadenza());
+        this.quantitaAttuale.setText(Integer.toString(getFarmaco().getQuantita()));
         //Creo lo spinner e lo aggiungo
-        spinner = new Spinner<>();
-        spinner.setEditable(true);
+        SchermataRimozioneQuantita.spinner = new Spinner<>();
+        SchermataRimozioneQuantita.spinner.setEditable(true);
         SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, getFarmaco().getQuantita());
-        spinner.setValueFactory(spinnerValueFactory);
-        spinnerPane.getChildren().add(spinner);
+        SchermataRimozioneQuantita.spinner.setValueFactory(spinnerValueFactory);
+        this.spinnerPane.getChildren().add(spinner);
 
     }
 
