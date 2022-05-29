@@ -1,4 +1,4 @@
-package com.progetto.farmacia.ordini;
+package com.progetto.addetto.ordini;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -10,25 +10,24 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
- * Classe che modella la boundary {@code SchermataErroreQuantita}
+ * Classe che modella la boundary {@code MessaggioConfermaOrdine}
  */
-public class SchermataErroreQuantita extends Application {
+public class MessaggioConfermaOrdine extends Application {
     /**
-     * Metodo utilizzato per visualizzare la {@code SchermataErroreQuantita} a schermo
+     * Metodo utilizzato per visualizzare il {@code MessaggioConfermaOrdine} a schermo
      * @param stage stage della schermata di errore
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schermataErroreQuantita.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 350);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("messaggioConfermaOrdine.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 250);
 
-        double stageWidth = 410;
-        double stageHeight = 360;
+        double stageWidth = 400;
+        double stageHeight = 250;
 
         Stage subStage = new Stage();
         //centra la schermata
@@ -36,10 +35,8 @@ public class SchermataErroreQuantita extends Application {
         subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
         subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        subStage.setTitle("Problema Quantità");
+        subStage.setTitle("Conferma Ordine");
         subStage.setScene(scene);
-        subStage.setWidth(stageWidth);
-        subStage.setHeight(stageHeight);
         subStage.setMinWidth(stageWidth);
         subStage.setMinHeight(stageHeight);
         subStage.initOwner(stage); //imposto come proprietario del Riepilogo la Lista Spedizioni
@@ -48,12 +45,7 @@ public class SchermataErroreQuantita extends Application {
     }
 
     @FXML
-    private void annulla(ActionEvent event) {
+    private void chiudi(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
-    }
-
-    @FXML
-    private void conferma(ActionEvent event) {
-        VerificaCorrettezzaOrdineControl.clickSuConferma(event);
     }
 }

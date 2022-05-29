@@ -402,7 +402,6 @@ public class InterfacciaFarmacia {
                 int periodo = resultSet.getInt("periodo");
                 Date data = resultSet.getDate("data_consegna");
                 if(data == null) continue;
-                System.out.println(tipo);
                 LocalDate dataConsegna = data.toLocalDate();
                 String nomeFarmacia = resultSet.getString("nome");
                 String indirizzoConsegna = resultSet.getString("indirizzo");

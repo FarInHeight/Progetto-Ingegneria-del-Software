@@ -147,4 +147,12 @@ public class EntryListaSegnalazioni {
     public String getRecapitoTelefonicoFarmacia() {
         return this.recapitoTelefonicoFarmacia;
     }
+
+    /**
+     * Getter per ottenere l'ID della farmacia che ha effettuato la segnalazione
+     * @return id della farmacia
+     */
+    public int getIdFarmacia() {
+        return idFarmacia;
+    }
 }

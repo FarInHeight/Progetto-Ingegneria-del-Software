@@ -1,8 +1,6 @@
 package com.progetto.interfacciaDatabase;
 
-import com.progetto.entity.EntryFormOrdine;
-import com.progetto.entity.EntryListaSegnalazioni;
-
+import com.progetto.entity.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -92,5 +90,161 @@ public class InterfacciaAddetto {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    /**
+     * Metodo che ritorna tutti i {@code Lotti} attualmente contenuti nel database
+     * @return ArrayList di Lotto contenente tutti i Lotti del database
+     */
+    public ArrayList<Lotto> getLotti() {
+
+        ArrayList<Lotto> lotti = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            Statement statement = connection.createStatement();
+            ResultSet resultLotti = statement.executeQuery("SELECT * " +
+                    "FROM lotto " +
+                    "WHERE data_scadenza IS NOT NULL ");
+            while (resultLotti.next()) {
+                lotti.add(new Lotto(resultLotti));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lotti;
+    }
+
+    /**
+     * Aggiorna i lotti nel magazzino dell'azienda
+     * @param lotti lotti da aggiornare
+     * @param farmaci farmaci contenuti negli ordini
+     */
+    public void aggiornaLotti(ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
+            //Inserisco l'Ordine
+            PreparedStatement statement = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
+            for(Farmaco farmaco : farmaci){
+                for(Lotto lotto : lotti){
+                    if(farmaco.getNome().compareTo(lotto.getNomeFarmaco()) == 0){
+                        PreparedStatement statementPrecedente = connection.prepareStatement("select n_ordinati from lotto where id_lotto = ?");
+                        statementPrecedente.setInt(1,lotto.getIdLotto());
+                        ResultSet result = statementPrecedente.executeQuery();
+                        result.next();
+                        int nOrdinatiPrecedente = result.getInt("n_ordinati");
+                        if(lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata() > farmaco.getQuantita()){
+                            statement.setInt(1, farmaco.getQuantita()+nOrdinatiPrecedente);
+                            statement.setInt(2,lotto.getIdLotto());
+                            statement.executeUpdate();
+                        }
+                        else{
+                            statement.setInt(1,lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata()+nOrdinatiPrecedente);
+                            statement.setInt(2,lotto.getIdLotto());
+                            statement.executeUpdate();
+                        }
+                    }
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Aggiunge un ordine in elaborazione
+     * Associa all'ordine dei lotti
+     * @param ordine ordine da aggiungere
+     * @param lotti lotti da collegare all'ordine
+     * @param farmaci farmaci contenuti nell'ordine
+     * @param idFarmacia ID della farmacia per cui si sta creando l'ordine
+     */
+    public void elaboraOrdineNonPeriodico(Ordine ordine, ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci, int idFarmacia) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
+            //Inserisco l'Ordine
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,?,2,1,0,null,?)");
+            statement.setDate(1, Date.valueOf(ordine.getDataConsegna()));
+            statement.setInt(2, idFarmacia);
+            statement.executeUpdate();
+
+            //Ottengo il nuovo id
+            Statement statementOrdine = connection.createStatement();
+            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
+                    "from ordine " +
+                    "order by id_ordine desc " +
+                    "limit 1");
+            ultimoOrdine.next();
+            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
+
+            //collego i lotti all'ordine
+            for (Farmaco farmaco : farmaci) {
+                for (Lotto lotto : lotti) {
+                    if (lotto.getNomeFarmaco().compareTo(farmaco.getNome()) == 0) {
+                        if (lotto.getQuantitaContenuta() - lotto.getQuantitaOrdinata() > farmaco.getQuantita()) {
+                            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+                            statement.setInt(1, farmaco.getQuantita());
+                            statement.setInt(2, ultimoIdOrdine);
+                            statement.setInt(3, lotto.getIdLotto());
+                            statement.executeUpdate();
+                        } else {
+                            farmaco.setQuantita(farmaco.getQuantita()-(lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata()));
+                            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+                            statement.setInt(1, lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
+                            statement.setInt(2, ultimoIdOrdine);
+                            statement.setInt(3, lotto.getIdLotto());
+                            statement.executeUpdate();
+                        }
+                    }
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Aggiunge un ordine non periodico in prenotazione con quantita e farmaco specificato in input
+     * Associa all'ordine dei nuovi lotti
+     * @param farmaco farmaco da ordinare
+     * @param idFarmacia ID della farmacia per cui si sta creando l'ordine
+     */
+    public void prenotaOrdineNonPeriodico(Farmaco farmaco, int idFarmacia) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            //Inserisco l'Ordine
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,null,2,3,0,null,?)");
+            statement.setInt(1, idFarmacia);
+            statement.executeUpdate();
+
+            //Ottengo il nuovo id
+            Statement statementOrdine = connection.createStatement();
+            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
+                    "from ordine " +
+                    "order by id_ordine desc " +
+                    "limit 1");
+            ultimoOrdine.next();
+            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
+
+            //Ottengo l'ultimo id
+            Statement statementLotto = connection.createStatement();
+            ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
+                    "from lotto " +
+                    "order by id_lotto desc " +
+                    "limit 1");
+            ultimoLotto.next();
+            int ultimoIdLotto = ultimoLotto.getInt("id_lotto");
+
+            //aggiungo il lotto vuoto
+            statement = connection.prepareStatement("insert into lotto values (?,null,0,0,?)");
+            statement.setInt(1,ultimoIdLotto+1);
+            statement.setString(2,farmaco.getNome());
+            statement.executeUpdate();
+
+            //collego il lotto all'ordine
+            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+            statement.setInt(1,farmaco.getQuantita());
+            statement.setInt(2,ultimoIdOrdine);
+            statement.setInt(3,ultimoIdLotto+1);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

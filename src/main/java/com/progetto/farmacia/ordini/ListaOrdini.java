@@ -95,10 +95,10 @@ public class ListaOrdini extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listaOrdini.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 450);
 
         double stageWidth = 800;
-        double stageHeight = 400;
+        double stageHeight = 500;
 
         this.stage = new Stage();
 
