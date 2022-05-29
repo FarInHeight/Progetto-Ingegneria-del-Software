@@ -150,7 +150,11 @@ public class VisualizzaOrdiniControl {
      * @param entry ordine da modificare
      */
     void clickSuModifica(EntryListaOrdini entry) {
-
+        try {
+            this.listaOrdini.modificaOrdine(entry);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

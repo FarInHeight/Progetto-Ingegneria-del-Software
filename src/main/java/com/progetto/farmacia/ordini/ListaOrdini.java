@@ -4,6 +4,7 @@ import com.progetto.addetto.segnalazioni.ListaSegnalazioni;
 import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
+import com.progetto.entity.Farmaco;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -154,10 +156,13 @@ public class ListaOrdini extends Application implements Initializable {
     public void cancellaOrdine (EntryListaOrdini entry) throws IOException{
         CancellaOrdineControl cancOrdCtrl = new CancellaOrdineControl(entry,this.stage);
         cancOrdCtrl.start();
-        if(entry == null) {
-            throw new NullPointerException("Entry in rimuovi farmaco di FormOrdine = null");
-        }
         ListaOrdini.ordini.remove(entry);
         ListaOrdini.ref.getItems().remove(entry);
     }
+
+    public void modificaOrdine (EntryListaOrdini entry) throws IOException{
+        ModificaOrdineControl modOrdCtrl = new ModificaOrdineControl(ListaOrdini.farmacia,entry,this.stage);
+        modOrdCtrl.start();
+    }
+
 }
