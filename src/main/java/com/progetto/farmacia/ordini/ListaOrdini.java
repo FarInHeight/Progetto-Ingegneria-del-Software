@@ -151,7 +151,9 @@ public class ListaOrdini extends Application implements Initializable {
         ListaOrdini.control.clickSuIndietro(stage);
     }
 
-    public void cancellaOrdine(EntryListaOrdini entry) {
+    public void cancellaOrdine (EntryListaOrdini entry) throws IOException{
+        CancellaOrdineControl cancOrdCtrl = new CancellaOrdineControl(entry,this.stage);
+        cancOrdCtrl.start();
         if(entry == null) {
             throw new NullPointerException("Entry in rimuovi farmaco di FormOrdine = null");
         }
