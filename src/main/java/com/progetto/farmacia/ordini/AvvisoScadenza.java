@@ -80,10 +80,10 @@ public class AvvisoScadenza extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("avvisoScadenza.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 650);
 
-        double stageWidth = 600;
-        double stageHeight = 650;
+        double stageWidth = 630;
+        double stageHeight = 630;
 
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
