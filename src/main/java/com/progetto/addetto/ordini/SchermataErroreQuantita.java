@@ -1,4 +1,4 @@
-package com.progetto.farmacia.ordini;
+package com.progetto.addetto.ordini;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -57,3 +57,4 @@ public class SchermataErroreQuantita extends Application {
         VerificaCorrettezzaOrdineControl.clickSuConferma(event);
     }
 }
+

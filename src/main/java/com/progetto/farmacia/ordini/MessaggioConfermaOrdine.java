@@ -15,8 +15,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Classe che modella la boundary {@code MessaggioConfermaOrdine}
+ */
 public class MessaggioConfermaOrdine extends Application {
-
+    /**
+     * Metodo utilizzato per visualizzare il {@code MessaggioConfermaOrdine} a schermo
+     * @param stage stage della schermata di errore
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("messaggioConfermaOrdine.fxml"));
@@ -44,5 +51,4 @@ public class MessaggioConfermaOrdine extends Application {
     private void chiudi(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
     }
-
 }

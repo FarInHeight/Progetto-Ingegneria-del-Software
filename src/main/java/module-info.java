@@ -15,6 +15,7 @@ module com.progetto {
     opens com.progetto.addetto.autenticazione to javafx.fxml;
     opens com.progetto.addetto.segnalazioni to javafx.fxml, javafx.graphics;
     opens com.progetto.addetto to javafx.fxml;
+    opens com.progetto.addetto.ordini to javafx.fxml;
     opens com.progetto.entity to javafx.base;
     opens com.progetto.farmacia.ordini to javafx.fxml, javafx.graphics;
     opens com.progetto.farmacia.magazzino to javafx.fxml, javafx.graphics;
