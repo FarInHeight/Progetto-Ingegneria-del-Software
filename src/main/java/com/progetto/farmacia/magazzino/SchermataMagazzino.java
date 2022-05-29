@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 public class SchermataMagazzino extends Application implements Initializable {
 
     @FXML
-    private Text idFarmacia;
+    private Text usernameLabel;
     @FXML
     private TableView<EntryMagazzinoFarmacia> lista;
     @FXML
@@ -112,7 +112,7 @@ public class SchermataMagazzino extends Application implements Initializable {
         Scene scene = new Scene(fxmlLoader.load(), 800, 400);
 
         double stageWidth = 800;
-        double stageHeight = 400;
+        double stageHeight = 440;
 
         Stage subStage = new Stage();
         //centra la schermata
@@ -134,7 +134,7 @@ public class SchermataMagazzino extends Application implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.idFarmacia.setText("ID: " + SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+        this.usernameLabel.setText(SchermataPrincipaleFarmacia.getFarmacia().getNome());
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nome"));
         this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
         this.dataScadenza.setCellValueFactory(new PropertyValueFactory<>("dataScadenza"));

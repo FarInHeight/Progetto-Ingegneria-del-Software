@@ -94,7 +94,7 @@ public class VisualizzaMagazzinoControl {
      */
     private void setPulsanti(EntryMagazzinoFarmacia farmaco) {
         Button consegna = new Button("RIMUOVI FARMACO");
-        consegna.setBackground(Background.fill(Color.rgb(200, 0, 0)));
+        consegna.setBackground(Background.fill(Color.rgb(255, 51, 51)));
         consegna.setStyle("-fx-text-fill: white");
         farmaco.setStrumenti(consegna);
     }
