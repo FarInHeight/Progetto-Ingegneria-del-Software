@@ -84,6 +84,12 @@ public class VerificaCorrettezzaOrdineControl {
             }
         }
 
+        if(lottiRichiesti.size() == 0){  //se non ci sono lotto con i farmaci richiesti con farmaci disponibili
+            for(Farmaco farmaco : this.farmaci){
+                VerificaCorrettezzaOrdineControl.farmaciNonDisponibili.add(farmaco);
+            }
+        }
+
         for (Farmaco farmaco : this.farmaci) {  //verifico le quantità
             int numeroFarmaci = 0;
             ArrayList<Lotto> lottiTemp = new ArrayList<>();
@@ -199,12 +205,12 @@ public class VerificaCorrettezzaOrdineControl {
             db.elaboraOrdineNonPeriodico(ordine,VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili);
             db.aggiornaLotti(VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili);
             for(Farmaco farmaco : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili){
-                db.prenotaOrdineNonPeriodico(farmaco.getNome());
+                db.prenotaOrdineNonPeriodico(farmaco);
             }
         }
         if(VerificaCorrettezzaOrdineControl.farmaciNonDisponibili.size() != 0){
-            for(Farmaco farmaco : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili){
-                db.prenotaOrdineNonPeriodico(farmaco.getNome());
+            for(Farmaco farmaco : VerificaCorrettezzaOrdineControl.farmaciNonDisponibili){
+                db.prenotaOrdineNonPeriodico(farmaco);
             }
         }
         MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
