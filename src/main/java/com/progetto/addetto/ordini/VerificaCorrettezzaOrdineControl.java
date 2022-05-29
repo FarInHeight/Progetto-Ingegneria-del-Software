@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * classe che si occupa di verificare la correttezza di un ordine e registrarlo nel database dell'Azienda
@@ -22,7 +23,7 @@ public class VerificaCorrettezzaOrdineControl {
     private Farmacia farmacia;
 
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
-    private ArrayList<Lotto> lotti;  //lotti presentin nel magazzino azienda
+    private LinkedList<Lotto> lotti;  //lotti presentin nel magazzino azienda
 
     private ArrayList<Farmaco> farmaciParzialmenteDisponibili; //farmaci con disponibilità parziale
     private ArrayList<Lotto> lottiParzialmenteDisponibili; //lotti relativi a farmaci con disponibilità parziale
@@ -67,7 +68,7 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaci = farmaci;
     }
 
-    private void setLotti(ArrayList<Lotto> lotti) {
+    private void setLotti(LinkedList<Lotto> lotti) {
         if(lotti == null){
             throw new NullPointerException("lotti == null");
         }

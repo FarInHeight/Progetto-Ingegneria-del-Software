@@ -7,6 +7,7 @@ import java.io.PipedReader;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Classe che contiene i metodi necessari per richiedere dati al database dell'Azienda e della Catena Farmaceutica
@@ -98,9 +99,9 @@ public class InterfacciaFarmacia {
      * Metodo che ritorna tutti i {@code Lotti} attualmente contenuti nel database
      * @return ArrayList di Lotto contenente tutti i Lotti del database
      */
-    public ArrayList<Lotto> getLotti() {
+    public LinkedList<Lotto> getLotti() {
 
-        ArrayList<Lotto> lotti = new ArrayList<>();
+        LinkedList<Lotto> lotti = new LinkedList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             Statement statement = connection.createStatement();
             ResultSet resultLotti = statement.executeQuery("select * from lotto where data_scadenza is not null order by data_scadenza asc");
