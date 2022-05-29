@@ -103,9 +103,7 @@ public class InterfacciaFarmacia {
         ArrayList<Lotto> lotti = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             Statement statement = connection.createStatement();
-            ResultSet resultLotti = statement.executeQuery("SELECT * " +
-                    "FROM lotto " +
-                    "WHERE data_scadenza IS NOT NULL ");
+            ResultSet resultLotti = statement.executeQuery("select * from lotto where data_scadenza is not null order by data_scadenza asc");
             while (resultLotti.next()) {
                 lotti.add(new Lotto(resultLotti));
             }
