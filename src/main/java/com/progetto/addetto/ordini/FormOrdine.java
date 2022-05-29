@@ -106,8 +106,12 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.control.clickSuAggungiFarmaci(stage);
     }
 
+    /**
+     * Metodo utilizzato per tornare alla schermata precedente a partire da un {@code FormOrdine}
+     * @param event
+     */
     @FXML
-    private void indietro(ActionEvent event){
+    void indietro(ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
         FormOrdine.control.clickSuIndietro(stage);
     }
@@ -126,7 +130,7 @@ public class FormOrdine extends Application implements Initializable {
             int quantita = spinner.getValue();
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormOrdine.farmacia,this.getStage());
+        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormOrdine.farmacia, this.getStage());
         verCorrOrdCtrl.start();
     }
 

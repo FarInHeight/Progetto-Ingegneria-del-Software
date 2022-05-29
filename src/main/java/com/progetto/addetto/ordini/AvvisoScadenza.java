@@ -30,6 +30,8 @@ public class AvvisoScadenza extends Application implements Initializable {
     @FXML
     private TextArea farmaciInScadenzaText;
 
+    private static VerificaCorrettezzaOrdineControl control;
+
     /**
      * costruire un oggetto {@code AvvisoScadenza}
      */
@@ -42,19 +44,27 @@ public class AvvisoScadenza extends Application implements Initializable {
      * @param farmaciInScadenza farmaci in scadenza
      * @param farmacia farmaica che ha effettuato l'ordine
      */
-    public AvvisoScadenza(String farmaciInScadenza, Farmacia farmacia){
+    public AvvisoScadenza(String farmaciInScadenza, Farmacia farmacia, VerificaCorrettezzaOrdineControl control){
         this.setFarmaciInScadenza(farmaciInScadenza);
         this.setFarmacia(farmacia);
+        this.setControl(control);
+    }
+
+    private void setControl(VerificaCorrettezzaOrdineControl control) {
+        if(control == null) {
+            throw new NullPointerException("Control = null");
+        }
+        AvvisoScadenza.control = control;
     }
 
     @FXML
     private void confermaOrdine(ActionEvent event){
-        VerificaCorrettezzaOrdineControl.clickSuConfermaOrdine(event);
+        AvvisoScadenza.control.clickSuConfermaOrdine(event);
     }
 
     @FXML
     private void annullaOrdine(ActionEvent event){
-        VerificaCorrettezzaOrdineControl.clickSuAnnullaOrdine(event);
+        AvvisoScadenza.control.clickSuAnnullaOrdine(event);
     }
 
     private void setFarmaciInScadenza(String farmaciInScadenza){
