@@ -2,6 +2,8 @@ package com.progetto.interfacciaDatabase;
 
 import com.progetto.entity.*;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
+
+import java.io.PipedReader;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -430,5 +432,60 @@ public class InterfacciaFarmacia {
             }
         }
         return null;
+    }
+
+    /**
+     * detrae il numero dei farmaci ordini dai lotti riguardanti la entry passata in input
+     * @param entry entry dell'ordine
+     */
+    public void modificaFarmaciOrdinati(EntryListaOrdini entry){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
+            //ottengo lotti coinvolti nell'ordine
+            int idOrdine = entry.getIdOrdine();
+            PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
+            composizione.setInt(1,idOrdine);
+            ResultSet risultatoComposizione = composizione.executeQuery();
+            while(risultatoComposizione.next()){
+                int nFarmaci = risultatoComposizione.getInt("n_farmaci");
+                int idLotto = risultatoComposizione.getInt("lotto_id_lotto");
+
+                //ottengo i farmaci precedentemente ordinati
+                PreparedStatement lottoPrecedente = connection.prepareStatement("select * from lotto where id_lotto = ?");
+                lottoPrecedente.setInt(1,idLotto);
+                ResultSet risultatoLottoPrecedente = lottoPrecedente.executeQuery();
+                risultatoLottoPrecedente.next();
+                int farmaciOrdinati = risultatoLottoPrecedente.getInt("n_ordinati");
+
+                //aggiorno i farmaci ordinati
+                PreparedStatement lottoNuovo = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
+                lottoNuovo.setInt(1,farmaciOrdinati-nFarmaci);
+                lottoNuovo.setInt(2,idLotto);
+                lottoNuovo.executeUpdate();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * cancella l'ordine raltivo alla entry di lista ordini passata in input
+     * @param entry entry dell'ordine da elinimare
+     */
+    public void cancellaOrdine(EntryListaOrdini entry){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
+            int idOrdine = entry.getIdOrdine();
+
+            //elimino composizione
+            PreparedStatement eliminazioneComposizione = connection.prepareStatement("delete from composizione where ordine_id_ordine = ?");
+            eliminazioneComposizione.setInt(1,idOrdine);
+            eliminazioneComposizione.executeUpdate();
+
+            //elimino ordine
+            PreparedStatement eliminazioneOrdine = connection.prepareStatement("delete from ordine where id_ordine = ?");
+            eliminazioneOrdine.setInt(1,idOrdine);
+            eliminazioneOrdine.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

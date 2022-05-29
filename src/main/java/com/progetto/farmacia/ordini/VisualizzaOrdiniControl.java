@@ -14,6 +14,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -157,6 +158,10 @@ public class VisualizzaOrdiniControl {
      * @param entry ordine da rimuovere
      */
     void clickSuCancella(EntryListaOrdini entry) {
-        this.listaOrdini.cancellaOrdine(entry);
+        try {
+            this.listaOrdini.cancellaOrdine(entry);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
