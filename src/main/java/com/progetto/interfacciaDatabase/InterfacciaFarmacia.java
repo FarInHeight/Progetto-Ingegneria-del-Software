@@ -351,13 +351,18 @@ public class InterfacciaFarmacia {
             for(Farmaco farmaco : farmaci){
                 for(Lotto lotto : lotti){
                     if(farmaco.getNome().compareTo(lotto.getNomeFarmaco()) == 0){
+                        PreparedStatement statementPrecedente = connection.prepareStatement("select n_ordinati from lotto where id_lotto = ?");
+                        statementPrecedente.setInt(1,lotto.getIdLotto());
+                        ResultSet result = statementPrecedente.executeQuery();
+                        result.next();
+                        int nOrdinatiPrecedente = result.getInt("n_ordinati");
                         if(lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata() > farmaco.getQuantita()){
-                            statement.setInt(1, farmaco.getQuantita());
+                            statement.setInt(1, farmaco.getQuantita()+nOrdinatiPrecedente);
                             statement.setInt(2,lotto.getIdLotto());
                             statement.executeUpdate();
                         }
                         else{
-                            statement.setInt(1,lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
+                            statement.setInt(1,lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata()+nOrdinatiPrecedente);
                             statement.setInt(2,lotto.getIdLotto());
                             statement.executeUpdate();
                         }
