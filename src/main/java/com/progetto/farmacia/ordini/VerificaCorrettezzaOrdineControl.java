@@ -199,12 +199,12 @@ public class VerificaCorrettezzaOrdineControl {
             db.elaboraOrdineNonPeriodico(ordine,VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili);
             db.aggiornaLotti(VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili,VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili);
             for(Farmaco farmaco : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili){
-                db.prenotaOrdine(farmaco.getNome());
+                db.prenotaOrdineNonPeriodico(farmaco.getNome());
             }
         }
         if(VerificaCorrettezzaOrdineControl.farmaciNonDisponibili.size() != 0){
             for(Farmaco farmaco : VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili){
-                db.prenotaOrdine(farmaco.getNome());
+                db.prenotaOrdineNonPeriodico(farmaco.getNome());
             }
         }
         MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
