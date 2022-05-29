@@ -61,8 +61,9 @@ public class VisualizzaOrdiniControl {
                 VisualizzaOrdiniControl.this.clickSuCarica(entry);
             }
         });
-        carica.setBackground(Background.fill(Color.rgb(38, 189, 27)));
+        carica.setBackground(Background.fill(Color.rgb(38, 180, 27)));
         carica.setStyle("-fx-text-fill: white");
+        carica.setPrefWidth(80);
         Button modifica = new Button("MODIFICA");
         modifica.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -70,8 +71,9 @@ public class VisualizzaOrdiniControl {
                 VisualizzaOrdiniControl.this.clickSuModifica(entry);
             }
         });
-        modifica.setBackground(Background.fill(Color.rgb(150, 120, 0)));
+        modifica.setBackground(Background.fill(Color.rgb(150, 170, 120)));
         modifica.setStyle("-fx-text-fill: white");
+        modifica.setPrefWidth(80);
         Button cancella = new Button("CANCELLA");
         cancella.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -79,8 +81,9 @@ public class VisualizzaOrdiniControl {
                 VisualizzaOrdiniControl.this.clickSuModifica(entry);
             }
         });
-        cancella.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        cancella.setBackground(Background.fill(Color.rgb(210, 79, 66)));
         cancella.setStyle("-fx-text-fill: white");
+        cancella.setPrefWidth(80);
         FlowPane flow = new FlowPane();
         flow.getChildren().addAll(carica, modifica, cancella);
         flow.setAlignment(Pos.CENTER);

@@ -383,13 +383,12 @@ public class InterfacciaFarmacia {
     public ArrayList<EntryListaOrdini> getOrdini(int idFarmacia) {
         ArrayList<EntryListaOrdini> ordini = new ArrayList<>();
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")) {
-            PreparedStatement statement = connection.prepareStatement("select o.id_ordine, c.n_farmaci, l.farmaco_nome," +
-                    " o.tipo, o.stato, o.periodo, o.data_consegna, f.nome, f.indirizzo, far.principio_attivo, " +
-                    "far.tipo as tipo_farmaco, l.data_scadenza " +
-                    "from ordine as o, composizione as c, lotto as l, farmacia as f, farmaco as far " +
-                    "where o.id_ordine = c.ordine_id_ordine and " +
-                    "c.lotto_id_lotto = l.id_lotto and o.farmacia_id_farmacia = f.id_farmacia " +
-                    "and far.nome = l.farmaco_nome and o.farmacia_id_farmacia = ?;");
+            PreparedStatement statement = connection.prepareStatement("SELECT o.id_ordine, c.n_farmaci, l.farmaco_nome, " +
+                    "o.tipo, o.stato, o.periodo, o.data_consegna, f.nome, f.indirizzo, " +
+                    "far.principio_attivo, far.tipo as tipo_farmaco, l.data_scadenza FROM ordine as o, " +
+                    "composizione as c, lotto as l, farmacia as f, farmaco as far WHERE o.id_ordine = c.ordine_id_ordine " +
+                    "and c.lotto_id_lotto = l.id_lotto and o.farmacia_id_farmacia = f.id_farmacia and far.nome = l.farmaco_nome " +
+                    "and o.farmacia_id_farmacia = ?;");
             statement.setInt(1, idFarmacia);
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()) {
@@ -400,8 +399,8 @@ public class InterfacciaFarmacia {
                 int stato = resultSet.getInt("stato");
                 int periodo = resultSet.getInt("periodo");
                 Date data = resultSet.getDate("data_consegna");
-                System.out.println(data);
                 if(data == null) continue;
+                System.out.println(tipo);
                 LocalDate dataConsegna = data.toLocalDate();
                 String nomeFarmacia = resultSet.getString("nome");
                 String indirizzoConsegna = resultSet.getString("indirizzo");
@@ -417,7 +416,6 @@ public class InterfacciaFarmacia {
                 } else {
                     entry.getFarmaci().add(farmaco);
                 }
-                return ordini;
             }
         } catch (SQLException exc) {
             exc.printStackTrace();
