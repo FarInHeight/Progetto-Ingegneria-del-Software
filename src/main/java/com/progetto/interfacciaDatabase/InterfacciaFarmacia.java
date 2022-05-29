@@ -323,6 +323,7 @@ public class InterfacciaFarmacia {
                             statement.setInt(3, lotto.getIdLotto());
                             statement.executeUpdate();
                         } else {
+                            farmaco.setQuantita(farmaco.getQuantita()-(lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata()));
                             statement = connection.prepareStatement("insert into composizione values (?,?,?)");
                             statement.setInt(1, lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
                             statement.setInt(2, ultimoIdOrdine);

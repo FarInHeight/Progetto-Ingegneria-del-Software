@@ -84,7 +84,7 @@ public class VerificaCorrettezzaOrdineControl {
             }
         }
 
-        if(lottiRichiesti.size() == 0){  //se non ci sono lotto con i farmaci richiesti con farmaci disponibili
+        if(lottiRichiesti.size() == 0){  //se non ci sono lotti con i farmaci richiesti con farmaci disponibili
             for(Farmaco farmaco : this.farmaci){
                 VerificaCorrettezzaOrdineControl.farmaciNonDisponibili.add(farmaco);
             }
@@ -105,14 +105,14 @@ public class VerificaCorrettezzaOrdineControl {
                     }
                     break;
                 }
-                if (i == lottiRichiesti.size() - 1 && numeroFarmaci != 0 && numeroFarmaci < farmaco.getQuantita()) {  //non ci sono abbastanza farmaci
+                if (i == lottiRichiesti.size() - 1 && numeroFarmaci > 0 && numeroFarmaci < farmaco.getQuantita()) {  //non ci sono abbastanza farmaci
                     VerificaCorrettezzaOrdineControl.farmaciParzialmenteDisponibili.add(farmaco);
                     for (Lotto lottoTemp : lottiTemp) {
                         VerificaCorrettezzaOrdineControl.lottiParzialmenteDisponibili.add(lottoTemp);
                     }
                     break;
                 }
-                if (i == lottiRichiesti.size() - 1 && numeroFarmaci == 0) {  //non c'è nessun farmaco in magazzino
+                if(i == lottiRichiesti.size() - 1 && numeroFarmaci == 0) {  //non c'è nessun farmaco in magazzino
                     VerificaCorrettezzaOrdineControl.farmaciNonDisponibili.add(farmaco);
                 }
             }
@@ -236,8 +236,10 @@ public class VerificaCorrettezzaOrdineControl {
 
     }
     public void start(){
-        this.ottieniLotti();
-        this.verificaQuantita();
-        this.verificaScadenza();
+        if(this.farmaci.size() != 0){
+            this.ottieniLotti();
+            this.verificaQuantita();
+            this.verificaScadenza();
+        }
     }
 }

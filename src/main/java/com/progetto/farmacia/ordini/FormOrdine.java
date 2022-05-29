@@ -120,7 +120,7 @@ public class FormOrdine extends Application implements Initializable {
             }
             String nomeFarmaco = this.lista.getColumns().get(0).getCellData(i).toString();
             String princpioAttivo = this.lista.getColumns().get(1).getCellData(i).toString();
-            Spinner<Integer> spinner = (Spinner<Integer>) this.strumenti.getCellData(0).getChildren().get(0);
+            Spinner<Integer> spinner = (Spinner<Integer>) this.strumenti.getCellData(i).getChildren().get(0);
             int quantita = spinner.getValue();
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
