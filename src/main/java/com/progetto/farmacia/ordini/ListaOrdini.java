@@ -1,6 +1,7 @@
 package com.progetto.farmacia.ordini;
 
 import com.progetto.addetto.segnalazioni.ListaSegnalazioni;
+import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
 import javafx.application.Application;
@@ -148,5 +149,13 @@ public class ListaOrdini extends Application implements Initializable {
     private void indietro(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente
         ListaOrdini.control.clickSuIndietro(stage);
+    }
+
+    public void cancellaOrdine(EntryListaOrdini entry) {
+        if(entry == null) {
+            throw new NullPointerException("Entry in rimuovi farmaco di FormOrdine = null");
+        }
+        ListaOrdini.ordini.remove(entry);
+        ListaOrdini.ref.getItems().remove(entry);
     }
 }
