@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * rapprenta l'avviso relativo ai farmaci che scadono tra meno di 2 mesi al momento della creazione di un ordine
+ * Classe che implementa la boundary {@code AvvisoScadenza}
  */
 public class AvvisoScadenza extends Application implements Initializable {
 
@@ -40,9 +40,11 @@ public class AvvisoScadenza extends Application implements Initializable {
     }
 
     /**
-     * costruisce un oggetto {@code AvvisoScadenza} dati in input i farmaci in scadenza e la farmacia che ha effettuato l'ordine
+     * costruisce un oggetto {@code AvvisoScadenza} dati in input i farmaci in scadenza, la farmacia che ha effettuato l'ordine
+     * e la control che ha creato l'avviso
      * @param farmaciInScadenza farmaci in scadenza
      * @param farmacia farmaica che ha effettuato l'ordine
+     * @param control control che ha creato l'avviso
      */
     public AvvisoScadenza(String farmaciInScadenza, Farmacia farmacia, VerificaCorrettezzaOrdineControl control){
         this.setFarmaciInScadenza(farmaciInScadenza);
@@ -111,7 +113,7 @@ public class AvvisoScadenza extends Application implements Initializable {
     }
 
     /**
-     * Metodo utilizzato per personalizzare un oggetto di tipo {@code AvvisScadenza} in base ai farmaci in scadenza
+     * Metodo utilizzato per personalizzare un oggetto di tipo {@code AvvisoScadenza} in base ai farmaci in scadenza
      *  e alla farmacia che ha effettuato l'ordine
      * @param url
      * @param resourceBundle

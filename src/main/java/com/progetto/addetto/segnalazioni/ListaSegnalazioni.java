@@ -57,7 +57,7 @@ public class ListaSegnalazioni extends Application implements Initializable {
         super();
     }
     /**
-     * Costruisce una {@code ListaSegnalazioni} secondo il contenuto nel DBMS dell'Azienda
+     * Costruisce una {@code ListaSegnalazioni} secondo il contenuto nel database dell'Azienda
      * @param addetto addetto che richiede la lista delle segnalazioni
      * @param segnalazioni lista delle segnalazioni
      * @param control control che ha dato origine alla lista delle segnalazioni

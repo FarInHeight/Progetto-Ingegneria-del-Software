@@ -6,7 +6,6 @@ import com.progetto.interfacciaDatabase.InterfacciaAddetto;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -18,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Control che gestisce la creazione di un ordine
+ * Classe che modella la control {@code CreaOrdineControl}
  */
 public class CreaOrdineControl{
     private Farmacia farmacia;
@@ -27,11 +26,11 @@ public class CreaOrdineControl{
 
     private ElencoFarmaci elenco;
 
-
     /**
      * Costruttore che permette di creare una {@code CreaOrdineControl}
+     * @param farmacia farmacia per la quale si vuole creare un ordine
      * @param stage stage della lista delle segnalazioni (utlizzato per tornare indietro quando si clicca sul pulsante
-     *              {@code indietro} del {@code FormOrdine})
+     * {@code indietro} del {@code FormOrdine})
      * @throws IOException se il caricamento del file {@code fxml} della schermata non è andato a buon fine
      */
     public CreaOrdineControl(Farmacia farmacia, Stage stage) throws IOException{
@@ -102,7 +101,15 @@ public class CreaOrdineControl{
         this.elenco.rimuoviFarmaco(entry);
         this.formOrdine.aggiungiFarmaco(entry);
     }
-    public void clickSuAggungiFarmaci(Stage stage) throws IOException {
+
+    /**
+     * Metodo per avvisare la control che è avvenuto un click sul pulsante {@code aggiungiFarmaci} del {@code FormOrdine}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param stage stage del form
+     * @throws IOException
+     */
+    void clickSuAggungiFarmaci(Stage stage) throws IOException {
         InterfacciaAddetto db = new InterfacciaAddetto();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
         for(EntryFormOrdine entry : farmaci) {
@@ -123,7 +130,7 @@ public class CreaOrdineControl{
     }
 
     /**
-     * Metodo tramite il quale un oggetto di tipo {@code FromOrdine} avvisa la {@code FormOrdineControl}
+     * Metodo tramite il quale un oggetto di tipo {@code FormOrdine} avvisa la {@code CreaOrdineControl}
      * del click sul pulsante {@code indietro} e distrugge il form ordine.
      * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
      * che si trovano nello stesso package.
@@ -134,13 +141,20 @@ public class CreaOrdineControl{
         this.stage.show();
     }
 
+    /**
+     * Metodo tramite il quale un oggetto di tipo {@code ElencoFarmaci} avvisa la {@code CreaOrdineControl}
+     * del click sul pulsante {@code conferma} e si mostra a schermo il {@code FormOrdine}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param substage sotto-stage del form ordine da distuggere
+     */
     void clickSuConferma(Stage substage){
         substage.close();
         this.formOrdine.getStage().show();
     }
 
     /**
-     * Metodo di avvio della control
+     * Metodo di avvio della {@code CreaOrdineControl}
      * @throws IOException se il caricamento del file {@code fxml} del form ordine non è andato a buon fine
      */
     public void start() throws IOException{

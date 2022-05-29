@@ -14,11 +14,11 @@ import java.time.Period;
 import java.util.ArrayList;
 
 /**
- * classe che si occupa di verificare la correttezza di un ordine e rgistrarlo nel dbms
+ * classe che si occupa di verificare la correttezza di un ordine e registrarlo nel database dell'Azienda
  */
 public class VerificaCorrettezzaOrdineControl {
 
-    private Stage stage; //stage del form ordine
+    private FormOrdine formOrdine;  // riferimento al form ordine
     private Farmacia farmacia;
 
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
@@ -30,8 +30,14 @@ public class VerificaCorrettezzaOrdineControl {
     private ArrayList<Lotto> lottiDisponibili;  //lotti relativi a farmaci disponibili
     private ArrayList<Farmaco> farmaciNonDisponibili;  //farmaci non disponibili
 
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci,Farmacia farmacia, Stage stage){
-        this.setStage(stage);
+    /**
+     * Costruttore di un oggetto di classe {@code VerificaCorrettezzaOrdine} che prende in input la lista di farmaci per
+     * cui bisogna fare il controllo, la farmacia che ha richiesto il controllo e il form ordine da cui si proviene.
+     * @param farmaci farmaci da controllare
+     * @param farmacia farmacia che ha richiesto il controllo
+     * @param formOrdine form da cui si proviene
+     */
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci,Farmacia farmacia, FormOrdine formOrdine){
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
         this.farmaciParzialmenteDisponibili = new ArrayList<>();
@@ -39,13 +45,14 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaciDisponibili = new ArrayList<>();
         this.lottiDisponibili = new ArrayList<>();
         this.farmaciNonDisponibili = new ArrayList<>();
+        this.setFormOrdine(formOrdine);
     }
 
-    private void setStage(Stage stage){
-        if(stage == null){
-            throw new NullPointerException("stage = null");
+    private void setFormOrdine(FormOrdine formOrdine){
+        if(formOrdine == null){
+            throw new NullPointerException("Form Ordine = null");
         }
-        this.stage = stage;
+        this.formOrdine = formOrdine;
     }
     private void setFarmacia(Farmacia farmacia){
         if(farmacia == null){
@@ -152,7 +159,7 @@ public class VerificaCorrettezzaOrdineControl {
         else {//non ci sono abbastanza farmaci per soddisfare l'ordine
             SchermataErroreQuantita schermataErroreQuantita = new SchermataErroreQuantita(this);
             try {
-                schermataErroreQuantita.start(this.stage);
+                schermataErroreQuantita.start(this.formOrdine.getStage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -182,7 +189,7 @@ public class VerificaCorrettezzaOrdineControl {
 
             AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, this.farmacia, this);
             try {
-                avvisoScadenza.start(new Stage());
+                avvisoScadenza.start(this.formOrdine.getStage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -212,27 +219,65 @@ public class VerificaCorrettezzaOrdineControl {
                 db.prenotaOrdineNonPeriodico(farmaco, this.farmacia.getIdFarmacia());
             }
         }
-        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(this);
         try {
-            messaggioConfermaOrdine.start(this.stage);
+            messaggioConfermaOrdine.start(this.formOrdine.getStage());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Metodo utilizzato per comunicare alla control {@code VerificaCorrettezzaOrdineControl} che vi è stato un click
+     * sul pulsante {@code confermaOrdine} di un {@code AvvisoScadenza}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param event evento sul pulsante {@code confermaOrdine}
+     */
      void clickSuConfermaOrdine(ActionEvent event){
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
         this.effettuaOrdine();
     }
 
+    /**
+     * Metodo utilizzato per comunicare alla control {@code VerificaCorrettezzaOrdineControl} che vi è stato un click
+     * sul pulsante {@code annullaOrdine} di un {@code AvvisoScadenza}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param event evento sul pulsante {@code annullaOrdine}
+     */
     void clickSuAnnullaOrdine(ActionEvent event){
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
     }
+
+    /**
+     * Metodo utilizzato per comunicare alla control {@code VerificaCorrettezzaOrdineControl} che vi è stato un click
+     * sul pulsante {@code conferma} di una {@code SchermataErroreQuantita}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param event evento sul pulsante {@code conferma}
+     */
     void clickSuConferma(ActionEvent event){
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
         this.effettuaOrdineParziale();
 
     }
+
+    /**
+     * Metodo utilizzato per comunicare alla control {@code VerificaCorrettezzaOrdineControl} che vi è stato un click
+     * sul pulsante {@code chiudi} di una {@code MessaggioConfermaOrdine}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param event evento sul pulsante {@code chiudi}
+     */
+    void clickSuChiudi(ActionEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
+        this.formOrdine.indietro();
+    }
+
+    /**
+     * Metodo di avvio di una {@code VerificaCorrettezzaOrdineControl}
+     */
     public void start(){
         if(this.farmaci.size() != 0){
             this.ottieniLotti();

@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
@@ -57,7 +56,7 @@ public class SchermataErroreQuantita extends Application {
 
     /**
      * Costruttore utilizzato per istanziare una {@code SchermataErroreQuantita} che prende in input un riferimento
-     * alla contorl che l'ha creato.
+     * alla control che l'ha creata.
      * @param control control che ha creato la schermata
      */
     public SchermataErroreQuantita(VerificaCorrettezzaOrdineControl control) {
