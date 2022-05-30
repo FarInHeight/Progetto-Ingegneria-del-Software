@@ -38,7 +38,6 @@ public class RimuoviFarmaciScadutiControl {
         int i = 0;
         while(i < lista.size()) {
             Farmaco farmaco = lista.get(i);
-            System.out.println(farmaco.getNome());
             // se la scadenza precedente ad oggi
             if( farmaco.getDataScadenza().isBefore( LocalDate.now() ) ) {
                 farmaciScaduti += farmaco.getNome() + "\t" + farmaco.getQuantita() + "\n";

@@ -49,5 +49,6 @@ public class MessaggioConfermaEliminazioneOrdine extends Application {
     @FXML
     private void chiudi(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
+        ListaOrdini.update();
     }
 }

@@ -125,19 +125,17 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
         double stageWidth = 800;
         double stageHeight = 440;
 
-        Stage subStage = new Stage();
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
-        subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
+        stage.setX((screenBounds.getWidth() - stageWidth) / 2);
+        stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
         //mostra la schermata di registrazione dei farmaci
-        subStage.setTitle("Registrazone Farmaci");
-        subStage.setScene(scene);
-        subStage.setMinWidth(stageWidth + 50);
-        subStage.setMinHeight(stageHeight);
-        subStage.show();
-
+        stage.setTitle("Registrazone Farmaci");
+        stage.setScene(scene);
+        stage.setMinWidth(stageWidth + 50);
+        stage.setMinHeight(stageHeight);
+        stage.show();
     }
 
     /**

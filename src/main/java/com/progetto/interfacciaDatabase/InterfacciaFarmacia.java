@@ -5,6 +5,7 @@ import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import javafx.scene.control.Spinner;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -388,7 +389,7 @@ public class InterfacciaFarmacia {
                     "far.principio_attivo, far.tipo as tipo_farmaco, l.data_scadenza FROM ordine as o, " +
                     "composizione as c, lotto as l, farmacia as f, farmaco as far WHERE o.id_ordine = c.ordine_id_ordine " +
                     "and c.lotto_id_lotto = l.id_lotto and o.farmacia_id_farmacia = f.id_farmacia and far.nome = l.farmaco_nome " +
-                    "and o.farmacia_id_farmacia = ?;");
+                    "and o.farmacia_id_farmacia = ? and o.stato <> 5;");
             statement.setInt(1, idFarmacia);
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()) {
@@ -489,15 +490,33 @@ public class InterfacciaFarmacia {
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){
             for (EntryMagazzinoFarmacia farmaco:farmaciCaricati) {
-                PreparedStatement statement = connection.prepareStatement("insert into farmaco " +
-                        "values (?,?,?,?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("select * from farmaco " +
+                        "where nome = ? and data_scadenza = ? and farmacia_id_farmacia = ?");
                 statement.setString(1,farmaco.getNome());
-                statement.setDate(2,Date.valueOf(farmaco.getDataScadenza()));
-                statement.setString(3,farmaco.getPrincipioAttivo());
-                statement.setInt(4,farmaco.getTipo());
-                statement.setInt(5,(((Spinner<Integer>)farmaco.getStrumenti().getChildren().get(0)).getValue()));
-                statement.setInt(6,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
-                statement.executeUpdate();
+                statement.setDate(2,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
+                statement.setInt(3,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    statement = connection.prepareStatement("update farmaco " +
+                            "set quantita = ? " +
+                            "where farmacia_id_farmacia = ? AND nome = ? AND data_scadenza = ?");
+                    int quantitaAttuale = resultSet.getInt("quantita");
+                    statement.setInt(1,(quantitaAttuale+(((Spinner<Integer>)farmaco.getStrumenti().getChildren().get(0)).getValue())));
+                    statement.setString(3,farmaco.getNome());
+                    statement.setDate(4,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
+                    statement.setInt(2,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                    statement.executeUpdate();
+                } else {
+                    statement = connection.prepareStatement("insert into farmaco " +
+                            "values (?,?,?,?,?,?)");
+                    statement.setString(1,farmaco.getNome());
+                    statement.setDate(2,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
+                    statement.setString(3,farmaco.getPrincipioAttivo());
+                    statement.setInt(4,farmaco.getTipo());
+                    statement.setInt(5,(((Spinner<Integer>)farmaco.getStrumenti().getChildren().get(0)).getValue()));
+                    statement.setInt(6,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                    statement.executeUpdate();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -609,4 +628,22 @@ public class InterfacciaFarmacia {
     }
 
 
+
+    /**
+     * Metodo utilizzato per aggiungere una {@code Segnalazione} per un particolare {@code Ordine} nel database dell'Azienda
+     * @param idOrdine ordine da segnalare
+     * @param commento commento del farmacista
+     * @param dataGenerazione data di generazione della segnalazione
+     */
+    public void aggiungiSegnalazione(int idOrdine, String commento, LocalDate dataGenerazione) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("insert segnalazione values (null, ?, ?, ?);");
+            statement.setString(1,commento);
+            statement.setDate(2, Date.valueOf(dataGenerazione));
+            statement.setInt(3, idOrdine);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

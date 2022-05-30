@@ -1,5 +1,6 @@
 package com.progetto.farmacia.ordini;
 
+import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.EntryMagazzinoFarmacia;
 import com.progetto.entity.Farmaco;
 import com.progetto.entity.Ordine;
@@ -12,14 +13,28 @@ import java.util.ArrayList;
 
 public class RegistrazioneFarmaciRicevutiControl {
 
+    private EntryListaOrdini entry;
     private Ordine ordine;
     private Stage stage;
     private final InterfacciaFarmacia db;
+    private Stage stageRegistrazioneFarmaci;
 
-    public RegistrazioneFarmaciRicevutiControl(Ordine ordine, Stage stage) {
-        setOrdine(ordine);
+    public RegistrazioneFarmaciRicevutiControl(EntryListaOrdini entry, Stage stage) {
+        setEntry(entry);
+        setOrdine(entry.getOrdine());
         setStage(stage);
         db = new InterfacciaFarmacia();
+    }
+
+    public EntryListaOrdini getEntry() {
+        return entry;
+    }
+
+    public void setEntry(EntryListaOrdini entry) {
+        if (entry == null) {
+            throw new NullPointerException("entry = null");
+        }
+        this.entry = entry;
     }
 
     public Ordine getOrdine() {
@@ -55,8 +70,9 @@ public class RegistrazioneFarmaciRicevutiControl {
 
         SchermataRegistrazioneFarmaci schermataRegistrazioneFarmaci = new SchermataRegistrazioneFarmaci(farmaci,this,getOrdine().getIdOrdine());
         getStage().hide();
+        this.stageRegistrazioneFarmaci = new Stage();
         try {
-            schermataRegistrazioneFarmaci.start(getStage());
+            schermataRegistrazioneFarmaci.start(this.stageRegistrazioneFarmaci);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,32 +89,33 @@ public class RegistrazioneFarmaciRicevutiControl {
     void clickSuConfermaRegistrazione(Stage stage) {
         ArrayList<Farmaco> farmaciConsegnati = ordine.getFarmaci();
         ArrayList<EntryMagazzinoFarmacia> farmaciCaricati = SchermataRegistrazioneFarmaci.getFarmaci();
-        String farmaciMancanti = "";
-        boolean caricamentoCorretto = controllaQuantita(farmaciConsegnati,farmaciCaricati,farmaciMancanti);
+        String farmaciMancanti = controllaQuantita(farmaciConsegnati,farmaciCaricati);
+        boolean caricamentoCorretto = farmaciMancanti.equals("");
         db.caricaFarmaci(farmaciCaricati);
         db.modificaStatoInCaricato(getOrdine().getIdOrdine());
         try {
             if (!caricamentoCorretto) {
-                AvvisoCaricamentoParziale avvisoCaricamentoParziale = new AvvisoCaricamentoParziale(farmaciMancanti);
-                avvisoCaricamentoParziale.start(stage);
+                AvvisoCaricamentoParziale avvisoCaricamentoParziale = new AvvisoCaricamentoParziale(farmaciMancanti, entry, this);
+                avvisoCaricamentoParziale.start(new Stage());
             } else {
-                RegistrazioneCompletata registrazioneCompletata = new RegistrazioneCompletata();
-                registrazioneCompletata.start(stage);
+                RegistrazioneCompletata registrazioneCompletata = new RegistrazioneCompletata(this);
+                registrazioneCompletata.start(new Stage());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private boolean controllaQuantita(ArrayList<Farmaco> farmaciConsegnati, ArrayList<EntryMagazzinoFarmacia> farmaciCaricati, String farmaciMancanti) {
+    private String controllaQuantita(ArrayList<Farmaco> farmaciConsegnati, ArrayList<EntryMagazzinoFarmacia> farmaciCaricati ) {
+        String farmaciMancanti = "";
         for(int i=0; i<farmaciCaricati.size(); i++) {
             int quantitaConsegnata = farmaciConsegnati.get(i).getQuantita();
             int quantitaCaricata = ((Spinner<Integer>)farmaciCaricati.get(i).getStrumenti().getChildren().get(0)).getValue();
             if (quantitaCaricata != quantitaConsegnata) {
-                farmaciMancanti += farmaciConsegnati.get(i).getNome() + "\t" + (quantitaConsegnata-quantitaCaricata) + "\n";
+                farmaciMancanti = farmaciMancanti.concat(farmaciConsegnati.get(i).getNome() + "\t" + (quantitaConsegnata-quantitaCaricata) + "\n");
             }
         }
-        return farmaciMancanti.equals("");
+        return farmaciMancanti;
     }
 
     /**
@@ -109,7 +126,16 @@ public class RegistrazioneFarmaciRicevutiControl {
      * @param substage sotto-stage della ListaOrdini da distuggere
      */
     void clickSuIndietro(Stage substage) {
+        this.stageRegistrazioneFarmaci.close();
+        ListaOrdini.update();
+        this.stage.show();
+    }
+
+    void clickSuChiudi(Stage substage) {
+        ListaOrdini.getOrdini().remove(this.entry);
+        this.stageRegistrazioneFarmaci.close();
         substage.close();
+        ListaOrdini.update();
         this.stage.show();
     }
 }

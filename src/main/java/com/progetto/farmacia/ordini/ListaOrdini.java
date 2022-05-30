@@ -67,6 +67,10 @@ public class ListaOrdini extends Application implements Initializable {
         this.setControl(control);
     }
 
+    public static ArrayList<EntryListaOrdini> getOrdini() {
+        return ordini;
+    }
+
     private void setFarmacia(Farmacia farmacia) {
         if(farmacia == null) {
             throw new NullPointerException("Farmacia in Visualizza Ordini = null");
@@ -136,6 +140,13 @@ public class ListaOrdini extends Application implements Initializable {
         ListaOrdini.ref = this.lista;
     }
 
+    public static void update(){
+        ListaOrdini.ref.getItems().clear();
+        for(EntryListaOrdini entry : ListaOrdini.ordini) {
+            ListaOrdini.ref.getItems().add(entry);
+        }
+    }
+
     /**
      * ritorna un riferimento alla lista ordini
      * @return un oggetto {@code TableView<EntryListaOrdini>} che rappresenta la lista ordini
@@ -153,18 +164,19 @@ public class ListaOrdini extends Application implements Initializable {
     public void cancellaOrdine (EntryListaOrdini entry) throws IOException{
         CancellaOrdineControl cancOrdCtrl = new CancellaOrdineControl(entry,this.stage);
         cancOrdCtrl.start();
-        ListaOrdini.ordini.remove(entry);
-        ListaOrdini.ref.getItems().remove(entry);
+        update();
     }
 
     public void modificaOrdine (EntryListaOrdini entry) throws IOException{
         ModificaOrdineControl modOrdCtrl = new ModificaOrdineControl(ListaOrdini.farmacia,entry,this.stage);
         modOrdCtrl.start();
+        update();
     }
 
     public void caricaOrdine (EntryListaOrdini entry) throws IOException{
-        RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl = new RegistrazioneFarmaciRicevutiControl(entry.getOrdine(), this.stage);
+        RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl = new RegistrazioneFarmaciRicevutiControl(entry, this.stage);
         registrazioneFarmaciRicevutiControl.start();
+        update();
     }
 
 }
