@@ -7,10 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class AvvisoCaricamentoParziale extends Application implements Initializable {
 
     @FXML
-    private Text farmaciMancantiText;
+    private TextArea farmaciMancantiText;
 
     private String farmaciMancanti;
 
@@ -45,7 +45,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schermataErroreQuantita.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("avvisoCaricamentoParziale.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 350);
 
         double stageWidth = 410;
@@ -70,7 +70,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.farmaciMancantiText.setTextContent(farmaciMancanti);
+        this.farmaciMancantiText.setText(farmaciMancanti);
     }
 
     @FXML
