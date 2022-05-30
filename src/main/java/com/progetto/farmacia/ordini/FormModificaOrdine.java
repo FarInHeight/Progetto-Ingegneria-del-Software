@@ -43,6 +43,8 @@ public class FormModificaOrdine extends Application implements Initializable {
     private static ArrayList<EntryFormOrdine> farmaci;
     @FXML
     private Text usernameLabel;
+    @FXML
+    private Button aggungiFarmaciButton;
 
     @FXML
     private TableView<EntryFormOrdine> lista;
@@ -178,6 +180,10 @@ public class FormModificaOrdine extends Application implements Initializable {
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
 
+        if(FormModificaOrdine.entry.getOrdine().getTipo() == 1) {
+            this.aggungiFarmaciButton.setVisible(false);
+            this.aggungiFarmaciButton.setManaged(false);
+        }
         //converti entry lista ordini in entry form ordine
         ArrayList<Farmaco> farmaciEntry = this.entry.getFarmaci();
         for(Farmaco farmaco : farmaciEntry){
@@ -202,6 +208,10 @@ public class FormModificaOrdine extends Application implements Initializable {
                 FormModificaOrdine.control.clickSuRimuovi(entry);
             }
         });
+        if(this.entry.getOrdine().getTipo() == 1) {
+            rimuovi.setVisible(false);
+            rimuovi.setManaged(false);
+        }
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
