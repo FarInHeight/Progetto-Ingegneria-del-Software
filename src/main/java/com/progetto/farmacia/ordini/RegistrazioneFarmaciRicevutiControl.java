@@ -17,6 +17,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     private Ordine ordine;
     private Stage stage;
     private final InterfacciaFarmacia db;
+    private Stage stagaRegistrazioneFarmaci;
 
     public RegistrazioneFarmaciRicevutiControl(EntryListaOrdini entry, Stage stage) {
         setEntry(entry);
@@ -69,8 +70,9 @@ public class RegistrazioneFarmaciRicevutiControl {
 
         SchermataRegistrazioneFarmaci schermataRegistrazioneFarmaci = new SchermataRegistrazioneFarmaci(farmaci,this,getOrdine().getIdOrdine());
         getStage().hide();
+        this.stagaRegistrazioneFarmaci = new Stage();
         try {
-            schermataRegistrazioneFarmaci.start(getStage());
+            schermataRegistrazioneFarmaci.start(this.stagaRegistrazioneFarmaci);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,11 +95,11 @@ public class RegistrazioneFarmaciRicevutiControl {
         db.modificaStatoInCaricato(getOrdine().getIdOrdine());
         try {
             if (!caricamentoCorretto) {
-                AvvisoCaricamentoParziale avvisoCaricamentoParziale = new AvvisoCaricamentoParziale(farmaciMancanti, entry);
-                avvisoCaricamentoParziale.start(stage);
+                AvvisoCaricamentoParziale avvisoCaricamentoParziale = new AvvisoCaricamentoParziale(farmaciMancanti, entry, this);
+                avvisoCaricamentoParziale.start(new Stage());
             } else {
                 RegistrazioneCompletata registrazioneCompletata = new RegistrazioneCompletata(this);
-                registrazioneCompletata.start(stage);
+                registrazioneCompletata.start(new Stage());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,8 +126,15 @@ public class RegistrazioneFarmaciRicevutiControl {
      * @param substage sotto-stage della ListaOrdini da distuggere
      */
     void clickSuIndietro(Stage substage) {
-        substage.close();
+        this.stagaRegistrazioneFarmaci.close();
+        ListaOrdini.update();
+        this.stage.show();
+    }
+
+    void clickSuChiudi(Stage substage) {
         ListaOrdini.getOrdini().remove(this.entry);
+        this.stagaRegistrazioneFarmaci.close();
+        substage.close();
         ListaOrdini.update();
         this.stage.show();
     }

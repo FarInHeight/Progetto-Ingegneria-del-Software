@@ -15,8 +15,7 @@ import javafx.stage.Stage;
  * Classe che modella la boundary {@code ConfermaInvioSegnalazione}
  */
 public class ConfermaInvioSegnalazione extends Application {
-    private static CreaSegnalazioneControl control;
-
+    private static RegistrazioneFarmaciRicevutiControl controlRegistrazione;
     /**
      * Costruttore di un oggetto di classe {@code ConfermaInvioSegnalazione}
      */
@@ -25,16 +24,19 @@ public class ConfermaInvioSegnalazione extends Application {
     /**
      * Costruttore di un oggetto di classe {@code ConfermaInvioSegnalazione} che prende in input la control che ha creato
      * il messaggio di conferma
-     * @param control control che ha creato il messaggio di conferma
+     * @param controlRegistrazione control che ha creato il messaggio di conferma
      */
-    public ConfermaInvioSegnalazione(CreaSegnalazioneControl control){this.setControl(control);}
+    public ConfermaInvioSegnalazione(RegistrazioneFarmaciRicevutiControl controlRegistrazione){
+        this.setControlRegistrazione(controlRegistrazione);
+    }
 
-    private void setControl(CreaSegnalazioneControl control) {
-        if(control == null) {
+    private void setControlRegistrazione(RegistrazioneFarmaciRicevutiControl controlRegistrazione) {
+        if(controlRegistrazione == null) {
             throw new NullPointerException("Riepilogo = null");
         }
-        ConfermaInvioSegnalazione.control = control;
+        ConfermaInvioSegnalazione.controlRegistrazione = controlRegistrazione;
     }
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("confermaInvioSegnalazione.fxml"));
@@ -58,6 +60,6 @@ public class ConfermaInvioSegnalazione extends Application {
     @FXML
     private void chiudi(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-        ConfermaInvioSegnalazione.control.clickSuChiudi(stage);
+        ConfermaInvioSegnalazione.controlRegistrazione.clickSuChiudi(stage);
     }
 }

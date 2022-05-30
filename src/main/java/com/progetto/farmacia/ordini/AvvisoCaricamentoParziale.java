@@ -26,14 +26,22 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
 
     private static String farmaciMancanti;
     private static EntryListaOrdini ordine;
+    private static RegistrazioneFarmaciRicevutiControl control;
 
     public AvvisoCaricamentoParziale(){
         super();
     }
 
-    public AvvisoCaricamentoParziale(String farmaciMancanti, EntryListaOrdini ordine) {
+    public AvvisoCaricamentoParziale(String farmaciMancanti, EntryListaOrdini ordine, RegistrazioneFarmaciRicevutiControl control) {
         setFarmaciMancanti(farmaciMancanti);
         setOrdine(ordine);
+        this.setControl(control);
+    }
+    private void setControl(RegistrazioneFarmaciRicevutiControl control) {
+        if(control == null) {
+            throw new NullPointerException("Riepilogo = null");
+        }
+        AvvisoCaricamentoParziale.control = control;
     }
 
     public void setFarmaciMancanti(String farmaciMancanti) {
@@ -88,7 +96,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     @FXML
     private void creaSegnalazione(ActionEvent event) {
         //PlaceHolder, non so esattamente che dovremmo passare
-        CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl(AvvisoCaricamentoParziale.ordine);
+        CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl(AvvisoCaricamentoParziale.ordine, AvvisoCaricamentoParziale.control);
         creaSegnalazioneControl.start(event);
     }
 

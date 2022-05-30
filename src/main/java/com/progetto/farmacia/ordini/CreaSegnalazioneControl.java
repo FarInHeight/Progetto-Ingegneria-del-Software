@@ -17,12 +17,20 @@ public class CreaSegnalazioneControl {
     private EntryListaOrdini ordine;
     private CreazioneSegnalazioneForm form;
 
+    private RegistrazioneFarmaciRicevutiControl control;
     /**
      * Costruttore di una {@code CreaSegnalazioneControl} che prende in input un {@code Ordine} da segnalare
      * @param ordine ordine da segnalare
      */
-    public CreaSegnalazioneControl(EntryListaOrdini ordine) {
+    public CreaSegnalazioneControl(EntryListaOrdini ordine, RegistrazioneFarmaciRicevutiControl control) {
         this.setOrdine(ordine);
+        this.setControl(control);
+    }
+    private void setControl(RegistrazioneFarmaciRicevutiControl control) {
+        if(control == null) {
+            throw new NullPointerException("Riepilogo = null");
+        }
+        this.control = control;
     }
 
     private void setOrdine(EntryListaOrdini ordine) {
@@ -63,22 +71,11 @@ public class CreaSegnalazioneControl {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         db.aggiungiSegnalazione(this.ordine.getIdOrdine(), commento, LocalDate.now());
         stage.close();
-        ConfermaInvioSegnalazione conferma = new ConfermaInvioSegnalazione(this);
+        ConfermaInvioSegnalazione conferma = new ConfermaInvioSegnalazione(this.control);
         try {
             conferma.start(new Stage());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * Metodo tramite il quale un oggetto di tipo {@code ConfermaInvioSegnalazione} avvisa la {@code CreaSegnalazioneControl}
-     * del click sul pulsante {@code chiudi} e distrugge la {@code ConfermaInvioSegnalazione}.
-     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
-     * che si trovano nello stesso package.
-     * @param stage stage della {@code ConfermaInvioSegnalazione} da distuggere
-     */
-    void clickSuChiudi(Stage stage) {
-        stage.close();
     }
 }
