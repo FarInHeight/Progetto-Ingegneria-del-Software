@@ -123,7 +123,8 @@ public class ModificaOrdineControl {
             }
             this.setPulsantiListaFarmaci(entry);
         }
-        this.elenco = new ElencoModificaFarmaci(this,this.farmacia,farmaci);
+        if(this.elenco == null)
+            this.elenco = new ElencoModificaFarmaci(this,this.farmacia,farmaci);
         this.elenco.start(stage);
     }
 

@@ -96,7 +96,7 @@ public class VisualizzaOrdiniControl {
         cancella.setStyle("-fx-text-fill: white");
         cancella.setPrefWidth(80);
         // se la data di consegna è entro due giorni successivi oppure l'ordine è periodico
-        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getStato() == 1) {
+        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getTipo() == 1) {
             cancella.setVisible(false);
             cancella.setManaged(false);
         }
