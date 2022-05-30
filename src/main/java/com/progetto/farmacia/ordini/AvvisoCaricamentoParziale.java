@@ -1,5 +1,6 @@
 package com.progetto.farmacia.ordini;
 
+import com.progetto.entity.Ordine;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,13 +23,15 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     private TextArea farmaciMancantiText;
 
     private String farmaciMancanti;
+    private Ordine ordine;
 
     public AvvisoCaricamentoParziale(){
         super();
     }
 
-    public AvvisoCaricamentoParziale(String farmaciMancanti) {
+    public AvvisoCaricamentoParziale(String farmaciMancanti, Ordine ordine) {
         setFarmaciMancanti(farmaciMancanti);
+        setOrdine(ordine);
     }
 
     public void setFarmaciMancanti(String farmaciMancanti) {
@@ -36,6 +39,13 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
             throw new NullPointerException("farmaci mancanti = null");
         }
         this.farmaciMancanti = farmaciMancanti;
+    }
+
+    public void setOrdine(Ordine ordine) {
+        if (ordine==null) {
+            throw new NullPointerException("ordine=null");
+        }
+        this.ordine=ordine;
     }
 
     /**
@@ -76,7 +86,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     @FXML
     private void creaSegnalazione(ActionEvent event) {
         //PlaceHolder, non so esattamente che dovremmo passare
-        CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl();
+        CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl(ordine);
         //creaSegnalazioneControl.start(event);
     }
 
