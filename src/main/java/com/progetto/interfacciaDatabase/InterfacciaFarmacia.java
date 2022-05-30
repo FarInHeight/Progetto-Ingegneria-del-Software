@@ -2,6 +2,7 @@ package com.progetto.interfacciaDatabase;
 
 import com.progetto.entity.*;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
+import javafx.scene.control.Spinner;
 
 import java.io.PipedReader;
 import java.sql.*;
@@ -483,6 +484,41 @@ public class InterfacciaFarmacia {
             eliminazioneOrdine.setInt(1,idOrdine);
             eliminazioneOrdine.executeUpdate();
         }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void caricaFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaciCaricati) {
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){
+            for (EntryMagazzinoFarmacia farmaco:farmaciCaricati) {
+                PreparedStatement statement = connection.prepareStatement("insert into farmaco " +
+                        "values (?,?,?,?,?,?)");
+                statement.setString(1,farmaco.getNome());
+                statement.setDate(2,Date.valueOf(farmaco.getDataScadenza()));
+                statement.setString(3,farmaco.getPrincipioAttivo());
+                statement.setInt(4,farmaco.getTipo());
+                statement.setInt(5,(((Spinner<Integer>)farmaco.getStrumenti().getChildren().get(0)).getValue()));
+                statement.setInt(6,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                statement.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Modifica lo stato di un {@code Ordine} in Elaborazione
+     *
+     * @param id_ordine identificativo dell'Ordine da mandare in elaborazione
+     */
+    public void modificaStatoInCaricato(int id_ordine) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("update ordine set stato = 5 where id_ordine = ?");
+            statement.setInt(1,id_ordine);
+            statement.executeUpdate();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

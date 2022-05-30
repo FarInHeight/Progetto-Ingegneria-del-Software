@@ -165,4 +165,9 @@ public class ListaOrdini extends Application implements Initializable {
         modOrdCtrl.start();
     }
 
+    public void caricaOrdine (EntryListaOrdini entry) throws IOException{
+        RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl = new RegistrazioneFarmaciRicevutiControl(entry.getOrdine(), this.stage);
+        registrazioneFarmaciRicevutiControl.start();
+    }
+
 }

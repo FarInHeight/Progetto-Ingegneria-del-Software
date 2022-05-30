@@ -81,7 +81,7 @@ public class VisualizzaOrdiniControl {
         modifica.setBackground(Background.fill(Color.rgb(190, 190, 120)));
         modifica.setStyle("-fx-text-fill: white");
         modifica.setPrefWidth(80);
-        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() )) {
+        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getStato() == 4) {
             modifica.setVisible(false);
             modifica.setManaged(false);
         }
@@ -96,7 +96,7 @@ public class VisualizzaOrdiniControl {
         cancella.setStyle("-fx-text-fill: white");
         cancella.setPrefWidth(80);
         // se la data di consegna è entro due giorni successivi oppure l'ordine è periodico
-        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getTipo() == 1) {
+        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getTipo() == 1 || entry.getOrdine().getStato() == 4) {
             cancella.setVisible(false);
             cancella.setManaged(false);
         }
@@ -143,7 +143,11 @@ public class VisualizzaOrdiniControl {
      * @param entry ordine da caricare
      */
     void clickSuCarica(EntryListaOrdini entry) {
-
+        try {
+            this.listaOrdini.caricaOrdine(entry);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

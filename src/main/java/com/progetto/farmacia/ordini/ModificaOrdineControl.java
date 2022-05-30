@@ -72,6 +72,10 @@ public class ModificaOrdineControl {
                 ModificaOrdineControl.this.clickSuRimuovi(entry);
             }
         });
+        if(this.entry.getOrdine().getTipo() == 1) {
+            rimuovi.setVisible(false);
+            rimuovi.setManaged(false);
+        }
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
@@ -106,8 +110,17 @@ public class ModificaOrdineControl {
         if (this.elenco != null) {
             this.elenco.aggiungiFarmaco(entry);
         }else {
-            ArrayList<EntryFormOrdine> farmaci = new ArrayList<>();
-            farmaci.add(entry);
+            InterfacciaFarmacia db = new InterfacciaFarmacia();
+            ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
+            // tolgo i farmaci contenuti nell'ordine dalla lista completa
+            for(int i = 0; i < this.entry.getFarmaci().size(); ++i) {
+                this.rimuoviFarmacoContenuto(farmaci, this.entry.getFarmaci().get(i).getNome());
+            }
+            // imposto i pulsanti di rimozione
+            for(EntryFormOrdine farmaco : farmaci) {
+                this.setPulsantiListaFarmaci(farmaco);
+            }
+            farmaci.add(entry);  // aggiungo il farmaco appena rimosso dal form ordine
             this.elenco = new ElencoModificaFarmaci(this, this.farmacia, farmaci);
         }
         this.formOrdine.rimuoviFarmaco(entry);
@@ -144,6 +157,14 @@ public class ModificaOrdineControl {
             }
         }
         return false;
+    }
+
+    private void rimuoviFarmacoContenuto(ArrayList<EntryFormOrdine> lista, String nomeFarmaco) {
+        for(int i = 0; i < lista.size(); ++i) {
+            if(lista.get(i).getNomeFarmaco().strip().equals(nomeFarmaco.strip())) {
+                lista.remove(i);
+            }
+        }
     }
 
     void clickSuConferma(Stage substage){
