@@ -499,13 +499,13 @@ public class InterfacciaFarmacia {
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     statement = connection.prepareStatement("update farmaco " +
-                            "set quantita = ?" +
-                            "where nome = ? and data_scadenza = ? and farmacia_id_farmacia = ? ");
+                            "set quantita = ? " +
+                            "where farmacia_id_farmacia = ? AND nome = ? AND data_scadenza = ?");
                     int quantitaAttuale = resultSet.getInt("quantita");
-                    statement.setInt(1,(quantitaAttuale+farmaco.getQuantita()));
-                    statement.setString(2,farmaco.getNome());
-                    statement.setDate(3,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
-                    statement.setInt(4,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                    statement.setInt(1,(quantitaAttuale+(((Spinner<Integer>)farmaco.getStrumenti().getChildren().get(0)).getValue())));
+                    statement.setString(3,farmaco.getNome());
+                    statement.setDate(4,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
+                    statement.setInt(2,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
                     statement.executeUpdate();
                 } else {
                     statement = connection.prepareStatement("insert into farmaco " +

@@ -22,7 +22,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     @FXML
     private TextArea farmaciMancantiText;
 
-    private String farmaciMancanti;
+    private static String farmaciMancanti;
     private Ordine ordine;
 
     public AvvisoCaricamentoParziale(){
@@ -38,7 +38,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         if (farmaciMancanti == null) {
             throw new NullPointerException("farmaci mancanti = null");
         }
-        this.farmaciMancanti = farmaciMancanti;
+        AvvisoCaricamentoParziale.farmaciMancanti = farmaciMancanti;
     }
 
     public void setOrdine(Ordine ordine) {
@@ -80,7 +80,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.farmaciMancantiText.setText(farmaciMancanti);
+        this.farmaciMancantiText.setText(AvvisoCaricamentoParziale.farmaciMancanti);
     }
 
     @FXML

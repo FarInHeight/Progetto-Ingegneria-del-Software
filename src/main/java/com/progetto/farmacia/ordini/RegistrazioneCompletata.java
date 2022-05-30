@@ -15,6 +15,22 @@ import java.io.IOException;
 
 public class RegistrazioneCompletata extends Application {
 
+    private RegistrazioneFarmaciRicevutiControl control;
+
+    public RegistrazioneCompletata() {
+    }
+
+    public RegistrazioneCompletata(RegistrazioneFarmaciRicevutiControl control) {
+        setControl(control);
+    }
+
+    public void setControl(RegistrazioneFarmaciRicevutiControl control) {
+        if (control == null){
+            throw new NullPointerException("control = null");
+        }
+        this.control = control;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registrazioneCompletata.fxml"));
@@ -41,7 +57,8 @@ public class RegistrazioneCompletata extends Application {
     }
 
     @FXML
-    private void continua(ActionEvent event) {
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
+    private void chiudi(ActionEvent event) {
+        Stage stage = ((Stage) (((Button) event.getSource()).getScene().getWindow()));  // chiudo l'avviso
+        control.clickSuIndietro(stage);
     }
 }
