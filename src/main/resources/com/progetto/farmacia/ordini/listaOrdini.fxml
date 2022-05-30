@@ -24,7 +24,7 @@
             </Text>
          </top>
          <center>
-            <Button fx:id="fattoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#fatto" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #26bd1b;" text="FATTO" textFill="WHITE" translateX="-259.0" translateY="-10.0" BorderPane.alignment="CENTER" />
+            <Button fx:id="fattoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#fatto" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #9EDB8C;" text="FATTO" textFill="WHITE" translateX="-259.0" translateY="-10.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </top>
