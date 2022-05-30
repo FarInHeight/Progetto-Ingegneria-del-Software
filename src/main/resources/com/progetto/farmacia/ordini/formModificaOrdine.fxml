@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.FormModificaOrdine">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.FormModificaOrdine">
    <top>
       <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
          <left>
@@ -48,7 +47,7 @@
                   </Button>
                </right>
                <left>
-                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="219.0" BorderPane.alignment="CENTER">
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="141.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button fx:id="aggungiFarmaciButton" layoutX="110.0" layoutY="5.0" mnemonicParsing="false" onAction="#aggiungiFarmaci" prefHeight="18.0" prefWidth="25.0" style="-fx-background-color: #0056d8;" text="+" textAlignment="JUSTIFY" textFill="WHITE" />
                         <Text layoutX="14.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista Farmaci">
@@ -59,6 +58,17 @@
                      </children>
                   </Pane>
                </left>
+               <center>
+                  <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="190.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Text fx:id="periodoLabel" layoutX="31.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Periodo (in giorni)" visible="false">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+               </center>
             </BorderPane>
          </top>
       </BorderPane>

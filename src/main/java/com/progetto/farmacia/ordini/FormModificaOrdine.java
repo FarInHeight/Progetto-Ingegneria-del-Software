@@ -1,9 +1,7 @@
 package com.progetto.farmacia.ordini;
 
-import com.progetto.entity.EntryFormOrdine;
-import com.progetto.entity.EntryListaOrdini;
-import com.progetto.entity.Farmacia;
-import com.progetto.entity.Farmaco;
+import com.progetto.entity.*;
+import com.progetto.farmacia.magazzino.SchermataMagazzino;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,14 +16,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -45,6 +42,12 @@ public class FormModificaOrdine extends Application implements Initializable {
     private Text usernameLabel;
     @FXML
     private Button aggungiFarmaciButton;
+
+    @FXML
+    private Pane pane;
+
+    @FXML
+    private Text periodoLabel;
 
     @FXML
     private TableView<EntryFormOrdine> lista;
@@ -134,8 +137,11 @@ public class FormModificaOrdine extends Application implements Initializable {
             int quantita = spinner.getValue();
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        int idOrdine = FormModificaOrdine.entry.getIdOrdine();
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage(),idOrdine);
+        int periodo = 0;
+        if(entry.getOrdine().getTipo() == 1) {
+            periodo = ((Spinner<Integer>) this.pane.getChildren().get(1)).getValue();
+        }
+        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage(),FormModificaOrdine.entry,periodo);
         verCorrOrdCtrl.start();
     }
 
@@ -209,9 +215,18 @@ public class FormModificaOrdine extends Application implements Initializable {
                 FormModificaOrdine.control.clickSuRimuovi(entry);
             }
         });
-        if(this.entry.getOrdine().getTipo() == 1) {
+        if(FormModificaOrdine.entry.getOrdine().getTipo() == 1) {
             rimuovi.setVisible(false);
             rimuovi.setManaged(false);
+            this.periodoLabel.setVisible(true);
+            Spinner<Integer> spinner = new Spinner<>();
+            spinner.setEditable(true);
+            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
+            spinner.setValueFactory(valueFactory);
+            spinner.setMaxWidth(60);
+            spinner.setTranslateX(140);
+            spinner.setLayoutY(8);
+            this.pane.getChildren().add(spinner);
         }
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);

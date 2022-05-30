@@ -1,9 +1,6 @@
 package com.progetto.farmacia.ordini;
 
-import com.progetto.entity.Farmacia;
-import com.progetto.entity.Farmaco;
-import com.progetto.entity.Lotto;
-import com.progetto.entity.Ordine;
+import com.progetto.entity.*;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -22,7 +19,9 @@ public class VerificaCorrettezzaOrdineControl {
     private Stage stage; //stage del form ordine
     private Farmacia farmacia;
 
-    private int idOrdine;  //ordine eventuale da eliminare
+    private int periodo;  //periodo dell'eventuale ordine periodico
+
+    private EntryListaOrdini entry;  // entry dell'ordine eventuale da eliminare
 
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
     private LinkedList<Lotto> lotti;  //lotti presenti nel magazzino azienda
@@ -33,11 +32,10 @@ public class VerificaCorrettezzaOrdineControl {
     private ArrayList<Lotto> lottiDisponibili;  //lotti relativi a farmaci disponibili
     private ArrayList<Farmaco> farmaciNonDisponibili;  //farmaci non disponibili
 
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci,Farmacia farmacia, Stage stage){
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
-        this.idOrdine = -1;
         this.farmaciParzialmenteDisponibili = new ArrayList<>();
         this.lottiParzialmenteDisponibili = new ArrayList<>();
         this.farmaciDisponibili = new ArrayList<>();
@@ -45,11 +43,12 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaciNonDisponibili = new ArrayList<>();
     }
 
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci,Farmacia farmacia, Stage stage, int idOrdine){
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, int periodo) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
-        this.setIdOrdine(idOrdine);
+        this.setEntry(entry);
+        this.setPeriodo(periodo);
         this.farmaciParzialmenteDisponibili = new ArrayList<>();
         this.lottiParzialmenteDisponibili = new ArrayList<>();
         this.farmaciDisponibili = new ArrayList<>();
@@ -57,40 +56,49 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaciNonDisponibili = new ArrayList<>();
     }
 
-    private void setIdOrdine(int idOrdine){
-        if(idOrdine < 0){
-            throw new IllegalArgumentException("id ordine < 0");
+    private void setPeriodo(int periodo) {
+        if (periodo < 0) {
+            throw new IllegalArgumentException("periodo < 0");
         }
-        this.idOrdine = idOrdine;
+        this.periodo = periodo;
     }
 
-    private void setStage(Stage stage){
-        if(stage == null){
+    private void setEntry(EntryListaOrdini entry) {
+        if (entry == null) {
+            throw new IllegalArgumentException("entry dell'ordine = null");
+        }
+        this.entry = entry;
+    }
+
+    private void setStage(Stage stage) {
+        if (stage == null) {
             throw new NullPointerException("stage = null");
         }
         this.stage = stage;
     }
-    private void setFarmacia(Farmacia farmacia){
-        if(farmacia == null){
+
+    private void setFarmacia(Farmacia farmacia) {
+        if (farmacia == null) {
             throw new NullPointerException("farmacia ? null");
         }
         this.farmacia = farmacia;
     }
-    private void setFarmaci(ArrayList<Farmaco> farmaci){
-        if(farmaci == null){
+
+    private void setFarmaci(ArrayList<Farmaco> farmaci) {
+        if (farmaci == null) {
             throw new NullPointerException("farmaci == null");
         }
         this.farmaci = farmaci;
     }
 
     private void setLotti(LinkedList<Lotto> lotti) {
-        if(lotti == null){
+        if (lotti == null) {
             throw new NullPointerException("lotti == null");
         }
         this.lotti = lotti;
     }
 
-    private void ottieniLotti(){
+    private void ottieniLotti() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         this.setLotti(db.getLotti());
     }
@@ -106,8 +114,8 @@ public class VerificaCorrettezzaOrdineControl {
             }
         }
 
-        if(lottiRichiesti.size() == 0){  //se non ci sono lotti con i farmaci richiesti con farmaci disponibili
-            for(Farmaco farmaco : this.farmaci){
+        if (lottiRichiesti.size() == 0) {  //se non ci sono lotti con i farmaci richiesti con farmaci disponibili
+            for (Farmaco farmaco : this.farmaci) {
                 this.farmaciNonDisponibili.add(farmaco);
             }
         }
@@ -134,21 +142,21 @@ public class VerificaCorrettezzaOrdineControl {
                     }
                     break;
                 }
-                if(i == lottiRichiesti.size() - 1 && numeroFarmaci == 0) {  //non c'è nessun farmaco in magazzino
+                if (i == lottiRichiesti.size() - 1 && numeroFarmaci == 0) {  //non c'è nessun farmaco in magazzino
                     this.farmaciNonDisponibili.add(farmaco);
                 }
             }
         }
     }
 
-    private void verificaScadenza(){
-        if(this.farmaciNonDisponibili.size() == 0 && this.farmaciParzialmenteDisponibili.size() == 0){  //ci sono abbastanza farmaci per soddisfare l'ordine
+    private void verificaScadenza() {
+        if (this.farmaciNonDisponibili.size() == 0 && this.farmaciParzialmenteDisponibili.size() == 0) {  //ci sono abbastanza farmaci per soddisfare l'ordine
             ArrayList<Farmaco> farmaciDisponibiliAvvisoScadenza = new ArrayList<>();
             ArrayList<Lotto> lottiDisponibiliAvvisoScadenza = new ArrayList<>();
-            for(Farmaco farmacoDisponibile : this.farmaciDisponibili){
-                for(Lotto lottoDisponibile : this.lottiDisponibili){
-                    if(lottoDisponibile.getNomeFarmaco().compareTo(farmacoDisponibile.getNome()) == 0){
-                        if(Period.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).getMonths() < 2){
+            for (Farmaco farmacoDisponibile : this.farmaciDisponibili) {
+                for (Lotto lottoDisponibile : this.lottiDisponibili) {
+                    if (lottoDisponibile.getNomeFarmaco().compareTo(farmacoDisponibile.getNome()) == 0) {
+                        if (Period.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).getMonths() < 2) {
                             farmaciDisponibiliAvvisoScadenza.add(farmacoDisponibile);
                             lottiDisponibiliAvvisoScadenza.add(lottoDisponibile);
                         }
@@ -156,23 +164,21 @@ public class VerificaCorrettezzaOrdineControl {
                 }
             }
             //se ci sono farmaci che scdranno fra meno di 2 mesi
-            if(farmaciDisponibiliAvvisoScadenza.size() != 0) {
+            if (farmaciDisponibiliAvvisoScadenza.size() != 0) {
                 String farmaciPerAvviso = "";
                 for (Farmaco farmacoInScadenza : farmaciDisponibiliAvvisoScadenza) {
                     farmaciPerAvviso += (farmacoInScadenza.getNome() + "\t" + farmacoInScadenza.getPrincipioAttivo() + "\n");
                 }
-                AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, this.farmacia,this);
+                AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, this.farmacia, this);
                 try {
                     avvisoScadenza.start(new Stage());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else{
+            } else {
                 this.effettuaOrdine();
             }
-        }
-        else {//non ci sono abbastanza farmaci per soddisfare l'ordine
+        } else {//non ci sono abbastanza farmaci per soddisfare l'ordine
             SchermataErroreQuantita schermataErroreQuantita = new SchermataErroreQuantita(this);
             try {
                 schermataErroreQuantita.start(this.stage);
@@ -182,13 +188,13 @@ public class VerificaCorrettezzaOrdineControl {
         }
     }
 
-    private void effettuaOrdineParziale(){
+    private void effettuaOrdineParziale() {
         ArrayList<Farmaco> farmaciParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
         ArrayList<Lotto> lottiParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
         for (Farmaco farmacoParzialmenteDisponibile : this.farmaciParzialmenteDisponibili) {
             for (Lotto lottoParzialmenteDisponibile : this.lottiParzialmenteDisponibili) {
                 if (lottoParzialmenteDisponibile.getNomeFarmaco().compareTo(farmacoParzialmenteDisponibile.getNome()) == 0) {
-                    if (Period.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).getMonths()<2) {
+                    if (Period.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).getMonths() < 2) {
                         farmaciParzialmenteDisponibiliAvvisoScadenza.add(farmacoParzialmenteDisponibile);
                         lottiParzialmenteDisponibiliAvvisoScadenza.add(lottoParzialmenteDisponibile);
                     }
@@ -197,48 +203,66 @@ public class VerificaCorrettezzaOrdineControl {
         }
 
         //se ci sono farmaci che scadranno fra meno di 2 mesi
-        if(farmaciParzialmenteDisponibiliAvvisoScadenza.size() != 0) {
+        if (farmaciParzialmenteDisponibiliAvvisoScadenza.size() != 0) {
             String farmaciPerAvviso = "";
             for (Farmaco farmacoInScadenza : farmaciParzialmenteDisponibiliAvvisoScadenza) {
                 farmaciPerAvviso += (farmacoInScadenza.getNome() + "\t" + farmacoInScadenza.getPrincipioAttivo() + "\n");
             }
 
-            AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, this.farmacia,this);
+            AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, this.farmacia, this);
             try {
                 avvisoScadenza.start(new Stage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else{
+        } else {
             this.effettuaOrdine();
         }
     }
 
-    private void effettuaOrdine(){
+    private void effettuaOrdine() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
-        if(this.farmaciDisponibili.size() != 0) {
+        if (this.entry != null && this.entry.getOrdine().getTipo() == 1) {  //l'ordine è periodico
+            db.inserisciOrdinePeriodico(this.farmaci, this.periodo);  //registro nel db l'ordine periodico
+            db.cancellaOrdinePeriodico(this.entry.getOrdine().getIdOrdine());  //cancello ordine vecchio
+
+            //aggiornare lista ordini
+
+        }
+        if (this.farmaciDisponibili.size() != 0) {
             Ordine ordine = new Ordine(1, 1, this.farmaciDisponibili, 2, 1, LocalDate.now().plusDays(7), this.farmacia.getNome(), this.farmacia.getIndirizzo());
             db.aggiornaLotti(this.lottiDisponibili, this.farmaciDisponibili);
             db.elaboraOrdineNonPeriodico(ordine, this.lottiDisponibili, this.farmaciDisponibili);
+
+            if (this.entry != null) {
+                db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
+                db.cancellaOrdine(this.entry.getIdOrdine());
+
+                //aggiornare lista ordini
+
+            }
         }
-        if(this.farmaciParzialmenteDisponibili.size() != 0){
-            Ordine ordine = new Ordine(1,1,this.farmaciParzialmenteDisponibili,2,1,LocalDate.now().plusDays(7),this.farmacia.getNome(),this.farmacia.getIndirizzo());
-            db.aggiornaLotti(this.lottiParzialmenteDisponibili,this.farmaciParzialmenteDisponibili);
-            db.elaboraOrdineNonPeriodico(ordine,this.lottiParzialmenteDisponibili,this.farmaciParzialmenteDisponibili);
-            for(Farmaco farmaco : this.farmaciParzialmenteDisponibili){
+        if (this.farmaciParzialmenteDisponibili.size() != 0) {
+            Ordine ordine = new Ordine(1, 1, this.farmaciParzialmenteDisponibili, 2, 1, LocalDate.now().plusDays(7), this.farmacia.getNome(), this.farmacia.getIndirizzo());
+            db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+            db.elaboraOrdineNonPeriodico(ordine, this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+            for (Farmaco farmaco : this.farmaciParzialmenteDisponibili) {
+                db.prenotaOrdineNonPeriodico(farmaco);
+            }
+
+            if (this.entry != null) {
+                db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
+                db.cancellaOrdine(this.entry.getIdOrdine());
+
+                //aggiornare lista ordini
+            }
+        }
+        if (this.farmaciNonDisponibili.size() != 0) {
+            for (Farmaco farmaco : this.farmaciNonDisponibili) {
                 db.prenotaOrdineNonPeriodico(farmaco);
             }
         }
-        if(this.farmaciNonDisponibili.size() != 0){
-            for(Farmaco farmaco : this.farmaciNonDisponibili){
-                db.prenotaOrdineNonPeriodico(farmaco);
-            }
-        }
-        if(this.idOrdine != -1){
-            db.modificaFarmaciOrdinati(this.idOrdine);
-            db.cancellaOrdine(this.idOrdine);
-        }
+
         MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
         try {
             messaggioConfermaOrdine.start(this.stage);
@@ -247,22 +271,25 @@ public class VerificaCorrettezzaOrdineControl {
         }
     }
 
-    void clickSuConfermaOrdine(ActionEvent event){
+    void clickSuConfermaOrdine(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
         this.effettuaOrdine();
     }
 
-    void clickSuAnnullaOrdine(ActionEvent event){
+    void clickSuAnnullaOrdine(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
     }
 
-    void clickSuConferma(ActionEvent event){
+    void clickSuConferma(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
         this.effettuaOrdineParziale();
 
     }
-    public void start(){
-        if(this.farmaci.size() != 0){
+
+    public void start() {
+        if (this.entry != null && this.entry.getOrdine().getTipo() == 1) {
+            this.effettuaOrdine();
+        } else {
             this.ottieniLotti();
             this.verificaQuantita();
             this.verificaScadenza();

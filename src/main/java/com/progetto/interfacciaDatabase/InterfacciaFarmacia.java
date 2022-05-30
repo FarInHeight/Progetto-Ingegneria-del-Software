@@ -3,8 +3,6 @@ package com.progetto.interfacciaDatabase;
 import com.progetto.entity.*;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import javafx.scene.control.Spinner;
-
-import java.io.PipedReader;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -521,4 +519,94 @@ public class InterfacciaFarmacia {
             e.printStackTrace();
         }
     }
+
+    /**
+     * registra un ordine periodico
+     * @param farmaci farmaci ordinati
+     */
+    public void inserisciOrdinePeriodico(ArrayList<Farmaco> farmaci, int periodo){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            //Inserisco l'Ordine
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,?,1,3,?,null,?)");
+            statement.setDate(1,Date.valueOf("2022-06-30"));  //modificare
+            statement.setInt(2,periodo);
+            statement.setInt(3,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+            statement.executeUpdate();
+
+            //Ottengo il nuovo id
+            Statement statementOrdine = connection.createStatement();
+            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
+                    "from ordine " +
+                    "order by id_ordine desc " +
+                    "limit 1");
+            ultimoOrdine.next();
+            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
+            for(Farmaco farmaco : farmaci) {
+                //Aggiungo il lotto vuoto
+                //Ottengo l'ultimo id
+                Statement statementLotto = connection.createStatement();
+                ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
+                        "from lotto " +
+                        "order by id_lotto desc " +
+                        "limit 1");
+                ultimoLotto.next();
+                int ultimoIdLotto = ultimoLotto.getInt("id_lotto");
+
+                //aggiungo il lotto vuoto
+                statement = connection.prepareStatement("insert into lotto values (?,?,0,0,?)");
+                statement.setInt(1, ultimoIdLotto + 1);
+                statement.setDate(2,Date.valueOf("3000-01-01"));  //modificare
+                statement.setString(3, farmaco.getNome());
+                statement.executeUpdate();
+
+                //collego il lotto all'ordine
+                statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+                statement.setInt(1,farmaco.getQuantita());
+                statement.setInt(2, ultimoIdOrdine);
+                statement.setInt(3, ultimoIdLotto + 1);
+                statement.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * cancella l'ordine periodic relativo all'id passato in input
+     * @param idOrdine id dell'ordine da cancellare
+     */
+    public void cancellaOrdinePeriodico(int idOrdine){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
+
+            ArrayList<Integer> lotti = new ArrayList<>();
+            //ottengo i lotti associati all'ordine
+            PreparedStatement ottenimentoLotti = connection.prepareStatement("select * from composizione lotto_id_lotto where ordine_id_ordine = ?");
+            ottenimentoLotti.setInt(1,idOrdine);
+            ResultSet risultatoOttenimentoLotti = ottenimentoLotti.executeQuery();
+            while(risultatoOttenimentoLotti.next()){
+                lotti.add(risultatoOttenimentoLotti.getInt("lotto_id_lotto"));
+            }
+
+            //elimino composizione
+            PreparedStatement eliminazioneComposizione = connection.prepareStatement("delete from composizione where ordine_id_ordine = ?");
+            eliminazioneComposizione.setInt(1,idOrdine);
+            eliminazioneComposizione.executeUpdate();
+
+            //elimino ordine
+            PreparedStatement eliminazioneOrdine = connection.prepareStatement("delete from ordine where id_ordine = ?");
+            eliminazioneOrdine.setInt(1,idOrdine);
+            eliminazioneOrdine.executeUpdate();
+
+            //elimino lotti associati
+            for(Integer idLotto : lotti) {
+                PreparedStatement eliminazioneLotti = connection.prepareStatement("delete from lotto where id_lotto = ?");
+                eliminazioneLotti.setInt(1,idLotto);
+                eliminazioneLotti.executeUpdate();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

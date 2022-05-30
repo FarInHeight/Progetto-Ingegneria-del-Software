@@ -1,10 +1,7 @@
 package com.progetto.farmacia.ordini;
 
-import com.progetto.addetto.segnalazioni.ListaSegnalazioni;
-import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
-import com.progetto.entity.Farmaco;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,6 +22,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * rappresenta li lista degli ordini effettuati dalla farmacia
+ */
 public class ListaOrdini extends Application implements Initializable {
     private static Farmacia farmacia;
     private static TableView<EntryListaOrdini> ref;  // riferimento per poter apportare modifiche dall'esterno
@@ -138,13 +137,11 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     /**
-     * Metodo per ottenere lo stage della lista degli ordini e permettere ad un oggeto di classe {@code VisualizzaOrdiniControl}
-     * di distruggerlo. Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
-     * che si trovano nello stesso package.
-     * @return stage della lista
+     * ritorna un riferimento alla lista ordini
+     * @return un oggetto {@code TableView<EntryListaOrdini>} che rappresenta la lista ordini
      */
-    Stage getStage() {
-        return this.stage;
+    public static TableView<EntryListaOrdini> getRef() {
+        return ListaOrdini.ref;
     }
 
     @FXML

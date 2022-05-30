@@ -20,7 +20,7 @@ public class EntryListaOrdini {
         this.setOrdine(ordine);
     }
 
-    private void setOrdine(Ordine ordine) {
+    public void setOrdine(Ordine ordine) {
         if(ordine == null) {
             throw new NullPointerException("Ordine in EntryListaOrdini = null");
         }
