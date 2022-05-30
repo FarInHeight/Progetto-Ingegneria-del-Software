@@ -133,8 +133,8 @@ public class ModificaOrdineControl {
             if(farmaco.getNome().equals(nomeFarmaco)) {
                 return true;
             }
-            return false;
         }
+        return false;
     }
 
     void clickSuConferma(Stage substage){
