@@ -116,12 +116,25 @@ public class ModificaOrdineControl {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
         for(EntryFormOrdine entry : farmaci) {
+            if(contieneFarmaco(this.entry.getFarmaci(), entry.getNomeFarmaco())) {
+                farmaci.remove(entry);
+                continue;
+            }
             this.setPulsantiListaFarmaci(entry);
         }
         if(this.elenco == null) {
             this.elenco = new ElencoModificaFarmaci(this,this.farmacia,farmaci);
         }
         this.elenco.start(stage);
+    }
+
+    private boolean contieneFarmaco(ArrayList<Farmaco> lista, String nomeFarmaco) {
+        for(Farmaco farmaco : lista) {
+            if(farmaco.getNome().equals(nomeFarmaco)) {
+                return true;
+            }
+            return false;
+        }
     }
 
     void clickSuConferma(Stage substage){
