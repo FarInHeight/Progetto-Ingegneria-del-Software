@@ -72,6 +72,10 @@ public class ModificaOrdineControl {
                 ModificaOrdineControl.this.clickSuRimuovi(entry);
             }
         });
+        if(this.entry.getOrdine().getTipo() == 1) {
+            rimuovi.setVisible(false);
+            rimuovi.setManaged(false);
+        }
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
@@ -103,7 +107,13 @@ public class ModificaOrdineControl {
 
     void clickSuRimuovi(EntryFormOrdine entry) {
         this.setPulsantiListaFarmaci(entry);
-        this.elenco.aggiungiFarmaco(entry);
+        if (this.elenco != null) {
+            this.elenco.aggiungiFarmaco(entry);
+        }else {
+            ArrayList<EntryFormOrdine> farmaci = new ArrayList<>();
+            farmaci.add(entry);
+            this.elenco = new ElencoModificaFarmaci(this, this.farmacia, farmaci);
+        }
         this.formOrdine.rimuoviFarmaco(entry);
     }
     private void clickSuAggiungi(EntryFormOrdine entry) {
@@ -125,11 +135,9 @@ public class ModificaOrdineControl {
                 ++i;
             }
         }
-        if(this.elenco == null) {
+        if(this.elenco == null)
             this.elenco = new ElencoModificaFarmaci(this, this.farmacia, farmaci);
-        } else {
-            stage.close();
-        }
+
         this.elenco.start(stage);
     }
 
