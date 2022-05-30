@@ -1,6 +1,7 @@
 package com.progetto.farmacia.magazzino;
 
 import com.progetto.entity.Farmacia;
+import com.progetto.farmacia.ordini.VerificaRegistrazioniFarmaciControl;
 import javafx.concurrent.Task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,7 +39,7 @@ public class Tempo {
     }
     private void setFarmacia(Farmacia farmacia) {
         if(farmacia == null){
-            throw new NullPointerException("Farmacia in Rimuovi Farmaci Scaduti Control = null");
+            throw new NullPointerException("Farmacia in Tempo boundary = null");
         }
         this.farmacia = farmacia;
     }
@@ -49,9 +50,27 @@ public class Tempo {
     public void start() {
         if(this.getCounter() == 0) {
             this.setCounter(1);
+            // PER VERIFICA REGISTRAZIONE FARMACI
+            if( LocalDate.now().atTime(20, 0).isBefore( LocalDateTime.now() ) ) {
+                this.runVerificaRegistrazioneFarmaci();
+            } else {
+                long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(20, 0));
+                Task<Void> sleeper = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        try { Thread.sleep(millis); }
+                        catch (InterruptedException e) { }
+                        return null;
+                    }
+                };
+                sleeper.setOnSucceeded(event -> Tempo.this.runVerificaRegistrazioneFarmaci());
+                new Thread(sleeper).start();
+            }
+
+            // PER RIMUOVI FARMACI SCADUTI
             // se le ore 8:00 di oggi sono passate
             if( LocalDate.now().atTime(8, 0).isBefore( LocalDateTime.now() ) ) {
-                this.run();
+                this.runRimuoviFarmaciScaduti();
             } else {
                 long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(8, 0));
                 Task<Void> sleeper = new Task<Void>() {
@@ -62,14 +81,19 @@ public class Tempo {
                         return null;
                     }
                 };
-                sleeper.setOnSucceeded(event -> Tempo.this.run());
+                sleeper.setOnSucceeded(event -> Tempo.this.runRimuoviFarmaciScaduti());
                 new Thread(sleeper).start();
             }
         }
     }
 
-    private void run() {
-        RimuoviFarmaciScadutiControl control = new RimuoviFarmaciScadutiControl(Tempo.this.farmacia);
+    private void runRimuoviFarmaciScaduti() {
+        RimuoviFarmaciScadutiControl control = new RimuoviFarmaciScadutiControl(this.farmacia);
+        control.start();
+    }
+
+    private void runVerificaRegistrazioneFarmaci() {
+        VerificaRegistrazioniFarmaciControl control = new VerificaRegistrazioniFarmaciControl(this.farmacia);
         control.start();
     }
 }

@@ -139,7 +139,7 @@ public class VisualizzaOrdiniControl {
     }
 
     /**
-     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code carica} di una entry della {@code ListaOrdini}.
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code carica} di una entry della {@code ListaOrdini}.
      * @param entry ordine da caricare
      */
     void clickSuCarica(EntryListaOrdini entry) {
@@ -151,7 +151,7 @@ public class VisualizzaOrdiniControl {
     }
 
     /**
-     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code modifica} di una entry della {@code ListaOrdini}.
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code modifica} di una entry della {@code ListaOrdini}.
      * @param entry ordine da modificare
      */
     void clickSuModifica(EntryListaOrdini entry) {
@@ -163,7 +163,7 @@ public class VisualizzaOrdiniControl {
     }
 
     /**
-     * Metodo che viene richiamato quasi si fa un click sul pulsante {@code cancella} di una entry della {@code ListaOrdini}.
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code cancella} di una entry della {@code ListaOrdini}.
      * @param entry ordine da rimuovere
      */
     void clickSuCancella(EntryListaOrdini entry) {

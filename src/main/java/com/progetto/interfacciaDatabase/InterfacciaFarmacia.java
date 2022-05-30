@@ -646,4 +646,48 @@ public class InterfacciaFarmacia {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<EntryListaOrdini> getOrdiniNonCaricati(int idFarmacia) {
+        ArrayList<EntryListaOrdini> ordini = new ArrayList<>();
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")) {
+            PreparedStatement statement = connection.prepareStatement("SELECT o.id_ordine, c.n_farmaci, l.farmaco_nome, " +
+                    "o.tipo, o.stato, o.periodo, o.data_consegna, f.nome, f.indirizzo, " +
+                    "far.principio_attivo, far.tipo as tipo_farmaco, l.data_scadenza FROM ordine as o, " +
+                    "composizione as c, lotto as l, farmacia as f, farmaco as far WHERE o.id_ordine = c.ordine_id_ordine " +
+                    "and c.lotto_id_lotto = l.id_lotto and o.farmacia_id_farmacia = f.id_farmacia and far.nome = l.farmaco_nome " +
+                    "and o.farmacia_id_farmacia = ? and o.stato = 4 and o.data_consegna = ?;");
+            // stato consegnato e data di consegna pari ad oggi
+            statement.setInt(1, idFarmacia);
+            statement.setDate(2, Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                int idOrdine = resultSet.getInt("id_ordine");
+                int nFarmaci = resultSet.getInt("n_farmaci");
+                String nomeFarmaco = resultSet.getString("farmaco_nome");
+                int tipo = resultSet.getInt("tipo");
+                int stato = resultSet.getInt("stato");
+                int periodo = resultSet.getInt("periodo");
+                Date data = resultSet.getDate("data_consegna");
+                if(data == null) continue;
+                LocalDate dataConsegna = data.toLocalDate();
+                String nomeFarmacia = resultSet.getString("nome");
+                String indirizzoConsegna = resultSet.getString("indirizzo");
+                String principioAttivo = resultSet.getString("principio_attivo");
+                int tipoFarmaco = resultSet.getInt("tipo_farmaco");
+                LocalDate dataScadenza = resultSet.getDate("data_scadenza").toLocalDate();
+                EntryListaOrdini entry = checkInLista(idOrdine, ordini);
+                Farmaco farmaco = new Farmaco(nomeFarmaco, principioAttivo, tipoFarmaco, dataScadenza, nFarmaci);
+                if(entry == null) {
+                    entry = new EntryListaOrdini(new Ordine(idOrdine, stato, new ArrayList<Farmaco>(), tipo, periodo, dataConsegna, nomeFarmacia, indirizzoConsegna));
+                    entry.getFarmaci().add(farmaco);
+                    ordini.add(entry);
+                } else {
+                    entry.getFarmaci().add(farmaco);
+                }
+            }
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+        }
+        return ordini;
+    }
 }

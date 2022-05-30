@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -44,7 +45,12 @@ public class ListaOrdini extends Application implements Initializable {
     private TableColumn<EntryListaOrdini, String> dataConsegna;
     @FXML
     private TableColumn<EntryListaOrdini, FlowPane> strumenti;
+    @FXML
+    private Button indietroButton;
+    @FXML
+    private Button fattoButton;
     private static VisualizzaOrdiniControl control;
+    private static VerificaRegistrazioniFarmaciControl controlVerifica;
     private static ArrayList<EntryListaOrdini> ordini;
     private Stage stage;
     /**
@@ -54,6 +60,18 @@ public class ListaOrdini extends Application implements Initializable {
         super();
     }
 
+    /**
+     * Costruisce una {@code ListaOrdini} avendo in input la farmacia a cui si riferisce, la lista degli ordini da
+     * mostrare a schermo e la control che ha istanziato l'oggetto.
+     * @param farmacia farmacia che vuole visualizzare i proprio ordini
+     * @param ordini lista di ordini da mostrare a schermo
+     * @param control control che ha dato origine alla lista degli ordini
+     */
+    public ListaOrdini(Farmacia farmacia, ArrayList<EntryListaOrdini> ordini, VerificaRegistrazioniFarmaciControl control) {
+        this.setFarmacia(farmacia);
+        this.setOrdini(ordini);
+        this.setControlVerifica(control);
+    }
     /**
      * Costruisce una {@code ListaOrdini} avendo in input la farmacia a cui si riferisce, la lista degli ordini da
      * mostrare a schermo e la control che ha istanziato l'oggetto.
@@ -92,6 +110,13 @@ public class ListaOrdini extends Application implements Initializable {
         ListaOrdini.control = control;
     }
 
+    private void setControlVerifica(VerificaRegistrazioniFarmaciControl control) {
+        if(control == null) {
+            throw new NullPointerException("Control di ListaOrdini = null");
+        }
+        ListaOrdini.controlVerifica = control;
+    }
+
     /**
      * Metodo utilizzato per visualizzare la {@code ListaOrdini} a schermo
      * @param stage stage della lista
@@ -117,6 +142,13 @@ public class ListaOrdini extends Application implements Initializable {
         this.stage.setMinHeight(stageHeight);
         this.stage.initOwner(stage);
         this.stage.show();
+
+        if(ListaOrdini.controlVerifica != null) {
+            this.stage.setWidth(stageWidth);
+            this.stage.setHeight(stageHeight);
+            this.stage.setMaxWidth(stageWidth);
+            this.stage.setMaxHeight(stageHeight);
+        }
     }
 
     /**
@@ -138,6 +170,14 @@ public class ListaOrdini extends Application implements Initializable {
             this.lista.getItems().add(entry);
         }
         ListaOrdini.ref = this.lista;
+
+        if(ListaOrdini.control == null) {
+            this.indietroButton.setVisible(false);
+            this.indietroButton.setManaged(false);
+        } else {
+            this.fattoButton.setVisible(false);
+            this.fattoButton.setManaged(false);
+        }
     }
 
     public static void update(){
@@ -159,6 +199,12 @@ public class ListaOrdini extends Application implements Initializable {
     private void indietro(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente
         ListaOrdini.control.clickSuIndietro(stage);
+    }
+
+    @FXML
+    private void fatto(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente
+        ListaOrdini.controlVerifica.clickSuFatto(stage);
     }
 
     public void cancellaOrdine (EntryListaOrdini entry) throws IOException{
