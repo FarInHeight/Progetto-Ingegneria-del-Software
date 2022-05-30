@@ -166,7 +166,7 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     public void caricaOrdine (EntryListaOrdini entry) throws IOException{
-        RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl = new RegistrazioneFarmaciRicevutiControl(entry.getOrdine(), this.stage, entry.getIdOrdine());
+        RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl = new RegistrazioneFarmaciRicevutiControl(entry.getOrdine(), this.stage);
         registrazioneFarmaciRicevutiControl.start();
     }
 
