@@ -491,15 +491,33 @@ public class InterfacciaFarmacia {
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){
             for (EntryMagazzinoFarmacia farmaco:farmaciCaricati) {
-                PreparedStatement statement = connection.prepareStatement("insert into farmaco " +
-                        "values (?,?,?,?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("select * from farmaco " +
+                        "where nome = ? and data_scadenza = ? and farmacia_id_farmacia = ?");
                 statement.setString(1,farmaco.getNome());
                 statement.setDate(2,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
-                statement.setString(3,farmaco.getPrincipioAttivo());
-                statement.setInt(4,farmaco.getTipo());
-                statement.setInt(5,(((Spinner<Integer>)farmaco.getStrumenti().getChildren().get(0)).getValue()));
-                statement.setInt(6,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
-                statement.executeUpdate();
+                statement.setInt(3,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    statement = connection.prepareStatement("update farmaco " +
+                            "set quantita = ?" +
+                            "where nome = ? and data_scadenza = ? and farmacia_id_farmacia = ? ");
+                    int quantitaAttuale = resultSet.getInt("quantita");
+                    statement.setInt(1,(quantitaAttuale+farmaco.getQuantita()));
+                    statement.setString(2,farmaco.getNome());
+                    statement.setDate(3,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
+                    statement.setInt(4,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                    statement.executeUpdate();
+                } else {
+                    statement = connection.prepareStatement("insert into farmaco " +
+                            "values (?,?,?,?,?,?)");
+                    statement.setString(1,farmaco.getNome());
+                    statement.setDate(2,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
+                    statement.setString(3,farmaco.getPrincipioAttivo());
+                    statement.setInt(4,farmaco.getTipo());
+                    statement.setInt(5,(((Spinner<Integer>)farmaco.getStrumenti().getChildren().get(0)).getValue()));
+                    statement.setInt(6,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+                    statement.executeUpdate();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
