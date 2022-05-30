@@ -17,7 +17,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     private Ordine ordine;
     private Stage stage;
     private final InterfacciaFarmacia db;
-    private Stage stagaRegistrazioneFarmaci;
+    private Stage stageRegistrazioneFarmaci;
 
     public RegistrazioneFarmaciRicevutiControl(EntryListaOrdini entry, Stage stage) {
         setEntry(entry);
@@ -70,9 +70,9 @@ public class RegistrazioneFarmaciRicevutiControl {
 
         SchermataRegistrazioneFarmaci schermataRegistrazioneFarmaci = new SchermataRegistrazioneFarmaci(farmaci,this,getOrdine().getIdOrdine());
         getStage().hide();
-        this.stagaRegistrazioneFarmaci = new Stage();
+        this.stageRegistrazioneFarmaci = new Stage();
         try {
-            schermataRegistrazioneFarmaci.start(this.stagaRegistrazioneFarmaci);
+            schermataRegistrazioneFarmaci.start(this.stageRegistrazioneFarmaci);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -126,14 +126,14 @@ public class RegistrazioneFarmaciRicevutiControl {
      * @param substage sotto-stage della ListaOrdini da distuggere
      */
     void clickSuIndietro(Stage substage) {
-        this.stagaRegistrazioneFarmaci.close();
+        this.stageRegistrazioneFarmaci.close();
         ListaOrdini.update();
         this.stage.show();
     }
 
     void clickSuChiudi(Stage substage) {
         ListaOrdini.getOrdini().remove(this.entry);
-        this.stagaRegistrazioneFarmaci.close();
+        this.stageRegistrazioneFarmaci.close();
         substage.close();
         ListaOrdini.update();
         this.stage.show();
