@@ -38,12 +38,13 @@ public class RimuoviFarmaciScadutiControl {
         int i = 0;
         while(i < lista.size()) {
             Farmaco farmaco = lista.get(i);
+            System.out.println(farmaco.getNome());
             // se la scadenza precedente ad oggi
             if( farmaco.getDataScadenza().isBefore( LocalDate.now() ) ) {
                 farmaciScaduti += farmaco.getNome() + "\t" + farmaco.getQuantita() + "\n";
                 db.rimuoviFarmaco(farmacia.getIdFarmacia(), farmaco);
             } // altrimenti se la data di scadenza è entro due settimane
-            else if( farmaco.getDataScadenza().isBefore( farmaco.getDataScadenza().plusWeeks(2) ) ) {
+            else if( LocalDate.now().plusWeeks(2) .isAfter( farmaco.getDataScadenza() ) ) {
                 farmciQuasiScaduti += farmaco.getNome() + "\t" + farmaco.getQuantita() + "\t\t" +
                         farmaco.getDataScadenza().format(DateTimeFormatter.ofPattern("d/MM/uuuu")) + "\n";
             }
