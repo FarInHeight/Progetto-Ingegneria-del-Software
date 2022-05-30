@@ -110,7 +110,14 @@ public class ModificaOrdineControl {
         if (this.elenco != null) {
             this.elenco.aggiungiFarmaco(entry);
         }else {
-            ArrayList<EntryFormOrdine> farmaci = new ArrayList<>();
+            InterfacciaFarmacia db = new InterfacciaFarmacia();
+            ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
+            for(int i = 0; i < this.entry.getFarmaci().size(); ++i) {
+                this.rimuoviFarmacoContenuto(farmaci, this.entry.getFarmaci().get(i).getNome());
+            }
+            for(EntryFormOrdine farmaco : farmaci) {
+                this.setPulsantiListaFarmaci(farmaco);
+            }
             farmaci.add(entry);
             this.elenco = new ElencoModificaFarmaci(this, this.farmacia, farmaci);
         }
@@ -148,6 +155,14 @@ public class ModificaOrdineControl {
             }
         }
         return false;
+    }
+
+    private void rimuoviFarmacoContenuto(ArrayList<EntryFormOrdine> lista, String nomeFarmaco) {
+        for(int i = 0; i < lista.size(); ++i) {
+            if(lista.get(i).getNomeFarmaco().strip().equals(nomeFarmaco.strip())) {
+                lista.remove(i);
+            }
+        }
     }
 
     void clickSuConferma(Stage substage){
