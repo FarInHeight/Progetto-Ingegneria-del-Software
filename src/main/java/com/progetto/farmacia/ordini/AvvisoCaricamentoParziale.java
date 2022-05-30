@@ -86,7 +86,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     @FXML
     private void creaSegnalazione(ActionEvent event) {
         //PlaceHolder, non so esattamente che dovremmo passare
-        CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl(ordine);
+        //CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl(ordine);
         //creaSegnalazioneControl.start(event);
     }
 
