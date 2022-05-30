@@ -72,6 +72,10 @@ public class ModificaOrdineControl {
                 ModificaOrdineControl.this.clickSuRimuovi(entry);
             }
         });
+        if(this.entry.getOrdine().getTipo() == 1) {
+            rimuovi.setVisible(false);
+            rimuovi.setManaged(false);
+        }
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
