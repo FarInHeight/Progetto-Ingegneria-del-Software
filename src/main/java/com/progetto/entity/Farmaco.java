@@ -52,9 +52,10 @@ public class Farmaco {
      * @param nomeFarmaco nome del farmaco
      * @param principioAttivo principio attivo del farmaco
      */
-    public Farmaco(String nomeFarmaco, String principioAttivo){
+    public Farmaco(String nomeFarmaco, int quantita, String principioAttivo){
         this.setNome(nomeFarmaco);
         this.setPrincipioAttivo(principioAttivo);
+        this.setQuantita(quantita);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.progetto.farmacia.ordine;
+package com.progetto.farmacia.ordini;
 
 import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.Farmacia;
@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 /**
@@ -30,11 +29,10 @@ public class FormOrdine extends Application implements Initializable {
 
     private static Farmacia farmacia;
 
-    //private static EntryFormOrdine entryFormOrdine;
     private static CreaOrdineControl control;
 
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
-    private Stage stage;
+    private static Stage stage;
     private static ArrayList<EntryFormOrdine> farmaci;
     @FXML
     private Text usernameLabel;
@@ -114,18 +112,20 @@ public class FormOrdine extends Application implements Initializable {
 
     @FXML
     private void invia(ActionEvent event){
-        TableView<Cell> tabella = (TableView<Cell>) (((Node) event.getSource()).getParent().getParent().getChildrenUnmodifiable()).get(0);
-        LinkedList<Farmaco> farmaci = new LinkedList<Farmaco>();
+        ArrayList<Farmaco> farmaci = new ArrayList<>();
 
-        for(int i = 0;i<1; i++) {
-            if(tabella.getColumns().get(0).getCellData(i) == null){
+        for(int i = 0;; i++) {
+            if(this.lista.getColumns().get(0).getCellData(i) == null){
                 break;
             }
-            String NomeFarmaco = tabella.getColumns().get(0).getCellData(i).toString();
-            String princpioAttivo = tabella.getColumns().get(1).getCellData(i).toString();
-            farmaci.add(new Farmaco(NomeFarmaco, princpioAttivo));
+            String nomeFarmaco = this.lista.getColumns().get(0).getCellData(i).toString();
+            String princpioAttivo = this.lista.getColumns().get(1).getCellData(i).toString();
+            Spinner<Integer> spinner = (Spinner<Integer>) this.strumenti.getCellData(i).getChildren().get(0);
+            int quantita = spinner.getValue();
+            farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        //richiama verificaCorrettazzaFarmaci passando LinkedList<Farmaco>
+        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage());
+        verCorrOrdCtrl.start();
     }
 
     /**
@@ -141,21 +141,21 @@ public class FormOrdine extends Application implements Initializable {
         double stageWidth = 800;
         double stageHeight = 400;
 
-        this.stage = new Stage();
+        FormOrdine.stage = new Stage();
 
         //centra la schermata
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        this.stage.setX((screenBounds.getWidth() - stageWidth) / 2);
-        this.stage.setY((screenBounds.getHeight() - stageHeight) / 2);
+        FormOrdine.stage.setX((screenBounds.getWidth() - stageWidth) / 2);
+        FormOrdine.stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        this.stage.setTitle("Form ordine");
-        this.stage.setScene(scene);
-        this.stage.setHeight(stageHeight);
-        this.stage.setWidth(stageWidth);
-        this.stage.setMinWidth(stageWidth);
-        this.stage.setMinHeight(stageHeight);
-        this.stage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
-        this.stage.show();
+        FormOrdine.stage.setTitle("Form Ordine");
+        FormOrdine.stage.setScene(scene);
+        FormOrdine.stage.setHeight(stageHeight);
+        FormOrdine.stage.setWidth(stageWidth);
+        FormOrdine.stage.setMinWidth(stageWidth);
+        FormOrdine.stage.setMinHeight(stageHeight);
+        FormOrdine.stage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
+        FormOrdine.stage.show();
     }
 
     /**

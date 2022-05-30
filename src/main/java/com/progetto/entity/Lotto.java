@@ -168,8 +168,4 @@ public class Lotto {
     public static Lotto lottoProdotto(Lotto lotto) {
         return new Lotto(lotto.getIdLotto(), lotto.getNomeFarmaco(), lotto.getDataScadenza().plusYears(2), lotto.getQuantitaContenuta(), 0);
     }
-
-
 }
-
-

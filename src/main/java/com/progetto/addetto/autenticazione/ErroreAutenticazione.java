@@ -28,7 +28,7 @@ public class ErroreAutenticazione extends Application {
 
     /**
      * Costruisce un'istanza di {@code ErroreAutenticazione} dato in input il tipo di errore ([0] per username errato, [1] per password errata)
-     * @param tipo di errore
+     * @param tipo tipo di errore
      */
     public ErroreAutenticazione(int tipo){
         super();
@@ -42,7 +42,7 @@ public class ErroreAutenticazione extends Application {
     /**
      * permette di mostrare la schermata di errore
      * @param stage oggetto di classe {@code Stage} della schermata di login
-     * @throws IOException se non è possibile caricare il file fxml della schermata di errore
+     * @throws IOException se non è possibile caricare il file {@code fxml} della schermata di errore
      */
     @Override
     public void start(Stage stage) throws IOException {

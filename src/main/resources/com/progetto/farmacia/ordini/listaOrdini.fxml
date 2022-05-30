@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.ListaOrdini">
+   <top>
+      <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
+         <left>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #ff9933;" text="INDIETRO" textAlignment="CENTER" textFill="WHITE" translateX="20.0" translateY="-12.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Text fx:id="usernameLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome Farmacia" textAlignment="RIGHT" translateX="-20.0" translateY="-12.0" wrappingWidth="173.81000518798828" BorderPane.alignment="CENTER" />
+         </right>
+         <top>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LISTA ORDINI" textAlignment="CENTER" translateY="13.0" wrappingWidth="158.61328125" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+         </top>
+      </BorderPane>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <TableView fx:id="lista" editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-alignment: CENTER;" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="idOrdine" editable="false" prefWidth="134.0" style="-fx-alignment: CENTER;" text="ID ORDINE" />
+                <TableColumn fx:id="farmaci" editable="false" prefWidth="126.0" style="-fx-alignment: CENTER;" text="FARMACI " />
+                  <TableColumn fx:id="stato" editable="false" prefWidth="131.0" style="-fx-alignment: CENTER;" text="STATO" />
+                  <TableColumn fx:id="tipo" editable="false" prefWidth="68.0" style="-fx-alignment: CENTER;" text="TIPO" />
+                  <TableColumn fx:id="dataConsegna" prefWidth="198.0" style="-fx-alignment: CENTER;" text="DATA DI CONSEGNA" />
+                  <TableColumn fx:id="strumenti" editable="false" prefWidth="201.0" sortable="false" style="-fx-alignment: CENTER;" text="STRUMENTI" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

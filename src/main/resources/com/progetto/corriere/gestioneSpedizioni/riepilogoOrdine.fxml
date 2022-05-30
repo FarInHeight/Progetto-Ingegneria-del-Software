@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.corriere.gestioneSpedizioni.RiepilogoOrdineForm">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.corriere.gestioneSpedizioni.RiepilogoOrdineForm">
    <top>
       <BorderPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
          <top>
@@ -37,12 +38,15 @@
             <TextArea fx:id="riepilogoOrdineTextArea" layoutX="52.0" layoutY="40.0" prefHeight="115.0" prefWidth="499.0" />
             <Text layoutX="51.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INFORMAZIONI CONSEGNA:">
                <font>
-                  <Font size="15.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Text fx:id="infoFarmacia" layoutX="52.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Farmacia NomeFarmacia, via ViaFarmacia" />
+            <Text fx:id="infoFarmacia" layoutX="52.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Farmacia NomeFarmacia, via ViaFarmacia">
+               <font>
+                  <Font size="16.0" />
+               </font></Text>
             <TextField fx:id="nominativoFarmacista" layoutX="51.0" layoutY="273.0" prefHeight="27.0" prefWidth="204.0" />
-            <Button layoutX="302.0" layoutY="273.0" mnemonicParsing="false" onAction="#confermaConsegna" style="-fx-background-color: #26bd1b; -fx-text-fill: WHITE;" text="CONFERMA CONSEGNA" />
+            <Button layoutX="405.0" layoutY="274.0" mnemonicParsing="false" onAction="#confermaConsegna" style="-fx-background-color: #26bd1b; -fx-text-fill: WHITE;" text="CONFERMA CONSEGNA" />
          </children>
       </Pane>
    </center>

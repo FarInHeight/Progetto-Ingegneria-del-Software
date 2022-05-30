@@ -2,8 +2,10 @@ package com.progetto.farmacia;
 
 import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.autenticazione.LogoutControl;
+import com.progetto.farmacia.magazzino.VerificaEsaurimentoFarmaciControl;
 import com.progetto.farmacia.magazzino.VisualizzaMagazzinoControl;
-import com.progetto.farmacia.ordine.CreaOrdineControl;
+import com.progetto.farmacia.ordini.CreaOrdineControl;
+import com.progetto.farmacia.ordini.VisualizzaOrdiniControl;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,6 +69,12 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
         visualizzaMagazzinoControl.clickSuVisualizzaMagazzino();
     }
 
+    @FXML
+    private void visualizzaOrdini(ActionEvent event) {
+        VisualizzaOrdiniControl control = new VisualizzaOrdiniControl(SchermataPrincipaleFarmacia.farmacia, event);
+        control.start();
+    }
+
     private void setFarmacia(Farmacia farmacia){
         if(farmacia == null){
             throw new NullPointerException("farmacia = null");
@@ -98,6 +106,10 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
         stage.setMinWidth(stageWidth);
         stage.setMinHeight(stageHeight);
         stage.show();
+
+        //Funziona, va settato il timer
+        VerificaEsaurimentoFarmaciControl verificaEsaurimentoFarmaciControl = new VerificaEsaurimentoFarmaciControl();
+        verificaEsaurimentoFarmaciControl.verificaEsaurimento();
     }
 
     @Override

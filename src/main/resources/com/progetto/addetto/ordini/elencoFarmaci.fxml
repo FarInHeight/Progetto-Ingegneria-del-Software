@@ -5,17 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordine.FormOrdine">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.addetto.ordini.ElencoFarmaci">
    <top>
       <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
-         <left>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="87.0" style="-fx-background-color: #ff9933;" text="INDIETRO" textAlignment="CENTER" textFill="WHITE" translateX="11.0" translateY="-12.0" BorderPane.alignment="CENTER" />
-         </left>
          <right>
             <Text fx:id="usernameLabel" strokeType="OUTSIDE" strokeWidth="0.0" translateX="-25.0" translateY="-12.0" BorderPane.alignment="CENTER" />
          </right>
          <top>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FORM ORDINE" translateY="13.0" wrappingWidth="108.61328125" BorderPane.alignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ELENCO FARMACI" translateY="13.0" wrappingWidth="131.61327362060547" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -40,7 +37,7 @@
          <top>
             <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <right>
-                  <Button mnemonicParsing="false" onAction="#invia" style="-fx-background-color: #26bd1b;" text="CONFERMA ORDINE" textFill="WHITE" BorderPane.alignment="CENTER">
+                  <Button mnemonicParsing="false" onAction="#conferma" style="-fx-background-color: #26bd1b;" text="CONFERMA" textFill="WHITE" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="20.0" />
                      </BorderPane.margin>
@@ -49,7 +46,6 @@
                <left>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="219.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button layoutX="110.0" layoutY="5.0" mnemonicParsing="false" onAction="#aggiungiFarmaci" prefHeight="18.0" prefWidth="25.0" style="-fx-background-color: #0056d8;" text="+" textAlignment="JUSTIFY" textFill="WHITE" />
                         <Text layoutX="14.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista Farmaci">
                            <font>
                               <Font name="System Bold" size="13.0" />

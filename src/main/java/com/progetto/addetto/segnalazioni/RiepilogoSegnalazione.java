@@ -1,12 +1,15 @@
 package com.progetto.addetto.segnalazioni;
 
+import com.progetto.addetto.ordini.CreaOrdineControl;
 import com.progetto.entity.EntryListaSegnalazioni;
+import com.progetto.entity.Farmacia;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -24,7 +27,7 @@ import java.util.ResourceBundle;
 public class RiepilogoSegnalazione extends Application implements Initializable {
 
     private static EntryListaSegnalazioni entry;
-
+    private static Stage stage;  // stage di ListaSegnalazioni
     @FXML
     private Text idText;
 
@@ -70,6 +73,7 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
      */
     @Override
     public void start(Stage stage) throws IOException {
+        RiepilogoSegnalazione.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("riepilogoSegnalazione.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 700);
 
@@ -107,7 +111,13 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
 
     @FXML
     private void creaOrdine(ActionEvent event) {
-
+        Farmacia farmacia = new Farmacia(RiepilogoSegnalazione.entry.getIdFarmacia(), RiepilogoSegnalazione.entry.getNomeFarmacia(), "", RiepilogoSegnalazione.entry.getRecapitoTelefonicoFarmacia());
+        try {
+            CreaOrdineControl control = new CreaOrdineControl(farmacia, RiepilogoSegnalazione.stage);
+            control.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.magazzino.SchermataMagazzino">
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.magazzino.SchermataMagazzino">
     <top>
-        <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #dae8fc;" BorderPane.alignment="CENTER">
+        <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
             <top>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MAGAZZINO" textAlignment="CENTER" translateY="15.0" BorderPane.alignment="CENTER">
                     <font>
@@ -16,7 +16,7 @@
                 </Text>
             </top>
             <right>
-                <Text fx:id="idFarmacia" strokeType="OUTSIDE" strokeWidth="0.0" text="id farmacia" translateX="-20.0" translateY="-12.0" BorderPane.alignment="CENTER" />
+                <Text fx:id="usernameLabel" strokeType="OUTSIDE" strokeWidth="0.0" translateX="-20.0" translateY="-12.0" BorderPane.alignment="CENTER" />
             </right>
             <left>
                 <Button maxHeight="-Infinity" maxWidth="60.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: orange;" text="INDIETRO" textFill="WHITE" translateX="20.0" translateY="-10.0" BorderPane.alignment="CENTER" />
@@ -26,13 +26,13 @@
     <center>
         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <center>
-                <TableView fx:id="lista" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <TableView fx:id="lista" prefHeight="200.0" prefWidth="200.0" style="-fx-alignment: CENTER;" BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn fx:id="nomeFarmaco" prefWidth="113.0" text="Farmaco" />
-                        <TableColumn fx:id="principioAttivo" prefWidth="177.0" text="Principio Attivo" />
-                        <TableColumn fx:id="dataScadenza" prefWidth="178.0" text="Scadenza" />
-                        <TableColumn fx:id="quantita" prefWidth="130.0" text="Quantita" />
-                        <TableColumn fx:id="strumenti" prefWidth="75.0" text="Strumenti" />
+                        <TableColumn fx:id="nomeFarmaco" prefWidth="113.0" style="-fx-alignment: CENTER;" text="FARMACO" />
+                        <TableColumn fx:id="principioAttivo" prefWidth="177.0" style="-fx-alignment: CENTER;" text="PRINCIPIO ATTIVO" />
+                        <TableColumn fx:id="dataScadenza" prefWidth="178.0" style="-fx-alignment: CENTER;" text="SCADENZA" />
+                        <TableColumn fx:id="quantita" prefWidth="130.0" style="-fx-alignment: CENTER;" text="QUANTITÀ" />
+                        <TableColumn fx:id="strumenti" prefWidth="75.0" style="-fx-alignment: CENTER;" text="STRUMENTI" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

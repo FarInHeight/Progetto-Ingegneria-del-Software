@@ -8,7 +8,7 @@
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="420.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="115.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#visualizzaSegnalazioni" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #0056d8;" text="VISUALIZZA SEGNALAZIONI" textFill="WHITE" />
+            <Button layoutX="121.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#visualizzaSegnalazioni" prefHeight="30.0" prefWidth="178.0" style="-fx-background-color: #0056d8;" text="VISUALIZZA SEGNALAZIONI" textFill="WHITE" />
          </children>
       </Pane>
    </center>
