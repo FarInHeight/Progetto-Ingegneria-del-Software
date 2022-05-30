@@ -435,13 +435,12 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * detrae il numero dei farmaci ordini dai lotti riguardanti la entry passata in input
-     * @param entry entry dell'ordine
+     * detrae il numero dei farmaci ordini dai lotti riguardanti l'ordine corrispondente all'id passato in input
+     * @param idOrdine id dell'ordine
      */
-    public void modificaFarmaciOrdinati(EntryListaOrdini entry){
+    public void modificaFarmaciOrdinati(int idOrdine){
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             //ottengo lotti coinvolti nell'ordine
-            int idOrdine = entry.getIdOrdine();
             PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
             composizione.setInt(1,idOrdine);
             ResultSet risultatoComposizione = composizione.executeQuery();
@@ -468,7 +467,7 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * cancella l'ordine raltivo alla entry di lista ordini passata in input
+     * cancella l'ordine raltivo all'id ordiney passato in input
      * @param idOrdine id dell'ordine da elinimare
      */
     public void cancellaOrdine(int idOrdine){
