@@ -468,11 +468,10 @@ public class InterfacciaFarmacia {
 
     /**
      * cancella l'ordine raltivo alla entry di lista ordini passata in input
-     * @param entry entry dell'ordine da elinimare
+     * @param idOrdine id dell'ordine da elinimare
      */
-    public void cancellaOrdine(EntryListaOrdini entry){
+    public void cancellaOrdine(int idOrdine){
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
-            int idOrdine = entry.getIdOrdine();
 
             //elimino composizione
             PreparedStatement eliminazioneComposizione = connection.prepareStatement("delete from composizione where ordine_id_ordine = ?");
