@@ -112,13 +112,15 @@ public class ModificaOrdineControl {
         }else {
             InterfacciaFarmacia db = new InterfacciaFarmacia();
             ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
+            // tolgo i farmaci contenuti nell'ordine dalla lista completa
             for(int i = 0; i < this.entry.getFarmaci().size(); ++i) {
                 this.rimuoviFarmacoContenuto(farmaci, this.entry.getFarmaci().get(i).getNome());
             }
+            // imposto i pulsanti di rimozione
             for(EntryFormOrdine farmaco : farmaci) {
                 this.setPulsantiListaFarmaci(farmaco);
             }
-            farmaci.add(entry);
+            farmaci.add(entry);  // aggiungo il farmaco appena rimosso dal form ordine
             this.elenco = new ElencoModificaFarmaci(this, this.farmacia, farmaci);
         }
         this.formOrdine.rimuoviFarmaco(entry);
