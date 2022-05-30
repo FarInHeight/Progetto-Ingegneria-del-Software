@@ -3,6 +3,8 @@ package com.progetto.entity;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
+
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -79,6 +81,10 @@ public class EntryMagazzinoFarmacia {
      */
     public String getDataScadenza() {
         return getFarmaco().getDataScadenza().format(DateTimeFormatter.ofPattern("d/MM/uuuu"));
+    }
+
+    public LocalDate getDataScadenzaNonFormattata(){
+        return this.farmaco.getDataScadenza();
     }
 
     /**

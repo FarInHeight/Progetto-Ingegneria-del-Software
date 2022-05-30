@@ -1,5 +1,6 @@
 package com.progetto.farmacia.ordini;
 
+import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.EntryMagazzinoFarmacia;
 import com.progetto.entity.Farmaco;
 import com.progetto.entity.Ordine;
@@ -12,14 +13,27 @@ import java.util.ArrayList;
 
 public class RegistrazioneFarmaciRicevutiControl {
 
+    private EntryListaOrdini entry;
     private Ordine ordine;
     private Stage stage;
     private final InterfacciaFarmacia db;
 
-    public RegistrazioneFarmaciRicevutiControl(Ordine ordine, Stage stage) {
-        setOrdine(ordine);
+    public RegistrazioneFarmaciRicevutiControl(EntryListaOrdini entry, Stage stage) {
+        setEntry(entry);
+        setOrdine(entry.getOrdine());
         setStage(stage);
         db = new InterfacciaFarmacia();
+    }
+
+    public EntryListaOrdini getEntry() {
+        return entry;
+    }
+
+    public void setEntry(EntryListaOrdini entry) {
+        if (entry == null) {
+            throw new NullPointerException("entry = null");
+        }
+        this.entry = entry;
     }
 
     public Ordine getOrdine() {
@@ -110,6 +124,7 @@ public class RegistrazioneFarmaciRicevutiControl {
      */
     void clickSuIndietro(Stage substage) {
         substage.close();
+        ListaOrdini.getOrdini().remove(this.entry);
         this.stage.show();
     }
 }

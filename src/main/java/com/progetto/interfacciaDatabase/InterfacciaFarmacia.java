@@ -390,7 +390,7 @@ public class InterfacciaFarmacia {
                     "far.principio_attivo, far.tipo as tipo_farmaco, l.data_scadenza FROM ordine as o, " +
                     "composizione as c, lotto as l, farmacia as f, farmaco as far WHERE o.id_ordine = c.ordine_id_ordine " +
                     "and c.lotto_id_lotto = l.id_lotto and o.farmacia_id_farmacia = f.id_farmacia and far.nome = l.farmaco_nome " +
-                    "and o.farmacia_id_farmacia = ?;");
+                    "and o.farmacia_id_farmacia = ? and o.stato <> 5;");
             statement.setInt(1, idFarmacia);
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()) {
@@ -496,7 +496,7 @@ public class InterfacciaFarmacia {
                 PreparedStatement statement = connection.prepareStatement("insert into farmaco " +
                         "values (?,?,?,?,?,?)");
                 statement.setString(1,farmaco.getNome());
-                statement.setDate(2,Date.valueOf(farmaco.getDataScadenza()));
+                statement.setDate(2,Date.valueOf(farmaco.getDataScadenzaNonFormattata()));
                 statement.setString(3,farmaco.getPrincipioAttivo());
                 statement.setInt(4,farmaco.getTipo());
                 statement.setInt(5,(((Spinner<Integer>)farmaco.getStrumenti().getChildren().get(0)).getValue()));
