@@ -49,6 +49,9 @@ public class SchermataErroreQuantita extends Application {
         subStage.show();
     }
 
+    public SchermataErroreQuantita(){
+        super();
+    }
     public SchermataErroreQuantita(VerificaCorrettezzaOrdineControl control) {
         this.setControl(control);
     }
