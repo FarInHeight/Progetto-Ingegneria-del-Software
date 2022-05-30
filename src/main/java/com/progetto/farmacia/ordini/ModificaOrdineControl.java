@@ -116,11 +116,11 @@ public class ModificaOrdineControl {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
         for(EntryFormOrdine entry : farmaci) {
-            if(contieneFarmaco(this.entry.getFarmaci(), entry.getNomeFarmaco())) {
+            /*if(contieneFarmaco(this.entry.getFarmaci(), entry.getNomeFarmaco())) {
                 farmaci.remove(entry);
                 this.setPulsantiListaFarmaci(entry);
                 continue;
-            }
+            }*/
             this.setPulsantiListaFarmaci(entry);
         }
         if(this.elenco == null) {
