@@ -117,15 +117,13 @@ public class ModificaOrdineControl {
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
         for(EntryFormOrdine entry : farmaci) {
             if(contieneFarmaco(this.entry.getFarmaci(), entry.getNomeFarmaco())) {
-                farmaci.remove(entry);
+                farmaci.remove(entry);  // rimuovo la entry se è contenuta nell'ordine
                 this.setPulsantiListaFarmaci(entry);
                 continue;
             }
             this.setPulsantiListaFarmaci(entry);
         }
-        if(this.elenco == null) {
-            this.elenco = new ElencoModificaFarmaci(this,this.farmacia,farmaci);
-        }
+        this.elenco = new ElencoModificaFarmaci(this,this.farmacia,farmaci);
         this.elenco.start(stage);
     }
 
