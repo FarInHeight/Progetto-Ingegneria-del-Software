@@ -22,6 +22,8 @@ public class VerificaCorrettezzaOrdineControl {
     private Stage stage; //stage del form ordine
     private Farmacia farmacia;
 
+    private int idOrdine;  //ordine eventuale da eliminare
+
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
     private LinkedList<Lotto> lotti;  //lotti presenti nel magazzino azienda
 
@@ -35,11 +37,31 @@ public class VerificaCorrettezzaOrdineControl {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
+        this.idOrdine = -1;
         this.farmaciParzialmenteDisponibili = new ArrayList<>();
         this.lottiParzialmenteDisponibili = new ArrayList<>();
         this.farmaciDisponibili = new ArrayList<>();
         this.lottiDisponibili = new ArrayList<>();
         this.farmaciNonDisponibili = new ArrayList<>();
+    }
+
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci,Farmacia farmacia, Stage stage, int idOrdine){
+        this.setStage(stage);
+        this.setFarmaci(farmaci);
+        this.setFarmacia(farmacia);
+        this.setIdOrdine(idOrdine);
+        this.farmaciParzialmenteDisponibili = new ArrayList<>();
+        this.lottiParzialmenteDisponibili = new ArrayList<>();
+        this.farmaciDisponibili = new ArrayList<>();
+        this.lottiDisponibili = new ArrayList<>();
+        this.farmaciNonDisponibili = new ArrayList<>();
+    }
+
+    private void setIdOrdine(int idOrdine){
+        if(idOrdine < 0){
+            throw new IllegalArgumentException("id ordine < 0");
+        }
+        this.idOrdine = idOrdine;
     }
 
     private void setStage(Stage stage){
@@ -212,6 +234,10 @@ public class VerificaCorrettezzaOrdineControl {
             for(Farmaco farmaco : this.farmaciNonDisponibili){
                 db.prenotaOrdineNonPeriodico(farmaco);
             }
+        }
+        if(this.idOrdine != -1){
+            db.modificaFarmaciOrdinati(this.idOrdine);
+            db.cancellaOrdine(this.idOrdine);
         }
         MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
         try {

@@ -134,7 +134,8 @@ public class FormModificaOrdine extends Application implements Initializable {
             int quantita = spinner.getValue();
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage());
+        int idOrdine = FormModificaOrdine.entry.getIdOrdine();
+        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage(),idOrdine);
         verCorrOrdCtrl.start();
     }
 
