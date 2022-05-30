@@ -118,6 +118,7 @@ public class ModificaOrdineControl {
         for(EntryFormOrdine entry : farmaci) {
             if(contieneFarmaco(this.entry.getFarmaci(), entry.getNomeFarmaco())) {
                 farmaci.remove(entry);
+                this.setPulsantiListaFarmaci(entry);
                 continue;
             }
             this.setPulsantiListaFarmaci(entry);
