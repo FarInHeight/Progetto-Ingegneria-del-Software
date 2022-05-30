@@ -1,5 +1,7 @@
 package com.progetto.farmacia.ordini;
 
+import com.progetto.entity.EntryFormOrdine;
+import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Ordine;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -23,13 +25,13 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     private TextArea farmaciMancantiText;
 
     private static String farmaciMancanti;
-    private Ordine ordine;
+    private static EntryListaOrdini ordine;
 
     public AvvisoCaricamentoParziale(){
         super();
     }
 
-    public AvvisoCaricamentoParziale(String farmaciMancanti, Ordine ordine) {
+    public AvvisoCaricamentoParziale(String farmaciMancanti, EntryListaOrdini ordine) {
         setFarmaciMancanti(farmaciMancanti);
         setOrdine(ordine);
     }
@@ -41,7 +43,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         AvvisoCaricamentoParziale.farmaciMancanti = farmaciMancanti;
     }
 
-    public void setOrdine(Ordine ordine) {
+    public void setOrdine(EntryListaOrdini ordine) {
         if (ordine==null) {
             throw new NullPointerException("ordine=null");
         }
@@ -74,7 +76,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         subStage.setMinWidth(stageWidth);
         subStage.setMinHeight(stageHeight);
         subStage.initOwner(stage); //imposto come proprietario del Riepilogo la Lista Spedizioni
-        subStage.initModality(Modality.WINDOW_MODAL);  //blocco il focus sulla schermata di Riepilogo
+        subStage.initModality(Modality.APPLICATION_MODAL);  //blocco il focus sulla schermata di Riepilogo
         subStage.show();
     }
 
@@ -86,8 +88,8 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     @FXML
     private void creaSegnalazione(ActionEvent event) {
         //PlaceHolder, non so esattamente che dovremmo passare
-        //CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl(ordine);
-        //creaSegnalazioneControl.start(event);
+        CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl(AvvisoCaricamentoParziale.ordine);
+        creaSegnalazioneControl.start(event);
     }
 
 

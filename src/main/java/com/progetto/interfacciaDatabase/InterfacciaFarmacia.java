@@ -7,6 +7,7 @@ import javafx.scene.control.Spinner;
 import java.io.PipedReader;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -534,6 +535,24 @@ public class InterfacciaFarmacia {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update ordine set stato = 5 where id_ordine = ?");
             statement.setInt(1,id_ordine);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo utilizzato per aggiungere una {@code Segnalazione} per un particolare {@code Ordine} nel database dell'Azienda
+     * @param idOrdine ordine da segnalare
+     * @param commento commento del farmacista
+     * @param dataGenerazione data di generazione della segnalazione
+     */
+    public void aggiungiSegnalazione(int idOrdine, String commento, LocalDate dataGenerazione) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+            PreparedStatement statement = connection.prepareStatement("insert segnalazione values (null, ?, ?, ?);");
+            statement.setString(1,commento);
+            statement.setDate(2, Date.valueOf(dataGenerazione));
+            statement.setInt(3, idOrdine);
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

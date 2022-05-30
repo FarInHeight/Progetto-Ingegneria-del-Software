@@ -128,10 +128,10 @@ public class VisualizzaOrdiniControl {
 
     /**
      * Metodo tramite il quale un oggetto di tipo {@code ListaOrdini} avvisa la {@code VisualizzaOrdiniControl}
-     * del click sul pulsante {@code indietro} e distrugge la ListaOrdini.
+     * del click sul pulsante {@code indietro} e distrugge la {@code ListaOrdini}.
      * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
      * che si trovano nello stesso package.
-     * @param substage sotto-stage della ListaOrdini da distuggere
+     * @param substage sotto-stage della {@code ListaOrdini} da distuggere
      */
     void clickSuIndietro(Stage substage) {
         substage.close();

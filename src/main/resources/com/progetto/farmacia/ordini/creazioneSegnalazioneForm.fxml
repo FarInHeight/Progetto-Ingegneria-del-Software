@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.CreazioneSegnalazioneForm">
+   <center>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="259.0" layoutY="396.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inviaSegnalazione" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #26bd1b;" text="INVIA" textFill="WHITE" />
+            <Text layoutX="51.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RIEPILOGO ORDINE:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="riepilogoOrdine" editable="false" layoutX="51.0" layoutY="48.0" prefHeight="134.0" prefWidth="496.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextArea>
+            <Text layoutX="51.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COMMENTO:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="commento" layoutX="52.0" layoutY="225.0" prefHeight="141.0" prefWidth="496.0" promptText="Inserisci un commento">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextArea>
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #ff9933; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
+         <top>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SEGNALAZIONE" translateY="9.0" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Text>
+         </top>
+      </BorderPane>
+   </top>
+</BorderPane>

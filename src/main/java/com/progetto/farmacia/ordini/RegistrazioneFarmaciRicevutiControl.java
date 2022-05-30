@@ -93,7 +93,7 @@ public class RegistrazioneFarmaciRicevutiControl {
         db.modificaStatoInCaricato(getOrdine().getIdOrdine());
         try {
             if (!caricamentoCorretto) {
-                AvvisoCaricamentoParziale avvisoCaricamentoParziale = new AvvisoCaricamentoParziale(farmaciMancanti, ordine);
+                AvvisoCaricamentoParziale avvisoCaricamentoParziale = new AvvisoCaricamentoParziale(farmaciMancanti, entry);
                 avvisoCaricamentoParziale.start(stage);
             } else {
                 RegistrazioneCompletata registrazioneCompletata = new RegistrazioneCompletata(this);
@@ -126,6 +126,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     void clickSuIndietro(Stage substage) {
         substage.close();
         ListaOrdini.getOrdini().remove(this.entry);
+        ListaOrdini.update();
         this.stage.show();
     }
 }
