@@ -143,7 +143,11 @@ public class VisualizzaOrdiniControl {
      * @param entry ordine da caricare
      */
     void clickSuCarica(EntryListaOrdini entry) {
-
+        try {
+            this.listaOrdini.caricaOrdine(entry);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
