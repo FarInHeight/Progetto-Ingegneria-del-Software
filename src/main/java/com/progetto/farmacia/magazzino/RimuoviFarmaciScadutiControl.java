@@ -49,11 +49,13 @@ public class RimuoviFarmaciScadutiControl {
             }
             ++i;
         }
-        AvvisoFarmaciScaduti avviso = new AvvisoFarmaciScaduti(farmaciScaduti.stripTrailing(), farmciQuasiScaduti.stripTrailing(), this.farmacia);
-        try {
-            avviso.start(new Stage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if(!farmaciScaduti.isEmpty() || !farmciQuasiScaduti.isEmpty()) {
+            AvvisoFarmaciScaduti avviso = new AvvisoFarmaciScaduti(farmaciScaduti.stripTrailing(), farmciQuasiScaduti.stripTrailing(), this.farmacia);
+            try {
+                avviso.start(new Stage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
