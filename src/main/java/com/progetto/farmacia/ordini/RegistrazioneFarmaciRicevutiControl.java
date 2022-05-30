@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * Classe che modella la control {@code RegistrazioneFarmaciRicevutiControl}
+ */
 public class RegistrazioneFarmaciRicevutiControl {
 
     private EntryListaOrdini entry;
@@ -18,6 +21,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     private Stage stage;
     private final InterfacciaFarmacia db;
     private Stage stageRegistrazioneFarmaci;
+
 
     public RegistrazioneFarmaciRicevutiControl(EntryListaOrdini entry, Stage stage) {
         setEntry(entry);

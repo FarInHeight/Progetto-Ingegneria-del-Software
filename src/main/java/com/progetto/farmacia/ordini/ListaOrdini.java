@@ -85,6 +85,10 @@ public class ListaOrdini extends Application implements Initializable {
         this.setControl(control);
     }
 
+    /**
+     * Getter per ottenere gli ordini associati alla {@code ListaOrdini}
+     * @return
+     */
     public static ArrayList<EntryListaOrdini> getOrdini() {
         return ordini;
     }
@@ -180,6 +184,9 @@ public class ListaOrdini extends Application implements Initializable {
         }
     }
 
+    /**
+     * Metodo utilizzato per aggiornare la {@code ListaOrdini} in base al suo contenuto
+     */
     public static void update(){
         ListaOrdini.ref.getItems().clear();
         for(EntryListaOrdini entry : ListaOrdini.ordini) {
@@ -207,18 +214,33 @@ public class ListaOrdini extends Application implements Initializable {
         ListaOrdini.controlVerifica.clickSuFatto(stage);
     }
 
+    /**
+     * Metodo per cancellare un ordine dalla {@code ListaOrdini} e creare la control {@code CancellaOrdineControl}
+     * @param entry entry da cancellare
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
+     */
     public void cancellaOrdine (EntryListaOrdini entry) throws IOException{
         CancellaOrdineControl cancOrdCtrl = new CancellaOrdineControl(entry,this.stage);
         cancOrdCtrl.start();
         update();
     }
 
+    /**
+     * Metodo per modificare un ordine dalla {@code ListaOrdini} e creare la control {@code ModificaOrdineControl}
+     * @param entry entry da modificare
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
+     */
     public void modificaOrdine (EntryListaOrdini entry) throws IOException{
         ModificaOrdineControl modOrdCtrl = new ModificaOrdineControl(ListaOrdini.farmacia,entry,this.stage);
         modOrdCtrl.start();
         update();
     }
 
+    /**
+     * Metodo per modificare un ordine dalla {@code ListaOrdini} e creare la control {@code RegistrazioneFarmaciRicevutiControl}
+     * @param entry entry da caricare
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
+     */
     public void caricaOrdine (EntryListaOrdini entry) throws IOException{
         RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl = new RegistrazioneFarmaciRicevutiControl(entry, this.stage);
         registrazioneFarmaciRicevutiControl.start();

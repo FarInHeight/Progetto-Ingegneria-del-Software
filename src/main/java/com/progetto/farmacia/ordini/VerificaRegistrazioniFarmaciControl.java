@@ -99,6 +99,13 @@ public class VerificaRegistrazioniFarmaciControl {
         }
     }
 
+    /**
+     * Metodo tramite il quale un oggetto di tipo {@code ListaOrdini} avvisa la {@code VerificaRegistrazioniFarmaciControl}
+     * del click sul pulsante {@code fatto} e distrugge la {@code ListaOrdini}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param stage stage della {@code AvvisoMancataRegistrazione}
+     */
     void clickSuFatto(Stage stage) {
         stage.close();
         this.start();
@@ -113,8 +120,11 @@ public class VerificaRegistrazioniFarmaciControl {
     }
 
     /**
-     * Metodo che viene richiamato quando si fa un click sul pulsante {@code carica} di una entry della {@code ListaOrdini}.
-     * @param entry ordine da caricare
+     * Metodo tramite il quale un oggetto di tipo {@code ListaOrdini} avvisa la {@code VerificaRegistrazioniFarmaciControl}
+     * del click sul pulsante {@code carica} e distrugge la {@code ListaOrdini}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param entry entry sulla quale si preme il pulsante
      */
     void clickSuCarica(EntryListaOrdini entry) {
         try {

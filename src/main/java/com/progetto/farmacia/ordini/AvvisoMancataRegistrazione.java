@@ -25,6 +25,11 @@ public class AvvisoMancataRegistrazione extends Application {
      */
     public AvvisoMancataRegistrazione(){super();}
 
+    /**
+     * Costruttore di un oggetto di classe {@code AvvisoMancataRegistrazione} che prende in input la control che ha creato
+     * l'avviso
+     * @param control control che ha creato l'avviso
+     */
     public AvvisoMancataRegistrazione(VerificaRegistrazioniFarmaciControl control) {
         this.setControl(control);
     }

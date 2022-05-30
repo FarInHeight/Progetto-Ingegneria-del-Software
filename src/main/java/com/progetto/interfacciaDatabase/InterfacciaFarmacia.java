@@ -647,6 +647,11 @@ public class InterfacciaFarmacia {
         }
     }
 
+    /**
+     * Metodo utilizzato per ottenere gli ordini consegnati ma non caricati del giorno corrente dal database dell'Azienda
+     * @param idFarmacia ID della {@code Farmacia} che sta richiedendo gli ordini
+     * @return lista di {@code EntryListaOrdini}
+     */
     public ArrayList<EntryListaOrdini> getOrdiniNonCaricati(int idFarmacia) {
         ArrayList<EntryListaOrdini> ordini = new ArrayList<>();
         try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")) {

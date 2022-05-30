@@ -1,6 +1,5 @@
 package com.progetto.farmacia.ordini;
 
-import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
@@ -13,7 +12,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,6 +25,13 @@ public class VisualizzaOrdiniControl {
     private ActionEvent event;
     private Stage stage;
     private ListaOrdini listaOrdini;
+
+    /**
+     * Costruttore di un oggetto di classe {@code VisualizzaOrdiniControl} che prende in input la {@code Farmacia} alla quale
+     * fa riferimento e l'evento che ha generato la creazione
+     * @param farmacia farmacia di riferimento
+     * @param event evento che ha creato la control
+     */
     public VisualizzaOrdiniControl(Farmacia farmacia, ActionEvent event) {
         this.setFarmacia(farmacia);
         this.setEvent(event);
