@@ -115,13 +115,15 @@ public class ModificaOrdineControl {
     public void clickSuAggungiFarmaci(Stage stage) throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
-        for(int i = 0; i < farmaci.size(); ++i) {
+        int i = 0;
+        while(i < farmaci.size()) {
             if(contieneFarmaco(this.entry.getFarmaci(), farmaci.get(i).getNomeFarmaco())) {
-                farmaci.remove(farmaci.get(i));  // rimuovo la entry se è contenuta nell'ordine
                 this.setPulsantiListaFarmaci(farmaci.get(i));
-                continue;
+                farmaci.remove(i);  // rimuovo la entry se è contenuta nell'ordine
+            } else {
+                this.setPulsantiListaFarmaci(farmaci.get(i));
+                ++i;
             }
-            this.setPulsantiListaFarmaci(farmaci.get(i));
         }
         if(this.elenco == null) {
             this.elenco = new ElencoModificaFarmaci(this, this.farmacia, farmaci);
@@ -133,7 +135,7 @@ public class ModificaOrdineControl {
 
     private boolean contieneFarmaco(ArrayList<Farmaco> lista, String nomeFarmaco) {
         for(Farmaco farmaco : lista) {
-            if(farmaco.getNome().equals(nomeFarmaco)) {
+            if(farmaco.getNome().strip().equals(nomeFarmaco.strip())) {
                 return true;
             }
         }
