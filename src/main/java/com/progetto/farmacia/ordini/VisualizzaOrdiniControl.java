@@ -2,6 +2,8 @@ package com.progetto.farmacia.ordini;
 
 import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
+import com.progetto.entity.Farmaco;
+import com.progetto.entity.Ordine;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -119,16 +121,42 @@ public class VisualizzaOrdiniControl {
     public void start() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
+        ArrayList<EntryListaOrdini> listaDaVisualizzare = new ArrayList<>();
         for(EntryListaOrdini entry : ordini) {
-            this.setPulsanti(entry);
+            EntryListaOrdini newEntry = this.entryDaCompattare(entry);
+            this.setPulsanti(newEntry);
+            listaDaVisualizzare.add(newEntry);
         }
         this.stage.hide();
-        this.listaOrdini = new ListaOrdini(this.farmacia, ordini, this);
+        this.listaOrdini = new ListaOrdini(this.farmacia, listaDaVisualizzare, this);
         try {
             this.listaOrdini.start(this.stage);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private EntryListaOrdini entryDaCompattare(EntryListaOrdini entry) {
+        Ordine ordine = new Ordine(entry.getIdOrdine(), entry.getOrdine().getStato(), new ArrayList<>(), entry.getOrdine().getTipo(), entry.getOrdine().getPeriodo(), entry.getOrdine().getDataConsegna(), entry.getOrdine().getNomeFarmacia(), entry.getOrdine().getIndirizzoConsegna());
+        EntryListaOrdini newEntry = new EntryListaOrdini(ordine);
+        for(Farmaco farmaco : entry.getFarmaci()) {
+            Farmaco candidato = this.ordineContieneFarmaco(farmaco, newEntry.getFarmaci());
+            if (candidato != null) {
+                candidato.setQuantita( candidato.getQuantita() + farmaco.getQuantita());
+            } else {
+                newEntry.getFarmaci().add(new Farmaco(farmaco.getNome(), farmaco.getPrincipioAttivo(), farmaco.getTipo(), farmaco.getDataScadenza(), farmaco.getQuantita()));
+            }
+        }
+        return newEntry;
+    }
+
+    private Farmaco ordineContieneFarmaco(Farmaco farmaco, ArrayList<Farmaco> lista) {
+        for(Farmaco entry : lista) {
+            if(entry.getNome().strip().equals(farmaco.getNome().strip())) {
+                return entry;
+            }
+        }
+        return null;
     }
 
     /**

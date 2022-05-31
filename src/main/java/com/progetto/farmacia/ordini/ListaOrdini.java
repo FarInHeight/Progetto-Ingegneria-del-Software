@@ -201,7 +201,6 @@ public class ListaOrdini extends Application implements Initializable {
             ListaOrdini.ref.getItems().add(entry);
         }
     }
-
     /**
      * ritorna un riferimento alla lista ordini
      * @return un oggetto {@code TableView<EntryListaOrdini>} che rappresenta la lista ordini

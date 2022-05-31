@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.ListaOrdini">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.ListaOrdini">
    <top>
       <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
-         <left>
-            <Button fx:id="indietroButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #ff9933;" text="INDIETRO" textAlignment="CENTER" textFill="WHITE" translateX="20.0" translateY="-12.0" BorderPane.alignment="CENTER" />
-         </left>
          <right>
             <Text fx:id="usernameLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome Farmacia" textAlignment="RIGHT" translateX="-20.0" translateY="-12.0" wrappingWidth="173.81000518798828" BorderPane.alignment="CENTER" />
          </right>
@@ -20,9 +18,14 @@
                </font>
             </Text>
          </top>
-         <center>
-            <Button fx:id="fattoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#fatto" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #0000C8;" text="FATTO" textFill="WHITE" translateX="-259.0" translateY="-10.0" BorderPane.alignment="CENTER" />
-         </center>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="indietroButton" layoutX="24.0" layoutY="-15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#indietro" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #ff9933;" text="INDIETRO" textAlignment="CENTER" textFill="WHITE" />
+                  <Button fx:id="fattoButton" layoutX="24.0" layoutY="-15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#fatto" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #0000C8;" text="FATTO" textFill="WHITE" />
+               </children>
+            </Pane>
+         </left>
       </BorderPane>
    </top>
    <center>
