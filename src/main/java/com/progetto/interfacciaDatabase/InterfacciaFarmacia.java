@@ -439,26 +439,48 @@ public class InterfacciaFarmacia {
      */
     public void modificaFarmaciOrdinati(int idOrdine){
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
-            //ottengo lotti coinvolti nell'ordine
-            PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
-            composizione.setInt(1,idOrdine);
-            ResultSet risultatoComposizione = composizione.executeQuery();
-            while(risultatoComposizione.next()){
-                int nFarmaci = risultatoComposizione.getInt("n_farmaci");
-                int idLotto = risultatoComposizione.getInt("lotto_id_lotto");
 
-                //ottengo i farmaci precedentemente ordinati
-                PreparedStatement lottoPrecedente = connection.prepareStatement("select * from lotto where id_lotto = ?");
-                lottoPrecedente.setInt(1,idLotto);
-                ResultSet risultatoLottoPrecedente = lottoPrecedente.executeQuery();
-                risultatoLottoPrecedente.next();
-                int farmaciOrdinati = risultatoLottoPrecedente.getInt("n_ordinati");
+            //se l'ordine è prenotato devo rimuovere i lotti
+            PreparedStatement determinazioneTipo = connection.prepareStatement("select * from ordine where id_ordine = ?");
+            determinazioneTipo.setInt(1,idOrdine);
+            ResultSet risultatoDeterminazioneTipo = determinazioneTipo.executeQuery();
+            risultatoDeterminazioneTipo.next();
+            if(risultatoDeterminazioneTipo.getInt("tipo") == 3) {
+                //ottengo lotti coinvolti nell'ordine
+                PreparedStatement composizioneEliminazione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
+                composizioneEliminazione.setInt(1, idOrdine);
+                ResultSet risultatoComposizioneEliminazione = composizioneEliminazione.executeQuery();
+                while (risultatoComposizioneEliminazione.next()) {
+                    int idLotto = risultatoComposizioneEliminazione.getInt("lotto_id_lotto");
 
-                //aggiorno i farmaci ordinati
-                PreparedStatement lottoNuovo = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
-                lottoNuovo.setInt(1,farmaciOrdinati-nFarmaci);
-                lottoNuovo.setInt(2,idLotto);
-                lottoNuovo.executeUpdate();
+                    //elimino i lotti associati
+                    PreparedStatement lottoNuovo = connection.prepareStatement("remove from lotto where id_lotto = ?");
+                    lottoNuovo.setInt(1, idLotto);
+                    lottoNuovo.executeUpdate();
+                }
+            }
+            else{
+                //ottengo lotti coinvolti nell'ordine
+                PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
+                composizione.setInt(1,idOrdine);
+                ResultSet risultatoComposizione = composizione.executeQuery();
+                while(risultatoComposizione.next()) {
+                    int nFarmaci = risultatoComposizione.getInt("n_farmaci");
+                    int idLotto = risultatoComposizione.getInt("lotto_id_lotto");
+
+                    //ottengo i farmaci precedentemente ordinati
+                    PreparedStatement lottoPrecedente = connection.prepareStatement("select * from lotto where id_lotto = ?");
+                    lottoPrecedente.setInt(1, idLotto);
+                    ResultSet risultatoLottoPrecedente = lottoPrecedente.executeQuery();
+                    risultatoLottoPrecedente.next();
+                    int farmaciOrdinati = risultatoLottoPrecedente.getInt("n_ordinati");
+
+                    //aggiorno i farmaci ordinati
+                    PreparedStatement lottoNuovo = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
+                    lottoNuovo.setInt(1, farmaciOrdinati - nFarmaci);
+                    lottoNuovo.setInt(2, idLotto);
+                    lottoNuovo.executeUpdate();
+                }
             }
         }catch (SQLException e){
             e.printStackTrace();

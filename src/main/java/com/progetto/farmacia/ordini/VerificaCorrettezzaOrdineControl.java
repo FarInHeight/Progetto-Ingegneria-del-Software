@@ -279,16 +279,18 @@ public class VerificaCorrettezzaOrdineControl {
                 db.prenotaOrdineNonPeriodico(farmaco);
             }
         }
+
+        if(this.entry != null) {
             //aggiornamento lista ordini
-        ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
-        ListaOrdini.getOrdini().clear();
-        for (EntryListaOrdini entry : ordini) {
-            this.setPulsanti(entry);
-            ListaOrdini.getOrdini().add(entry);
+            ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
+            ListaOrdini.getOrdini().clear();
+            for (EntryListaOrdini entry : ordini) {
+                this.setPulsanti(entry);
+                ListaOrdini.getOrdini().add(entry);
+            }
+
+            ListaOrdini.update();
         }
-
-        ListaOrdini.update();
-
         MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
         try {
             messaggioConfermaOrdine.start(this.stage);
