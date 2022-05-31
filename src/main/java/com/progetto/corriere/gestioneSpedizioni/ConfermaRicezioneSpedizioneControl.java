@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Classe responsabile di gestie la consegna degli ordini al farmacista.
+ * Classe che modella la control {@code ConfermaRicezioneSpedizioneControl} responsabile di gestie la consegna degli ordini al farmacista.
  */
 public class ConfermaRicezioneSpedizioneControl {
 
@@ -17,10 +17,10 @@ public class ConfermaRicezioneSpedizioneControl {
     private ListaSpedizioni listaSpedizioni;
 
     /**
-     * Costruttore per la ConfermaRicezioneSpedizioneControl
-     * @param stage stage attuale
-     * @param spedizione spedizione da per cui mostrare il riepilogo
-     * @param listaSpedizioni schermata che contiene la lista spedizioni
+     * Istanzia un oggetto di tipo {@code ConfermaRicezioneSpedizioneControl}
+     * @param stage oggetto di tipo {@code Stage} relativo alla schermata attuale
+     * @param spedizione oggetto di tipo {@code EntryListaSpedizioni} relativo alla spedizione per cui mostrare il riepilogo
+     * @param listaSpedizioni oggetto di tipo {@code ListaSpedizioni} che contiene la lista spedizioni
      */
     public ConfermaRicezioneSpedizioneControl(Stage stage, EntryListaSpedizioni spedizione, ListaSpedizioni listaSpedizioni) {
         setStage(stage);
@@ -29,16 +29,16 @@ public class ConfermaRicezioneSpedizioneControl {
     }
 
     /**
-     * Getter per la schermata che contiene la lista spedizioni
-     * @return schermata che contiene la lista spedizioni
+     * Ritorna la lista spedizioni
+     * @return oggetto di tipo {@code ListaSpedizioni } contenente la lista spedizioni
      */
     public ListaSpedizioni getListaSpedizioni() {
         return listaSpedizioni;
     }
 
     /**
-     * Setter per la schermata che contiene la lista spedizioni
-     * @param listaSpedizioni schermata che contiene la lista spedizioni
+     * Permette di settare la lista delle spedizioni
+     * @param listaSpedizioni oggetto di tipo {@code ListaSpedizioni} contenente la lista spedizioni
      */
     public void setListaSpedizioni(ListaSpedizioni listaSpedizioni) {
         if (listaSpedizioni == null) {
@@ -48,16 +48,16 @@ public class ConfermaRicezioneSpedizioneControl {
     }
 
     /**
-     * Getter per lo stage corrente
-     * @return stage corrente
+     * Ritorna il riferimento alla schermata corrente
+     * @return oggetto di tipo {@code Stage} relativo alla schermata corrente
      */
     public Stage getStage() {
         return stage;
     }
 
     /**
-     * Setter per lo stage corrente
-     * @param stage stage corrente
+     * Permette di settare lo schermata corrente
+     * @param stage oggetto di tipo {@code Stage} relativo alla schermata corrente
      */
     public void setStage(Stage stage) {
         if (stage == null) {
@@ -67,16 +67,16 @@ public class ConfermaRicezioneSpedizioneControl {
     }
 
     /**
-     * Getter per la spedizione da consegnare
-     * @return spedizione da consegnare
+     * Ritorna la spedizione da consegnare
+     * @return oggetto di tipo {@code EntryListaSpedizioni} relativo alla spedizione da consegnare
      */
     public EntryListaSpedizioni getSpedizione() {
         return spedizione;
     }
 
     /**
-     * Setter per la spedizione da consegnare
-     * @param spedizione spedizione da consegnare
+     * Permette di settare la spedizione da consegnare
+     * @param spedizione oggetto di tipo {@code EntryListaSpedizioni} relativo alla spedizione da consegnare
      */
     public void setSpedizione(EntryListaSpedizioni spedizione) {
         if (spedizione == null) {
@@ -99,11 +99,10 @@ public class ConfermaRicezioneSpedizioneControl {
     }
 
     /**
-     * Modifica lo stato dell'{@code ordine} nel database in consegnato, rimuove quindi i farmaci consegnati dai lotti
-     * Se l'ordine è periodico crea un nuovo ordine
-     * Aggiorna la lista delle spedizioni
+     * Modifica lo stato dell' ordine nel database in consegnato, rimuove i farmaci consegnati dai lotti e se l'ordine è periodico crea un nuovo ordine.
+     * Aggiorna inoltre la lista delle spedizioni
      *
-     * @param nominativoFarmacista nominativo del farmacista che ha firmato la consegna, da inviare la database
+     * @param nominativoFarmacista oggetto di tipo {@code String} contenente il nominativo del farmacista che ha firmato la consegna
      */
     public void clickSuConfermaRicezione(String nominativoFarmacista) {
         InterfacciaCorriere db = new InterfacciaCorriere();
@@ -119,8 +118,8 @@ public class ConfermaRicezioneSpedizioneControl {
     }
 
     /**
-     * Permette di tornare indietro e visualizzare la {@code ListaSpedizioni} aggiornata
-     * @param substage stage corrente
+     * Permette di tornare indietro e visualizzare la lista delle spedizioni
+     * @param substage oggetto di tipo {@code Stage} realativo alla schermata corrente
      */
     public void clickSuIndietro(Stage substage) {
         substage.close();

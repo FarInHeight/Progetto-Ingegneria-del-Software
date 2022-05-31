@@ -15,7 +15,7 @@ public class InterfacciaCorriere {
 
     /**
      * Ritorna tutti gli ordini in elaborazione con data di consegna odierna
-     * @return ordini in elaborazione con data di consegna odierna
+     * @return oggetto di tipo {@code ArrayList<EntryListaSpedizioni>} contenente gli ordini in elaborazione con data di consegna odierna
      */
     public ArrayList<EntryListaSpedizioni> getOrdiniGiornalieri() {
         ArrayList<EntryListaSpedizioni> spedizioni = new ArrayList<>();
@@ -90,7 +90,7 @@ public class InterfacciaCorriere {
     }
 
     /**
-     * Metodo che rimuove dai lotti del database i farmaci consegnati con un ordine
+     * Rimuove dai lotti del database i farmaci consegnati con un ordine
      * @param lotto lotto associato ad un ordine di cui rimuovere farmaci
      */
     public void rimuoviLottiConsegnati(LottoOrdinato lotto) {

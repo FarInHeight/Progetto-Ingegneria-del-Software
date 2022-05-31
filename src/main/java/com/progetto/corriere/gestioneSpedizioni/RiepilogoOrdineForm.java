@@ -24,33 +24,33 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Classe che mostra a schermo il riepilogo di una spedizione
+ * Classe modella la boundary {@code RiepilogoOrdineForm}
  */
 public class RiepilogoOrdineForm extends Application implements Initializable {
 
     @FXML
-    TextField nominativoFarmacista;
+    private TextField nominativoFarmacista;
     @FXML
-    Text campoIDOrdine;
+    private Text campoIDOrdine;
     @FXML
-    TextArea riepilogoOrdineTextArea;
+    private TextArea riepilogoOrdineTextArea;
     @FXML
-    Text infoFarmacia;
+    private Text infoFarmacia;
 
     private static ConfermaRicezioneSpedizioneControl control;
     private static EntryListaSpedizioni spedizione;
 
     /**
-     * Costruttore per il RiepilogoOrdineForm
+     * Costruisce un oggetto {@code RiepilogoOrdineForm}
      */
     public RiepilogoOrdineForm(){
         super();
     }
 
     /**
-     * Costruttore per il RiepilogoOrdineForm
+     * Costruisce un oggetto {@code RiepilogoOrdineForm} dati in input la sepdizione e la control che gestisce la conferma della ricezione delle spdizioni
      * @param spedizione spedizione di cui mostrare il riepilogo
-     * @param control control che permette di tornare a visualizzare la {@code ListaSpedizioni}
+     * @param control control {@code ConfermaRicezioneSpedizioneControl} che permette di tornare a visualizzare la {@code ListaSpedizioni}
      */
     public RiepilogoOrdineForm(EntryListaSpedizioni spedizione, ConfermaRicezioneSpedizioneControl control) {
         setSpedizione(spedizione);
@@ -58,16 +58,16 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
     }
 
     /**
-     * Getter per la control
-     * @return control
+     * Ritorna la control che gestisce la conferma della ricezione delle spedizioni
+     * @return control {@code ConfermaRicezioneSpedizioneControl} che gestisce la conferma della ricezione delle spedizioni
      */
     public ConfermaRicezioneSpedizioneControl getControl() {
         return control;
     }
 
     /**
-     * Setter per la control
-     * @param control control
+     * Permette di settare la control che gestice la conferma della ricezione delle spedizioni
+     * @param control control {@code ConfermaRicezioneSpedizioneControl} che gestisce la conferma della ricezione delle spedizioni
      */
     public void setControl(ConfermaRicezioneSpedizioneControl control) {
         if (control == null) {
@@ -77,16 +77,16 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
     }
 
     /**
-     * Getter per la spedizione di cui mostrare il riepilogo
-     * @return spedizione di cui mostrare il riepilogo
+     * Ritorna la spedizione di cui mostrare il riepilogo
+     * @return oggetto di tipo {@code EntryListaSpedizioni} relativo alla spedizione di cui mostrare il riepilogo
      */
     public EntryListaSpedizioni getSpedizione() {
         return spedizione;
     }
 
     /**
-     * Setter per la spedizione di cui mostrare il riepilogo
-     * @param spedizione spedizione di cui mostrare il riepilogo
+     * Permette di settare la spdizione di cui mostrare il riepilogo
+     * @param spedizione oggetto di tipo {@code EntryListaSpedizioni } relativo alla spedizione di cui mostrare il riepilogo
      */
     public void setSpedizione(EntryListaSpedizioni spedizione) {
         if (spedizione == null) {
@@ -130,7 +130,7 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
     }
 
     /**
-     * Metodo che inizializza la schermata inserendo i dati relativi alla spedizione
+     * Metodo che inizializza il riepigolo ordine inserendo i dati relativi alla spedizione
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -150,7 +150,7 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
 
     /**
      * Metodo che permette di confermare la consegna di una spedizione
-     * @param event evento associato alla pressione del {@code button} conferma consegna
+     * @param event evento associato alla pressione del tasto conferma consegna
      */
     @FXML
     public void confermaConsegna(ActionEvent event){
@@ -163,7 +163,7 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
 
     /**
      * Permette di tornare indietro e visualizzare la {@code ListaSpedizioni}
-     * @param event evento associato alla pressione del {@code button} consegna
+     * @param event evento associato alla pressione del tasto consegna
      */
     @FXML
     private void indietro(ActionEvent event) {

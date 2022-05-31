@@ -36,7 +36,7 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
     }
     /**
      * Costruisce una {@code SchermataPricipaleAddettoAzienda} dato in input un oggetto di tipo {@code AddettoAzienda}
-     * @param addetto farmacia associata alla schermata
+     * @param addetto addetto che ha effettuato il login
      */
     public SchermataPrincipaleAddettoAzienda(AddettoAzienda addetto){
         super();
@@ -51,7 +51,7 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
     }
 
     /**
-     * Metodo utilizzato per visualizzare la {@code SchermataPrincipaleAddettoAzienda} a schermo
+     * Permette di mostrare a schermo la {@code SchermataPrincipaleAddettoAzienda}
      * @param stage stage della schermata
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */

@@ -1,12 +1,18 @@
 package com.progetto.entity;
 /**
- *  Classe che modella il concetto di {@code Segnalazione} nel Sistema.
+ *  Classe che modella il concetto di {@code Segnalazione}
  */
 public class Segnalazione {
     private int idSegnalazione;
     private String commento;
     private int refOrdine;
 
+    /**
+     * Istanzia un oggetto di tipo {@code Segnalazione} dato in input l'id, il commento del farmacista e l'id dell'ordine associato
+     * @param idSegnalazione id della segnalazione
+     * @param commento commento del farmacista
+     * @param refOrdine identificativo dell'ordine associato alla segnalazione
+     */
     public Segnalazione(int idSegnalazione, String commento, int refOrdine) {
         this.idSegnalazione = idSegnalazione;
         this.commento = commento;
@@ -35,24 +41,24 @@ public class Segnalazione {
     }
 
     /**
-     * Getter per ottenere l'ID della segnalazione
-     * @return id della segnalazione
+     * Ritorna l'ID della segnalazione
+     * @return {@code int} contenente l'id della segnalazione
      */
     public int getIdSegnalazione() {
         return idSegnalazione;
     }
 
     /**
-     * Getter per ottenere il commento associato alla segnalazione
-     * @return commento della segnalazione
+     * Ritorna il commento associato alla segnalazione
+     * @return oggetto di tipo {@code String} contenente il commento della segnalazione
      */
     public String getCommento() {
         return commento;
     }
 
     /**
-     * Getter per ottenere il riferimento all'ordine della segnalazione
-     * @return riferimento dell'ordine
+     * Ritorna il riferimento all'ordine della segnalazione
+     * @return {@code int} contenente il riferimento dell'ordine
      */
     public int getRefOrdine() {
         return refOrdine;

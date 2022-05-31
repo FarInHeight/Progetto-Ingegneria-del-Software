@@ -13,7 +13,7 @@ public class AddettoAzienda {
     private String recapitoTelefonico;
 
     /**
-     * Costruttore di un {@code AddettoAzienda} per specificare tutti i campi.
+     * Istanzia un oggetto di tipo {@code AddettoAzienda} dati in input l'id, il nominativo, la data di nascita, l'email e il recapito telefonico
      * @param idAddetto id dell'Addetto
      * @param nominativo nominativo dell'Addetto ("Nome Cognome")
      * @param dataNascita data di nascita dell'Addetto
@@ -29,13 +29,13 @@ public class AddettoAzienda {
     }
 
     /**
-     * Costruttore di un {@code AddettoAzienda}.
+     * Istanzia un oggetto di tipo {@code AddettoAzienda}.
      */
     public AddettoAzienda() {
 
     }
     /**
-     * Setter per impostare l'ID dell'Addetto
+     * Permette di settare l'ID dell'Addetto
      * @param idAddetto id dell'Addetto
      * @throws IllegalArgumentException se l'argomento è minore di 0
      */
@@ -47,7 +47,7 @@ public class AddettoAzienda {
     }
 
     /**
-     * Setter per impostare il nominativo dell'Addetto ("Nome Cognome")
+     * Permette di settare il nominativo dell'Addetto ("Nome Cognome")
      * @param nominativo nominativo dell'Addetto
      * @throws NullPointerException se l'argomento è {@code null}
      */
@@ -59,7 +59,7 @@ public class AddettoAzienda {
     }
 
     /**
-     * Setter per impostare la data di nascita dell'Addetto
+     * Permette di settare la data di nascita dell'Addetto
      * @param dataNascita nominativo dell'Addetto
      * @throws NullPointerException se l'argomento è {@code null}
      */
@@ -71,7 +71,7 @@ public class AddettoAzienda {
     }
 
     /**
-     * Setter per impostare l'email dell'Addetto
+     * Permette di settare l'email dell'Addetto
      * @param email email dell'Addetto
      * @throws NullPointerException se l'argomento è {@code null}
      */
@@ -83,7 +83,7 @@ public class AddettoAzienda {
     }
 
     /**
-     * Setter per impostare il recapito telefonico dell'Addetto
+     * Permette di settare il recapito telefonico dell'Addetto
      * @param recapitoTelefonico recapito telefonico dell'Addetto
      * @throws NullPointerException se l'argomento è {@code null}
      */
@@ -95,40 +95,40 @@ public class AddettoAzienda {
     }
 
     /**
-     * Getter per ottenere l'id dell'Addetto
-     * @return id dell'addetto
+     * Ritorna l'id dell'Addetto
+     * @return un {@code int} contenente l'id dell'addetto
      */
     public int getIdAddetto() {
         return idAddetto;
     }
 
     /**
-     * Getter per ottenere la data di nascita dell'Addetto
-     * @return data di nascita
+     * Ritorna la data di nascita dell'Addetto
+     * @return un oggetto di tipo {@code LocalDate} contenente la data di nascita
      */
     public LocalDate getDataNascita() {
         return dataNascita;
     }
 
     /**
-     * Getter per ottenere l'email dell'Addetto
-     * @return email
+     * Ritorna l'email dell'Addetto
+     * @return un oggetto di tipo {@code String} contenente l'email
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * Getter per ottenere il recapito telefonico dell'Addetto
-     * @return recapito telefonico
+     * Ritorna il recapito telefonico dell'Addetto
+     * @return un oggetto di tipo {@code String} contenente il recapito telefonico
      */
     public String getRecapitoTelefonico() {
         return recapitoTelefonico;
     }
 
     /**
-     * Getter per ottenere il nominativo dell'Addetto ("Nome Cognome")
-     * @return nominativo dell'Addetto
+     * Ritorna il nominativo dell'Addetto ("Nome Cognome")
+     * @return un oggetto di tipo {@code String} contenente il nominativo dell'Addetto
      */
     public String getNominativo() {
         return nominativo;
@@ -136,7 +136,7 @@ public class AddettoAzienda {
 
     /**
      * Implementazione del metodo {@code clone} ereditato dalla classe {@code Object}
-     * @return copia dell'AddettoAzienda
+     * @return un oggetto di tipo {@code AddettoAzienda} contenente la copia dell'AddettoAzienda
      */
     @Override
     public AddettoAzienda clone() {

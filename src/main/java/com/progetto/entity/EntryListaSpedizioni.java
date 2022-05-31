@@ -13,7 +13,7 @@ public class EntryListaSpedizioni {
     private FlowPane strumenti;
 
     /**
-     * Costruttore per la entry della lista spedizioni
+     * Istanzia un oggetto di tipo {@code EntryListaSpedizioni} dato in input un ordine
      * @param ordine ordine in spedizione
      */
     public EntryListaSpedizioni(Ordine ordine) {
@@ -22,15 +22,15 @@ public class EntryListaSpedizioni {
     }
 
     /**
-     * getter per l'Ordine
-     * @return un {@code Ordine}
+     * Ritorna l'ordine associato alla spedizione
+     * @return oggetto di tipo {@code Ordine}
      */
     public Ordine getOrdine() {
         return ordine;
     }
 
     /**
-     * Setter per l'ordine
+     * Permette di settare l'ordine associato alla spedizione
      * @param ordine da impostare
      */
     public void setOrdine(Ordine ordine) {
@@ -41,15 +41,15 @@ public class EntryListaSpedizioni {
     }
 
     /**
-     * getter per gli strumenti relativi alla spedizione
-     * @return ritorna un {@code FlowPane} contenete gli strumenti relativi alla spedizione
+     * Ritorna gli strumenti relativi alla spedizione
+     * @return oggetto di tipo {@code FlowPane} contenete gli strumenti relativi alla entry
      */
     public FlowPane getStrumenti() {
         return strumenti;
     }
 
     /**
-     * Setter per gli strumenti
+     * Permette di settare gli strumenti della entry
      * @param strumenti strumenti
      */
     public void setStrumenti(Button strumenti) {
@@ -58,24 +58,24 @@ public class EntryListaSpedizioni {
     }
 
     /**
-     * getter per l'id dell'ordine
-     * @return ritorna un {@code int} contenente l'id dell'ordine
+     * Ritorna l'id dell'ordine
+     * @return {@code int} contenente l'id dell'ordine
      */
     public int getIdOrdine() {
         return this.ordine.getIdOrdine();
     }
 
     /**
-     * getter per il nome della farmacia
-     * @return ritorna una {@code String} contenente il nome della farmacia
+     * Ritorna il nome della farmacia
+     * @return oggetto di tipo {@code String} contenente il nome della farmacia
      */
     public String getNomeFarmacia() {
         return this.ordine.getNomeFarmacia();
     }
 
     /**
-     * getter per l'indirizzo di consegna
-     * @return ritorna una {@code String} contenete l'indirizzo di consegna
+     * Ritorna l'indirizzo di consegna
+     * @return oggetto di tipo {@code String} contenente l'indirizzo di consegna
      */
     public String getIndirizzoConsegna() {
         return this.ordine.getIndirizzoConsegna();

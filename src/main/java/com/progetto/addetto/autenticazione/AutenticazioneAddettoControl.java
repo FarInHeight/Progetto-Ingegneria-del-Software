@@ -24,7 +24,8 @@ public class AutenticazioneAddettoControl {
     private PasswordField password;
     private ActionEvent event;
     /**
-     * Costruisce un oggetto di classe {@code AutenticazioneAddettoControl} dati in input l'id dell'Addetto dell'Azienda e la password
+     * Costruisce un oggetto di classe {@code AutenticazioneAddettoControl} dati in input l'id dell'Addetto dell'Azienda, la password
+     * e l'evento relativo alla pressione del tasto login
      * @param idAddetto id dell'Addetto
      * @param password password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
@@ -57,7 +58,7 @@ public class AutenticazioneAddettoControl {
     }
 
     /**
-     * Metodo di avvio di un oggetto di classe {@code AutenticazioneAddettoControl}
+     * Permette di avviare la control
      */
     public void start() {
         try {

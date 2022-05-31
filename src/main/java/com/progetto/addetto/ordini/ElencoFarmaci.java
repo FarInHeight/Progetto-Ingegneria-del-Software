@@ -131,10 +131,6 @@ public class ElencoFarmaci extends Application implements Initializable {
         });
     }
 
-    /**
-     * Permette di tornare indietro e visualizzare il {@code FormOrdine}
-     * @param event evento associato alla pressione del {@code button} indietro
-     */
     @FXML
     private void conferma(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente

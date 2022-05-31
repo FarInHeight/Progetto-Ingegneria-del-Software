@@ -16,7 +16,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Control che gestisce l'autenticazione della farmacia
+ * Classe che modalla la control {@code AutenticazioneCorriereControl} che gestisce l'autenticazione del corriere
  */
 public class AutenticazioneCorriereControl {
 
@@ -25,9 +25,10 @@ public class AutenticazioneCorriereControl {
     private ActionEvent event;
 
     /**
-     * istanzia l'oggetto dati in input l'id del corriere e la password
-     * @param idCorriere id del corriere
-     * @param password password inserita dall'utente
+     * istanzia un oggetto di tipo {@code AutenticazioneCorriereControl} dati in input l'id del corriere, la password
+     * e l'evento relativo alla pressione del tasto login
+     * @param idCorriere {@code int} contenente l'id del corriere
+     * @param password oggetto di tipo {@code String} contenente la password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
      */
     public AutenticazioneCorriereControl(TextField idCorriere, PasswordField password, ActionEvent event){
@@ -37,7 +38,7 @@ public class AutenticazioneCorriereControl {
     }
 
     /**
-     * Metodo di avvio di un oggetto di classe {@code AutenticazioneCorriereControl}
+     * Permette di avviare la control
      */
     public void start(){
         try {

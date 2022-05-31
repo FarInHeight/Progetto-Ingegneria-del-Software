@@ -11,8 +11,8 @@ import java.util.LinkedList;
  */
 public class InterfacciaAddetto {
     /**
-     * Getter per ottenere le segnalazioni presenti nel database come oggetti di tipo {@code EntryListaSegnalazioni}
-     * @return lista di segnalazioni
+     * Ritorna le segnalazioni presenti nel database
+     * @return oggetto di tipo {@code ArrayList<EntryListaSegnalazioni>} contenente la lista delle segnalazioni
      */
     public ArrayList<EntryListaSegnalazioni> getSegnalazioni() {
         // EntryListaSegnalazioni(int idSegnalazione, int idOrdine, String riepilogoOrdine, int idFarmacia, String nomeFarmacia,
@@ -59,7 +59,7 @@ public class InterfacciaAddetto {
     }
 
     /**
-     * Metodo che permette di eliminare una segnalazione nel database dell'Azienda conoscendone l'ID
+     * Permette di eliminare una segnalazione nel database dell'Azienda dato in inpit l'ID
      * @param idSegnalazione ID della segnalazione
      */
     public void eliminaSegnalazione(int idSegnalazione) {
@@ -73,9 +73,8 @@ public class InterfacciaAddetto {
     }
 
     /**
-     * Getter per ottenere un lista di oggetti della classe {@code EntryFormOrdine} riferiti ai farmaci presenti
-     * nel datatabse dell'Azienda
-     * @return lista di farmaci come entry del form ordine
+     * Ritorna i farmaci presenti nel datatabse dell'Azienda
+     * @return oggetto di tipo {@code ArrayList<EntryFormOrdine>} contenente la lista di farmaci
      */
     public ArrayList<EntryFormOrdine> getFarmaciEntry() {
         ArrayList<EntryFormOrdine> lista = new ArrayList<>();
@@ -94,8 +93,8 @@ public class InterfacciaAddetto {
     }
 
     /**
-     * Metodo che ritorna tutti i {@code Lotti} attualmente contenuti nel database
-     * @return ArrayList di Lotto contenente tutti i Lotti del database
+     * Ritorna tutti i lotti attualmente contenuti nel database
+     * @return oggetto di tipo {@code LinkedList<Lotto>} contenente tutti i Lotti del database
      */
     public LinkedList<Lotto> getLotti() {
 

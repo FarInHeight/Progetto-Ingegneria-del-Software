@@ -13,9 +13,8 @@ import java.util.ArrayList;
 public class InterfacciaAzienda {
 
     /**
-     * Metodo che ritorna tutti i {@code Lotti} attualmente contenuti nel database
-     *
-     * @return ArrayList di Lotto contenente tutti i Lotti del database
+     * Ritorna tutti i {@code Lotti} attualmente contenuti nel database
+     * @return oggetto di tipo {@code ArrayList<Lotto>} contenente tutti i Lotti del database
      */
     public ArrayList<Lotto> getLotti() {
 
@@ -36,7 +35,6 @@ public class InterfacciaAzienda {
 
     /**
      * Rimuove un {@code Lotto} dal database.
-     *
      * @param id intero identificativo del Lotto da rimuovere
      */
     public void rimuoviLotto(int id) {
@@ -50,8 +48,7 @@ public class InterfacciaAzienda {
     }
 
     /**
-     * Aggiunge un {@code Lotto} passato come parametro al database.
-     *
+     * Aggiunge il {@code Lotto} passato come parametro al database.
      * @param lotto riferimento al Lotto da inserire
      */
     public void addLotto(Lotto lotto) {
@@ -71,7 +68,6 @@ public class InterfacciaAzienda {
      * Modifica la quantità di {@code Farmaci} contenuti e ordinati di tutti i {@code Lotti} conenuti in un {@code Ordine} in Prenotazione.
      * Le nuove quantità coincidono esattamente con la quantità di Farmaci presenti nell'Ordine.
      * Modifica la data di scadenza in base a quando sono stati prodotti i Farmaci.
-     *
      * @param ordine Ordine prenotato del quale si vogliono riempire i Lotti
      */
     public void updateQuantitaLotti(Ordine ordine) {
@@ -92,8 +88,7 @@ public class InterfacciaAzienda {
 
     /**
      * Ritorna tutti gli {@code Ordini} in stato di Prenotazione.
-     *
-     * @return ArrayList contenente tutti gli Ordini prenotati
+     * @return oggetto di tipo {@code ArrayList<Ordine>} contenente tutti gli Ordini prenotati
      */
     public ArrayList<Ordine> getOrdiniPrenotati() {
 
@@ -118,7 +113,6 @@ public class InterfacciaAzienda {
 
     /**
      * Modifica lo stato di un {@code Ordine} in Elaborazione
-     *
      * @param id_ordine identificativo dell'Ordine da mandare in elaborazione
      */
     public void modificaStatoInElaborazione(int id_ordine) {

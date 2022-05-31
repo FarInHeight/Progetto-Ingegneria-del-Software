@@ -11,7 +11,10 @@ import java.util.TimerTask;
  * Fa eseguire periodicamente i metodi assocaiti alla produzione di nuovi {@code lotti} e la rimozione di lotti scaduti
  */
 public class MainAzienda {
-
+    /**
+     * metodo che permette di avviare il sistema di rifornimento dell'azienda
+     * @param args
+     */
     public static void main(String[] args) {
 
         Timer timer = new Timer();

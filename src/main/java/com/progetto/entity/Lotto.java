@@ -16,14 +16,17 @@ public class Lotto {
     private int quantitaContenuta;
     private int quantitaOrdinata;
 
+    /**
+     * Istanzia un oggetto di tipo {@code Lotto}
+     */
     public Lotto(){
 
     }
 
     /**
-     * Costruttore per un Lotto contenuto nel DBMSAzienda.
-     *
-     * @param idLotto identificativo unico del lotto
+     * Istanzia un oggetto di tipo {@code Lotto} dati in input l'id, il nome del farmaco, la data di scadenza, la quantità
+     * di farmaco contenuta, la quantità di farmaco già ordinata
+     * @param idLotto identificativo univoco del lotto
      * @param nomeFarmaco riferimento all'oggetto Farmaco contenuto nel Lotto
      * @param dataScadenza data di scadenza del Lotto
      * @param quantitaContenuta quantità di Farmaco contenuti nel Lotto
@@ -38,8 +41,7 @@ public class Lotto {
     }
 
     /**
-     * Cotruttore che genera un oggetto Lotto a partire da un oggetto ResultSet, ottenuto in seguito a una query SQL.
-     *
+     * Istanzia un oggetto di tipo {@code Lotto} dato in input un risultato di una query sul database
      * @param lotto risultato della query
      * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
@@ -52,47 +54,47 @@ public class Lotto {
     }
 
     /**
-     * Getter per l'attributo idLotto
-     * @return l'identificatore unico del Lotto
+     * Ritorna l'id del lotto
+     * @return {@code int} contenente l'id del lotto
      */
     public int getIdLotto() {
         return this.idLotto;
     }
 
     /**
-     * Getter per il nome del Farmaco contenuto nel Lotto
-     * @return nome del Farmaco contenuto
+     * Ritorna il nome del Farmaco contenuto nel Lotto
+     * @return oggetto di tipo {@code String} contenente il nome del Farmaco contenuto
      */
     public String getNomeFarmaco() {
         return this.nomeFarmaco;
     }
 
     /**
-     * Getter per la data di scadenza del Lotto
-     * @return data di scadenza del Lotto
+     * Ritorna la data di scadenza del Lotto
+     * @return oggetto di tipo {@code LocalDate} contenente la data di scadenza del Lotto
      */
     public LocalDate getDataScadenza() {
         return this.dataScadenza;
     }
 
     /**
-     * Getter per la quantità di Farmaco contenuta del Lotto
-     * @return la quantità di Farmaco contenuta nel Lotto
+     * Ritorna la quantità di Farmaco contenuta del Lotto
+     * @return {@code int} contenente la quantità di Farmaco contenuta nel Lotto
      */
     public int getQuantitaContenuta() {
         return this.quantitaContenuta;
     }
 
     /**
-     * Getter per la quantità di Farmaco già ordinata dal Lotto
-     * @return la quantità di Farmaco ordinata dal Lotto
+     * Ritorna la quantità di Farmaco già ordinata dal Lotto
+     * @return {@code int} contenente la quantità di Farmaco ordinata dal Lotto
      */
     public int getQuantitaOrdinata() {
         return this.quantitaOrdinata;
     }
 
     /**
-     * Setter per l'ID del Lotto
+     * Permette di settare l'ID del Lotto
      * @param idLotto id del lotto
      */
     public void setIdLotto(int idLotto) {
@@ -103,7 +105,7 @@ public class Lotto {
     }
 
     /**
-     * Setter per il nome del farmaco contenuto
+     * Permette di settare il nome del farmaco contenuto
      * @param nomeFarmaco nome del Faramco contenuto nel lotto
      */
     public void setNomeFarmaco(String nomeFarmaco) {
@@ -114,8 +116,8 @@ public class Lotto {
     }
 
     /**
-     * Setter per la data di scadenza del Lotto
-     * @param dataScadenza nuova data di scadenza
+     * Permette di settare la data di scadenza del Lotto
+     * @param dataScadenza data di scadenza del lotto
      */
     public void setDataScadenza(LocalDate dataScadenza) {
         if (dataScadenza == null) {
@@ -125,8 +127,8 @@ public class Lotto {
     }
 
     /**
-     * Setter per la data di scadenza del Lotto
-     * @param dataScadenza nuova data di scadenza
+     * Permette di settare la data di scadenza del Lotto
+     * @param dataScadenza data di scadenza del lotto
      */
     public void setDataScadenza(Date dataScadenza) {
         if (dataScadenza == null) {
@@ -137,8 +139,8 @@ public class Lotto {
     }
 
     /**
-     * Setter per la quantità di Farmaco contenuta nel Lotto
-     * @param quantitaContenuta nuova quantità
+     * Permette di settare la quantità di Farmaco contenuta nel Lotto
+     * @param quantitaContenuta quantità contenuta del farmaco
      */
     public void setQuantitaContenuta(int quantitaContenuta) {
 
@@ -149,8 +151,8 @@ public class Lotto {
     }
 
     /**
-     * Setter per la quantità di Farmaco ordinata dal Lotto
-     * @param quantitaOrdinata nuova quantità
+     * Permette di settare la quantità di Farmaco ordinata dal Lotto
+     * @param quantitaOrdinata quantità del farmaco ordinata
      */
     public void setQuantitaOrdinata(int quantitaOrdinata) {
 
@@ -161,9 +163,9 @@ public class Lotto {
     }
 
     /**
-     * Crea un nuovo Lotto da aggiungere al database dell'Azienda a partire da un {@code Lotto} preesistente.
-     * @param lotto Lotto contente il Farmco che è stato appena prodotto
-     * @return nuovo Lotto
+     * Istanzia un oggetto di tipo {@code Lotto} contenente un farmaco prodotto dato in input un lotto esistente
+     * @param lotto Lotto contente il Farmaco che è stato appena prodotto
+     * @return oggetto di tipo {@code Lotto} nuovo Lotto
      */
     public static Lotto lottoProdotto(Lotto lotto) {
         return new Lotto(lotto.getIdLotto(), lotto.getNomeFarmaco(), lotto.getDataScadenza().plusYears(2), lotto.getQuantitaContenuta(), 0);

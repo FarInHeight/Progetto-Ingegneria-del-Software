@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Classe che rappresenta una entry dalla {@code ListaOrdini}
+ * Classe che modella una entry dalla {@code ListaOrdini}
  */
 public class EntryListaOrdini {
     private Ordine ordine;
@@ -13,13 +13,17 @@ public class EntryListaOrdini {
     private FlowPane strumenti;
 
     /**
-     * Costruttore della {@code EntryListaOrdini} che prende in input l'ordine al quale si riferisce
-     * @param ordine
+     * Istanzia un oggetto di tipo {@code EntryListaOrdini} dato in input l'ordine al quale si riferisce
+     * @param ordine ordine associato alla entry
      */
     public EntryListaOrdini(Ordine ordine) {
         this.setOrdine(ordine);
     }
 
+    /**
+     * Permette di settare l'ordine associato alla entry
+     * @param ordine ordine
+     */
     public void setOrdine(Ordine ordine) {
         if(ordine == null) {
             throw new NullPointerException("Ordine in EntryListaOrdini = null");
@@ -28,7 +32,7 @@ public class EntryListaOrdini {
     }
 
     /**
-     * Metodo per impostare i pulsanti {@code carica}, {@code modifica} e {@code cancella} di una {@code EntryListaOrdini}
+     * Permette di impostare i pulsanti {@code carica}, {@code modifica} e {@code cancella} di una {@code EntryListaOrdini}
      * presente nella {@code ListaOrdini}
      * @param strumenti pannello che contiene i pulsanti
      */
@@ -40,24 +44,24 @@ public class EntryListaOrdini {
     }
 
     /**
-     * Getter per ottenere l'ID dell'ordine associato alla entry
-     * @return ID dell'ordine
+     * Ritorna l'ID dell'ordine associato alla entry
+     * @return {@code int} contenente l'ID dell'ordine
      */
     public int getIdOrdine() {
         return this.ordine.getIdOrdine();
     }
 
     /**
-     * Getter per ottenere i farmaci associati all'ordine della {@code EntryListaOrdini}
-     * @return farmaci contenuti nell'ordine
+     * Ritorna i farmaci associati all'ordine della {@code EntryListaOrdini}
+     * @return oggetto di tipo {@code ArrayList<Farmaco>} contenente i armaci contenuti nell'ordine
      */
     public ArrayList<Farmaco> getFarmaci() {
         return this.ordine.getFarmaci();
     }
 
     /**
-     * Getter per ottenere i farmaci associati all'ordine della {@code EntryListaOrdini} come stringa (nome e quantità)
-     * @return farmaci contenuti nell'ordine
+     * Ritorna i farmaci associati all'ordine della {@code EntryListaOrdini} come stringa (nome e quantità)
+     * @return oggetto di tipo {@code String} contenente i farmaci contenuti nell'ordine
      */
     public String getFarmaciStringa() {
         String farmaci = "";
@@ -68,40 +72,40 @@ public class EntryListaOrdini {
     }
 
     /**
-     * Getter per ottenere lo stato dell'ordine associato alla entry
-     * @return stato dell'ordine
+     * Ritorna lo stato dell'ordine associato alla entry
+     * @return oggetto di tipo {@code String} contenente lo stato dell'ordine
      */
     public String getStato() {
         return this.ordine.getStatoStringa();
     }
 
     /**
-     * Getter per ottenere il tipo dell'ordine associato alla entry
-     * @return tipo dell'ordine
+     * Ritorna il tipo dell'ordine associato alla entry
+     * @return oggetto di tipo {@code String} contenente il tipo dell'ordine
      */
     public String getTipo() {
         return this.ordine.getTipoStringa();
     }
 
     /**
-     * Getter per ottenere la data di consegna dell'ordine associato alla entry
-     * @return data di consegna dell'ordine
+     * Ritorna la data di consegna dell'ordine associato alla entry
+     * @return oggetto di tipo {@code String} contenente la data di consegna dell'ordine
      */
     public String getDataConsegna() {
         return this.ordine.getDataConsegna().format(DateTimeFormatter.ofPattern("d/MM/uuuu"));
     }
 
     /**
-     * Getter per ottenere i pulsanti associati alla {@code EntryListaOrdini}
-     * @return pulsanti associati alla entry
+     * Ritorna i pulsanti associati alla {@code EntryListaOrdini}
+     * @return oggetto di tipo {@code FlowPane} contenente i pulsanti associati alla entry
      */
     public FlowPane getStrumenti() {
         return this.strumenti;
     }
 
     /**
-     * Getter per ottenere un oggetto di tipo {@code Ordine} associato alla entry
-     * @return ordine associato alla entry
+     * Ritorna l'ordine associato alla entry
+     * @return oggetto di tipo {@code Ordine} relativo all'ordine associato alla entry
      */
     public Ordine getOrdine() {
         return ordine;

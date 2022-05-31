@@ -25,7 +25,8 @@ public class AutenticazioneFarmaciaControl {
     private ActionEvent event;
 
     /**
-     * istanzia l'oggetto dati in input l'id della farmacia e la password
+     * Istanzia un oggetto di tipo {@code AutenticazioneFarmaciaControl} dati in input l'id della farmacia, la password
+     * e l'evento relativo alla pressione del tasto login
      * @param idFarmacia id della farmacia
      * @param password password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
@@ -59,7 +60,7 @@ public class AutenticazioneFarmaciaControl {
     }
 
     /**
-     * metodo per avviare la control
+     * Permette di avviare la control
      */
     public void start(){
         try {

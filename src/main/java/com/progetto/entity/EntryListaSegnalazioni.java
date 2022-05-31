@@ -4,6 +4,9 @@ import javafx.scene.layout.FlowPane;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Classe che modella una entry dalla {@code ListaSegnalazioni}
+ */
 public class EntryListaSegnalazioni {
     private Segnalazione segnalazione;
     private String riepilogoOrdine;
@@ -14,7 +17,10 @@ public class EntryListaSegnalazioni {
     private FlowPane strumenti;
 
     /**
-     * Costruttore per istanziare una entry della {@code ListaSegnalazioni}
+     * Istanzia un oggetto di tipo {@code EntryListaSegnalazioni} dati in input l'id della segnalazione, l'id dell'ordine,
+     * il riepilogo dell'ordine associato alla segnalazione, l'id della farmacia che ha generato la segnalazione,
+     * il nome della farmacia, il recapito telefonico della farmacia, il commento del farmacista e la data di generazione
+     * della segnalazione
      * @param idSegnalazione id della segnalazione
      * @param idOrdine id dell'ordine per cui è stata generata la segnalazione
      * @param riepilogoOrdine riepilogo dell'ordine per cui è stata generata la segnalazione
@@ -34,7 +40,7 @@ public class EntryListaSegnalazioni {
     }
 
     /**
-     * Metodo per impostare i pulsanti {@code espandi} e {@code rimuovi} di una {@code EntryListaSegnalazioni} presente
+     * Permette di settare i pulsanti {@code espandi} e {@code rimuovi} di una {@code EntryListaSegnalazioni} presente
      * nella {@code ListaSegnalazioni}
      * @param strumenti pannello che contiene i pulsanti
      */
@@ -59,7 +65,7 @@ public class EntryListaSegnalazioni {
     }
 
     /**
-     * Setter per impostare il riepilogo dell'ordine associato alla segnalazione
+     * Permette di settare il riepilogo dell'ordine associato alla segnalazione
      * @param riepilogoOrdine riepilogo dell'ordine
      */
     public void setRiepilogoOrdine(String riepilogoOrdine) {
@@ -85,72 +91,72 @@ public class EntryListaSegnalazioni {
     }
 
     /**
-     * Getter per ottenere l'ID della segnalazione
-     * @return ID della segnalazione
+     * Ritorna l'ID della segnalazione
+     * @return {@code int} contenente l'ID della segnalazione
      */
     public int getIdSegnalazione() {
         return this.segnalazione.getIdSegnalazione();
     }
 
     /**
-     * Getter per ottenere l'ID dell'ordine a cui fa riferimento la segnalazione
-     * @return id dell'ordine
+     * Ritorna l'ID dell'ordine a cui fa riferimento la segnalazione
+     * @return {@code int} contenente l'id dell'ordine
      */
     public int getIdOrdine() {
         return this.segnalazione.getRefOrdine();
     }
 
     /**
-     * Getter per ottenere il nome della farmacia che ha effettuato la segnalazione
-     * @return nome della farmacia
+     * Ritorna il nome della farmacia che ha effettuato la segnalazione
+     * @return un oggetto di tipo {@code String} contenente il nome della farmacia
      */
     public String getNomeFarmacia() {
         return this.nomeFarmacia;
     }
 
     /**
-     * Getter per ottenere la data in cui è stata creata la segnalazione
-     * @return data della segnalazione
+     * Ritorna la data in cui è stata creata la segnalazione
+     * @return un oggetto di tipo {@code LocalDate} contenente la data della segnalazione
      */
     public String getData() {
         return this.data;
     }
 
     /**
-     * Getter per ottenere i pulsanti Espandi e Rimuovi inerenti alla segnalazione
-     * @return pulsanti Espandi e Rimuovi
+     * Ritorna i pulsanti Espandi e Rimuovi inerenti alla segnalazione
+     * @return oggetto di tipo {@code FlowPane} contenente i pulsanti Espandi e Rimuovi
      */
     public FlowPane getStrumenti() {
         return strumenti;
     }
 
     /**
-     * Getter per ottenere un oggetto {@code Segnalazione} riferito a {@code EntryListaSegnalazioni}
-     * @return segnalazione associata alla entry
+     * Ritorna la segnalazione associata alla entry
+     * @return un oggetto di tipo {@code Segnalazione} contenente la segnalazione associata alla entry
      */
     public Segnalazione getSegnalazione() {
         return this.segnalazione;
     }
 
     /**
-     * Getter per ottenere il riepilogo dell'ordine associato alla segnalazione
-     * @return riepilogo dell'ordine
+     * Ritorna il riepilogo dell'ordine associato alla segnalazione
+     * @return un oggetto di tipo {@code String} contenente il riepilogo dell'ordine
      */
     public String getRiepilogoOrdine() {
         return riepilogoOrdine;
     }
 
     /**
-     * Getter per ottenere il recapito telefonico della farmacia che ha effettuato la segnalazione
-     * @return recapito telefonico della farmacia
+     * Ritorna il recapito telefonico della farmacia che ha effettuato la segnalazione
+     * @return un oggetto di tipo {@code String} contenente il recapito telefonico della farmacia
      */
     public String getRecapitoTelefonicoFarmacia() {
         return this.recapitoTelefonicoFarmacia;
     }
 
     /**
-     * Getter per ottenere l'ID della farmacia che ha effettuato la segnalazione
-     * @return id della farmacia
+     * Ritorna l'ID della farmacia che ha effettuato la segnalazione
+     * @return {@code int} contenente l'id della farmacia
      */
     public int getIdFarmacia() {
         return idFarmacia;

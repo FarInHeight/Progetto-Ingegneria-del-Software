@@ -36,13 +36,14 @@ public class AvvisoFarmaciScaduti extends Application implements Initializable {
     @FXML
     private Text usernameLabel;
     /**
-     * Costruisce una {@code AvvisoFarmaciScaduti}
+     * Istanzia un oggetto di tipo {@code AvvisoFarmaciScaduti}
      */
     public AvvisoFarmaciScaduti() {super();}
     /**
-     * Costruisce una {@code AvvisoFarmaciScaduti} in base ai farmaci della farmacia che sono scaduti e che stanno per scadere
+     * Istanzia un oggetto di tipo  {@code AvvisoFarmaciScaduti} dati in input i farmaci che sono scaduti, che stanno per scadere e la farmacia
      * @param farmaciScaduti farmaci che sono scaduti
      * @param farmaciQuasiScaduti farmaci che stanno per scadere (entro due settimane)
+     * @param farmacia farmacia alla quale sono associati i farmaci
      */
     public AvvisoFarmaciScaduti(String farmaciScaduti, String farmaciQuasiScaduti, Farmacia farmacia) {
         this.setFarmaciScaduti(farmaciScaduti);

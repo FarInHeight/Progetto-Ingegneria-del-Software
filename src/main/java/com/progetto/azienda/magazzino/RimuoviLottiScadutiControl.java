@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Classe che si occupa di rimuovere tutti i {@code lotti} scauti dal database dell'Azienda
+ * Classe che modella la control {@code RimuoviLottiScadutiControl}
  */
 public class RimuoviLottiScadutiControl {
 

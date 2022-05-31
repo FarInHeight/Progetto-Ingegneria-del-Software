@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * classe che implementa la boundart {@code SchermataPrincipaleFarmacia}
+ * classe che implementa la boundary {@code SchermataPrincipaleFarmacia}
  */
 public class SchermataPrincipaleFarmacia extends Application implements Initializable {
 
@@ -31,13 +31,13 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
     private Text usernameLabel;
 
     /**
-     * costruisce una {@code SchermataPricipaleFarmacia}
+     * Istanzia un oggetto di tipo {@code SchermataPricipaleFarmacia}
      */
     public SchermataPrincipaleFarmacia(){
         super();
     }
     /**
-     * costruisce una {@code SchermataPricipaleFarmacia} data in input un oggetto di tipo {@code Farmacia}
+     * Istanzia un oggetto di tipo {@code SchermataPricipaleFarmacia} dato in input un oggetto di tipo {@code Farmacia}
      * @param farmacia farmacia associata alla schermata
      */
     public SchermataPrincipaleFarmacia(Farmacia farmacia){
@@ -46,8 +46,8 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
     }
 
     /**
-     * Getter per la farmacia associata alla schermata
-     * @return farmacia assocaita alla schermata
+     * Ritorna la farmacia associata alla schermata
+     * @return oggetto di tipo {@code Farmacia} contenente la farmacia assocaita alla schermata
      */
     public static Farmacia getFarmacia() {
         return farmacia;
@@ -84,9 +84,9 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
     }
 
     /**
-     * permette di mostrare la schermata principale della farmacia
+     * Permette di mostrare la schermata principale della farmacia
      * @param stage stage della schermata
-     * @throws IOException se il caricamento del file fxml non è andato a buon fine
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -119,6 +119,11 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
         verificaEsaurimentoFarmaciControl.verificaEsaurimento();
     }
 
+    /**
+     * Permette di personalizzare la schermata principale della farmacia
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(SchermataPrincipaleFarmacia.farmacia.getNome());

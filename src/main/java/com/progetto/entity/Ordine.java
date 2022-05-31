@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- *  Classe che modella il concetto di {@code Ordine} nel Sistema.
+ *  Classe che modella il concetto di {@code Ordine}
 */
 public class Ordine {
     private int idOrdine;
@@ -22,7 +22,9 @@ public class Ordine {
     private ArrayList<LottoOrdinato> lottiContenuti;
 
     /**
-     * Costruttore di un {@code Ordine}.
+     * Istanzia un oggetto di tipo {@code Ordine} dato in input l'id, lo stato, i farmaci contenuti, il tipo,
+     * il periodo (se l'ordine è periodico), la data di consegna, il nome della farmacia che ha effettuato l'ordine,
+     * l'indirizzo di consegna della farmacia
      * @param idOrdine id dell'ordine
      * @param stato stato dell'ordine (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5])
      * @param farmaci farmaci contenuti nell'ordine
@@ -44,7 +46,7 @@ public class Ordine {
     }
 
     /**
-     * Costruttore che genera un Ordine a partire dal risultato di una query sul database
+     * Istanzia un oggetto di tipo {@code Ordine} dato in input il risultato di una query sul database
      * @param ordine risultato della query composta da una sola tupla
      * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
@@ -61,7 +63,7 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare l'ID dell'ordine
+     * Permette di settare l'ID dell'ordine
      * @param idOrdine id dell'ordine
      */
     public void setIdOrdine(int idOrdine) {
@@ -72,8 +74,8 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare lo stato dell'ordine (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5]).
-     * @param stato stato dell'ordine
+     * Permette di settare lo stato dell'ordine
+     * @param stato stato dell'ordine (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5])
      */
     public void setStato(int stato) {
         if(stato < 1 || stato > 5) {
@@ -83,7 +85,7 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare la lista di farmaci contenuti nell'ordine
+     * Permette di settare la lista di farmaci contenuti nell'ordine
      * @param farmaci lista di farmaci
      */
     public void setFarmaci(ArrayList<Farmaco> farmaci) {
@@ -100,8 +102,8 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare il tipo dell'ordine (periodico [1], non periodico [2]).
-     * @param tipo tipo dell'ordine
+     * Permette di settare il tipo dell'ordine
+     * @param tipo tipo dell'ordine (periodico [1], non periodico [2])
      */
     public void setTipo(int tipo) {
         if(tipo < 1 || tipo > 2) {
@@ -111,7 +113,7 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare il periodo dell'ordine.
+     * Permette di settare il periodo dell'ordine.
      * @param periodo periodo dell'ordine
      */
     public void setPeriodo(int periodo) {
@@ -122,7 +124,7 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare la data di consegna dell'ordine.
+     * Permette di settare la data di consegna dell'ordine.
      * @param dataConsegna data di consegna
      */
     public void setDataConsegna(LocalDate dataConsegna) {
@@ -133,7 +135,7 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare la data di consegna dell'ordine.
+     * Permette di settare la data di consegna dell'ordine.
      * @param dataConsegna data di consegna
      */
     public void setDataConsegna(Date dataConsegna) {
@@ -146,7 +148,7 @@ public class Ordine {
 
 
     /**
-     * Setter per impostare il nome della farmacia che ha effettuato l'ordine.
+     * Permette di settare il nome della farmacia che ha effettuato l'ordine.
      * @param nomeFarmacia nome della farmacia
      */
     public void setNomeFarmacia(String nomeFarmacia) {
@@ -157,7 +159,7 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare l'indirizzo di consegna dell'ordine.
+     * Permette di settare l'indirizzo di consegna dell'ordine.
      * @param indirizzoConsegna indirizzo di consegna
      */
     public void setIndirizzoConsegna(String indirizzoConsegna) {
@@ -168,7 +170,7 @@ public class Ordine {
     }
 
     /**
-     * Setter per l'id della farmacia che ha generato l'ordine
+     * Permette di settare l'id della farmacia che ha generato l'ordine
      * @param idFarmacia id della farmacia che ha generato l'ordine
      */
     public void setIdFarmacia(int idFarmacia) {
@@ -179,7 +181,7 @@ public class Ordine {
     }
 
     /**
-     * Setter per impostare i Lotti associati ad un Ordine
+     * Permette di settare i Lotti associati ad un Ordine
      * @param ordine tupla contenente informazioni su un Lotto associato ad un Ordine
      * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
@@ -190,24 +192,24 @@ public class Ordine {
     }
 
     /**
-     * Getter per ottenere l'ID dell'ordine.
-     * @return ID dell'ordine
+     * Ritorna l'ID dell'ordine.
+     * @return {@code int} contenente l'ID dell'ordine
      */
     public int getIdOrdine() {
         return idOrdine;
     }
 
     /**
-     * Getter per ottenere lo stato dell'ordine come intero (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5]).
-     * @return stato dell'ordine
+     * Ritorna lo stato dell'ordine
+     * @return {@code int} contenente lo stato dell'ordine (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5])
      */
     public int getStato() {
         return this.stato;
     }
 
     /**
-     * Getter per ottenere lo stato dell'ordine come stringa (Elaborazione [1], Spedizione [2], Prenotato [3], Consegnato [4], Caricato [5]).
-     * @return stato dell'ordine
+     * Ritorna lo stato dell'ordine
+     * @return oggetto di tipo {@code String} contenente lo stato dell'ordine
      */
     public String getStatoStringa() {
         /*
@@ -228,24 +230,24 @@ public class Ordine {
     }
 
     /**
-     * Getter per ottenere la lista di farmaci contenuti nell'ordine.
-     * @return lista di farmaci
+     * Ritorna la lista di farmaci contenuti nell'ordine.
+     * @return oggetto di tipo {@code ArrayList<Farmaco>} contenente i farmaci
      */
     public ArrayList<Farmaco> getFarmaci() {
         return this.farmaci;
     }
 
     /**
-     * Getter per ottenere il tipo dell'ordine come intero.
-     * @return tipo dell'ordine
+     * Ritorna il tipo dell'ordine come intero.
+     * @return {@code int} contenente il tipo dell'ordine
      */
     public int getTipo() {
         return this.tipo;
     }
 
     /**
-     * Getter per ottenere il tipo dell'ordine come stringa.
-     * @return tipo dell'ordine
+     * Ritorna il tipo dell'ordine come stringa.
+     * @return oggetto di tipo {@code String} contenente il tipo dell'ordine
      */
     public String getTipoStringa() {
         /*
@@ -260,48 +262,48 @@ public class Ordine {
     }
 
     /**
-     * Getter per ottenere il periodo dell'ordine.
-     * @return periodo dell'ordine
+     * Ritorna il periodo dell'ordine.
+     * @return {@code int} contenente il periodo dell'ordine
      */
     public int getPeriodo() {
         return periodo;
     }
 
     /**
-     * Getter per ottenere la data di consegna dell'ordine
-     * @return data di consegna
+     * Ritorna la data di consegna dell'ordine
+     * @return oggetto di tipo {@code LocalDate} contenente la data di consegna
      */
     public LocalDate getDataConsegna() {
         return dataConsegna;
     }
 
     /**
-     * Getter per ottenere il nome della farmacia che ha effettuato l'ordine.
-     * @return nome della farmacia
+     * Ritorna il nome della farmacia che ha effettuato l'ordine.
+     * @return oggetto di tipo {@code String} contenente il nome della farmacia
      */
     public String getNomeFarmacia() {
         return nomeFarmacia;
     }
 
     /**
-     * Getter per ottenere l'indirizzo di consegna dell'ordine
-     * @return  indirizzo di consegna
+     * Ritorna l'indirizzo di consegna dell'ordine
+     * @return oggetto di tipo {@code String} contenente l'indirizzo di consegna
      */
     public String getIndirizzoConsegna() {
         return indirizzoConsegna;
     }
 
     /**
-     * Getter per l'id della farmacia che ha generato l'ordine
-     * @return id della farmacia che ha generato l'ordine
+     * Ritorna l'id della farmacia che ha generato l'ordine
+     * @return {@code int} contenente l'id della farmacia che ha generato l'ordine
      */
     public int getIdFarmacia() {
         return idFarmacia;
     }
 
     /**
-     * Getter per i Lotti associati in un Ordine
-     * @return tutti i Lotti associati
+     * Ritorna i Lotti associati in un Ordine
+     * @return oggetto di tipo {@code ArrayList<LottoOrdinato>} contenente tutti i Lotti associati all'ordine
      */
     public ArrayList<LottoOrdinato> getLottiContenuti() {
         return lottiContenuti;

@@ -5,13 +5,13 @@ import com.progetto.entity.Lotto;
 import com.progetto.entity.Ordine;
 import java.util.ArrayList;
 
-/**
- * Classe che gestisce la produzione di {@code farmaci} da parte dell'azienda.
+/** Classe che modella la control {@code GestioneProduzioneControl} che gestisce la produzione di farmaci da parte dell'azienda.
  * Produce nuovi farmaci in base ai farmaci già nel magazzino e alla percentule di farmaci ordinati.
- * Prdouce i farmaci necessari per far partire gli {@code ordini} in stato di prenotazione
+ * Prdouce i farmaci necessari per far partire gli ordini in stato di prenotazione
  */
 public class GestioneProduzioneControl {
-
+    /** Permette di avviare la gestione della produzione dell'azienda
+     */
     public void gestioneProduzione() {
 
         InterfacciaAzienda db = new InterfacciaAzienda();
@@ -21,11 +21,9 @@ public class GestioneProduzioneControl {
 
     }
 
-    /**
-     * Aggiunge nuovi Lotti appena prodotti al database dell'Azienda.
-     * La quantità di Farmaco contenuta in ogni Lotto dipende dalla quantità di Farmaci di quel tipo già ordinati.
-     *
-     * @param db istanza dell'interfaccia col database
+    /*
+     Aggiunge nuovi Lotti appena prodotti al database dell'Azienda.
+     La quantità di Farmaco contenuta in ogni Lotto dipende dalla quantità di Farmaci di quel tipo già ordinati.
      */
     private void aggiungiLottiProdotti(InterfacciaAzienda db) {
         ArrayList<Lotto> lotti = db.getLotti();
@@ -43,11 +41,9 @@ public class GestioneProduzioneControl {
         }
     }
 
-    /**
-     * Inserisce Faramci appena prodotti nei Lotti degli Ordini in Prenotazione.
-     * Modifica quindi lo stato degli Ordini in Elaborazione.
-     *
-     * @param db istanza dell'interfaccia col database
+    /*
+     Inserisce Faramci appena prodotti nei Lotti degli Ordini in Prenotazione.
+     Modifica quindi lo stato degli Ordini in Elaborazione.
      */
     private void aggiungiLottiPrenotati(InterfacciaAzienda db) {
 
@@ -59,10 +55,10 @@ public class GestioneProduzioneControl {
         }
     }
 
-    /**
-     * Verifica se la quantità di Farmaci ordinati in un Lotto non superi la metà dei Farmaci contenuti
-     * @param lotto lotto su cui effettuare al verifica
-     * @return true se la quantità ordinata è minore della metà del totale, false altrimenti
+    /*
+     Verifica se la quantità di Farmaci ordinati in un Lotto non superi la metà dei Farmaci contenuti
+     * il paramentro in input è il lotto su cui effettuare la verifica
+     * ritorna true se la quantità ordinata è minore della metà del totale, false altrimenti
      */
     private boolean controllaQuantita(Lotto lotto) {
         return (lotto.getQuantitaOrdinata() <= (0.5*lotto.getQuantitaOrdinata()));

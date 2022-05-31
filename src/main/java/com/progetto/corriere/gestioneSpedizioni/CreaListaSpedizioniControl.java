@@ -25,8 +25,8 @@ public class CreaListaSpedizioniControl {
     private final InterfacciaCorriere db;
 
     /**
-     * istanzia la control che gestisce la lista spedizioni
-     * @param event evento associato alla pressione del {@code button} visualizza spedizioni
+     * Istanzia un oggetto di tipo {@code CreaListaSpedizioniControl} dato in input l'evento della pressione del tasto visualizza spedizioni
+     * @param event evento associato alla pressione del tasto visualizza spedizioni
      */
     public CreaListaSpedizioniControl(Event event) {
         this.setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
@@ -34,17 +34,16 @@ public class CreaListaSpedizioniControl {
     }
 
     /**
-     * Setter per le spedizioni da inserire nella lista
-     * @param spedizioni spedizioni da inserire nella lista
+     * Permette di settare la lista delle spedizioni da mostrare
+     * @param spedizioni oggetto di tipo {@code ArrayList<EntryListaSpedizioni>} relavito alle spedizioni da inserire nella lista
      */
     public void setSpedizioni(ArrayList<EntryListaSpedizioni> spedizioni) {
         this.spedizioni = spedizioni;
     }
 
-    /**
-     * Setter per lo stage corrente
-     * @param stage stage corrente
-     */
+    /*
+      Setter per lo stage corrente
+    */
     private void setStage(Stage stage) {
         if (stage == null) {
             throw new NullPointerException("stage = null");
@@ -53,24 +52,24 @@ public class CreaListaSpedizioniControl {
     }
 
     /**
-     * Getter per le spedizioni da inserire nella lista
-     * @return spedizioni
+     * Ritorna L'elenco delle spedizioni da inserire nella lista
+     * @return oggetto di tipo {@code ArrayList<EntryListaSpedizioni>} relativo alle spedizioni da inserire nella lista
      */
     public ArrayList<EntryListaSpedizioni> getSpedizioni() {
         return spedizioni;
     }
 
     /**
-     * Getter per lo stage corrente
-     * @return stage corrente
+     * Ritorna il riferimento alla schermata corrente
+     * @return oggetto di tipo {@code Stage} contenete il riferimento alla schermata corrente
      */
     public Stage getStage() {
         return stage;
     }
 
     /**
-     * Metodo che crea e mostra la lista delle spedizioni tramite un oggetto di tipo {@code ListaSpedizioni}
-     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     * Permette di creare e mostrare la lista delle spedizioni
+     * @throws IOException lanciata se il caricamento del file {@code fxml} non è andato a buon fine
      */
     public void clickSuVisualizzaSpedizioni() throws IOException {
 
@@ -91,10 +90,9 @@ public class CreaListaSpedizioniControl {
         listaSpedizioni.start(this.stage);
     }
 
-    /**
-     * Metodo che crea e associa i pulsanti alle entry della lista spedizioni
-     * @param spedizione entry della lista spedizioni
-     */
+    /*
+     Metodo che crea e associa i pulsanti alle entry della lista spedizioni
+    */
     private void setPulsanti(EntryListaSpedizioni spedizione) {
         Button consegna = new Button("consegna");
         consegna.setBackground(Background.fill(Color.rgb(0, 0, 200)));
@@ -103,9 +101,8 @@ public class CreaListaSpedizioniControl {
     }
 
     /**
-     * Permette di tornare indietro e visualizzare la {@code SchermataPrincipaleCorriere}
-     * Gli {@code ordini} non consegnati tornano in stato di elaborazione
-     * @param substage stage attualmente mostrato
+     * Permette di tornare indietro e visualizzare la {@code SchermataPrincipaleCorriere} e setta gli ordini non consegnati in stato di elaborazione
+     * @param substage oggetti di tipo {@code stage} relativo alla schermata mostrata attualmente a schermo
      */
     public void clickSuIndietro(Stage substage) {
         substage.close();

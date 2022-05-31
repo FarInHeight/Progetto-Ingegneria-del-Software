@@ -15,13 +15,13 @@ public class Corriere {
     private String recapitoTelefonico;
 
     /**
-     * Costruttore per la classe {@code Corriere}
+     * Istanzia un oggetto di tipo {@code Corriere}
      */
     public Corriere() {
     }
 
     /**
-     * Costruttore per la classe {@code Corriere}
+     * Istanzia un oggetto di tipo {@code Corriere} dati in input l'id, il nominativo, la data di nascita, l'email e il recapito telefonico
      * @param idCorriere id del corriere
      * @param nominativo nominativo del corriere
      * @param dataNascita data di nascita del corriere
@@ -37,7 +37,7 @@ public class Corriere {
     }
 
     /**
-     * Costruttore per la classe {@code Corriere}
+     * Istanzia un oggetto di tipo {@code Corriere} dato in input il risultato di una query sul database
      * @param corriere tupla del database contenente le informazioni associate ad un corriere
      * @throws SQLException se si verifica un problema con il database
      */
@@ -50,7 +50,7 @@ public class Corriere {
     }
 
     /**
-     * Setter per l'id del corriere
+     * Permette di settare l'id del corriere
      * @param idCorriere id del corriere
      */
     public void setIdCorriere(int idCorriere) {
@@ -61,7 +61,7 @@ public class Corriere {
     }
 
     /**
-     * Setter per il nominativo del corriere
+     * Permette di settare il nominativo del corriere
      * @param nominativo il nominativo del corriere
      */
     public void setNominativo(String nominativo) {
@@ -72,7 +72,7 @@ public class Corriere {
     }
 
     /**
-     * Setter per la data di nascita del corriere
+     * Permette di settare la data di nascita del corriere
      * @param dataNascita data di nascita del corriere
      */
     public void setDataNascita(LocalDate dataNascita) {
@@ -83,7 +83,7 @@ public class Corriere {
     }
 
     /**
-     * Setter per l'email del corriere
+     * Permette di settare l'email del corriere
      * @param email email del corriere
      */
     public void setEmail(String email) {
@@ -94,7 +94,7 @@ public class Corriere {
     }
 
     /**
-     * Setter per il recapito telefonico del corriere
+     * Permette di settare il recapito telefonico del corriere
      * @param recapitoTelefonico recapito telefonico del corriere
      */
     public void setRecapitoTelefonico(String recapitoTelefonico) {
@@ -105,40 +105,40 @@ public class Corriere {
     }
 
     /**
-     * Getter per l'id del corriere
-     * @return id del corriere
+     * Ritorna l'id del corriere
+     * @return un {@code int} contenente l'id del corriere
      */
     public int getIdCorriere() {
         return idCorriere;
     }
 
     /**
-     * Getter per il nominativo del corriere
-     * @return nominativo del corriere
+     * Ritorna il nominativo del corriere
+     * @return un oggetto di tipo {@code String} contenente il nominativo del corriere
      */
     public String getNominativo() {
         return nominativo;
     }
 
     /**
-     * Getter per l'email del corriere
-     * @return email del corriere
+     * Ritorna l'email del corriere
+     * @return un oggetto di tipo {@code String} contenente l'email del corriere
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * Getter per il recapito telefonico del corriere
-     * @return recapito telefonico del corriere
+     * Ritorna il recapito telefonico del corriere
+     * @return un oggetto di tipo {@code String} contenente il recapito telefonico del corriere
      */
     public String getRecapitoTelefonico() {
         return recapitoTelefonico;
     }
 
     /**
-     * Getter per la data di nascita del corriere
-     * @return data di nascita del corriere
+     * Ritorna la data di nascita del corriere
+     * @return un oggetto di tipo {@code LocalDate} contenente la data di nascita del corriere
      */
     public LocalDate getDataNascita() {
         return dataNascita;

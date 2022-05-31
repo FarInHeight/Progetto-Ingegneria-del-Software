@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Classe che modella una riga della {@code SchermataMagazzino} a partire da un {@code farmaco} nel magazzino della farmacia
+ * Classe che modella una entry della {@code SchermataMagazzino}
  */
 public class EntryMagazzinoFarmacia {
 
@@ -16,15 +16,15 @@ public class EntryMagazzinoFarmacia {
     private final FlowPane strumenti;
 
     /**
-     * Getter per il farmaco
-     * @return farmaco
+     * Ritorna il farmaco associato alla entry
+     * @return oggetto di tipo {@code Farmaco}
      */
     public Farmaco getFarmaco() {
         return farmaco;
     }
 
     /**
-     * Setter per il farmaco
+     * Permette di settare il farmaco associato alla entry
      * @param farmaco farmaco da settare
      */
     public void setFarmaco(Farmaco farmaco) {
@@ -35,15 +35,15 @@ public class EntryMagazzinoFarmacia {
     }
 
     /**
-     * Getter per gli strumenti della entry
-     * @return strumenti della entry
+     * Ritorna gli strumenti della entry
+     * @return oggetto di tipo {@code FlowPane} contenete gli strumenti relativi alla entry
      */
     public FlowPane getStrumenti() {
         return strumenti;
     }
 
     /**
-     * Setter per gli strumenti della entry
+     * Permette di settare gli strumenti della entry
      * @param strumenti strumenti della entry
      */
     public void setStrumenti(Button strumenti) {
@@ -52,52 +52,57 @@ public class EntryMagazzinoFarmacia {
     }
 
     /**
-     * Getter per il nome del farmaco
-     * @return nome del farmaco
+     * Ritorna il nome del farmaco
+     * @return oggetto di tipo {@code String} contenente il nome del farmaco
      */
     public String getNome() {
         return getFarmaco().getNome();
     }
 
     /**
-     * Getter per il principio attivo del farmaco
-     * @return principio attivo del farmaco
+     * Ritorna il principio attivo del farmaco
+     * @return oggetto di tipo {@code String} contenente il principio attivo del farmaco
      */
     public String getPrincipioAttivo() {
         return getFarmaco().getPrincipioAttivo();
     }
 
     /**
-     * Getter per il tipo del farmaco
-     * @return tipo del farmaco
+     * Ritorna il tipo del farmaco
+     * @return {@code int} contenente tipo del farmaco
      */
     public int getTipo() {
         return getFarmaco().getTipo();
     }
 
     /**
-     * Getter per la data di scadenza del farmaco presente nel magazzino della farmacia
-     * @return data di scadenza del farmaco
+     * Ritorna la data di scadenza del farmaco
+     * @return oggetto di tipo {@code String} contenente la data di scadenza del farmaco
      */
     public String getDataScadenza() {
         return getFarmaco().getDataScadenza().format(DateTimeFormatter.ofPattern("d/MM/uuuu"));
     }
+
+    /**
+     * Ritorna la data di scadenza del farmaco
+     * @return oggetto di tipo {@code LocalDate} contenente la data di scadenza del farmaco
+     */
 
     public LocalDate getDataScadenzaNonFormattata(){
         return this.farmaco.getDataScadenza();
     }
 
     /**
-     * Getter per la quantita di farmaco presente nel magazzino della farmacia
-     * @return quantita di faramco presente nel magazzino della farmacia
+     * Ritorna la quantita di farmaco
+     * @return {@code int} contenente la quantita di farmaco
      */
     public int getQuantita() {
         return getFarmaco().getQuantita();
     }
 
     /**
-     * Costruttore per una entry della SchermataMagazzino
-     * @param farmaco farmaco contenuto nella entry
+     * Istanzia un oggetto di tipo {@code EntryMagazzinoFarmacia} dato in input un farmaco
+     * @param farmaco farmaco da associare alla entry
      */
     public EntryMagazzinoFarmacia(Farmaco farmaco) {
         setFarmaco(farmaco);

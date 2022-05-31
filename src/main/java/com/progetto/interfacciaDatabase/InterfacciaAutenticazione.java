@@ -7,7 +7,7 @@ import java.sql.*;
 
 
 /**
- * contiene i metodi necessari ad effettuare l'autenticazione con il database
+ * Classe che contiene i metodi necessari ad effettuare l'autenticazione con il database
  */
 public class InterfacciaAutenticazione {
 
@@ -15,7 +15,7 @@ public class InterfacciaAutenticazione {
      * Ritorna la tupla della tabella {@code Farmacia} corrispondente alle credenziali inserite
      * @param idFarmacia id della farmacia
      * @param password password della farmacia
-     * @return un oggetto {@code Farmacia} contenente l'id corrispondente alle credenziali inserite (se non sono corrette ritorna {@code null})
+     * @return un oggetto di tipo {@code Farmacia} corrispondente alle credenziali inserite (se non sono corrette ritorna {@code null})
      */
     public Farmacia getCredenzialiFarmacia(int idFarmacia, String password){
         Farmacia farmacia = new Farmacia();
@@ -51,7 +51,7 @@ public class InterfacciaAutenticazione {
      * Ritorna la tupla della tabella {@code AddettoAzienda} corrispondente alle credenziali inserite
      * @param idAddetto id dell'addetto
      * @param password password dell'addetto
-     * @return un oggetto {@code AddettoAzienda} contenente l'id corrispondente alle credenziali inserite (se non sono corrette ritorna {@code null})
+     * @return un oggetto di tipo {@code AddettoAzienda} corrispondente alle credenziali inserite (se non sono corrette ritorna {@code null})
      */
     public AddettoAzienda getCredenzialiAddettoAzienda(int idAddetto, String password){
         AddettoAzienda addetto = new AddettoAzienda();
@@ -88,7 +88,7 @@ public class InterfacciaAutenticazione {
      * Ritorna la tupla della tabella {@code Corriere} corrispondente alle credenziali inserite
      * @param idCorriere id del corriere
      * @param password password del corriere
-     * @return un oggetto {@code Corriere}
+     * @return un oggetto di tipo {@code Corriere} corrispondente alle credenziali inserite (se non sono corrette ritorna {@code null})
      */
     public Corriere getCredenzialiCorriere(int idCorriere, String password){
         Corriere corriere = null;

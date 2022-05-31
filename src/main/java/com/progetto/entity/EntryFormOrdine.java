@@ -1,14 +1,10 @@
 package com.progetto.entity;
 
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
+
 
 /**
- * classe che rappresenta una entry nella tabella del form Ordine
+ * Classe che rappresenta una entry nella tabella del form Ordine
  */
 public class EntryFormOrdine {
     private String nomeFarmaco;
@@ -16,7 +12,7 @@ public class EntryFormOrdine {
     private FlowPane strumenti;
 
     /**
-     * Costruttore per istanziare una entry della {@code FormOrdine}
+     * Istanzia un oggetto di tipo {@code FormOrdine} dati in input il nome del farmaco e il principio attivo
      * @param nomeFarmaco nome del farmaco
      * @param principioAttivo principio attivo del farmaco
      */
@@ -26,7 +22,7 @@ public class EntryFormOrdine {
     }
 
     /**
-     * setter per gli strumenti di una entry di {@code FormOrdine}
+     * Permette di settare gli strumenti di una entry di {@code FormOrdine}
      * @param strumenti strumenti della entry
      */
     public void setStrumenti(FlowPane strumenti){
@@ -51,24 +47,24 @@ public class EntryFormOrdine {
     }
 
     /**
-     * getter per ottenere il nome del farmaco
-     * @return {@code String} contenente il nome del farmaco
+     * Ritorna il nome del farmaco
+     * @return oggetto di tipo {@code String} contenente il nome del farmaco
      */
     public String getNomeFarmaco() {
         return nomeFarmaco;
     }
 
     /**
-     * getter per ottenere il principio attivo del farmaco
-     * @return {@code String} contenente il principio attivo del farmaco
+     * Ritorna il principio attivo del farmaco
+     * @return oggetto di tipo {@code String} contenente il principio attivo del farmaco
      */
     public String getPrincipioAttivo() {
         return principioAttivo;
     }
 
     /**
-     * getter per ottenere il pulsante rimuovi e lo spinner inerenti al farmco
-     * @return {@code FlowPane} contenente il pulsante rimuovi e lo spinner
+     * Ritorna il pulsante rimuovi e lo spinner inerenti al farmco
+     * @return oggetto di tipo {@code FlowPane} contenente il pulsante rimuovi e lo spinner
      */
     public FlowPane getStrumenti() {
         return strumenti;

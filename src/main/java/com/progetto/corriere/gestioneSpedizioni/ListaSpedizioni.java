@@ -48,14 +48,14 @@ public class ListaSpedizioni extends Application implements Initializable {
     private static CreaListaSpedizioniControl creaListaSpedizioniControl;
 
     /**
-     * Costruttore per la lista spedizioni
+     * Costruisce un oggetto di tipo {@code ListaSpedizioni}
      */
     public ListaSpedizioni(){ super(); }
 
     /**
-     * Costruttore per la lista spedizioni
+     * Costruisce un oggetto di tipo {@code ListaSpedizioni}
      * @param spedizioni spedizioni da mostrare a schermo
-     * @param creaListaSpedizioniControl control tramite il quale è possibile tornare alla schermata precedente
+     * @param creaListaSpedizioniControl control che gestisce la creazione della lista spedizioni tramite il quale è possibile tornare alla schermata precedente
      */
     public ListaSpedizioni(ArrayList<EntryListaSpedizioni> spedizioni, CreaListaSpedizioniControl creaListaSpedizioniControl) {
         super();
@@ -64,7 +64,7 @@ public class ListaSpedizioni extends Application implements Initializable {
     }
 
     /**
-     * Setter per la lista delle spedizioni da mostrare
+     * Permette di settare la lista delle spedizioni da mostrare
      * @param spedizioni lista delle spedizioni da mostrare
      */
     public void setSpedizioni(ArrayList<EntryListaSpedizioni> spedizioni) {
@@ -75,16 +75,16 @@ public class ListaSpedizioni extends Application implements Initializable {
     }
 
     /**
-     * Getter per le spedizioni
-     * @return spedizioni
+     * Ritorna la lista delle spedizioni
+     * @return oggetto di tipo {@code ArrayList<EntryListaSpedizioni>} contenente la lista delle spedizioni
      */
     public static ArrayList<EntryListaSpedizioni> getSpedizioni(){
         return spedizioni;
     }
 
     /**
-     * Setter per la control della scheramta
-     * @param creaListaSpedizioniControl control della schermata
+     * Permette di settare la control che gestisce la lista delle spedizioni
+     * @param creaListaSpedizioniControl control che gestisce la lista delle spedizioni
      */
     public void setCreaListaSpedizioniControl(CreaListaSpedizioniControl creaListaSpedizioniControl) {
         if (creaListaSpedizioniControl == null) {
@@ -96,7 +96,7 @@ public class ListaSpedizioni extends Application implements Initializable {
     /**
      * Permette di mostrare la schermata con la lista delle spedizioni
      * @param stage stage della schermata
-     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     * @throws IOException lanciata se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -128,7 +128,7 @@ public class ListaSpedizioni extends Application implements Initializable {
     }
 
     /**
-     * Metodo che inizializza la schermata inserendo i dati relativi alle spedizioni
+     * Metodo che inizializza la lista delle spdizioni inserendo i dati relativi alle spedizioni
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -148,7 +148,7 @@ public class ListaSpedizioni extends Application implements Initializable {
     }
 
     /**
-     * Metodo che aggiorna la schermata in base alle spedizioni da mostrare
+     * Metodo che aggiorna la lista delle spedizioni in base alle spedizioni da mostrare
      */
     public void update(){
         this.lista.getItems().clear();
@@ -163,8 +163,8 @@ public class ListaSpedizioni extends Application implements Initializable {
 
     /**
      * Metodo che crea la control relativa alla consegna delle spedizioni
-     * @param event evento associato alla pressione del {@code button} consegna
-     * @param spedizione spedizione da consegnare
+     * @param event evento associato alla pressione del tasto consegna
+     * @param spedizione oggeto di tipo {@code EntrListaSpedizioni} relativo alla spedizione da consegnare
      */
     public void consegna(ActionEvent event,EntryListaSpedizioni spedizione) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -172,9 +172,8 @@ public class ListaSpedizioni extends Application implements Initializable {
         confermaRicezioneSpedizioneControl.clickSuConsegna();
     }
 
-    /**
-     * Permette di tornare indietro e visualizzare la {@code SchermataPrincipaleCorriere}
-     * @param event evento associato alla pressione del {@code button} indietro
+    /*
+     Permette di tornare indietro e visualizzare la SchermataPrincipaleCorriere
      */
     @FXML
     private void indietro(ActionEvent event) {

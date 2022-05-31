@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class LogoutControl {
     /**
-     * istanzia un oggetto di tipo {@code LogoutControl}
+     * Istanzia un oggetto di tipo {@code LogoutControl} dato in input l'evento di pressione del tasto logout
      * @param event evento di pressione del tasto logout
      * @throws IOException se il caricamento del file {@code fxml} della schermata principale non è andato a buon fine
      */

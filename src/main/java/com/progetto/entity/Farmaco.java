@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
- * Classe che descrive un {@code Farmaco} trattato dall'Azienda o presente nel magazzino della Farmacia.
+ * Classe che modella un {@code Farmaco} trattato dall'Azienda o presente nel magazzino della Farmacia.
  */
 public class Farmaco {
 
@@ -17,12 +17,10 @@ public class Farmaco {
     private int quantita;
 
     /**
-     * Costruttore per un Farmaco trattato dall'Azienda.
-     * L'attributo dataScadenda è inizializzato a null e l'attributo quantita è inizializzato a -1.
-     *
+     * Istanzia un oggetto di tipo {@code Farmaco} dato in input il nome, il principio attivo e il tipo
      * @param nome nome del farmaco
      * @param principioAttivo principio attivo del farmaco
-     * @param tipo tipo del farmaco, 0 per farmaci da banco e 1 per farmaci particolari
+     * @param tipo tipo del farmaco (0 per farmaci da banco, 1 per farmaci particolari)
      */
     public Farmaco(String nome, String principioAttivo, int tipo) {
         this.setNome(nome);
@@ -31,11 +29,11 @@ public class Farmaco {
     }
 
     /**
-     * Costruttore di un {@code Farmaco} presente nel magazzino della Farmacia.
-     *
+     * Istanzia un oggeto di tipo {@code Farmaco} dato in input il nome, il principio attivo, il tipo, la data di scadenza,
+     * e la quantita
      * @param nome nome del farmaco
      * @param principioAttivo principio attivo del farmaco
-     * @param tipo tipo del farmaco, 0 per farmaci da banco e 1 per farmaci particolari
+     * @param tipo tipo del farmaco (0 per farmaci da banco, 1 per farmaci particolari)
      * @param dataScadenza data di scadenza del farmaco
      * @param quantita quantita del faramco
      */
@@ -48,7 +46,7 @@ public class Farmaco {
     }
 
     /**
-     * costruttore di un {@code Farmaco}
+     * Istanzia un oggetto di tipo {@code Farmaco} dato in input il nome e il principio attivo
      * @param nomeFarmaco nome del farmaco
      * @param principioAttivo principio attivo del farmaco
      */
@@ -59,7 +57,7 @@ public class Farmaco {
     }
 
     /**
-     * costruttre di un {@code farmaco} a partire dal risultato di una query sul database
+     * Istanzia un oggetto di tipo {@code farmaco} data in input un risultato di una query sul database
      * @param farmaco risultato della query
      * @throws SQLException in caso di errore nel parsing tra tipo SQL e tipo JAVA viene lanciata un'eccezione
      */
@@ -72,7 +70,7 @@ public class Farmaco {
     }
 
     /**
-     * setter per il nome del Farmaco
+     * Permette di settare il nome del Farmaco
      * @param nome nome del farmaco
      */
     public void setNome(String nome) {
@@ -83,7 +81,7 @@ public class Farmaco {
     }
 
     /**
-     * setter per il principio attivo del farmaco
+     * Permette di settare il principio attivo del farmaco
      * @param principioAttivo principio attivo del farmaco
      */
     public void setPrincipioAttivo(String principioAttivo) {
@@ -94,7 +92,7 @@ public class Farmaco {
     }
 
     /**
-     * Setter per la data di scadenza del farmaco
+     * Permette di settare la data di scadenza del farmaco
      * @param dataScadenza data di scadenza del farmaco
      */
     public void setDataScadenza(LocalDate dataScadenza) {
@@ -105,7 +103,7 @@ public class Farmaco {
     }
 
     /**
-     * setter per il tipo del Farmaco
+     * Permette di settare il tipo del Farmaco
      * @param tipo tipo del farmaco
      */
     public void setTipo(int tipo) {
@@ -116,7 +114,7 @@ public class Farmaco {
     }
 
     /**
-     * setter per la quantità del farmaco
+     * Permette di settare la quantità del farmaco
      * @param quantita quantità del farmaco
      */
     public void setQuantita(int quantita) {
@@ -127,40 +125,40 @@ public class Farmaco {
     }
 
     /**
-     * Getter per il nome del farmaco
-     * @return nome del farmaco
+     * Ritorna il nome del farmaco
+     * @return oggetto di tipo {@code String} contenente il nome del farmaco
      */
     public String getNome() {
         return nome;
     }
 
     /**
-     * Getter per il principio attivo del farmaco
-     * @return principio attivo del farmaco
+     * Ritorna il principio attivo del farmaco
+     * @return oggetto di tipo {@code String} contenente il principio attivo del farmaco
      */
     public String getPrincipioAttivo() {
         return principioAttivo;
     }
 
     /**
-     * Getter per il tipo del farmaco
-     * @return tipo del farmaco
+     * Ritorna il tipo del farmaco
+     * @return {@code int} contenente il tipo del farmaco
      */
     public int getTipo() {
         return tipo;
     }
 
     /**
-     * Getter per la data di scadenza del farmaco presente nel magazzino della farmacia
-     * @return data di scadenza del farmaco
+     * Ritorna la data di scadenza del farmaco
+     * @return oggetto di tipo {@code LocalDate} contenente la data di scadenza del farmaco
      */
     public LocalDate getDataScadenza() {
         return dataScadenza;
     }
 
     /**
-     * Getter per la quantita di farmaco presente nel magazzino della {@code farmacia}
-     * @return quantita di faramco presente nel magazzino della farmacia
+     * Ritorna la quantità di farmaco
+     * @return {@code int} contenente la quantità di faramco
      */
     public int getQuantita() {
         return quantita;

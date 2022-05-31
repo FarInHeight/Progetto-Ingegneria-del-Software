@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Rappresenta la schermata di login della farmacia
+ * Classe che modella la schermata di login del corriere
  */
 public class SchermataLoginForm extends Application {
 
@@ -30,8 +30,8 @@ public class SchermataLoginForm extends Application {
 
     /**
      * Permette di mostrare la schermata di login
-     * @param stage stage della schermata
-     * @throws IOException se il caricamento del file fxml non è andato a buon fine
+     * @param stage oggetto di tipo {@coe Stag} relativo alla schermata
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -56,6 +56,10 @@ public class SchermataLoginForm extends Application {
         stage.show();
     }
 
+    /**
+     * Permette di avviare la procedura di login
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

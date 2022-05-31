@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Classe che gestisce la schermata principale del correre
+ * Classe che modella la boundary {@code SchermataPrincipaleCorriereBoundary}
  */
 public class SchermataPrincipaleCorriere extends Application implements Initializable{
 
@@ -29,22 +29,22 @@ public class SchermataPrincipaleCorriere extends Application implements Initiali
     @FXML
     private Text usernameLabel;
 
+    /**
+     * Istanzia un oggetto di tipo {@code SchermataPrincipaleCorriere}
+     */
+
     public SchermataPrincipaleCorriere(){}
 
     /**
-     * Costruisce una {@code SchermataPricipaleCorriere} data in input un oggetto di tipo {@code Corriere}
-     * @param corriere corriere associata alla schermata
+     * Istanzia un oggetto di tipo {@code SchermataPrincipaleCorriere} dato in input il corriere che ha effettuato il ogin
+     * @param corriere oggetto di tipo {@code Corriere} relativo al orriere
      */
     public SchermataPrincipaleCorriere(Corriere corriere){
         super();
         this.setCorriere(corriere);
     }
 
-    /**
-     * Setter per il {@code corriere}
-     * @param corriere corriere da associare alla schermata
-     */
-    public void setCorriere(Corriere corriere){
+    private void setCorriere(Corriere corriere){
         if(corriere == null){
             throw new NullPointerException("corriere = null");
         }
@@ -52,15 +52,15 @@ public class SchermataPrincipaleCorriere extends Application implements Initiali
     }
 
     /**
-     * Getter per il {@code corriere}
-     * @return corriere associato alla schermata
+     * Ritorna il corriere associato alla schermata
+     * @return oggetto di tipo {@code corriere} relativo al corriere associato alla schermata
      */
     public static Corriere getCorriere() {
         return corriere;
     }
 
     /**
-     * Metodo utilizzato per visualizzare la {@code SchermataPrincipaleCorriere} a schermo
+     * Permette di mostrare a schermo la {@code SchermataPrincipaleCorriere}
      * @param stage stage corrente
      * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
      */
@@ -92,10 +92,8 @@ public class SchermataPrincipaleCorriere extends Application implements Initiali
         });
     }
 
-    /**
-     * Metodo per effettuare il logout e tornare alla {@code SchermataAutenticazioneForm}
-     * @param event evento associato alla pressione del {@code button} di logout
-     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+    /*
+     Metodo per effettuare il logout e tornare alla SchermataAutenticazioneForm
      */
     @FXML
     private void logout(ActionEvent event) throws IOException {
@@ -103,18 +101,16 @@ public class SchermataPrincipaleCorriere extends Application implements Initiali
     }
 
     /**
-     * Metodo utilizzato per personalizzare la {@code SchermataPrincipaleAddettoAzienda} dell'Addetto
+     * Permette di personalizzare la {@code SchermataPrincipaleAddettoAzienda} dell'Addetto
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(SchermataPrincipaleCorriere.corriere.getNominativo());
     }
 
-    /**
-     * Metodo usato per iniziare la creazione della {@code ListaSpedizioni}
-     * @param event evento associato alla pressione del {@code button} visualizza spedizioni
-     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
-     */
+    /*
+     * Metodo usato per iniziare la creazione della ListaSpedizioni
+    */
     @FXML
     private void visualizzaListaSpedizioni(ActionEvent event) throws IOException {
         CreaListaSpedizioniControl creaListaSpedizioniControl = new CreaListaSpedizioniControl(event);

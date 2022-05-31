@@ -14,19 +14,22 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Classe che implementa la boundary {@code ErroreAutenticazione}
+ */
 public class ErroreAutenticazione extends Application {
 
     private int tipo;
 
     /**
-     * costruire un istanza di {@code ErroreAutenticazione}
+     * Istanzia un ogetto di tipo {@code ErroreAutenticazione}
      */
     public ErroreAutenticazione(){
         super();
     }
 
     /**
-     * costruire un istanza di {@code ErroreAutenticazione} dato in input il tipo di errore
+     * Istanzia un oggetto di tpo {@code ErroreAutenticazione} dato in input il tipo di errore
      * @param tipo di errore (0 per username errato, 1 per password errata)
      */
     public ErroreAutenticazione(int tipo){
@@ -39,9 +42,9 @@ public class ErroreAutenticazione extends Application {
     }
 
     /**
-     * permette di mostrare la schermata di errore
+     * Permette di mostrare la schermata di errore
      * @param stage {@code stage} della schermata di login
-     * @throws IOException se non è possibile caricare il file fxml della schermata di errore
+     * @throws IOException se non è possibile caricare il file {@code fxml} della schermata di errore
      */
     @Override
     public void start(Stage stage) throws IOException {

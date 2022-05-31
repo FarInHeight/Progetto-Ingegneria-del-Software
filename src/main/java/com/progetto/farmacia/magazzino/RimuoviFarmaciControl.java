@@ -15,7 +15,7 @@ public class RimuoviFarmaciControl {
     private final InterfacciaFarmacia db;
 
     /**
-     * Costruttore per la control
+     * Istanzia un oggetto di tipo {@code RimuoviFarmaciControl}
      * @param farmaco farmaco da rimuovere
      * @param stage stage attuale
      * @param schermataMagazzino schermata contenente le informazioni sui farmaci presenti nel magazzino

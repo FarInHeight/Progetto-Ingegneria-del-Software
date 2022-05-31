@@ -54,6 +54,10 @@ public class SchermataLoginForm extends Application {
         stage.show();
     }
 
+    /**
+     * Permette di avviare la procedura di login
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

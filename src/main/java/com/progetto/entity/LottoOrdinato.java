@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
- * Classe che rappresenta un Lotto associato ad un Ordine.
+ * Classe che modella il concetto di Lotto associato ad un Ordine.
  * Oltre agli attributi di Lotto è presente la quantità di Farmaci del Lotto contenuti in un particolare Ordine
  */
 public class LottoOrdinato extends Lotto{
@@ -13,8 +13,8 @@ public class LottoOrdinato extends Lotto{
     private int quantitaOrdine;
 
     /**
-     * Costruttore per il Lotto associato ad un Ordine
-     *
+     * Istanzia un oggetto di tipo {@code LottoOrdinato} dato in input l'id, il nome del farmaco, la data di scadenza, la quantità
+     * di farmaco contenuta, la quantità di farmaco già ordinata e la quantità di farmaco contenuta nell'ordine
      * @param idLotto identificativo unico del lotto
      * @param nomeFarmaco riferimento all'oggetto Farmaco contenuto nel Lotto
      * @param dataScadenza data di scadenza del Lotto
@@ -28,8 +28,7 @@ public class LottoOrdinato extends Lotto{
     }
 
     /**
-     * Costruttore per il Lotto associato ad un Ordine
-     *
+     * Istanzia un oggetto di tipo {@code LottoOrdinato} dato in input il risultato di una query sul database
      * @param lotto lotto nel database da cui creare l'oggetto lotto
      */
     public LottoOrdinato(ResultSet lotto) throws SQLException {
@@ -38,16 +37,16 @@ public class LottoOrdinato extends Lotto{
     }
 
     /**
-     * Getter che ritorna la quantità di Farmaci del Lotto contenuti nell'Ordine a cui è associato
-     * @return qunatità contenuta nell'Ordine
+     * Ritorna la quantità di Farmaci del Lotto contenuti nell'Ordine a cui è associato
+     * @return {@code int} contenente la quantità di farmaci del lotto contenuta nell'Ordine
      */
     public int getQuantitaOrdine() {
         return quantitaOrdine;
     }
 
     /**
-     * Setter per la quantita di farmaco assocaita ad un ordine
-     * @param quantitaOrdine qunatita di farmaco assocaita ad un ordine
+     * Permette di settare la quantita di farmaco associata ad un ordine
+     * @param quantitaOrdine qunatita di farmaco associata ad un ordine
      */
     public void setQuantitaOrdine(int quantitaOrdine) {
         if (quantitaOrdine < 0) {
