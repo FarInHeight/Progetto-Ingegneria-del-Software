@@ -1,11 +1,6 @@
 package com.progetto.entity;
 
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 
 /**
  * classe che rappresenta una entry nella tabella del form Ordine

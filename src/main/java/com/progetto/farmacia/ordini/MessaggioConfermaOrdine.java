@@ -20,6 +20,15 @@ import java.io.IOException;
  * Classe che modella la boundary {@code MessaggioConfermaOrdine}
  */
 public class MessaggioConfermaOrdine extends Application {
+
+    private static VerificaCorrettezzaOrdineControl control;
+
+    public MessaggioConfermaOrdine(){super();}
+
+    public MessaggioConfermaOrdine(VerificaCorrettezzaOrdineControl verificaCorrettezzaOrdineControl) {
+        control = verificaCorrettezzaOrdineControl;
+    }
+
     /**
      * Metodo utilizzato per visualizzare il {@code MessaggioConfermaOrdine} a schermo
      * @param stage stage della schermata di errore

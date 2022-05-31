@@ -169,7 +169,7 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
     @FXML
     private void confermaRegistrazione(ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        getControl().clickSuConfermaRegistrazione(stage);
+        getControl().clickSuConfermaRegistrazione();
     }
 
     /**

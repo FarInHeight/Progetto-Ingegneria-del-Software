@@ -1,8 +1,6 @@
 package com.progetto.farmacia.ordini;
 
-import com.progetto.entity.EntryFormOrdine;
 import com.progetto.entity.EntryListaOrdini;
-import com.progetto.entity.Ordine;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +18,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che mostra a schermo un avviso nel momento in cui il farmacista carica solo una parte dei farmaci
+ * contenuta in un ordine
+ */
 public class AvvisoCaricamentoParziale extends Application implements Initializable {
 
     @FXML
@@ -29,15 +31,25 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     private static EntryListaOrdini ordine;
     private static RegistrazioneFarmaciRicevutiControl control;
 
+    /**
+     * Costruttore di base per la classe, usato da JavaFX
+     */
     public AvvisoCaricamentoParziale(){
         super();
     }
 
+    /**
+     * Costruttore per la classe
+     * @param farmaciMancanti farmaci non caricati
+     * @param ordine ordine appena caricato
+     * @param control control tramite il quale è possibile tornare alla schermata precedente
+     */
     public AvvisoCaricamentoParziale(String farmaciMancanti, EntryListaOrdini ordine, RegistrazioneFarmaciRicevutiControl control) {
         setFarmaciMancanti(farmaciMancanti);
         setOrdine(ordine);
         this.setControl(control);
     }
+
     private void setControl(RegistrazioneFarmaciRicevutiControl control) {
         if(control == null) {
             throw new NullPointerException("Riepilogo = null");
@@ -45,6 +57,10 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         AvvisoCaricamentoParziale.control = control;
     }
 
+    /**
+     * Setter per i farmaci non caricati
+     * @param farmaciMancanti farmaci non caricati
+     */
     public void setFarmaciMancanti(String farmaciMancanti) {
         if (farmaciMancanti == null) {
             throw new NullPointerException("farmaci mancanti = null");
@@ -52,6 +68,10 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         AvvisoCaricamentoParziale.farmaciMancanti = farmaciMancanti;
     }
 
+    /**
+     * Setter per l'ordine caricato
+     * @param ordine ordine caricato
+     */
     public void setOrdine(EntryListaOrdini ordine) {
         if (ordine==null) {
             throw new NullPointerException("ordine=null");
@@ -60,7 +80,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     }
 
     /**
-     * Metodo utilizzato per visualizzare la {@code SchermataErroreQuantita} a schermo
+     * Metodo utilizzato per visualizzare l'{@code AvvisoCaricamentoParziale} a schermo
      * @param stage stage della schermata di errore
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
@@ -78,14 +98,14 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         subStage.setX((screenBounds.getWidth() - stageWidth) / 2);
         subStage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        subStage.setTitle("Problema Quantità");
+        subStage.setTitle("Caricamento Parziale");
         subStage.setScene(scene);
         subStage.setWidth(stageWidth);
         subStage.setHeight(stageHeight);
         subStage.setMinWidth(stageWidth);
         subStage.setMinHeight(stageHeight);
-        subStage.initOwner(stage); //imposto come proprietario del Riepilogo la Lista Spedizioni
-        subStage.initModality(Modality.APPLICATION_MODAL);  //blocco il focus sulla schermata di Riepilogo
+        subStage.initOwner(stage);
+        subStage.initModality(Modality.APPLICATION_MODAL);
         subStage.show();
         subStage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Per uscire dal programma effettua il logout.");
@@ -96,11 +116,15 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         });
     }
 
+    /**
+     * Inizializza la schermata coi farmaci non caricati
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.farmaciMancantiText.setText(AvvisoCaricamentoParziale.farmaciMancanti);
     }
 
+    //Invoca crea segnalazione
     @FXML
     private void creaSegnalazione(ActionEvent event) {
         //PlaceHolder, non so esattamente che dovremmo passare

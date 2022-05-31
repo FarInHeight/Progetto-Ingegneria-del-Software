@@ -33,6 +33,8 @@ public class AvvisoScadenza extends Application implements Initializable {
 
     private static VerificaCorrettezzaOrdineControl control;
 
+    private static int tipo;
+
     /**
      * costruire un oggetto {@code AvvisoScadenza}
      */
@@ -45,10 +47,11 @@ public class AvvisoScadenza extends Application implements Initializable {
      * @param farmaciInScadenza farmaci in scadenza
      * @param farmacia farmaica che ha effettuato l'ordine
      */
-    public AvvisoScadenza(String farmaciInScadenza, Farmacia farmacia, VerificaCorrettezzaOrdineControl control){
+    public AvvisoScadenza(String farmaciInScadenza, Farmacia farmacia, VerificaCorrettezzaOrdineControl control, int tipo){
         this.setFarmaciInScadenza(farmaciInScadenza);
         this.setFarmacia(farmacia);
         this.setControl(control);
+        AvvisoScadenza.tipo = tipo;
     }
 
     private void setControl(VerificaCorrettezzaOrdineControl control) {
@@ -60,8 +63,7 @@ public class AvvisoScadenza extends Application implements Initializable {
 
     @FXML
     private void confermaOrdine(ActionEvent event){
-
-        AvvisoScadenza.control.clickSuConfermaOrdine(event);
+        AvvisoScadenza.control.clickSuConfermaOrdine(event,AvvisoScadenza.tipo);
     }
 
     @FXML
@@ -121,7 +123,7 @@ public class AvvisoScadenza extends Application implements Initializable {
 
     /**
      * Metodo utilizzato per personalizzare un oggetto di tipo {@code AvvisScadenza} in base ai farmaci in scadenza
-     *  e alla farmacia che ha effettuato l'ordine
+     * e alla farmacia che ha effettuato l'ordine
      * @param url
      * @param resourceBundle
      */
