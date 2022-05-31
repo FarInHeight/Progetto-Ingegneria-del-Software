@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -73,6 +74,7 @@ public class SchermataPrincipaleAddettoAzienda extends Application implements In
         stage.setMinWidth(stageWidth + 20);
         stage.setMinHeight(stageHeight);
         stage.show();
+        stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setContentText("Per uscire dal programma effettua il logout."); alert.showAndWait(); event.consume(); });
     }
 
     @FXML

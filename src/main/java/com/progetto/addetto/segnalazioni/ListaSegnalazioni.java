@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -113,6 +114,7 @@ public class ListaSegnalazioni extends Application implements Initializable {
         this.stage.setMinHeight(stageHeight);
         this.stage.initOwner(stage);
         this.stage.show();
+        this.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setContentText("Per uscire dal programma effettua il logout."); alert.showAndWait(); event.consume(); });
     }
 
     /**

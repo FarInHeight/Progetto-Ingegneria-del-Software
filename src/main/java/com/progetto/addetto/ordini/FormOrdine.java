@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -157,6 +158,9 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.stage.setMinWidth(stageWidth);
         FormOrdine.stage.setMinHeight(stageHeight);
         FormOrdine.stage.show();
+
+        FormOrdine.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setContentText("Per uscire dal programma effettua il logout."); alert.showAndWait(); event.consume(); });
+
     }
 
     /**

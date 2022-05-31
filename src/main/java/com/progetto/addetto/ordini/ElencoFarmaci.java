@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -121,6 +122,9 @@ public class ElencoFarmaci extends Application implements Initializable {
         newStage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
         newStage.initModality(Modality.WINDOW_MODAL);  //blocco il focus sulla schermata delle'errore
         newStage.show();
+
+        newStage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setContentText("Per uscire dal programma effettua il logout."); alert.showAndWait(); event.consume(); });
+
     }
 
     /**
