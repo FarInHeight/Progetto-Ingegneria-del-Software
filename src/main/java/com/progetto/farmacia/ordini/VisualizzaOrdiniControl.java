@@ -125,6 +125,7 @@ public class VisualizzaOrdiniControl {
         for(EntryListaOrdini entry : ordini) {
             EntryListaOrdini newEntry = this.entryDaCompattare(entry);
             this.setPulsanti(newEntry);
+            listaDaVisualizzare.add(newEntry);
         }
         this.stage.hide();
         this.listaOrdini = new ListaOrdini(this.farmacia, listaDaVisualizzare, this);
