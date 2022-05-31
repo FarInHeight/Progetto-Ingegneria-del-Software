@@ -2,7 +2,6 @@ package com.progetto.farmacia;
 
 import com.progetto.entity.Farmacia;
 import com.progetto.farmacia.autenticazione.LogoutControl;
-import com.progetto.farmacia.magazzino.VerificaEsaurimentoFarmaciControl;
 import com.progetto.farmacia.magazzino.VisualizzaMagazzinoControl;
 import com.progetto.farmacia.ordini.CreaOrdineControl;
 import com.progetto.farmacia.ordini.VisualizzaOrdiniControl;
@@ -114,9 +113,6 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
             event.consume();
             alert.showAndWait();
         });
-        //Funziona, va settato il timer
-        VerificaEsaurimentoFarmaciControl verificaEsaurimentoFarmaciControl = new VerificaEsaurimentoFarmaciControl();
-        verificaEsaurimentoFarmaciControl.verificaEsaurimento();
     }
 
     /**

@@ -40,6 +40,7 @@ public class VerificaCorrettezzaOrdineControl {
     private ArrayList<Farmaco> farmaciDisponibili;  //farmaci disponibili
     private ArrayList<Lotto> lottiDisponibili;  //lotti relativi a farmaci disponibili
     private ArrayList<Farmaco> farmaciNonDisponibili;  //farmaci non disponibili
+    private ArrayList<String> farmaciScadenza;  //farmaci non disponibili
 
     public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage) {
         this.setStage(stage);
@@ -120,10 +121,11 @@ public class VerificaCorrettezzaOrdineControl {
         this.setLotti(db.getLotti());
     }
 
-    private void verificaQuantita() {
-        ArrayList<Lotto> lottiRichiesti = new ArrayList<>(); //lotti che hanno i farmaci richiesti
+    private boolean verificaQuantita() { // deve ritornare true se ci sono abbastanza farmaci nei lotti e false altrimenti
+        ArrayList<Lotto> lottiRichiesti = new ArrayList<>();
 
-        for (Farmaco farmaco : this.farmaci) {  //memorizzo i lotti che hanno i farmaci richiesti
+        //memorizzo tutti lotti che hanno disponibilità per i farmaci richiesti
+        for (Farmaco farmaco : this.farmaci) {
             for (Lotto lotto : this.lotti) {
                 if (lotto.getNomeFarmaco().compareTo(farmaco.getNome()) == 0 && (lotto.getQuantitaContenuta() - lotto.getQuantitaOrdinata()) > 0) {
                     lottiRichiesti.add(lotto);
@@ -131,156 +133,95 @@ public class VerificaCorrettezzaOrdineControl {
             }
         }
 
-        if (lottiRichiesti.size() == 0) {  //se non ci sono lotti con i farmaci richiesti con farmaci disponibili
-            for (Farmaco farmaco : this.farmaci) {
-                this.farmaciNonDisponibili.add(farmaco);
-            }
+        //se non esistono lotti con disponibilità per tutti i farmaci richiesti esco subito
+        if (lottiRichiesti.size() == 0) {
+            this.farmaciNonDisponibili.addAll(farmaci);
+            return false;
         }
 
-        for (Farmaco farmaco : this.farmaci) {  //verifico le quantità
+        //verifico le quantità
+        for (Farmaco farmaco : this.farmaci) {
             int numeroFarmaci = 0;
             ArrayList<Lotto> lottiTemp = new ArrayList<>();
+            //Cerco tutti i lotti contenente il farmaco
             for (int i = 0; i < lottiRichiesti.size(); i++) {
+
+                //Se il lotto contiene il farmaco lo aggiungo alla lista dei lotti
                 if (farmaco.getNome().compareTo(lottiRichiesti.get(i).getNomeFarmaco()) == 0) {
                     lottiTemp.add(lottiRichiesti.get(i));
                     numeroFarmaci += lottiRichiesti.get(i).getQuantitaContenuta() - lottiRichiesti.get(i).getQuantitaOrdinata();
                 }
-                if (numeroFarmaci >= farmaco.getQuantita()) {  //ci sono tutti i farmaci
+
+                //Se ho la quantita necessaria di farmaco passo al successivo
+                if (numeroFarmaci >= farmaco.getQuantita()) {
                     this.farmaciDisponibili.add(farmaco);
-                    for (Lotto lottoTemp : lottiTemp) {
-                        this.lottiDisponibili.add(lottoTemp);
-                    }
+                    this.lottiDisponibili.addAll(lottiTemp);
                     break;
                 }
-                if (i == lottiRichiesti.size() - 1 && numeroFarmaci > 0 && numeroFarmaci < farmaco.getQuantita()) {  //non ci sono abbastanza farmaci
+
+                //Se non ci sono tutti i farmaci mi segno la quantita disponibile e la quantita mancante
+                if (i == lottiRichiesti.size() - 1 && numeroFarmaci > 0) {
                     this.farmaciParzialmenteDisponibili.add(farmaco);
-                    for (Lotto lottoTemp : lottiTemp) {
-                        this.lottiParzialmenteDisponibili.add(lottoTemp);
-                    }
+                    this.lottiParzialmenteDisponibili.addAll(lottiTemp);
+                    this.farmaciNonDisponibili.add(new Farmaco(farmaco.getNome(),farmaco.getQuantita()-numeroFarmaci,farmaco.getPrincipioAttivo()));
                     break;
                 }
-                if (i == lottiRichiesti.size() - 1 && numeroFarmaci == 0) {  //non c'è nessun farmaco in magazzino
+
+                //Se non c'è nessun farmaco in magazzino segno il farmaco come non disponibile
+                if (i == lottiRichiesti.size() - 1 && numeroFarmaci == 0) {
                     this.farmaciNonDisponibili.add(farmaco);
+                    break;
                 }
             }
         }
+
+        return farmaciNonDisponibili.size() == 0;
     }
 
-    private void verificaScadenza() {
-        if (this.farmaciNonDisponibili.size() == 0 && this.farmaciParzialmenteDisponibili.size() == 0) {  //ci sono abbastanza farmaci per soddisfare l'ordine
-            ArrayList<Farmaco> farmaciDisponibiliAvvisoScadenza = new ArrayList<>();
-            ArrayList<Lotto> lottiDisponibiliAvvisoScadenza = new ArrayList<>();
-            for (Farmaco farmacoDisponibile : this.farmaciDisponibili) {
-                for (Lotto lottoDisponibile : this.lottiDisponibili) {
-                    if (lottoDisponibile.getNomeFarmaco().compareTo(farmacoDisponibile.getNome()) == 0) {
-                        if (Period.between(LocalDate.now(), lottoDisponibile.getDataScadenza()).getMonths() < 2) {
-                            farmaciDisponibiliAvvisoScadenza.add(farmacoDisponibile);
-                            lottiDisponibiliAvvisoScadenza.add(lottoDisponibile);
-                        }
-                    }
+    private boolean verificaScadenza(ArrayList<Lotto> lottiDisponibili) {
+
+        this.farmaciScadenza = new ArrayList<>();
+        //Per ogni lotto, se la data di scadenza è troppo vicina aggiungo il farmaco contenuto alla lista
+        for (Lotto lotto : lottiDisponibili) {
+            if (Period.between(LocalDate.now(), lotto.getDataScadenza()).getMonths() < 2) {
+                if (!farmaciScadenza.contains(lotto.getNomeFarmaco())) {
+                    farmaciScadenza.add(lotto.getNomeFarmaco());
                 }
             }
-            //se ci sono farmaci che scdranno fra meno di 2 mesi
-            if (farmaciDisponibiliAvvisoScadenza.size() != 0) {
-                String farmaciPerAvviso = "";
-                for (Farmaco farmacoInScadenza : farmaciDisponibiliAvvisoScadenza) {
-                    farmaciPerAvviso += (farmacoInScadenza.getNome() + "\t" + farmacoInScadenza.getPrincipioAttivo() + "\n");
-                }
-                AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, this.farmacia, this);
-                try {
-                    avvisoScadenza.start(new Stage());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                this.effettuaOrdine();
-            }
-        } else {//non ci sono abbastanza farmaci per soddisfare l'ordine
-            SchermataErroreQuantita schermataErroreQuantita = new SchermataErroreQuantita(this);
-            try {
-                schermataErroreQuantita.start(this.stage);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        }
+
+        //Se la lista non è vuota creo l'avviso
+        return farmaciScadenza.size() != 0;
+    }
+
+    private void creaAvvisoScadenza(int tipo) {
+        String farmaciPerAvviso = "";
+        for (String farmacoInScadenza : this.farmaciScadenza) {
+            farmaciPerAvviso += farmacoInScadenza + "\n";
+        }
+        AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, this.farmacia, this, tipo);
+        try {
+            avvisoScadenza.start(new Stage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void effettuaOrdineParziale() {
-        ArrayList<Farmaco> farmaciParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
-        ArrayList<Lotto> lottiParzialmenteDisponibiliAvvisoScadenza = new ArrayList<>();
-        for (Farmaco farmacoParzialmenteDisponibile : this.farmaciParzialmenteDisponibili) {
-            for (Lotto lottoParzialmenteDisponibile : this.lottiParzialmenteDisponibili) {
-                if (lottoParzialmenteDisponibile.getNomeFarmaco().compareTo(farmacoParzialmenteDisponibile.getNome()) == 0) {
-                    if (Period.between(LocalDate.now(), lottoParzialmenteDisponibile.getDataScadenza()).getMonths() < 2) {
-                        farmaciParzialmenteDisponibiliAvvisoScadenza.add(farmacoParzialmenteDisponibile);
-                        lottiParzialmenteDisponibiliAvvisoScadenza.add(lottoParzialmenteDisponibile);
-                    }
-                }
-            }
-        }
-
-        //se ci sono farmaci che scadranno fra meno di 2 mesi
-        if (farmaciParzialmenteDisponibiliAvvisoScadenza.size() != 0) {
-            String farmaciPerAvviso = "";
-            for (Farmaco farmacoInScadenza : farmaciParzialmenteDisponibiliAvvisoScadenza) {
-                farmaciPerAvviso += (farmacoInScadenza.getNome() + "\t" + farmacoInScadenza.getPrincipioAttivo() + "\n");
-            }
-
-            AvvisoScadenza avvisoScadenza = new AvvisoScadenza(farmaciPerAvviso, this.farmacia, this);
-            try {
-                avvisoScadenza.start(new Stage());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            this.effettuaOrdine();
-        }
-    }
-
-    private void effettuaOrdine() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
-        if (this.entry != null && this.entry.getOrdine().getTipo() == 1) {  //l'ordine è periodico
-            db.inserisciOrdinePeriodico(this.farmaci, this.periodo);  //registro nel db l'ordine periodico
-            db.cancellaOrdinePeriodico(this.entry.getOrdine().getIdOrdine());  //cancello ordine vecchio
 
-            //aggiornare lista ordini
+        //Creo l'ordine coi farmaci che ci sono
+        db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+        db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
 
-        }
-        if (this.farmaciDisponibili.size() != 0) {
-            Ordine ordine = new Ordine(1, 1, this.farmaciDisponibili, 2, 1, LocalDate.now().plusDays(7), this.farmacia.getNome(), this.farmacia.getIndirizzo());
-            db.aggiornaLotti(this.lottiDisponibili, this.farmaciDisponibili);
-            db.elaboraOrdineNonPeriodico(ordine, this.lottiDisponibili, this.farmaciDisponibili);
+        //Metto i farmaci restanti in un ordine prenotato
+        db.prenotaOrdineNonPeriodico(this.farmaciNonDisponibili);
 
-            if (this.entry != null) {
-                db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
-                db.cancellaOrdine(this.entry.getIdOrdine());
+        //Se siamo in modifica rimuove l'ordine precedente e ritorna i farmaci ai lotti
+        if (this.entry != null) {
+            db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
+            db.cancellaOrdine(this.entry.getIdOrdine());
 
-                //aggiornare lista ordini
-
-            }
-        }
-        if (this.farmaciParzialmenteDisponibili.size() != 0) {
-            Ordine ordine = new Ordine(1, 1, this.farmaciParzialmenteDisponibili, 2, 1, LocalDate.now().plusDays(7), this.farmacia.getNome(), this.farmacia.getIndirizzo());
-            db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
-            db.elaboraOrdineNonPeriodico(ordine, this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
-            for (Farmaco farmaco : this.farmaciParzialmenteDisponibili) {
-                db.prenotaOrdineNonPeriodico(farmaco);
-            }
-
-            if (this.entry != null) {
-                db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
-                db.cancellaOrdine(this.entry.getIdOrdine());
-
-                //aggiornare lista ordini
-            }
-        }
-        if (this.farmaciNonDisponibili.size() != 0) {
-            for (Farmaco farmaco : this.farmaciNonDisponibili) {
-                db.prenotaOrdineNonPeriodico(farmaco);
-            }
-        }
-
-        if(this.entry != null) {
             //aggiornamento lista ordini
             ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
             ListaOrdini.getOrdini().clear();
@@ -288,10 +229,11 @@ public class VerificaCorrettezzaOrdineControl {
                 this.setPulsanti(entry);
                 ListaOrdini.getOrdini().add(entry);
             }
-
             ListaOrdini.update();
         }
-        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
+
+        //Mostra il messaggio di conferma
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(this);
         try {
             messaggioConfermaOrdine.start(this.stage);
         } catch (IOException e) {
@@ -299,9 +241,44 @@ public class VerificaCorrettezzaOrdineControl {
         }
     }
 
-    void clickSuConfermaOrdine(ActionEvent event) {
+    private void effettuaOrdine() {
+        InterfacciaFarmacia db = new InterfacciaFarmacia();
+
+        db.elaboraOrdine(this.lottiDisponibili, this.farmaciDisponibili);
+        db.aggiornaLotti(this.lottiDisponibili, this.farmaciDisponibili);
+
+        //Se siamo in modifica rimuove l'ordine precedente e ritorna i farmaci ai lotti
+        if (this.entry != null) {
+            db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
+            db.cancellaOrdine(this.entry.getIdOrdine());
+
+            //aggiornamento lista ordini
+            ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
+            ListaOrdini.getOrdini().clear();
+            for (EntryListaOrdini entry : ordini) {
+                this.setPulsanti(entry);
+                ListaOrdini.getOrdini().add(entry);
+            }
+            ListaOrdini.update();
+        }
+
+        //Mostra il messaggio di conferma
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(this);
+        try {
+            messaggioConfermaOrdine.start(this.stage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void clickSuConfermaOrdine(ActionEvent event, int tipo) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
-        this.effettuaOrdine();
+        if (tipo == 0) {
+            this.effettuaOrdine();
+        } else {
+            this.effettuaOrdineParziale();
+        }
+
     }
 
     void clickSuAnnullaOrdine(ActionEvent event) {
@@ -310,24 +287,31 @@ public class VerificaCorrettezzaOrdineControl {
 
     void clickSuConferma(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
-        this.effettuaOrdineParziale();
-
+        if(verificaScadenza(this.lottiParzialmenteDisponibili)) {
+            creaAvvisoScadenza(1);
+        } else {
+            effettuaOrdineParziale();
+        }
     }
 
     public void start() {
-        if (this.entry != null && this.entry.getOrdine().getTipo() == 1) {
-            this.effettuaOrdine();
-        } else {
-            this.ottieniLotti();
-            this.verificaQuantita();
-            this.verificaScadenza();
-        }
-    }
 
-    private void setPulsantiLista(ArrayList<EntryListaOrdini> lista) {
-        for(EntryListaOrdini entry : lista) {
-            this.setPulsanti(entry);
+        this.ottieniLotti();
+        if (verificaQuantita()) {
+            if (verificaScadenza(this.lottiDisponibili)) {
+                creaAvvisoScadenza(0);
+            } else {
+                effettuaOrdine();
+            }
+        } else {
+            SchermataErroreQuantita schermataErroreQuantita = new SchermataErroreQuantita(this);
+            try {
+                schermataErroreQuantita.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     private void setPulsanti(EntryListaOrdini entry) {

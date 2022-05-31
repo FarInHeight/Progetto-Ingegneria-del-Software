@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Classe che modella la control {@code RegistrazioneFarmaciRicevutiControl}
+ * Classe che modella la control per la registrazione dei farmaci ricevuti
  */
 public class RegistrazioneFarmaciRicevutiControl {
 
@@ -22,7 +22,11 @@ public class RegistrazioneFarmaciRicevutiControl {
     private final InterfacciaFarmacia db;
     private Stage stageRegistrazioneFarmaci;
 
-
+    /**
+     * Costruttore per la control a partire da un ordine da caricare
+     * @param entry ordine da caricare
+     * @param stage stage corrente
+     */
     public RegistrazioneFarmaciRicevutiControl(EntryListaOrdini entry, Stage stage) {
         setEntry(entry);
         setOrdine(entry.getOrdine());
@@ -30,39 +34,42 @@ public class RegistrazioneFarmaciRicevutiControl {
         db = new InterfacciaFarmacia();
     }
 
-    public EntryListaOrdini getEntry() {
+    /*public EntryListaOrdini getEntry() {
         return entry;
-    }
+    }*/
 
-    public void setEntry(EntryListaOrdini entry) {
+    private void setEntry(EntryListaOrdini entry) {
         if (entry == null) {
             throw new NullPointerException("entry = null");
         }
         this.entry = entry;
     }
 
-    public Ordine getOrdine() {
+    /*public Ordine getOrdine() {
         return ordine;
-    }
+    }*/
 
-    public void setOrdine(Ordine ordine) {
+    private void setOrdine(Ordine ordine) {
         if (ordine == null) {
             throw new NullPointerException("ordine = null");
         }
         this.ordine = ordine;
     }
 
-    public Stage getStage() {
+    /*public Stage getStage() {
         return stage;
-    }
+    }*/
 
-    public void setStage(Stage stage) {
+    private void setStage(Stage stage) {
         if (stage == null) {
             throw new NullPointerException("stage = null");
         }
         this.stage = stage;
     }
 
+    /**
+     * Metodo che istanzia e fa partire la {@code SchermataRegistrazioneFarmaci}
+     */
     public void start() {
         ArrayList<EntryMagazzinoFarmacia> farmaci = new ArrayList<>();
         for (Farmaco farmaco:ordine.getFarmaci()) {
@@ -72,8 +79,8 @@ public class RegistrazioneFarmaciRicevutiControl {
             setPulsanti(entry);
         }
 
-        SchermataRegistrazioneFarmaci schermataRegistrazioneFarmaci = new SchermataRegistrazioneFarmaci(farmaci,this,getOrdine().getIdOrdine());
-        getStage().hide();
+        SchermataRegistrazioneFarmaci schermataRegistrazioneFarmaci = new SchermataRegistrazioneFarmaci(farmaci,this,this.ordine.getIdOrdine());
+        this.stage.hide();
         this.stageRegistrazioneFarmaci = new Stage();
         try {
             schermataRegistrazioneFarmaci.start(this.stageRegistrazioneFarmaci);
@@ -90,13 +97,16 @@ public class RegistrazioneFarmaciRicevutiControl {
         entry.getStrumenti().getChildren().add(spinner);
     }
 
-    void clickSuConfermaRegistrazione(Stage stage) {
+    /**
+     * Metodo che carica i farmaci nel db della catena e verifica che tutti i farmaci siano caricati
+     */
+    public void clickSuConfermaRegistrazione() {
         ArrayList<Farmaco> farmaciConsegnati = ordine.getFarmaci();
         ArrayList<EntryMagazzinoFarmacia> farmaciCaricati = SchermataRegistrazioneFarmaci.getFarmaci();
         String farmaciMancanti = controllaQuantita(farmaciConsegnati,farmaciCaricati);
         boolean caricamentoCorretto = farmaciMancanti.equals("");
         db.caricaFarmaci(farmaciCaricati);
-        db.modificaStatoInCaricato(getOrdine().getIdOrdine());
+        db.modificaStatoInCaricato(this.ordine.getIdOrdine());
         try {
             if (!caricamentoCorretto) {
                 AvvisoCaricamentoParziale avvisoCaricamentoParziale = new AvvisoCaricamentoParziale(farmaciMancanti, entry, this);

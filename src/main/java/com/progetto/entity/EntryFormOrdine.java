@@ -2,7 +2,6 @@ package com.progetto.entity;
 
 import javafx.scene.layout.FlowPane;
 
-
 /**
  * Classe che rappresenta una entry nella tabella del form Ordine
  */

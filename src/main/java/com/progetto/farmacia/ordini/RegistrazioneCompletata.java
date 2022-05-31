@@ -14,24 +14,39 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Classe che mostra a schermo un messaggio di registrazione completata
+ */
 public class RegistrazioneCompletata extends Application {
 
     private static RegistrazioneFarmaciRicevutiControl control;
 
+    /**
+     * Costruttore vuoto utilizzato da JavaFX
+     */
     public RegistrazioneCompletata() {
     }
 
+    /**
+     * Costruttore per la classe
+     * @param control control tramite il quale è possibile tornare alla schermata precedente
+     */
     public RegistrazioneCompletata(RegistrazioneFarmaciRicevutiControl control) {
         setControl(control);
     }
 
-    public void setControl(RegistrazioneFarmaciRicevutiControl control) {
+    private void setControl(RegistrazioneFarmaciRicevutiControl control) {
         if (control == null){
             throw new NullPointerException("control = null");
         }
         this.control = control;
     }
 
+    /**
+     * Metodo utilizzato per visualizzare il messaggio {@code RegistrazioneCompletata} a schermo
+     * @param stage stage della schermata di errore
+     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("registrazioneCompletata.fxml"));

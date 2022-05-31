@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Classe che implementa la boundary {@code Tempo}
+ * Classe che implementa la boundary {@code Tempo}. Essa si occupa di schedulare l'avvio
+ * automatico dei casi d'uso periodici stabiliti durante la fase di analisi.
  */
 public class Tempo {
     private static Tempo instance;
@@ -45,11 +46,27 @@ public class Tempo {
     }
 
     /**
-     * Metodo di avvio di un oggetto di classe {@code AvvisoFarmaciScaduti}
+     * Metodo di avvio di un oggetto di classe {@code Tempo}.
      */
     public void start() {
         if(this.getCounter() == 0) {
             this.setCounter(1);
+            // PER VERIFICA ESAURIMENTO FARMACI
+            if( LocalDate.now().atTime(18, 0).isBefore( LocalDateTime.now() ) ) {
+                this.runVerificaEsaurimentoFarmaci();
+            } else {
+                long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(18, 0));
+                Task<Void> sleeper = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        try { Thread.sleep(millis); }
+                        catch (InterruptedException e) { }
+                        return null;
+                    }
+                };
+                sleeper.setOnSucceeded(event -> Tempo.this.runVerificaEsaurimentoFarmaci());
+                new Thread(sleeper).start();
+            }
             // PER VERIFICA REGISTRAZIONE FARMACI
             if( LocalDate.now().atTime(20, 0).isBefore( LocalDateTime.now() ) ) {
                 this.runVerificaRegistrazioneFarmaci();
@@ -94,6 +111,11 @@ public class Tempo {
 
     private void runVerificaRegistrazioneFarmaci() {
         VerificaRegistrazioniFarmaciControl control = new VerificaRegistrazioniFarmaciControl(this.farmacia);
+        control.start();
+    }
+
+    private void runVerificaEsaurimentoFarmaci() {
+        VerificaEsaurimentoFarmaciControl control = new VerificaEsaurimentoFarmaciControl();
         control.start();
     }
 }
