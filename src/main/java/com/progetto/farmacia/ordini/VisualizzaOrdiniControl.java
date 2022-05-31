@@ -124,7 +124,7 @@ public class VisualizzaOrdiniControl {
         ArrayList<EntryListaOrdini> listaDaVisualizzare = new ArrayList<>();
         for(EntryListaOrdini entry : ordini) {
             EntryListaOrdini newEntry = this.entryDaCompattare(entry);
-            this.setPulsanti(entry);
+            this.setPulsanti(newEntry);
         }
         this.stage.hide();
         this.listaOrdini = new ListaOrdini(this.farmacia, listaDaVisualizzare, this);
