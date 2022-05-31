@@ -116,11 +116,12 @@ public class ListaSegnalazioni extends Application implements Initializable {
         this.stage.show();
         this.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Per uscire dal programma effettua il logout.");
-            alert.showAndWait();
             alert.setTitle("Chiusura Programma");
             alert.setHeaderText("AVVISO");
             event.consume();
-        });    }
+            alert.showAndWait();
+        });
+    }
 
     /**
      * Metodo utilizzato per personalizzare la {@code ListaSegnalazioni} dell'Addetto

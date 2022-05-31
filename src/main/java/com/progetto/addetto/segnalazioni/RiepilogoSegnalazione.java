@@ -96,10 +96,10 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
         subStage.show();
         subStage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Per uscire dal programma effettua il logout.");
-            alert.showAndWait();
             alert.setTitle("Chiusura Programma");
             alert.setHeaderText("AVVISO");
             event.consume();
+            alert.showAndWait();
         });    }
 
     /**
