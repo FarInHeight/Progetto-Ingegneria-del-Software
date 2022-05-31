@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.SchermataRegistrazioneFarmaci">
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.SchermataRegistrazioneFarmaci">
 <top>
     <BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #dae8fc; -fx-border-color: #6c8ebf;" BorderPane.alignment="CENTER">
         <top>
@@ -48,7 +48,7 @@
                   <Text fx:id="idOrdineLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="idOrdine" translateX="20.0" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Button mnemonicParsing="false" onAction="#confermaRegistrazione" style="-fx-background-color: #00ee00;" text="CONFERMA REGISTRAZIONE" textFill="WHITE" translateX="-20.0" BorderPane.alignment="CENTER" />
+                  <Button mnemonicParsing="false" onAction="#confermaRegistrazione" style="-fx-background-color: #26bd1b;" text="CONFERMA REGISTRAZIONE" textFill="WHITE" translateX="-20.0" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
          </top>
