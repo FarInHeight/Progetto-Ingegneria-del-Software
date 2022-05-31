@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Classe che implementa la boundary {@code Tempo}
+ * Classe che implementa la boundary {@code Tempo}. Essa si occupa di schedulare l'avvio
+ * automatico dei casi d'uso periodici stabiliti durante la fase di analisi.
  */
 public class Tempo {
     private static Tempo instance;
@@ -45,7 +46,7 @@ public class Tempo {
     }
 
     /**
-     * Metodo di avvio di un oggetto di classe {@code AvvisoFarmaciScaduti}
+     * Metodo di avvio di un oggetto di classe {@code Tempo}.
      */
     public void start() {
         if(this.getCounter() == 0) {
