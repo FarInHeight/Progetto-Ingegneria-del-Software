@@ -23,4 +23,5 @@ module com.progetto {
     opens com.progetto.corriere.autenticazione to javafx.graphics,javafx.fxml;
     opens com.progetto.corriere to javafx.graphics,javafx.fxml;
     opens com.progetto.corriere.gestioneSpedizioni to javafx.graphics,javafx.fxml;
+    opens com.progetto.interfacciaDatabase to javafx.fxml,javafx.graphics;
 }

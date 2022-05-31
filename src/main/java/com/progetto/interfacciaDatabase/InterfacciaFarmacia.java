@@ -14,6 +14,12 @@ import java.util.LinkedList;
  * per conto di un {@code Farmacista}
  */
 public class InterfacciaFarmacia {
+
+    private void visualizzaMessaggioCaduta(){
+        CadutaConnessioneControl c = new CadutaConnessioneControl();
+        c.start();
+    }
+
     /**
      * Getter per ottenere un lista di oggetti della classe {@code EntryFormOrdine} riferiti ai farmaci presenti
      * nel datatabse dell'Azienda
