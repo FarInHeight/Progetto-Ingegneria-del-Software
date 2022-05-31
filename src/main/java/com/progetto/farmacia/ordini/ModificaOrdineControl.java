@@ -25,6 +25,7 @@ public class ModificaOrdineControl {
 
     private Farmacia farmacia;
     private Stage stage;
+    private ListaOrdini refListaOrdini;
     private FormModificaOrdine formOrdine;
     private ElencoModificaFarmaci elenco;
     private EntryListaOrdini entry;
@@ -35,10 +36,18 @@ public class ModificaOrdineControl {
      * @param stage stage della schermata lista ordini
      * @throws IOException se il caricamento del file fxml della schermata non è andato a buon fine
      */
-    public ModificaOrdineControl(Farmacia farmacia, EntryListaOrdini entry, Stage stage){
+    public ModificaOrdineControl(Farmacia farmacia, EntryListaOrdini entry, Stage stage, ListaOrdini refListaOrdini){
         this.setFarmacia(farmacia);
         this.setEntry(entry);
         this.setStage(stage);
+        this.setRefListaOrdini(refListaOrdini);
+    }
+
+    private void setRefListaOrdini(ListaOrdini refListaOrdini){
+        if(refListaOrdini == null){
+            throw new NullPointerException("ref lista ordini = null");
+        }
+        this.refListaOrdini = refListaOrdini;
     }
 
     private void setEntry(EntryListaOrdini entry){
@@ -179,7 +188,7 @@ public class ModificaOrdineControl {
 
     public void start() throws IOException{
         this.stage.hide();
-        this.formOrdine = new FormModificaOrdine(this.farmacia,this,this.entry);
+        this.formOrdine = new FormModificaOrdine(this.farmacia,this,this.entry,this.refListaOrdini);
         this.formOrdine.start(this.stage);
     }
 }

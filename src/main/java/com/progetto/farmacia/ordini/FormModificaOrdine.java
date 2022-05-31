@@ -33,6 +33,8 @@ public class FormModificaOrdine extends Application implements Initializable {
 
     private static Farmacia farmacia;
 
+    private static ListaOrdini refListaOrdini;
+
     private static ModificaOrdineControl control;
     private static EntryListaOrdini entry;
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
@@ -74,17 +76,26 @@ public class FormModificaOrdine extends Application implements Initializable {
      * @param farmacia entity farmacia
      * @param control control di crea ordine
      */
-    public FormModificaOrdine(Farmacia farmacia, ModificaOrdineControl control, EntryListaOrdini entry){
+    public FormModificaOrdine(Farmacia farmacia, ModificaOrdineControl control, EntryListaOrdini entry, ListaOrdini refListaOrdini){
         this.setFarmacia(farmacia);
         this.setControl(control);
         this.setEntry(entry);
+        this.setRefListaOrdini(refListaOrdini);
         FormModificaOrdine.farmaci = new ArrayList<>();
     }
+
+    private void setRefListaOrdini(ListaOrdini refListaOrdini){
+        if(refListaOrdini == null){
+            throw new NullPointerException("ref lista ordini = null");
+        }
+        FormModificaOrdine.refListaOrdini = refListaOrdini;
+    }
+
     private void setEntry(EntryListaOrdini entry){
         if(entry == null){
             throw new NullPointerException("entry = null");
         }
-        this.entry = entry;
+        FormModificaOrdine.entry = entry;
     }
 
     private void setControl(ModificaOrdineControl control){
@@ -141,7 +152,7 @@ public class FormModificaOrdine extends Application implements Initializable {
         if(entry.getOrdine().getTipo() == 1) {
             periodo = ((Spinner<Integer>) this.pane.getChildren().get(1)).getValue();
         }
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage(),FormModificaOrdine.entry,periodo);
+        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage(),FormModificaOrdine.entry,periodo, this.refListaOrdini);
         verCorrOrdCtrl.start();
     }
 

@@ -231,7 +231,7 @@ public class ListaOrdini extends Application implements Initializable {
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     public void modificaOrdine (EntryListaOrdini entry) throws IOException{
-        ModificaOrdineControl modOrdCtrl = new ModificaOrdineControl(ListaOrdini.farmacia,entry,this.stage);
+        ModificaOrdineControl modOrdCtrl = new ModificaOrdineControl(ListaOrdini.farmacia,entry,this.stage,this);
         modOrdCtrl.start();
         update();
     }

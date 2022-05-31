@@ -3,7 +3,14 @@ package com.progetto.farmacia.ordini;
 import com.progetto.entity.*;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -18,6 +25,8 @@ public class VerificaCorrettezzaOrdineControl {
 
     private Stage stage; //stage del form ordine
     private Farmacia farmacia;
+
+    private ListaOrdini refListaOrdini;  //riferimento a lista ordini
 
     private int periodo;  //periodo dell'eventuale ordine periodico
 
@@ -43,17 +52,25 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaciNonDisponibili = new ArrayList<>();
     }
 
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, int periodo) {
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, int periodo, ListaOrdini refListaOrdini) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
         this.setEntry(entry);
         this.setPeriodo(periodo);
+        this.setRefListaOrdini(refListaOrdini);
         this.farmaciParzialmenteDisponibili = new ArrayList<>();
         this.lottiParzialmenteDisponibili = new ArrayList<>();
         this.farmaciDisponibili = new ArrayList<>();
         this.lottiDisponibili = new ArrayList<>();
         this.farmaciNonDisponibili = new ArrayList<>();
+    }
+
+    private void setRefListaOrdini(ListaOrdini refListaOrdini){
+        if(refListaOrdini == null){
+            throw new NullPointerException("ref lista ordini = null");
+        }
+        this.refListaOrdini = refListaOrdini;
     }
 
     private void setPeriodo(int periodo) {
@@ -262,6 +279,15 @@ public class VerificaCorrettezzaOrdineControl {
                 db.prenotaOrdineNonPeriodico(farmaco);
             }
         }
+            //aggiornamento lista ordini
+        ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
+        ListaOrdini.getOrdini().clear();
+        for (EntryListaOrdini entry : ordini) {
+            this.setPulsanti(entry);
+            ListaOrdini.getOrdini().add(entry);
+        }
+
+        ListaOrdini.update();
 
         MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
         try {
@@ -293,6 +319,101 @@ public class VerificaCorrettezzaOrdineControl {
             this.ottieniLotti();
             this.verificaQuantita();
             this.verificaScadenza();
+        }
+    }
+
+    private void setPulsantiLista(ArrayList<EntryListaOrdini> lista) {
+        for(EntryListaOrdini entry : lista) {
+            this.setPulsanti(entry);
+        }
+    }
+
+    private void setPulsanti(EntryListaOrdini entry) {
+        // creazione dei pulsanti
+        Button carica = new Button("CARICA");
+        carica.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                VerificaCorrettezzaOrdineControl.this.clickSuCarica(entry);
+            }
+        });
+        carica.setBackground(Background.fill(Color.rgb(38, 180, 27)));
+        carica.setStyle("-fx-text-fill: white");
+        carica.setPrefWidth(80);
+        if(entry.getOrdine().getStato() != 4) {
+            carica.setVisible(false);
+            carica.setManaged(false);
+        }
+        Button modifica = new Button("MODIFICA");
+        modifica.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                VerificaCorrettezzaOrdineControl.this.clickSuModifica(entry);
+            }
+        });
+        modifica.setBackground(Background.fill(Color.rgb(190, 190, 120)));
+        modifica.setStyle("-fx-text-fill: white");
+        modifica.setPrefWidth(80);
+        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getStato() == 4) {
+            modifica.setVisible(false);
+            modifica.setManaged(false);
+        }
+        Button cancella = new Button("CANCELLA");
+        cancella.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                VerificaCorrettezzaOrdineControl.this.clickSuCancella(entry);
+            }
+        });
+        cancella.setBackground(Background.fill(Color.rgb(210, 79, 66)));
+        cancella.setStyle("-fx-text-fill: white");
+        cancella.setPrefWidth(80);
+        // se la data di consegna è entro due giorni successivi oppure l'ordine è periodico
+        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getTipo() == 1 || entry.getOrdine().getStato() == 4) {
+            cancella.setVisible(false);
+            cancella.setManaged(false);
+        }
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(carica, modifica, cancella);
+        flow.setAlignment(Pos.CENTER);
+        flow.setHgap(10);
+        flow.setVgap(10);
+        entry.setStrumenti(flow);
+    }
+
+    /**
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code carica} di una entry della {@code ListaOrdini}.
+     * @param entry ordine da caricare
+     */
+    void clickSuCarica(EntryListaOrdini entry) {
+        try {
+            this.refListaOrdini.caricaOrdine(entry);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code modifica} di una entry della {@code ListaOrdini}.
+     * @param entry ordine da modificare
+     */
+    void clickSuModifica(EntryListaOrdini entry) {
+        try {
+            this.refListaOrdini.modificaOrdine(entry);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code cancella} di una entry della {@code ListaOrdini}.
+     * @param entry ordine da rimuovere
+     */
+    void clickSuCancella(EntryListaOrdini entry) {
+        try {
+            this.refListaOrdini.cancellaOrdine(entry);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
