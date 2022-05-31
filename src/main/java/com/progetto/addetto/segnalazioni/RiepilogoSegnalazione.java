@@ -94,8 +94,13 @@ public class RiepilogoSegnalazione extends Application implements Initializable 
         subStage.initOwner(stage); //imposto come proprietario del Riepilogo la Lista Spedizioni
         subStage.initModality(Modality.WINDOW_MODAL);  //blocco il focus sulla schermata di Riepilogo
         subStage.show();
-        subStage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setContentText("Per uscire dal programma effettua il logout."); alert.showAndWait(); event.consume(); });
-    }
+        subStage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Per uscire dal programma effettua il logout.");
+            alert.showAndWait();
+            alert.setTitle("Chiusura Programma");
+            alert.setHeaderText("AVVISO");
+            event.consume();
+        });    }
 
     /**
      * Metodo utilizzato per personalizzare il contenuto di un {@code RiepilogoSegnalazione} secondo la segnalazione associata

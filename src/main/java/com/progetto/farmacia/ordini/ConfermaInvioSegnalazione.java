@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -55,6 +56,13 @@ public class ConfermaInvioSegnalazione extends Application {
         stage.setMinHeight(stageHeight);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
+        stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Per uscire dal programma effettua il logout.");
+            alert.showAndWait();
+            alert.setTitle("Chiusura Programma");
+            alert.setHeaderText("AVVISO");
+            event.consume();
+        });
     }
 
     @FXML

@@ -184,6 +184,13 @@ public class FormModificaOrdine extends Application implements Initializable {
         FormModificaOrdine.stage.setMinHeight(stageHeight);
         FormModificaOrdine.stage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
         FormModificaOrdine.stage.show();
+        FormModificaOrdine.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Per uscire dal programma effettua il logout.");
+            alert.showAndWait();
+            alert.setTitle("Chiusura Programma");
+            alert.setHeaderText("AVVISO");
+            event.consume();
+        });
     }
 
     /**

@@ -158,9 +158,13 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.stage.setMinWidth(stageWidth);
         FormOrdine.stage.setMinHeight(stageHeight);
         FormOrdine.stage.show();
-
-        FormOrdine.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setContentText("Per uscire dal programma effettua il logout."); alert.showAndWait(); event.consume(); });
-
+        FormOrdine.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Per uscire dal programma effettua il logout.");
+            alert.showAndWait();
+            alert.setTitle("Chiusura Programma");
+            alert.setHeaderText("AVVISO");
+            event.consume();
+        });
     }
 
     /**

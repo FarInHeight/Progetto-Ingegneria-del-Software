@@ -122,9 +122,13 @@ public class ElencoFarmaci extends Application implements Initializable {
         newStage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
         newStage.initModality(Modality.WINDOW_MODAL);  //blocco il focus sulla schermata delle'errore
         newStage.show();
-
-        newStage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setContentText("Per uscire dal programma effettua il logout."); alert.showAndWait(); event.consume(); });
-
+        newStage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Per uscire dal programma effettua il logout.");
+            alert.showAndWait();
+            alert.setTitle("Chiusura Programma");
+            alert.setHeaderText("AVVISO");
+            event.consume();
+        });
     }
 
     /**

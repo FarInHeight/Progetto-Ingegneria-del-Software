@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -146,6 +147,13 @@ public class ListaOrdini extends Application implements Initializable {
         this.stage.setMinHeight(stageHeight);
         this.stage.initOwner(stage);
         this.stage.show();
+        this.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Per uscire dal programma effettua il logout.");
+            alert.showAndWait();
+            alert.setTitle("Chiusura Programma");
+            alert.setHeaderText("AVVISO");
+            event.consume();
+        });
 
         if(ListaOrdini.controlVerifica != null) {
             this.stage.setWidth(stageWidth);

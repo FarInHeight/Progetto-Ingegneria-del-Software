@@ -156,6 +156,13 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.stage.setMinHeight(stageHeight);
         FormOrdine.stage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
         FormOrdine.stage.show();
+        FormOrdine.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Per uscire dal programma effettua il logout.");
+            alert.showAndWait();
+            alert.setTitle("Chiusura Programma");
+            alert.setHeaderText("AVVISO");
+            event.consume();
+        });
     }
 
     /**
