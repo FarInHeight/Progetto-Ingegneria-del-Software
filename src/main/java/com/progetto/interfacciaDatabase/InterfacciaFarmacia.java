@@ -352,6 +352,11 @@ public class InterfacciaFarmacia {
         }
     }
 
+    /**
+     * Crea un ordine in stato di eleaborazione
+     * @param lottiDisponibili lotti disponibili nel magazzino dell'azienda
+     * @param farmaciDisponibili farmaci disponibili nel magazzino dell'azienda
+     */
     public void elaboraOrdine(ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             //Ottengo l'id da associare
@@ -491,7 +496,7 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * detrae il numero dei farmaci ordini dai lotti riguardanti l'ordine corrispondente all'id passato in input
+     * Detrae il numero dei farmaci ordini dai lotti riguardanti l'ordine corrispondente all'id passato in input
      * @param idOrdine id dell'ordine
      */
     public void modificaFarmaciOrdinati(int idOrdine){
@@ -551,8 +556,8 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * cancella l'ordine raltivo all'id ordiney passato in input
-     * @param idOrdine id dell'ordine da elinimare
+     * Cancella l'ordine raltivo all'id ordine passato in input
+     * @param idOrdine id dell'ordine da eliminare
      */
     public void cancellaOrdine(int idOrdine){
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
@@ -571,6 +576,10 @@ public class InterfacciaFarmacia {
         }
     }
 
+    /**
+     * Inserisce nel database della catena farmaceutica i farmaci caricati
+     * @param farmaciCaricati farmaci caricati
+     */
     public void caricaFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaciCaricati) {
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){
@@ -610,9 +619,8 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * Modifica lo stato di un {@code Ordine} in Elaborazione
-     *
-     * @param id_ordine identificativo dell'Ordine da mandare in elaborazione
+     * Modifica lo stato di un ordine in Caricato
+     * @param id_ordine identificativo dell'Ordine
      */
     public void modificaStatoInCaricato(int id_ordine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
@@ -625,8 +633,9 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * registra un ordine periodico
+     * Inserisce un ordine periodico nel database
      * @param farmaci farmaci ordinati
+     * @param periodo periodicità dell'ordine
      */
     public void inserisciOrdinePeriodico(ArrayList<Farmaco> farmaci, int periodo){
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
@@ -676,8 +685,8 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * cancella l'ordine periodic relativo all'id passato in input
-     * @param idOrdine id dell'ordine da cancellare
+     * Cancella l'ordine periodico relativo all'id passato in input
+     * @param idOrdine id dell'ordine periodico da cancellare
      */
     public void cancellaOrdinePeriodico(int idOrdine){
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {

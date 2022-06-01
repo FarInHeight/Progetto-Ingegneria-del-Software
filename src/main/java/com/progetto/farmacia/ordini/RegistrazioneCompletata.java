@@ -15,21 +15,22 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Classe che mostra a schermo un messaggio di registrazione completata
+ * Classe che modella la boundary {@code RegistrazioneCompetataBoundary}
  */
 public class RegistrazioneCompletata extends Application {
 
     private static RegistrazioneFarmaciRicevutiControl control;
 
     /**
-     * Costruttore vuoto utilizzato da JavaFX
+     * Istanzia un oggetto di tipo {@code RegistrazioneCompetataBoundary}
      */
     public RegistrazioneCompletata() {
     }
 
     /**
-     * Costruttore per la classe
-     * @param control control tramite il quale è possibile tornare alla schermata precedente
+     * Istanzia un oggetto di tipo {@code RegistrazioneCompetataBoundary} dato in input la control che si occupa di registrare
+     * i farmaci ricevuti
+     * @param control control che si occupa di registrare i farmaci ricevuti
      */
     public RegistrazioneCompletata(RegistrazioneFarmaciRicevutiControl control) {
         setControl(control);
@@ -43,7 +44,7 @@ public class RegistrazioneCompletata extends Application {
     }
 
     /**
-     * Metodo utilizzato per visualizzare il messaggio {@code RegistrazioneCompletata} a schermo
+     * Permette di visualizzare il messaggio {@code RegistrazioneCompletata}
      * @param stage stage della schermata di errore
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */

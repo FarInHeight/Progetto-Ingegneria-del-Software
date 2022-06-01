@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * rappresenta li lista degli ordini effettuati dalla farmacia
+ * Classe che modella la boundary {@code ListaOrdiniBoundary}
  */
 public class ListaOrdini extends Application implements Initializable {
     private static Farmacia farmacia;
@@ -55,14 +55,14 @@ public class ListaOrdini extends Application implements Initializable {
     private static ArrayList<EntryListaOrdini> ordini;
     private Stage stage;
     /**
-     * Costruisce una {@code ListaOrdini}
+     * Istanzia un oggetto di tipo {@code ListaOrdini}
      */
     public ListaOrdini(){
         super();
     }
 
     /**
-     * Costruisce una {@code ListaOrdini} avendo in input la farmacia a cui si riferisce, la lista degli ordini da
+     * Istanzia un oggetto di tipo {@code ListaOrdini} dati n input la farmacia a cui si riferisce, la lista degli ordini da
      * mostrare a schermo e la control che ha istanziato l'oggetto.
      * @param farmacia farmacia che vuole visualizzare i proprio ordini
      * @param ordini lista di ordini da mostrare a schermo
@@ -87,8 +87,8 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     /**
-     * Getter per ottenere gli ordini associati alla {@code ListaOrdini}
-     * @return
+     * Ritorna gli ordini associati alla lista degli ordini
+     * @return oggetto di tipo {@code ArrayList<EntryListaOrdini>} contenente gli ordini associati alla lista degli ordini
      */
     public static ArrayList<EntryListaOrdini> getOrdini() {
         return ordini;
@@ -123,7 +123,7 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     /**
-     * Metodo utilizzato per visualizzare la {@code ListaOrdini} a schermo
+     * Permette di visualizzare la {@code ListaOrdini}
      * @param stage stage della lista
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
@@ -164,7 +164,7 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     /**
-     * Metodo utilizzato per personalizzare la {@code ListaOrdini} della Farmacia
+     * Permette di personalizzare la {@code ListaOrdini} della Farmacia
      * @param url
      * @param resourceBundle
      */
@@ -193,7 +193,7 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     /**
-     * Metodo utilizzato per aggiornare la {@code ListaOrdini} in base al suo contenuto
+     * Permette di aggiornare la {@code ListaOrdini} in base al suo contenuto
      */
     public static void update(){
         ListaOrdini.ref.getItems().clear();
@@ -202,8 +202,8 @@ public class ListaOrdini extends Application implements Initializable {
         }
     }
     /**
-     * ritorna un riferimento alla lista ordini
-     * @return un oggetto {@code TableView<EntryListaOrdini>} che rappresenta la lista ordini
+     * Ritorna un riferimento alla lista ordini
+     * @return un oggetto di tipo {@code TableView<EntryListaOrdini>} che rappresenta la lista ordini
      */
     public static TableView<EntryListaOrdini> getRef() {
         return ListaOrdini.ref;
@@ -222,7 +222,7 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     /**
-     * Metodo per cancellare un ordine dalla {@code ListaOrdini} e creare la control {@code CancellaOrdineControl}
+     * Permette di cancellare un ordine dalla {@code ListaOrdini} e creare la control {@code CancellaOrdineControl}
      * @param entry entry da cancellare
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
@@ -233,7 +233,7 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     /**
-     * Metodo per modificare un ordine dalla {@code ListaOrdini} e creare la control {@code ModificaOrdineControl}
+     * Permette di modificare un ordine dalla {@code ListaOrdini} e creare la control {@code ModificaOrdineControl}
      * @param entry entry da modificare
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
@@ -244,7 +244,7 @@ public class ListaOrdini extends Application implements Initializable {
     }
 
     /**
-     * Metodo per modificare un ordine dalla {@code ListaOrdini} e creare la control {@code RegistrazioneFarmaciRicevutiControl}
+     * Permette di caricare un ordine dalla {@code ListaOrdini} e creare la control {@code RegistrazioneFarmaciRicevutiControl}
      * @param entry entry da caricare
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */

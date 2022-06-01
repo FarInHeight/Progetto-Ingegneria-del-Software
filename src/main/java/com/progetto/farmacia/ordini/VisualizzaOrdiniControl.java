@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 
 /**
- * Classe che implementa la control {@code VisualizzaOrdiniControl}
+ * Classe che implementa la control {@code VisualizzaOrdiniControl} che si occuap di visualizzare gli ordini della farmacia
  */
 public class VisualizzaOrdiniControl {
     private Farmacia farmacia;
@@ -29,7 +29,7 @@ public class VisualizzaOrdiniControl {
     private ListaOrdini listaOrdini;
 
     /**
-     * Costruttore di un oggetto di classe {@code VisualizzaOrdiniControl} che prende in input la {@code Farmacia} alla quale
+     * Istanzia un oggetto di tipo {@code VisualizzaOrdiniControl} data in input la farmacia alla quale
      * fa riferimento e l'evento che ha generato la creazione
      * @param farmacia farmacia di riferimento
      * @param event evento che ha creato la control
@@ -116,7 +116,7 @@ public class VisualizzaOrdiniControl {
     }
 
     /**
-     * Metodo di avvio di un oggetto di classe {@code VisualizzaOrdiniControl}
+     * Permette di avviare la control che gestisce la visualizzazione degli ordini della farmacia
      */
     public void start() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();

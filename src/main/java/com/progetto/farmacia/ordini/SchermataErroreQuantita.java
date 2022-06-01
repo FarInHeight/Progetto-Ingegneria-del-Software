@@ -21,7 +21,7 @@ public class SchermataErroreQuantita extends Application {
 
     private static VerificaCorrettezzaOrdineControl control;
     /**
-     * Metodo utilizzato per visualizzare la {@code SchermataErroreQuantita} a schermo
+     * Permette di visualizzare la {@code SchermataErroreQuantita}
      * @param stage stage della schermata di errore
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
@@ -57,12 +57,22 @@ public class SchermataErroreQuantita extends Application {
         });
     }
 
+    /**
+     * Istanzia un oggetto di tipo {@code SchermataErroreQuantita}
+     */
     public SchermataErroreQuantita(){
         super();
     }
+
+    /**
+     * Istanzia un oggetto di tipo {@code SchermataErroreQuantita} data in input la control che si occupa di verificare
+     * la correttezza di un ordine
+     * @param control
+     */
     public SchermataErroreQuantita(VerificaCorrettezzaOrdineControl control) {
         this.setControl(control);
     }
+
     private void setControl(VerificaCorrettezzaOrdineControl control) {
         if(control == null) {
             throw new NullPointerException("Control = null");

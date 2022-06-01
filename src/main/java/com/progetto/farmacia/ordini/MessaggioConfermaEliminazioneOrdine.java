@@ -15,13 +15,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * rappresenta il massaggio di conferma eliminazione di un ordine
+ * Classe che modella la boundary {@code MessaggioConfermaEliminazioneOrdine}
  */
 public class MessaggioConfermaEliminazioneOrdine extends Application {
     /**
-     * permette di mostrare a schermo il messaggio di conferma eliminazione di un ordine
+     * Permette di mostrare a schermo il messaggio di conferma eliminazione di un ordine
      * @param stage stage di lista ordini
-     * @throws IOException se il caricamento del file fxml della schermata di errore non è adnato a buon fine
+     * @throws IOException se il caricamento del file {@code fxml} della schermata di errore non è andato a buon fine
      */
 
     @Override

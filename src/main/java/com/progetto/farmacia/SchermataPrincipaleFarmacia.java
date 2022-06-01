@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * classe che implementa la boundary {@code SchermataPrincipaleFarmacia}
+ * Classe che modella la boundary {@code SchermataPrincipaleFarmacia}
  */
 public class SchermataPrincipaleFarmacia extends Application implements Initializable {
 

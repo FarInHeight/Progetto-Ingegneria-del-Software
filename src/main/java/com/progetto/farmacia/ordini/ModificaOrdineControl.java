@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * control che gestisce la creazione di un ordine
+ * Classe che modella la control {@code ModificaOrdineControl} che gestisce la modifica degli ordini
  */
 public class ModificaOrdineControl {
 
@@ -32,7 +32,7 @@ public class ModificaOrdineControl {
 
 
     /**
-     * Costruttore che permette di creare una {@code ModificaOrdineControl}
+     * Istanzia un oggetto di tipo {@code ModificaOrdineControl}
      * @param stage stage della schermata lista ordini
      * @throws IOException se il caricamento del file fxml della schermata non è andato a buon fine
      */
@@ -114,6 +114,10 @@ public class ModificaOrdineControl {
         entry.setStrumenti(flow);
     }
 
+    /**
+     * Rimuove il farmaco relativo alla entry data in input dall'elenco dei farmaci presente nel form ordine
+     * @param entry entry del form ordine da rimuovere
+     */
     void clickSuRimuovi(EntryFormOrdine entry) {
         this.setPulsantiListaFarmaci(entry);
         if (this.elenco != null) {
@@ -140,6 +144,13 @@ public class ModificaOrdineControl {
         this.formOrdine.aggiungiFarmaco(entry);
     }
 
+    /**
+     * Metodo tramite il quale un oggetto di tipo {@code FromModificaOrdine} avvisa la {@code FormModificaOrdineControl}
+     * del click sul pulsante {@code aggiungi farmaci}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param stage stage del form modifica ordine da distuggere
+     */
     public void clickSuAggungiFarmaci(Stage stage) throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
@@ -176,16 +187,34 @@ public class ModificaOrdineControl {
         }
     }
 
+    /**
+     * Metodo tramite il quale un oggetto di tipo {@code FromModificaOrdine} avvisa la {@code FormModificaOrdineControl}
+     * del click sul pulsante {@code conferma} e distrugge il form modifica ordine.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param substage sotto-stage del form ordine da distuggere
+     */
     void clickSuConferma(Stage substage){
         substage.close();
         this.formOrdine.getStage().show();
     }
+    /**
+     * Metodo tramite il quale un oggetto di tipo {@code FromModificaOrdine} avvisa la {@code FormModificaOrdineControl}
+     * del click sul pulsante {@code indietro} e distrugge il form modifica ordine.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param substage sotto-stage del form modifica ordine da distuggere
+     */
 
     void clickSuIndietro(Stage substage){
         substage.close();
         this.stage.show();
     }
 
+    /**
+     * Permette di avviare la control che gestisce la modifica di un ordine
+     * @throws IOException se il caricamento del file {@code fxml} del form di modifica ordine non è andato a buon fine
+     */
     public void start() throws IOException{
         this.stage.hide();
         this.formOrdine = new FormModificaOrdine(this.farmacia,this,this.entry,this.refListaOrdini);

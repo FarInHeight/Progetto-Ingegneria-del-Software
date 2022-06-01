@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- *  classe che rappresenta il form che permette di effettuare ordini
+ *  Classe che modella la boundary {@code FormOrdineBoundary}
  */
 public class FormOrdine extends Application implements Initializable {
 
@@ -55,16 +55,17 @@ public class FormOrdine extends Application implements Initializable {
 
 
     /**
-     * costruisce un {@code FormOrdine}
+     * Istanzia un oggetto di tipo {@code FormOrdine}
      */
     public FormOrdine(){
         super();
     }
 
     /**
-     * costruisce un {@code FormOrdine} dato in input il nome della farmacia e la contrl {@code CreaOrdineControl}
+     * Istanzia un oggetto di tipo {@code FormOrdine} dati in input il nome della farmacia e la control che gestisce la creazione
+     * di un ordine
      * @param farmacia entity farmacia
-     * @param control control di crea ordine
+     * @param control control che gestisce la creazione di un ordine
      */
     public FormOrdine(Farmacia farmacia, CreaOrdineControl control){
         this.setFarmacia(farmacia);
@@ -93,10 +94,8 @@ public class FormOrdine extends Application implements Initializable {
     }
 
     /**
-     * Metodo per ottenere lo stage del form ordine e permettere ad un oggeto di classe {@code FormOrdineControl}
-     * di mostrarlo. Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
-     * che si trovano nello stesso package.
-     * @return stage della lista
+     * Ritorna il riferimneto alla schermata della schermata
+     * @return oggetto di tipo {@code Stage} riferito alla schermata
      */
     Stage getStage(){
         return this.stage;
@@ -136,9 +135,9 @@ public class FormOrdine extends Application implements Initializable {
     }
 
     /**
-     * Metodo usato per mostrare a schermo il form per effettuare gli ordini
+     * Permette di mostrare a schermo il form per effettuare gli ordini
      * @param stage stage della schermata principale
-     * @throws IOException se il caricamento del file fxml del form ordine non è andato a buon fine
+     * @throws IOException se il caricamento del file {@code fxml} del form ordine non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -173,7 +172,7 @@ public class FormOrdine extends Application implements Initializable {
     }
 
     /**
-     * Metodo usato per inzializzare il {@code FormOrdine}
+     * Permette di per inzializzare il {@code FormOrdine}
      * @param url
      * @param resourceBundle
      */
@@ -186,6 +185,10 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.ref = this.lista;
     }
 
+    /**
+     * Permette di aggiungere il farmaco al form ordine dato in input la entry del form
+     * @param entry entry del form ordine da aggiungere
+     */
     public void aggiungiFarmaco(EntryFormOrdine entry) {
         if(entry == null) {
             throw new NullPointerException("Entry in aggiungi farmaco = null");
@@ -195,6 +198,10 @@ public class FormOrdine extends Application implements Initializable {
             FormOrdine.ref.getItems().add(entry);
         }
     }
+    /**
+     * Permette di rimuovere il farmaco al form ordine dato in input la entry del form
+     * @param entry entry del form ordine da rimuovere
+     */
 
     public void rimuoviFarmaco(EntryFormOrdine entry) {
         if(entry == null) {

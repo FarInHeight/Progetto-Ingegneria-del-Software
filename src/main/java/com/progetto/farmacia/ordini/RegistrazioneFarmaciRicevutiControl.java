@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Classe che modella la control per la registrazione dei farmaci ricevuti
+ * Classe che modella la control {@code RegistrazioneFarmaciRicevutiControl} che gestisce la registrazione dei farmaci ricevuti
  */
 public class RegistrazioneFarmaciRicevutiControl {
 
@@ -23,7 +23,8 @@ public class RegistrazioneFarmaciRicevutiControl {
     private Stage stageRegistrazioneFarmaci;
 
     /**
-     * Costruttore per la control a partire da un ordine da caricare
+     * Istanzia un oggetto di tipo {@code RegistrazioneFarmaciRicevutiControl} dato in input la entry dell'ordine da caricare
+     * e il riferimento alla finestra corrente
      * @param entry ordine da caricare
      * @param stage stage corrente
      */
@@ -34,10 +35,6 @@ public class RegistrazioneFarmaciRicevutiControl {
         db = new InterfacciaFarmacia();
     }
 
-    /*public EntryListaOrdini getEntry() {
-        return entry;
-    }*/
-
     private void setEntry(EntryListaOrdini entry) {
         if (entry == null) {
             throw new NullPointerException("entry = null");
@@ -45,20 +42,12 @@ public class RegistrazioneFarmaciRicevutiControl {
         this.entry = entry;
     }
 
-    /*public Ordine getOrdine() {
-        return ordine;
-    }*/
-
     private void setOrdine(Ordine ordine) {
         if (ordine == null) {
             throw new NullPointerException("ordine = null");
         }
         this.ordine = ordine;
     }
-
-    /*public Stage getStage() {
-        return stage;
-    }*/
 
     private void setStage(Stage stage) {
         if (stage == null) {
@@ -68,7 +57,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     }
 
     /**
-     * Metodo che istanzia e fa partire la {@code SchermataRegistrazioneFarmaci}
+     * Permette di avviare la control che gestisce la registrazione dei farmaci riveuti
      */
     public void start() {
         ArrayList<EntryMagazzinoFarmacia> farmaci = new ArrayList<>();
@@ -98,7 +87,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     }
 
     /**
-     * Metodo che carica i farmaci nel db della catena e verifica che tutti i farmaci siano caricati
+     * Permette di caricare i farmaci nel db della catena e verifica che tutti i farmaci siano caricati
      */
     public void clickSuConfermaRegistrazione() {
         ArrayList<Farmaco> farmaciConsegnati = ordine.getFarmaci();
@@ -133,10 +122,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     }
 
     /**
-     * Metodo tramite il quale un oggetto di tipo {@code ListaOrdini} avvisa la {@code VisualizzaOrdiniControl}
-     * del click sul pulsante {@code indietro} e distrugge la ListaOrdini.
-     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
-     * che si trovano nello stesso package.
+     * Metodo che viene richiamato quando si fa click sul pulsante indietro
      * @param substage sotto-stage della ListaOrdini da distuggere
      */
     void clickSuIndietro(Stage substage) {
@@ -145,6 +131,9 @@ public class RegistrazioneFarmaciRicevutiControl {
         this.stage.show();
     }
 
+    /** Metodo che viene richiamata quando si fa click sul pulsante chiudi
+     * @param substage sotto-stage della ListaOrdini da distruggere
+     */
     void clickSuChiudi(Stage substage) {
         ListaOrdini.getOrdini().remove(this.entry);
         this.stageRegistrazioneFarmaci.close();

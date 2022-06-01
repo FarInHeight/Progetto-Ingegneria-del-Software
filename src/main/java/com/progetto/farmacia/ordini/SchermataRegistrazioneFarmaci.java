@@ -25,6 +25,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che modella la boundary {@code SchermataRegistrazioneFarmaciBoundary}
+ */
 public class SchermataRegistrazioneFarmaci extends Application implements Initializable {
 
     @FXML
@@ -48,14 +51,14 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
     private static int idOrdine;
 
     /**
-     * Costruttore per la schermata magazzino
+     * Istanzia un oggetto di tipo {@code SchermataRegistrazioneFarmaci}
      */
     public SchermataRegistrazioneFarmaci(){super();}
 
     /**
-     * Costruttore per la schermata magazzino
+     * Istanzia un oggetto di tipo {@code SchermataRegistrazioneFarmaci}
      * @param farmaci farmaci presenti nel magazzino
-     * @param registrazioneFarmaciRicevutiControl control tramite il quale è possibile tornare alla schermata precedente
+     * @param registrazioneFarmaciRicevutiControl control che gestisce la registrazione dei farmaci
      */
     public SchermataRegistrazioneFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaci, RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl, int idOrdine) {
         super();
@@ -64,10 +67,19 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
         setIdOrdine(idOrdine);
     }
 
+    /**
+     * Ritorna l'id dell'ordine
+     * @return {@code int} contenente l'id dell'ordine
+     */
+
     public static int getIdOrdine() {
         return idOrdine;
     }
 
+    /**
+     * Permette di settare l'id dell'ordine
+     * @param idOrdine id dell'ordine da impostare
+     */
     public static void setIdOrdine(int idOrdine) {
         if (idOrdine < 0) {
             throw new IllegalArgumentException("idOrdine < 0");
@@ -76,16 +88,16 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
     }
 
     /**
-     * Getter per la lista dei farmaci nel magazzino
-     * @return farmaci nel magazzino
+     * Ritorna la lista dei farmaci presenti in magazzino
+     * @return oggetto di tipo {@code ArrayList<EntryMagazzinoFarmacia>} contennete i farmaci presenti in magazzino
      */
     public static ArrayList<EntryMagazzinoFarmacia> getFarmaci() {
         return farmaci;
     }
 
     /**
-     * Setter per la lista dei farmaci nel magazzino
-     * @param farmaci farmaci nel magazzino
+     * Permette di settare la lista dei farmaci presenti in magazzino
+     * @param farmaci farmaci presenti in magazzino
      */
     public static void setFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaci) {
         if (farmaci == null) {
@@ -95,16 +107,16 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
     }
 
     /**
-     * Getter per la control della schermata
-     * @return control della schermata
+     * Ritorna per la control che gestisce la schermata di resigtrazione farmaci
+     * @return oggetto di tipo {@code RegistrazioneFarmaciRicevutiControl} contenente la control che gestisce la schermata di resigtrazione farmaci
      */
     public static RegistrazioneFarmaciRicevutiControl getControl() {
         return control;
     }
 
     /**
-     * Setter per la control della schermata
-     * @param control control della schermata
+     * Permette di settare la control che gestisce la schermata di resigtrazione farmaci
+     * @param control control che gestisce la schermata di resigtrazione farmaci
      */
     public static void setControl(RegistrazioneFarmaciRicevutiControl control) {
         if (control == null) {
@@ -114,9 +126,9 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
     }
 
     /**
-     * Permette di mostrare la schermata con la lista dei farmaci nel magazzino
+     * Permette di mostrare a schermo la schermata con la lista dei farmaci nel magazzino
      * @param stage stage della schermata
-     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     * @throws IOException lanciata se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -147,7 +159,7 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
     }
 
     /**
-     * Metodo che inizializza la schermata inserendo i dati relativi ai farmaci da caricare
+     * Permette di inizializzare la schermata inserendo i dati relativi ai farmaci da caricare
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

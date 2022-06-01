@@ -16,7 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Classe che modella la control {@code VerificaRegistrazioniFarmaciControl}
+ * Classe che modella la control {@code VerificaRegistrazioniFarmaciControl} che si occupa di gestire la registrazione
+ * dei farmaci ricevuti dalla farmacia
  */
 public class VerificaRegistrazioniFarmaciControl {
     private Farmacia farmacia;
@@ -26,7 +27,7 @@ public class VerificaRegistrazioniFarmaciControl {
     private ArrayList<EntryListaOrdini> lista;
     private ListaOrdini listaOrdini;
     /**
-     * Costruttore di un oggetto di classe {@code VerificaRegistrazioniFarmaciControl} che prende in input la {@code Farmacia}
+     * Istanzia un oggetto di tipo {@code VerificaRegistrazioniFarmaciControl} dato in input la farmacia
      * a cui fa riferimento
      * @param farmacia farmacia per cui bisogna controllare gli ordini consegnati ma non caricati
      */
@@ -50,7 +51,7 @@ public class VerificaRegistrazioniFarmaciControl {
     }
 
     /**
-     * Metodo di avvio di un oggetto di classe {@code VerificaRegistrazioniFarmaciControl}
+     * Permette di avviare la control che gestisce la registrazione dei farmaci
      */
     public void start() {
         this.checkPerContinuare();
@@ -69,7 +70,7 @@ public class VerificaRegistrazioniFarmaciControl {
      * del click sul pulsante {@code continua} e distrugge la {@code AvvisoMancataRegistrazione}.
      * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
      * che si trovano nello stesso package.
-     * @param stage stage della {@code AvvisoMancataRegistrazione}
+     * @param stage stage dell' avviso {@code AvvisoMancataRegistrazione}
      */
     void clickSuContinua(Stage stage) {
         stage.close();
@@ -104,7 +105,7 @@ public class VerificaRegistrazioniFarmaciControl {
      * del click sul pulsante {@code fatto} e distrugge la {@code ListaOrdini}.
      * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
      * che si trovano nello stesso package.
-     * @param stage stage della {@code AvvisoMancataRegistrazione}
+     * @param stage stage dell'avviso {@code AvvisoMancataRegistrazione}
      */
     void clickSuFatto(Stage stage) {
         stage.close();
