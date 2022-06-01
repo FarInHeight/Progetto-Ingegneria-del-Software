@@ -5,7 +5,7 @@ import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.stage.Stage;
 
 /**
- * Classe che permette al farmacista di rimuovere farmaci venduti dal suo magazzino
+ * Classe che modella la control {@code RimuoviFarmaciContol} che permette al farmacista di rimuovere farmaci venduti dal suo magazzino
  */
 public class RimuoviFarmaciControl {
 
@@ -28,15 +28,15 @@ public class RimuoviFarmaciControl {
     }
 
     /**
-     * Getter per il farmaco da rimuovere
-     * @return farmaco
+     * Ritorna il farmaco da rimuovere
+     * @return oggetto di tipo {@code Farmaco} contenente il farmaco
      */
     public EntryMagazzinoFarmacia getFarmaco() {
         return farmaco;
     }
 
     /**
-     * Setter per il farmaco da rimuovere
+     * Permette di settare il farmaco da rimuovere
      * @param farmaco farmaco
      */
     public void setFarmaco(EntryMagazzinoFarmacia farmaco) {
@@ -47,15 +47,15 @@ public class RimuoviFarmaciControl {
     }
 
     /**
-     * Getter per lo stage corrente
-     * @return stage corrente
+     * Ritorna il riferimento alla finestra corrente
+     * @return oggetto di tipo {@code Stage} contenente il riferimento alla finestra corrente
      */
     public Stage getStage() {
         return stage;
     }
 
     /**
-     * Setter per lo stage corrente
+     * Permette di settare il riferimento alla finestra corrente
      * @param stage stage corrente
      */
     public void setStage(Stage stage) {
@@ -66,15 +66,15 @@ public class RimuoviFarmaciControl {
     }
 
     /**
-     * Getter per la schermata con le informazioni sul magazzino
-     * @return schermata magazzino
+     * Ritorna la schermata con le informazioni sul magazzino
+     * @return oggetto di tipo {@code SchermataMagazzino} contenente la schermata magazzino
      */
     public SchermataMagazzino getSchermataMagazzino() {
         return schermataMagazzino;
     }
 
     /**
-     * Getter per la schermata con le informazioni sul magazzino
+     * Permette di settare la schermata magazzino
      * @param schermataMagazzino schermata magazzino
      */
     public void setSchermataMagazzino(SchermataMagazzino schermataMagazzino) {
@@ -85,7 +85,7 @@ public class RimuoviFarmaciControl {
     }
 
     /**
-     * Metodo che mostra una schermata in cui inserire la quantità di farmaco che si intende rimuovere
+     * Permette di msotrare una schermata in cui inserire la quantità di farmaco che si intende rimuovere
      */
     public void clickSuRimuoviFarmaco(){
         SchermataRimozioneQuantita schermataRimozioneQuantita = new SchermataRimozioneQuantita(farmaco, this);
@@ -98,9 +98,10 @@ public class RimuoviFarmaciControl {
     }
 
     /**
-     * Metodo che rimuove la quantità scelta dal database della catena
-     * @param stage stage corrente
-     * @param quantitaDaRimuovere quantita che si intende rimuovere dal magazzino
+     * Permette di  rimuove la quantità scelta dal database della catena dato in input il riferimneto alla finestra corrente
+     * e la quantità di farmaco da rimuovere
+     * @param stage riferimento alla schermata corrente
+     * @param quantitaDaRimuovere quantita di farmaco che si intende rimuovere dal magazzino
      */
     public void clickSuConferma(Stage stage, int quantitaDaRimuovere){
         //Modifica la quantita nel db
@@ -113,7 +114,7 @@ public class RimuoviFarmaciControl {
 
     /**
      * Permette di tornare indietro e visualizzare la {@code SchermataMagazzino}
-     * @param substage stage attualmente mostrato
+     * @param substage riferimento alla schermata corrente
      */
     public void clickSuIndietro(Stage substage) {
         substage.close();

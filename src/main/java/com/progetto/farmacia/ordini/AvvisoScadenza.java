@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * rapprenta l'avviso relativo ai farmaci che scadono tra meno di 2 mesi al momento della creazione di un ordine
+ * Classe che modella l'avviso relativo ai farmaci che scadono tra meno di 2 mesi al momento della creazione di un ordine
  */
 public class AvvisoScadenza extends Application implements Initializable {
 
@@ -36,14 +36,14 @@ public class AvvisoScadenza extends Application implements Initializable {
     private static int tipo;
 
     /**
-     * costruire un oggetto {@code AvvisoScadenza}
+     * Istanzia un oggetto di tipo {@code AvvisoScadenza}
      */
     public AvvisoScadenza(){
         super();
     }
 
     /**
-     * costruisce un oggetto {@code AvvisoScadenza} dati in input i farmaci in scadenza e la farmacia che ha effettuato l'ordine
+     * Istanzia un oggetto di tipo {@code AvvisoScadenza} dati in input i farmaci in scadenza e la farmacia che ha effettuato l'ordine
      * @param farmaciInScadenza farmaci in scadenza
      * @param farmacia farmaica che ha effettuato l'ordine
      */
@@ -87,8 +87,8 @@ public class AvvisoScadenza extends Application implements Initializable {
     }
 
     /**
-     * Metodo utilizzato per visualizzare un oggetto di tipo {@code AvvisoScadenza} a schermo
-     * @param stage stage del form ordine
+     * Permette di visualizzare un oggetto di tipo {@code AvvisoScadenza} a schermo
+     * @param stage riferimento alla schermata del form ordine
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
@@ -122,7 +122,7 @@ public class AvvisoScadenza extends Application implements Initializable {
     }
 
     /**
-     * Metodo utilizzato per personalizzare un oggetto di tipo {@code AvvisScadenza} in base ai farmaci in scadenza
+     * Permette di personalizzare un oggetto di tipo {@code AvvisScadenza} in base ai farmaci in scadenza
      * e alla farmacia che ha effettuato l'ordine
      * @param url
      * @param resourceBundle

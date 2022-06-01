@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- *  classe che rappresenta il form che permette di effettuare ordini
+ *  Classe che modella il form che permette di effettuare ordini
  */
 public class FormModificaOrdine extends Application implements Initializable {
 
@@ -65,16 +65,18 @@ public class FormModificaOrdine extends Application implements Initializable {
 
 
     /**
-     * costruisce un {@code FormOrdine}
+     * Istanzia un oggetto di tipo {@code FormModificaOrdine}
      */
     public FormModificaOrdine(){
         super();
     }
 
     /**
-     * costruisce un {@code FormOrdine} dato in input il nome della farmacia e la contrl {@code CreaOrdineControl}
+     * Istanzia un oggetto di tipo {@code FormModificaOrdine}} dato in input il nome della farmacia e la contrl che si occupa di modificare gli ordini
      * @param farmacia entity farmacia
-     * @param control control di crea ordine
+     * @param control control che gestisce la modifica degli ordini
+     * @param entry entry della lista ordini relativa all'ordine da modificare
+     * @param  refListaOrdini riferimento alla lsita degli ordini
      */
     public FormModificaOrdine(Farmacia farmacia, ModificaOrdineControl control, EntryListaOrdini entry, ListaOrdini refListaOrdini){
         this.setFarmacia(farmacia);
@@ -83,6 +85,7 @@ public class FormModificaOrdine extends Application implements Initializable {
         this.setRefListaOrdini(refListaOrdini);
         FormModificaOrdine.farmaci = new ArrayList<>();
     }
+
 
     private void setRefListaOrdini(ListaOrdini refListaOrdini){
         if(refListaOrdini == null){
@@ -113,7 +116,7 @@ public class FormModificaOrdine extends Application implements Initializable {
     }
 
     /**
-     * Metodo per ottenere lo stage del form ordine e permettere ad un oggeto di classe {@code FormOrdineControl}
+     * Metodo per ottenere lo stage del form modifica ordine e permettere ad un oggeto di classe {@code FormModificaOrdineControl}
      * di mostrarlo. Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
      * che si trovano nello stesso package.
      * @return stage della lista
@@ -157,9 +160,9 @@ public class FormModificaOrdine extends Application implements Initializable {
     }
 
     /**
-     * Metodo usato per mostrare a schermo il form per effettuare gli ordini
-     * @param stage stage della schermata principale
-     * @throws IOException se il caricamento del file fxml del form ordine non è andato a buon fine
+     * Metodo usato per mostrare a schermo il form per modificare gli ordini
+     * @param stage riferimento alla finestra della schermata principale
+     * @throws IOException se il caricamento del file {@code fxml} del form modifica ordine non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -194,7 +197,7 @@ public class FormModificaOrdine extends Application implements Initializable {
     }
 
     /**
-     * Metodo usato per inzializzare il {@code FormOrdine}
+     * Metodo usato per inizializzare il from per la modifica dell'ordine
      * @param url
      * @param resourceBundle
      */
@@ -258,6 +261,10 @@ public class FormModificaOrdine extends Application implements Initializable {
         entry.setStrumenti(flow);
     }
 
+    /**
+     * Permette di rimuovere un farmaco dal from che permette la modifica dell'ordine
+     * @param entry entry relativo al farmaco da aggiungere al from che permette la modifica dell'ordine
+     */
     public void aggiungiFarmaco(EntryFormOrdine entry) {
         if(entry == null) {
             throw new NullPointerException("Entry in aggiungi farmaco = null");
@@ -267,6 +274,11 @@ public class FormModificaOrdine extends Application implements Initializable {
             FormModificaOrdine.ref.getItems().add(entry);
         }
     }
+
+    /**
+     * Permette di rimuovere un farmaco dal from che permette la modifica dell'ordine
+     * @param entry entry relativo al farmaco da rimuovere dal from che permette la modifica dell'ordine
+     * */
 
     public void rimuoviFarmaco(EntryFormOrdine entry) {
         if(entry == null) {

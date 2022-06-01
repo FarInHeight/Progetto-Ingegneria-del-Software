@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Classe che gestiste la schermata contenente tutti i farmaci nel magazzino della {@code farmacia}
+ * Classe che modella la boundary {@code SchermataMagazzinoBoundary} contenente tutti i farmaci nel magazzino della farmacia
  */
 public class SchermataMagazzino extends Application implements Initializable {
 
@@ -49,12 +49,13 @@ public class SchermataMagazzino extends Application implements Initializable {
     private static VisualizzaMagazzinoControl control;
 
     /**
-     * Costruttore per la schermata magazzino
+     * Istanzia un oggetto di tipo {@code SchermataMagazzino}
      */
     public SchermataMagazzino(){super();}
 
     /**
-     * Costruttore per la schermata magazzino
+     * Istanzia un oggetto di tipo {@code SchermataMagazzino} dati in input i farmaci presenti e la control che gestisce
+     * la visualizzazione della schermata del magazzino
      * @param farmaci farmaci presenti nel magazzino
      * @param visualizzaMagazzinoControl control tramite il quale è possibile tornare alla schermata precedente
      */
@@ -65,15 +66,15 @@ public class SchermataMagazzino extends Application implements Initializable {
     }
 
     /**
-     * Getter per la lista dei farmaci nel magazzino
-     * @return farmaci nel magazzino
+     * Ritorna la lista dei farmaci contenuti in magazzino
+     * @return oggetto di tipo {@code  ArrayList<EntryMagazzinoFarmacia>} contenente ifarmaci presenti in magazzino
      */
     public static ArrayList<EntryMagazzinoFarmacia> getFarmaci() {
         return farmaci;
     }
 
     /**
-     * Setter per la lista dei farmaci nel magazzino
+     * Permette di settare la lista dei farmaci nel magazzino
      * @param farmaci farmaci nel magazzino
      */
     public static void setFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaci) {
@@ -84,15 +85,15 @@ public class SchermataMagazzino extends Application implements Initializable {
     }
 
     /**
-     * Getter per la control della schermata
-     * @return control della schermata
+     * Ritorna la control della schermata magazzino
+     * @return oggetto di tipo {@code VisualizzaMagazzinoControl} contenente la control della schermata
      */
     public static VisualizzaMagazzinoControl getControl() {
         return control;
     }
 
     /**
-     * Setter per la control della schermata
+     * Permette di settare la control della schermata
      * @param control control della schermata
      */
     public static void setControl(VisualizzaMagazzinoControl control) {
@@ -137,7 +138,7 @@ public class SchermataMagazzino extends Application implements Initializable {
     }
 
     /**
-     * Metodo che inizializza la schermata inserendo i dati relativi ai farmaci nel magazzino
+     * Permette di inizializzare la schermata magazzino inserendo i dati relativi ai farmaci presenti in magazzino
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -158,7 +159,7 @@ public class SchermataMagazzino extends Application implements Initializable {
     }
 
     /**
-     * Metodo che aggiorna la schermata a seguito della rimozione di alcuni farmaci
+     * Permette di aggiornare la schermata a seguito della rimozione di alcuni farmaci
      */
     public void update(){
         this.lista.getItems().clear();
@@ -172,7 +173,7 @@ public class SchermataMagazzino extends Application implements Initializable {
     }
 
     /**
-     * Metodo che crea la control relativa alla rimozione di un farmaco
+     * Permette di creare la control relativa alla rimozione di un farmaco
      * @param event evento associato alla pressione del {@code button} rimuovi farmaco
      * @param farmaco farmaco da rimuovere
      */
@@ -182,10 +183,9 @@ public class SchermataMagazzino extends Application implements Initializable {
         rimuoviFarmaciControl.clickSuRimuoviFarmaco();
     }
 
-    /**
-     * Permette di tornare indietro e visualizzare la {@code SchermataPrincipaleFarmacia}
-     * @param event evento associato alla pressione del {@code button} indietro
-     */
+    /*
+     * Permette di tornare indietro e visualizzare la SchermataPrincipaleFarmacia
+    */
     @FXML
     private void indietro(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  // prendo lo stage corrente

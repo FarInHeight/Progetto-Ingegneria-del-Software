@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Classe che mostra a schermo un avviso nel momento in cui il farmacista carica solo una parte dei farmaci
+ * Classe che moodella l'avviso che viene mostrato nel momento in cui il farmacista carica solo una parte dei farmaci
  * contenuta in un ordine
  */
 public class AvvisoCaricamentoParziale extends Application implements Initializable {
@@ -32,17 +32,18 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     private static RegistrazioneFarmaciRicevutiControl control;
 
     /**
-     * Costruttore di base per la classe, usato da JavaFX
+     * Istanzia un oggetto di tipo {@code AvvisoCaricamentoParziale}
      */
     public AvvisoCaricamentoParziale(){
         super();
     }
 
     /**
-     * Costruttore per la classe
+     * Istanzia un oggetto di tipo {@code AvvisoCaricamentoParziale} dati in input i farmaci non caricati, l'ordine caricato e
+     * la control che gestisce la registrazione dei farmaci ricevuti
      * @param farmaciMancanti farmaci non caricati
      * @param ordine ordine appena caricato
-     * @param control control tramite il quale è possibile tornare alla schermata precedente
+     * @param control control che gestisce la registrazione dei farmaci ricevuti
      */
     public AvvisoCaricamentoParziale(String farmaciMancanti, EntryListaOrdini ordine, RegistrazioneFarmaciRicevutiControl control) {
         setFarmaciMancanti(farmaciMancanti);
@@ -58,7 +59,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     }
 
     /**
-     * Setter per i farmaci non caricati
+     * Permette di settare i farmaci non caricati
      * @param farmaciMancanti farmaci non caricati
      */
     public void setFarmaciMancanti(String farmaciMancanti) {
@@ -69,7 +70,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     }
 
     /**
-     * Setter per l'ordine caricato
+     * Permette di settare l'ordine caricato
      * @param ordine ordine caricato
      */
     public void setOrdine(EntryListaOrdini ordine) {
@@ -80,7 +81,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
     }
 
     /**
-     * Metodo utilizzato per visualizzare l'{@code AvvisoCaricamentoParziale} a schermo
+     * Permette di visualizzare l'{@code AvvisoCaricamentoParziale} a schermo
      * @param stage stage della schermata di errore
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */

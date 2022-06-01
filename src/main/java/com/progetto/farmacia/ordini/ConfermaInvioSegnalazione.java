@@ -12,18 +12,20 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * Classe che modella la boundary {@code ConfermaInvioSegnalazione}
  */
 public class ConfermaInvioSegnalazione extends Application {
     private static RegistrazioneFarmaciRicevutiControl controlRegistrazione;
     /**
-     * Costruttore di un oggetto di classe {@code ConfermaInvioSegnalazione}
+     * Istanzia un oggetto di ipo {@code ConfermaInvioSegnalazione}
      */
     public ConfermaInvioSegnalazione(){super();}
 
     /**
-     * Costruttore di un oggetto di classe {@code ConfermaInvioSegnalazione} che prende in input la control che ha creato
+     * Istanzia un oggetto di ipo {@code ConfermaInvioSegnalazione} data in input la control che ha creato
      * il messaggio di conferma
      * @param controlRegistrazione control che ha creato il messaggio di conferma
      */
@@ -38,8 +40,12 @@ public class ConfermaInvioSegnalazione extends Application {
         ConfermaInvioSegnalazione.controlRegistrazione = controlRegistrazione;
     }
 
+    /**
+     * Permette di mostrare a schermo il messaggio di conferma invio della segnalazione
+     * @throws IOException se il caricamento del file {@code fxml} della schermata non è andato a buon fine
+     */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("confermaInvioSegnalazione.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 350, 220);
 

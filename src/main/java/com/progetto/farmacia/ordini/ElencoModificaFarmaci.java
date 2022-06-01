@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * classe che mostra l'elenco dei farmaci ordinabili dalla farmacia
+ * Classe che modella l'elenco dei farmaci ordinabili dalla farmacia
  */
 public class ElencoModificaFarmaci extends Application implements Initializable {
 
@@ -55,10 +55,20 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
     @FXML
     private TableColumn<EntryFormOrdine, FlowPane> strumenti;
 
+    /**
+     * Istanzia un oggetto di tipo {@code ElencoFarmaci}
+     */
     public ElencoModificaFarmaci(){
         super();
     }
 
+    /**
+     * Istanzia un oggetto di tipo {@code ElencoFarmaci} dati in input la control che gestisce la modifica degli ordini,
+     * la farmacia e l'elenco dei farmaci ordinabili dalla farmacia
+     * @param control control che gestisce la modifica di un ordine
+     * @param farmacia farmacia che intende effettuare l'ordine
+     * @param farmaci elenco dei farmaci ordinabili dalla farmacia
+     */
     public ElencoModificaFarmaci(ModificaOrdineControl control, Farmacia farmacia, ArrayList<EntryFormOrdine> farmaci) {
         super();
         this.setFarmacia(farmacia);
@@ -79,14 +89,21 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
         }
         ElencoModificaFarmaci.farmacia = farmacia;
     }
-
+    /**
+     * Permette di settare la control che gestisce la modifica di un ordine
+     * @param control control che gestisce la modifica di un ordine
+     */
     public void setControl(ModificaOrdineControl control) {
         if(control == null){
             throw new NullPointerException("control = null");
         }
         ElencoModificaFarmaci.control = control;
     }
-
+    /**
+     * Permette di mostrare a schermo l'elenco dei farmaci
+     * @param stage riferimento alla finestra corrente
+     * @throws IOException se il caricamento del file {@code fxml} della schermata non è andato a buon fine
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("elencoModificaFarmaci.fxml"));
@@ -120,9 +137,8 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
         });
     }
 
-    /**
+    /*
      * Permette di tornare indietro e visualizzare il {@code FormOrdine}
-     * @param event evento associato alla pressione del {@code button} indietro
      */
     @FXML
     private void conferma(ActionEvent event) {
@@ -130,6 +146,11 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
         ElencoModificaFarmaci.control.clickSuConferma(stage);
     }
 
+    /**
+     * Permette di inizializzare la schermata contenente l'elenco dei farmaci
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ElencoModificaFarmaci.farmacia.getNome());
@@ -141,7 +162,10 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
         }
         ElencoModificaFarmaci.ref = this.lista;
     }
-
+    /**
+     * Permette di aggiungere un farmaco all'elenco dei farmaci
+     * @param entry entry relativo al farmaco da aggiungere all'elenco dei farmaci
+     */
     public void aggiungiFarmaco(EntryFormOrdine entry) {
         if(entry == null) {
             throw new NullPointerException("Entry in aggiungi farmaco = null");
@@ -151,6 +175,11 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
             ElencoModificaFarmaci.ref.getItems().add(entry);
         }
     }
+
+    /**
+     * Permette di aggiungere un farmaco all'elenco dei farmaci
+     * @param entry entry relativo al farmaco da rimuovere all'elenco dei farmaci
+     * */
     public void rimuoviFarmaco(EntryFormOrdine entry) {
         if(entry == null) {
             throw new NullPointerException("Entry in rimuovi farmaco di ElencoFarmaci = null");

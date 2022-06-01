@@ -19,7 +19,7 @@ public class CreaSegnalazioneControl {
 
     private RegistrazioneFarmaciRicevutiControl control;
     /**
-     * Costruttore di una {@code CreaSegnalazioneControl} che prende in input un {@code Ordine} da segnalare
+     * Istanzia un oggetto di tipo {@code CreaSegnalazioneControl} dato in input un ordine da segnalare
      * @param ordine ordine da segnalare
      */
     public CreaSegnalazioneControl(EntryListaOrdini ordine, RegistrazioneFarmaciRicevutiControl control) {
@@ -41,7 +41,7 @@ public class CreaSegnalazioneControl {
     }
 
     /**
-     * Metodo di avvio di un oggetto di tipo {@code CreaSegnalazioneControl}
+     * Permette di avviare di un oggetto di tipo {@code CreaSegnalazioneControl}
      * @param event evento che ha provocato la creazione della control
      */
     public void start(ActionEvent event) {

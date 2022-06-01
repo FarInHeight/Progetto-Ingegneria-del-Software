@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Control che gestisce la creazione di un ordine
+ * Classe che modella la control {@code CreaOrdineControl} che gestisce la creazione di un ordine
  */
 public class CreaOrdineControl{
     private Farmacia farmacia;
@@ -32,7 +32,7 @@ public class CreaOrdineControl{
 
 
     /**
-     * Costruttore che permette di creare una {@code CreaOrdineControl}
+     * Istanzia un oggetto di tipo {@code CreaOrdineControl} dati in input la farmacia e l'evento di pressione del tasto crea ordine
      * @param event evento di pressione del pulsante crea ordine
      * @throws IOException se il caricamento del file fxml della schermata non è andato a buon fine
      */
@@ -114,6 +114,14 @@ public class CreaOrdineControl{
         this.elenco.rimuoviFarmaco(entry);
         this.formOrdine.aggiungiFarmaco(entry);
     }
+
+    /**
+     * Metodo tramite il quale un oggetto di tipo {@code FromOrdine} avvisa la {@code FormOrdineControl}
+     * del click sul pulsante {@code aggiungi farmaci}.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param stage stage del form ordine da distuggere
+     */
     public void clickSuAggungiFarmaci(Stage stage) throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         ArrayList<EntryFormOrdine> farmaci = db.getFarmaciEntry();
@@ -127,8 +135,8 @@ public class CreaOrdineControl{
     }
 
     /**
-     * ritorna lo stage corrente
-     * @return oggetto di tipo {@code Stage} contenente lo stage corrente
+     * Ritorna stage corrente
+     * @return oggetto di tipo {@code Stage} contenente il riferimento alla schermata corrente
      */
     public Stage getStage() {
         return this.stage;
@@ -145,6 +153,13 @@ public class CreaOrdineControl{
         substage.close();
         this.stage.show();
     }
+    /**
+     * Metodo tramite il quale un oggetto di tipo {@code FromOrdine} avvisa la {@code FormOrdineControl}
+     * del click sul pulsante {@code conferma} e distrugge il form ordine.
+     * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
+     * che si trovano nello stesso package.
+     * @param substage sotto-stage del form ordine da distuggere
+     */
 
     void clickSuConferma(Stage substage){
         substage.close();
@@ -152,7 +167,7 @@ public class CreaOrdineControl{
     }
 
     /**
-     * Metodo di avvio della control
+     * Permette di avviare avvio della control
      * @throws IOException se il caricamento del file {@code fxml} del form ordine non è andato a buon fine
      */
     public void start() throws IOException{

@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Classe che gestisce la schermata in cui il farmacista può inserire le quantità di farmaco da rimuovere
+ * Classe che implementa la boundaru {@code SchermataRimozioneQuantita} che permette al farmacista di inserire le quantità di farmaco da rimuovere
  */
 public class SchermataRimozioneQuantita extends Application implements Initializable {
 
@@ -41,14 +41,15 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
     private static RimuoviFarmaciControl control;
 
     /**
-     * Costruttore
+     * Istanzia un oggetto di tipo {@code SchermataRimozioneQuantita}
      */
     public SchermataRimozioneQuantita(){super();}
 
     /**
-     * Costruttore
+     * Istanzia un oggetto di tipo {@code SchermataRimozioneQuantita} dati in input il farmaco e la control che si occupa di
+     * gestire la rimozione dei farmaci
      * @param farmaco farmaco di cui rimuovere una quantita
-     * @param control control che permette di tornare alla schermata magazzino
+     * @param control control che gestisce la rimozione della quantità del farmaco dal magazzino
      */
     public SchermataRimozioneQuantita(EntryMagazzinoFarmacia farmaco, RimuoviFarmaciControl control){
         super();
@@ -57,15 +58,15 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
     }
 
     /**
-     * Getter per il farmaco
-     * @return farmaco
+     * Ritorna il farmaco da rimuovere
+     * @return oggetto di tipo {@code Farmaco} contenente il farmaco da rimuovere
      */
     public static EntryMagazzinoFarmacia getFarmaco() {
         return farmaco;
     }
 
     /**
-     * Setter per il farmaco
+     * Permette di settare il farmaco da rimuovere
      * @param farmaco farmaco
      */
     public static void setFarmaco(EntryMagazzinoFarmacia farmaco) {
@@ -76,15 +77,15 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
     }
 
     /**
-     * Getter per la control
-     * @return control
+     * Ritorna la control che gestisce la rimozione del farmaco
+     * @return oggetto di tipo {@code RimuoviFarmaciControl} che contiene la control che gestisce la rimozione del farmaco
      */
     public static RimuoviFarmaciControl getControl() {
         return control;
     }
 
     /**
-     * Setter per la control
+     * Permette di settare la control che gestisce la rimozione del farmaco
      * @param control control
      */
     public static void setControl(RimuoviFarmaciControl control) {
@@ -96,8 +97,8 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
 
     /**
      * Permette di mostrare la schermata da cui rimuovere le quantita di un farmaco
-     * @param stage stage della schermata
-     * @throws IOException lanciata se il caricamento del file fxml non è andato a buon fine
+     * @param stage riferimento alla schermata corrente
+     * @throws IOException lanciata se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -129,7 +130,7 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
     }
 
     /**
-     * Metodo che inizializza la schermata inserendo i dati relativi al farmaco in questione
+     * Permette di inizializzare la schermata di rimozione della quantità del farmaco inserendo i dati relativi al farmaco in questione
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -146,9 +147,8 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
 
     }
 
-    /**
+    /*
      * Metodo che interagisce con la control per la rimozione della quantita specificata
-     * @param event evento associato alla pressione del {@code button} conferma rimozione
      */
     @FXML
     private void confermaRimozione(ActionEvent event){
@@ -157,9 +157,8 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
         getControl().clickSuConferma(stage,quantitaDaRimuovere);
     }
 
-    /**
+    /*
      * Permette di tornare indietro e visualizzare la {@code SchermataMagazzino}
-     * @param event evento associato alla pressione del {@code button} indietro
      */
     @FXML
     private void indietro(ActionEvent event) {

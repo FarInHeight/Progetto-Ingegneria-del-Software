@@ -13,6 +13,8 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,7 +36,7 @@ public class CreazioneSegnalazioneForm extends Application implements Initializa
     public CreazioneSegnalazioneForm() {super();}
 
     /**
-     * Costruttore di un oggetto di tipo {@code CreazioneSegnalazioneForm} che prende in input il riepilogo dell'ordine
+     * Costruttore di un oggetto di tipo {@code CreazioneSegnalazioneForm} dato in input il riepilogo dell'ordine
      * da mostrare e la control che ha creato l'oggetto
      * @param riepilogo riepilogo dell'ordine
      * @param control control che ha creato l'oggetto
@@ -55,8 +57,14 @@ public class CreazioneSegnalazioneForm extends Application implements Initializa
         }
         CreazioneSegnalazioneForm.control = control;
     }
+
+    /**
+     * Permette di mostrare a schermo il form per creare una segnalazione
+     * @param stage riferimento alla finestra corrente
+     * @throws Exception se il caricamento del file {@code fxml} della schermata non è andato a buon fine
+     */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("creazioneSegnalazioneForm.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
 
@@ -82,6 +90,11 @@ public class CreazioneSegnalazioneForm extends Application implements Initializa
         });
     }
 
+    /**
+     * Permette di inizializzare la schermata di creazione della segnalazione
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.riepilogoOrdine.setText(CreazioneSegnalazioneForm.riepilogo);
@@ -94,6 +107,10 @@ public class CreazioneSegnalazioneForm extends Application implements Initializa
         CreazioneSegnalazioneForm.control.clickSuInvia(stage);
     }
 
+    /**
+     * Ritorna la segnalazione
+     * @return oggetto di tipo {@code String} contenente la segnalazione
+     */
     public String getSegnalazione() {
         return CreazioneSegnalazioneForm.segnalazione;
     }

@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * rappresenta la control che si occupa di cancellare gli ordini
+ * Modella la control {@code CancellaOrdineControl} che si occupa di cancellare gli ordini
  */
 public class CancellaOrdineControl {
 
@@ -16,7 +16,7 @@ public class CancellaOrdineControl {
     private Stage stage;  //stage di lista ordini
 
     /**
-     * costruisce un oggetto {@code CancellaOrdineControl} dato in input la entry di lista ordini da eliminare
+     * Istanzia un oggetto di tipo {@code CancellaOrdineControl} dato in input la entry di lista ordini da eliminare
      * @param entry entry di lista ordini da eliminare
      */
     public CancellaOrdineControl(EntryListaOrdini entry, Stage stage){
@@ -38,6 +38,10 @@ public class CancellaOrdineControl {
         this.entry = entry;
     }
 
+    /**
+     * Permette di avviare la control che si occupa di cancellare l'ordine
+     * @throws IOException se il caricamento del file {@code fxml} della schermata non è andato a buon fine
+     */
     public void start() throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         db.modificaFarmaciOrdinati(this.entry.getIdOrdine());

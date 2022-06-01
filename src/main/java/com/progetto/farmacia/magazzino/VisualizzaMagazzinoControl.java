@@ -12,7 +12,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Classe che si occupa di richiedere e mostrare i farmaci nel magazzino di una farmacia
+ * Classe che si occupa di implementare la control {@code VisualizzaMagazzinoControl} che richiedere e mostrare i farmaci
+ * presenti nel magazzino di una farmacia
  */
 public class VisualizzaMagazzinoControl {
 
@@ -21,8 +22,8 @@ public class VisualizzaMagazzinoControl {
     private final InterfacciaFarmacia db;
 
     /**
-     * istanzia la control che gestisce la SchermataMagazzino
-     * @param event evento associato alla pressione del {@code button} visualizza magazzino
+     * Istanzia un oggetto di tipo {@code VisualizzaMagazzinoControl}
+     * @param event evento associato alla pressione del tasto visualizza magazzino
      */
     public VisualizzaMagazzinoControl(ActionEvent event) {
         this.setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
@@ -30,15 +31,15 @@ public class VisualizzaMagazzinoControl {
     }
 
     /**
-     * Getter per lo stage corrente
-     * @return stage corrente
+     * Ritorna il riferimento alla finestra corrente
+     * @return oggetto di tipo {@code Stage} contenente il riferimento alla finestra corrente
      */
     public Stage getStage() {
         return stage;
     }
 
     /**
-     * Setter per lo stage corrente
+     * Permette di settare il riferimento alla finestra corrente
      * @param stage stage corrente
      */
     public void setStage(Stage stage) {
@@ -49,15 +50,15 @@ public class VisualizzaMagazzinoControl {
     }
 
     /**
-     * Getter per i farmaci nel magazzino
-     * @return farmaci nel magazzino
+     * Ritorna i farmaci preenti in magazzino
+     * @return oggetto di tipo {@coe ArrayList<EntryMagazzinoFarmacia>} contenente i farmaci presenti in magazzino
      */
     public ArrayList<EntryMagazzinoFarmacia> getFarmaci() {
         return farmaci;
     }
 
     /**
-     * Setter per i farmaci nel magazzino
+     * Permette di settare i farmaci presenti in magazzino
      * @param farmaci farmaci nel magazzino
      */
     public void setFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaci) {
@@ -68,7 +69,7 @@ public class VisualizzaMagazzinoControl {
     }
 
     /**
-     * Richiede i farmaci dal database, crea la SchermataMagazzino e mostra a schermo
+     * Richiede i farmaci dal database, crea la SchermataMagazzino e la mostra a schermo
      */
     public void clickSuVisualizzaMagazzino(){
         //Richiedo i farmaci
@@ -88,9 +89,8 @@ public class VisualizzaMagazzinoControl {
         }
     }
 
-    /**
-     * Metodo che crea e associa i pulsanti alle entry della schermata magazzino
-     * @param farmaco entry della schermata magazzino
+    /*
+     * Permette di creare associare i pulsanti alle entry della schermata magazzino
      */
     private void setPulsanti(EntryMagazzinoFarmacia farmaco) {
         Button consegna = new Button("RIMUOVI FARMACO");
@@ -101,7 +101,7 @@ public class VisualizzaMagazzinoControl {
 
     /**
      * Permette di tornare indietro e visualizzare la {@code SchermataPrincipaleFarmacia}
-     * @param substage stage attualmente mostrato
+     * @param substage riferimento alla finestra attualmente mostrata
      */
     public void clickSuIndietro(Stage substage) {
         substage.close();

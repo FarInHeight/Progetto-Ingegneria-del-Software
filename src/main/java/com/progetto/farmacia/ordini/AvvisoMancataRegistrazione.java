@@ -22,12 +22,12 @@ public class AvvisoMancataRegistrazione extends Application {
     private static VerificaRegistrazioniFarmaciControl control;
 
     /**
-     * Costruttore di un oggeto di classe {@code AvvisoMancataRegistrazione}
+     * Istanzia un oggetto di tipo {@code AvvisoMancataRegistrazione}
      */
     public AvvisoMancataRegistrazione(){super();}
 
     /**
-     * Costruttore di un oggetto di classe {@code AvvisoMancataRegistrazione} che prende in input la control che ha creato
+     * Istanzia un oggetto di tipo {@code AvvisoMancataRegistrazione} dato in input la control che ha creato
      * l'avviso
      * @param control control che ha creato l'avviso
      */
@@ -43,8 +43,8 @@ public class AvvisoMancataRegistrazione extends Application {
     }
 
     /**
-     * Metodo utilizzato per visualizzare un avviso {@code AvvisoMancataRegistrazione} a schermo
-     * @param stage stage dell'avviso
+     * Permette di visualizzare un avviso {@code AvvisoMancataRegistrazione} a schermo
+     * @param stage riferimento alla schermata dell'avviso
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override

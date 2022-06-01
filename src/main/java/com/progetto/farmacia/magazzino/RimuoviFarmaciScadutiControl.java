@@ -9,13 +9,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Classe che implementa la control {@code RimuoviFarmaciScadutiControl}
+ * Classe che implementa la control {@code RimuoviFarmaciScadutiControl} che si occupa di gestire la rimozione dei
+ * farmaci scaduti
  */
 public class RimuoviFarmaciScadutiControl {
     private Farmacia farmacia;
     /**
-     * Costruisce un oggetto di classe {@code RimuoviFarmaciScadutiControl}
-     * @param
+     * Istanzia un oggetto di tipo {@code RimuoviFarmaciScadutiControl} data in input la farmacia
+     * @param farmacia farmacia che intende rimuovere i farmaci
      */
     public RimuoviFarmaciScadutiControl(Farmacia farmacia) {
         this.setFarmacia(farmacia);
@@ -28,7 +29,7 @@ public class RimuoviFarmaciScadutiControl {
         this.farmacia = farmacia;
     }
     /**
-     * Metodo di avvio di un oggetto di classe {@code RimuoviFarmaciScadutiControl}
+     * Permette di avviare la control {@code RimuoviFarmaciScadutiControl}
      */
     public void start() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();

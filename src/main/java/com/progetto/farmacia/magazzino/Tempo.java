@@ -22,7 +22,7 @@ public class Tempo {
     }
 
     /**
-     * Metodo per ottenere l'unico oggetto di classe {@code Tempo}
+     * Permette di ottenere l'unico oggetto di classe {@code Tempo}
      * @param farmacia farmacia che ha effettuato il login nel Sistema
      */
     public static Tempo getInstance(Farmacia farmacia) {
@@ -46,7 +46,7 @@ public class Tempo {
     }
 
     /**
-     * Metodo di avvio di un oggetto di classe {@code Tempo}.
+     * Permette di avviare un oggetto di tipo {@code Tempo}.
      */
     public void start() {
         if(this.getCounter() == 0) {
