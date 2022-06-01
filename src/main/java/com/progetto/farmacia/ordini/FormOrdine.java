@@ -19,6 +19,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -34,6 +36,8 @@ public class FormOrdine extends Application implements Initializable {
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
     private static Stage stage;
     private static ArrayList<EntryFormOrdine> farmaci;
+    @FXML
+    private DatePicker data;
     @FXML
     private Text usernameLabel;
 
@@ -124,8 +128,11 @@ public class FormOrdine extends Application implements Initializable {
             int quantita = spinner.getValue();
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage());
-        verCorrOrdCtrl.start();
+        if(this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < 0){
+            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage(), this.data.getValue());
+            verCorrOrdCtrl.start();
+        }
+
     }
 
     /**
