@@ -5,7 +5,6 @@ import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import javafx.scene.control.Spinner;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -190,8 +189,9 @@ public class InterfacciaFarmacia {
             statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             statement.setString(2,nome);
             ResultSet resulFarmaci = statement.executeQuery();
-            resulFarmaci.next();
-            quantita = resulFarmaci.getInt("totale");
+            if (resulFarmaci.next()) {
+                quantita = resulFarmaci.getInt("totale");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -203,32 +203,20 @@ public class InterfacciaFarmacia {
      * Associa all'ordine dei nuovi lotti
      * @param nome nome del farmaco da ordinare
      */
-    public void prenotaOrdine(String nome) {
+    public void prenotaOrdineDaBanco(String nome) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+
+            //Ottengo l'ultimo id ordine
+            int ultimoIdOrdine = this.getLastIdOrdine();
+
             //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,null,1,3,0,null,?)");
-            statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,null,1,3,0,null,?)");
+            statement.setInt(1,ultimoIdOrdine+1);
+            statement.setInt(2,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             statement.executeUpdate();
 
-            //Ottengo il nuovo id
-            Statement statementOrdine = connection.createStatement();
-            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
-                    "from ordine " +
-                    "order by id_ordine desc " +
-                    "limit 1");
-            ultimoOrdine.next();
-            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
-
-
-            //Aggiungo il lotto vuoto
-            //Ottengo l'ultimo id
-            Statement statementLotto = connection.createStatement();
-            ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
-                    "from lotto " +
-                    "order by id_lotto desc " +
-                    "limit 1");
-            ultimoLotto.next();
-            int ultimoIdLotto = ultimoLotto.getInt("id_lotto");
+            //Ottengo l'ultimo id lotto
+            int ultimoIdLotto = getLastIdLotto();
 
             //aggiungo il lotto vuoto
             statement = connection.prepareStatement("insert into lotto values (?,null,0,0,?)");
@@ -238,7 +226,7 @@ public class InterfacciaFarmacia {
 
             //collego il lotto all'ordine
             statement = connection.prepareStatement("insert into composizione values (200,?,?)");
-            statement.setInt(1,ultimoIdOrdine);
+            statement.setInt(1,ultimoIdOrdine+1);
             statement.setInt(2,ultimoIdLotto+1);
             statement.executeUpdate();
 
@@ -247,6 +235,42 @@ public class InterfacciaFarmacia {
         }
     }
 
+    private int getLastIdOrdine() {
+        int lastId = 0;
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")) {
+            Statement statementOrdine = connection.createStatement();
+            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
+                    "from ordine " +
+                    "order by id_ordine desc " +
+                    "limit 1");
+            if (ultimoOrdine.next()) {
+                lastId = ultimoOrdine.getInt("id_ordine");
+            }
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        return lastId;
+    }
+
+    private int getLastIdLotto() {
+        int lastId = 0;
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")) {
+            Statement statementLotto = connection.createStatement();
+            ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
+                    "from lotto " +
+                    "order by id_lotto desc " +
+                    "limit 1");
+            if (ultimoLotto.next()) {
+                lastId = ultimoLotto.getInt("id_lotto");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastId;
+    }
+
+
+
     /**
      * Aggiunge un ordine non periodico in prenotazione con quantita e farmaco specificato in input
      * Associa all'ordine dei nuovi lotti
@@ -254,14 +278,8 @@ public class InterfacciaFarmacia {
      */
     public void prenotaOrdineNonPeriodico(ArrayList<Farmaco> farmaci) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
-            //Ottengo il nuovo id
-            Statement statementOrdine = connection.createStatement();
-            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
-                    "from ordine " +
-                    "order by id_ordine desc " +
-                    "limit 1");
-            ultimoOrdine.next();
-            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
+            //Ottengo il nuovo id ordine
+            int ultimoIdOrdine = getLastIdOrdine();
 
             //Inserisco l'Ordine
             PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,2,3,0,null,?)");
@@ -270,14 +288,8 @@ public class InterfacciaFarmacia {
             statement.setInt(3,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             statement.executeUpdate();
 
-            //Ottengo l'ultimo id
-            Statement statementLotto = connection.createStatement();
-            ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
-                    "from lotto " +
-                    "order by id_lotto desc " +
-                    "limit 1");
-            ultimoLotto.next();
-            int ultimoIdLotto = ultimoLotto.getInt("id_lotto");
+            //Ottengo l'ultimo id lotto
+            int ultimoIdLotto = getLastIdLotto();
 
             for(Farmaco farmaco:farmaci) {
                 ultimoIdLotto++;
@@ -302,71 +314,14 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * Aggiunge un ordine in elaborazione
-     * Associa all'ordine dei lotti
-     * @param ordine ordine da aggiungere
-     * @param lotti lotti da collegare all'ordine
-     * @param farmaci farmaci contenuti nell'ordine
-     */
-    public void elaboraOrdineNonPeriodico(Ordine ordine, ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
-            //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,?,2,1,0,null,?)");
-            statement.setDate(1, Date.valueOf(ordine.getDataConsegna()));
-            statement.setInt(2, SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
-            statement.executeUpdate();
-
-            //Ottengo il nuovo id
-            Statement statementOrdine = connection.createStatement();
-            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
-                    "from ordine " +
-                    "order by id_ordine desc " +
-                    "limit 1");
-            ultimoOrdine.next();
-            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
-
-            //collego i lotti all'ordine
-            for (Farmaco farmaco : farmaci) {
-                for (Lotto lotto : lotti) {
-                    if (lotto.getNomeFarmaco().compareTo(farmaco.getNome()) == 0) {
-                        if (lotto.getQuantitaContenuta() - lotto.getQuantitaOrdinata() > farmaco.getQuantita()) {
-                            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
-                            statement.setInt(1, farmaco.getQuantita());
-                            statement.setInt(2, ultimoIdOrdine);
-                            statement.setInt(3, lotto.getIdLotto());
-                            statement.executeUpdate();
-                        } else {
-                            farmaco.setQuantita(farmaco.getQuantita()-(lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata()));
-                            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
-                            statement.setInt(1, lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
-                            statement.setInt(2, ultimoIdOrdine);
-                            statement.setInt(3, lotto.getIdLotto());
-                            statement.executeUpdate();
-                        }
-                    }
-                }
-            }
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Crea un ordine in stato di eleaborazione
      * @param lottiDisponibili lotti disponibili nel magazzino dell'azienda
      * @param farmaciDisponibili farmaci disponibili nel magazzino dell'azienda
      */
     public void elaboraOrdine(ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
-            //Ottengo l'id da associare
-            Statement statementOrdine = connection.createStatement();
-            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
-                    "from ordine " +
-                    "order by id_ordine desc " +
-                    "limit 1");
-            ultimoOrdine.next();
-            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
+            //Ottengo l'id dell'ordine
+            int ultimoIdOrdine = getLastIdOrdine();
 
             //Inserisco l'Ordine
             PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,2,1,0,null,?)");
@@ -403,7 +358,7 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * Aggiorna i lotti nel magazzino dell'azienda
+     * Aggiorna la quantita di farmaci ordinati nei lotti nel magazzino dell'azienda
      * @param lotti lotti da aggiornare
      * @param farmaci farmaci contenuti negli ordini
      */
@@ -514,13 +469,6 @@ public class InterfacciaFarmacia {
                 ResultSet risultatoComposizioneEliminazione = composizione.executeQuery();
                 while (risultatoComposizioneEliminazione.next()) {
                     int idLotto = risultatoComposizioneEliminazione.getInt("lotto_id_lotto");
-                    //Rimuovo la composizione
-                    PreparedStatement composizioneEliminazione = connection.prepareStatement("delete from composizione " +
-                            "where ordine_id_ordine = ? and lotto_id_lotto = ?");
-                    composizioneEliminazione.setInt(1,idOrdine);
-                    composizioneEliminazione.setInt(2,idLotto);
-                    composizioneEliminazione.executeUpdate();
-
                     //elimino i lotti associati
                     PreparedStatement lottoNuovo = connection.prepareStatement("delete from lotto where id_lotto = ?");
                     lottoNuovo.setInt(1, idLotto);

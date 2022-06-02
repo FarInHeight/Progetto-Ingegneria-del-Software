@@ -117,39 +117,27 @@ public class InterfacciaCorriere {
     }
 
     /**
-     * Crea un ordine in stato di elaborazione a partire ad un ordine consegnato
+     * Crea un ordine in stato di prenotazione a partire ad un ordine consegnato
      * @param ordine ordine consegnato
      */
     public void prenotaOrdine(Ordine ordine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
+
+            //Ottengo il nuovo id ordine
+            int ultimoIdOrdine = getLastIdOrdine();
             //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("insert into ordine values (null,null,?,3,?,null,?)");
-            statement.setInt(1,ordine.getTipo());
-            statement.setInt(2,ordine.getPeriodo());
-            statement.setInt(3,ordine.getIdFarmacia());
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,null,?,3,?,null,?)");
+            statement.setInt(1,ultimoIdOrdine+1);
+            statement.setInt(2,ordine.getTipo());
+            statement.setInt(3,ordine.getPeriodo());
+            statement.setInt(4,ordine.getIdFarmacia());
             statement.executeUpdate();
-
-            //Ottengo il nuovo id
-            Statement statementOrdine = connection.createStatement();
-            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
-                    "from ordine " +
-                    "order by id_ordine desc " +
-                    "limit 1");
-            ultimoOrdine.next();
-            int ultimoIdOrdine = ultimoOrdine.getInt("id_ordine");
-
 
             //Aggiungo i lotti vuoti
             ArrayList<LottoOrdinato> lottiDaPrenotare = ordine.getLottiContenuti();
             for (LottoOrdinato lotto : lottiDaPrenotare) {
-                //Ottengo l'ultimo id
-                Statement statementLotto = connection.createStatement();
-                ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
-                        "from lotto " +
-                        "order by id_lotto desc " +
-                        "limit 1");
-                ultimoLotto.next();
-                int ultimoIdLotto = ultimoLotto.getInt("id_lotto");
+                //Ottengo l'ultimo id lotto
+                int ultimoIdLotto = getLastIdLotto();
 
                 //aggiungo il lotto vuoto
                 statement = connection.prepareStatement("insert into lotto values (?,?,0,0,?)");
@@ -161,13 +149,47 @@ public class InterfacciaCorriere {
                 //collego il lotto all'ordine
                 statement = connection.prepareStatement("insert into composizione values (?,?,?)");
                 statement.setInt(1,lotto.getQuantitaOrdine());
-                statement.setInt(2,ultimoIdOrdine);
+                statement.setInt(2,ultimoIdOrdine+1);
                 statement.setInt(3,ultimoIdLotto+1);
                 statement.executeUpdate();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private int getLastIdOrdine() {
+        int lastId = 0;
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")) {
+            Statement statementOrdine = connection.createStatement();
+            ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
+                    "from ordine " +
+                    "order by id_ordine desc " +
+                    "limit 1");
+            if (ultimoOrdine.next()) {
+                lastId = ultimoOrdine.getInt("id_ordine");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastId;
+    }
+
+    private int getLastIdLotto() {
+        int lastId = 0;
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")) {
+            Statement statementLotto = connection.createStatement();
+            ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
+                    "from lotto " +
+                    "order by id_lotto desc " +
+                    "limit 1");
+            if (ultimoLotto.next()) {
+                lastId = ultimoLotto.getInt("id_lotto");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastId;
     }
 
 }

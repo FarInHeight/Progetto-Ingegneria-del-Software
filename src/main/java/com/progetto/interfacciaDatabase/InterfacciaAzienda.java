@@ -95,7 +95,7 @@ public class InterfacciaAzienda {
         ArrayList<Ordine> ordini = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             Statement statement = connection.createStatement();
-            ResultSet resultOrdini = statement.executeQuery("select * from ordine,composizione,lotto,farmacia where stato = 3 AND id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto AND id_farmacia = farmacia_id_farmacia ORDER BY id_ordine");
+            ResultSet resultOrdini = statement.executeQuery("select * from ordine,composizione,lotto where stato = 3 AND id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto ORDER BY id_ordine");
             int previousID = -1;
             while(resultOrdini.next()) {
                 if (previousID == resultOrdini.getInt("id_ordine")) {
