@@ -29,7 +29,7 @@ public class VerificaEsaurimentoFarmaciControl {
         for (Farmaco farmaco : farmaci) {
             if (farmaco.getQuantita() < 50) {
                 if (db.controllaQuantitaOrdinata(farmaco.getNome()) < 200 ){
-                    db.prenotaOrdine(farmaco.getNome());
+                    db.prenotaOrdineDaBanco(farmaco.getNome());
                 }
             }
         }
