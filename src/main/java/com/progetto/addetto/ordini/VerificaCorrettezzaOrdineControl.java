@@ -25,10 +25,15 @@ public class VerificaCorrettezzaOrdineControl {
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
     private LinkedList<Lotto> lotti;  //lotti presentin nel magazzino azienda
 
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Farmaco> farmaciParzialmenteDisponibili; //farmaci con disponibilità parziale
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Lotto> lottiParzialmenteDisponibili; //lotti relativi a farmaci con disponibilità parziale
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Farmaco> farmaciDisponibili;  //farmaci disponibili
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Lotto> lottiDisponibili;  //lotti relativi a farmaci disponibili
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Farmaco> farmaciNonDisponibili;  //farmaci non disponibili
 
     /**

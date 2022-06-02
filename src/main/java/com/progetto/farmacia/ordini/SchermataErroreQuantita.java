@@ -69,6 +69,7 @@ public class SchermataErroreQuantita extends Application {
      * la correttezza di un ordine
      * @param control
      */
+    @SuppressWarnings("JavadocDeclaration")
     public SchermataErroreQuantita(VerificaCorrettezzaOrdineControl control) {
         this.setControl(control);
     }

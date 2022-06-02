@@ -22,8 +22,7 @@ import java.util.ArrayList;
  */
 public class CreaOrdineControl{
     private Farmacia farmacia;
-
-    private ListaOrdini refListaOrdini;
+    @SuppressWarnings("FieldCanBeLocal")
     private ActionEvent event;
     private Stage stage;
     private FormOrdine formOrdine;
@@ -34,10 +33,9 @@ public class CreaOrdineControl{
     /**
      * Istanzia un oggetto di tipo {@code CreaOrdineControl} dati in input la farmacia e l'evento di pressione del tasto crea ordine
      * @param event evento di pressione del pulsante crea ordine
-     * @throws IOException se il caricamento del file fxml della schermata non è andato a buon fine
      */
 
-    public CreaOrdineControl(Farmacia farmacia, ActionEvent event) throws IOException{
+    public CreaOrdineControl(Farmacia farmacia, ActionEvent event) {
         this.setFarmacia(farmacia);
         this.setEvent(event);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

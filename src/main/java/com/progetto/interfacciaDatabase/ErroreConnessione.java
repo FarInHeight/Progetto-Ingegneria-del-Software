@@ -19,10 +19,9 @@ public class ErroreConnessione extends Application {
     /**
      * Permette di mostrare la schermata di errore
      * @param stage oggett di tipo {@code stage} della schermata
-     * @throws IOException se non è possibile caricare il file {@code fxml} della schermata di errore
      */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Connessione interrotta. Riprova più tardi");
         alert.setTitle("Connessione Interrotta");

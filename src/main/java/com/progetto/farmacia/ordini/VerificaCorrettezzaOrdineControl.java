@@ -3,14 +3,7 @@ package com.progetto.farmacia.ordini;
 import com.progetto.entity.*;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -27,6 +20,7 @@ public class VerificaCorrettezzaOrdineControl {
     private Stage stage; //stage del form ordine
     private Farmacia farmacia;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private ListaOrdini refListaOrdini;  //riferimento a lista ordini
 
     private EntryListaOrdini entry;  // entry dell'ordine eventuale da eliminare
@@ -34,10 +28,15 @@ public class VerificaCorrettezzaOrdineControl {
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
     private LinkedList<Lotto> lotti;  //lotti presenti nel magazzino azienda
 
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Farmaco> farmaciParzialmenteDisponibili; //farmaci con disponibilità parziale
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Lotto> lottiParzialmenteDisponibili; //lotti relativi a farmaci con disponibilità parziale
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Farmaco> farmaciDisponibili;  //farmaci disponibili
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Lotto> lottiDisponibili;  //lotti relativi a farmaci disponibili
+    @SuppressWarnings("FieldMayBeFinal")
     private ArrayList<Farmaco> farmaciNonDisponibili;  //farmaci non disponibili
     private ArrayList<String> farmaciScadenza;  //farmaci non disponibili
     private LocalDate dataConsegna;

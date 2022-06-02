@@ -2,7 +2,6 @@ package com.progetto.interfacciaDatabase;
 import com.progetto.entity.AddettoAzienda;
 import com.progetto.entity.Corriere;
 import com.progetto.entity.Farmacia;
-import javax.security.auth.login.CredentialException;
 import java.sql.*;
 
 

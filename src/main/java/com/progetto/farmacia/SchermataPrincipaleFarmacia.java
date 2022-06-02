@@ -120,6 +120,7 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(SchermataPrincipaleFarmacia.farmacia.getNome());

@@ -15,6 +15,7 @@ public class MainAzienda {
      * metodo che permette di avviare il sistema di rifornimento dell'azienda
      * @param args
      */
+    @SuppressWarnings("JavadocDeclaration")
     public static void main(String[] args) {
 
         Timer timer = new Timer();

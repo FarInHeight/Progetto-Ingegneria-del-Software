@@ -109,6 +109,7 @@ public class RegistrazioneFarmaciRicevutiControl {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private String controllaQuantita(ArrayList<Farmaco> farmaciConsegnati, ArrayList<EntryMagazzinoFarmacia> farmaciCaricati ) {
         String farmaciMancanti = "";
         for(int i=0; i<farmaciCaricati.size(); i++) {

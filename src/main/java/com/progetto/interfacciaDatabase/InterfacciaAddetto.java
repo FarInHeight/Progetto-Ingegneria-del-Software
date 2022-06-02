@@ -120,6 +120,7 @@ public class InterfacciaAddetto {
      * @param lotti lotti da aggiornare
      * @param farmaci farmaci contenuti negli ordini
      */
+    @SuppressWarnings("IfStatementWithIdenticalBranches")
     public void aggiornaLotti(ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             //Inserisco l'Ordine
@@ -158,6 +159,7 @@ public class InterfacciaAddetto {
      * @param farmaci farmaci contenuti nell'ordine
      * @param idFarmacia ID della farmacia per cui si sta creando l'ordine
      */
+    @SuppressWarnings("IfStatementWithIdenticalBranches")
     public void elaboraOrdineNonPeriodico(Ordine ordine, ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci, int idFarmacia) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             //Inserisco l'Ordine

@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class VerificaEsaurimentoFarmaciControl {
 
+    @SuppressWarnings("FieldMayBeFinal")
     private InterfacciaFarmacia db;
 
     /**

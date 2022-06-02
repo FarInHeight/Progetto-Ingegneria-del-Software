@@ -168,6 +168,7 @@ public class ListaOrdini extends Application implements Initializable {
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ListaOrdini.farmacia.getNome());
@@ -246,9 +247,8 @@ public class ListaOrdini extends Application implements Initializable {
     /**
      * Permette di caricare un ordine dalla {@code ListaOrdini} e creare la control {@code RegistrazioneFarmaciRicevutiControl}
      * @param entry entry da caricare
-     * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
-    public void caricaOrdine (EntryListaOrdini entry) throws IOException{
+    public void caricaOrdine (EntryListaOrdini entry) {
         RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl = new RegistrazioneFarmaciRicevutiControl(entry, this.stage);
         registrazioneFarmaciRicevutiControl.start();
     }

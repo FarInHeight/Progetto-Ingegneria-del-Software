@@ -10,6 +10,7 @@ import javafx.scene.layout.FlowPane;
 public class EntryListaSpedizioni {
 
     private Ordine ordine;
+    @SuppressWarnings("FieldMayBeFinal")
     private FlowPane strumenti;
 
     /**

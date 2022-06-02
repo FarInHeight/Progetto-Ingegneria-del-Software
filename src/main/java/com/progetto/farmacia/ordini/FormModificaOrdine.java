@@ -1,7 +1,6 @@
 package com.progetto.farmacia.ordini;
 
 import com.progetto.entity.*;
-import com.progetto.farmacia.magazzino.SchermataMagazzino;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -144,6 +143,7 @@ public class FormModificaOrdine extends Application implements Initializable {
         FormModificaOrdine.control.clickSuIndietro(stage);
     }
 
+    @SuppressWarnings("unchecked")
     @FXML
     private void invia(ActionEvent event){
         ArrayList<Farmaco> farmaci = new ArrayList<>();
@@ -222,6 +222,7 @@ public class FormModificaOrdine extends Application implements Initializable {
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(FormModificaOrdine.farmacia.getNome());
@@ -237,7 +238,7 @@ public class FormModificaOrdine extends Application implements Initializable {
             this.aggungiFarmaciButton.setManaged(false);
         }
         //converti entry lista ordini in entry form ordine
-        ArrayList<Farmaco> farmaciEntry = this.entry.getFarmaci();
+        ArrayList<Farmaco> farmaciEntry = FormModificaOrdine.entry.getFarmaci();
         for(Farmaco farmaco : farmaciEntry){
             EntryFormOrdine e = new EntryFormOrdine(farmaco.getNome(),farmaco.getPrincipioAttivo());
             FormModificaOrdine.farmaci.add(e);

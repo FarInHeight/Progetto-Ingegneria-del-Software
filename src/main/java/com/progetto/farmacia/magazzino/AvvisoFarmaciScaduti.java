@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
@@ -102,6 +101,7 @@ public class AvvisoFarmaciScaduti extends Application implements Initializable {
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.farmaciScadutiText.setText(AvvisoFarmaciScaduti.farmaciScaduti);

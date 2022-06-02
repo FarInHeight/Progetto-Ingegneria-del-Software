@@ -98,7 +98,7 @@ public class FormOrdine extends Application implements Initializable {
      * @return stage della lista
      */
     Stage getStage(){
-        return this.stage;
+        return FormOrdine.stage;
     }
 
     @FXML
@@ -113,6 +113,7 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.control.clickSuIndietro(stage);
     }
 
+    @SuppressWarnings("unchecked")
     @FXML
     private void invia(ActionEvent event){
         ArrayList<Farmaco> farmaci = new ArrayList<>();
@@ -172,6 +173,7 @@ public class FormOrdine extends Application implements Initializable {
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(FormOrdine.farmacia.getNome());

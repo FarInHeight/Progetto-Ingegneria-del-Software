@@ -34,7 +34,6 @@ public class ModificaOrdineControl {
     /**
      * Istanzia un oggetto di tipo {@code ModificaOrdineControl}
      * @param stage stage della schermata lista ordini
-     * @throws IOException se il caricamento del file fxml della schermata non è andato a buon fine
      */
     public ModificaOrdineControl(Farmacia farmacia, EntryListaOrdini entry, Stage stage, ListaOrdini refListaOrdini){
         this.setFarmacia(farmacia);

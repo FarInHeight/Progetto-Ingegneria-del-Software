@@ -111,6 +111,7 @@ public class VerificaRegistrazioniFarmaciControl {
         stage.close();
         this.start();
     }
+    @SuppressWarnings("RedundantIfStatement")
     private void checkPerContinuare() {
         this.lista = this.db.getOrdiniNonCaricati(this.farmacia.getIdFarmacia());
         if( ! lista.isEmpty() ) {
@@ -128,10 +129,6 @@ public class VerificaRegistrazioniFarmaciControl {
      * @param entry entry sulla quale si preme il pulsante
      */
     void clickSuCarica(EntryListaOrdini entry) {
-        try {
-            this.listaOrdini.caricaOrdine(entry);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.listaOrdini.caricaOrdine(entry);
     }
 }

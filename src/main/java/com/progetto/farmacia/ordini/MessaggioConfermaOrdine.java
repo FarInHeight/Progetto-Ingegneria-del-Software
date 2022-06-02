@@ -1,14 +1,11 @@
 package com.progetto.farmacia.ordini;
 
-import com.progetto.addetto.segnalazioni.RichiestaConfermaRimozione;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Screen;

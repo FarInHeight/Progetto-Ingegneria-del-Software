@@ -330,6 +330,7 @@ public class InterfacciaFarmacia {
      * @param lottiDisponibili lotti disponibili nel magazzino dell'azienda
      * @param farmaciDisponibili farmaci disponibili nel magazzino dell'azienda
      */
+    @SuppressWarnings("IfStatementWithIdenticalBranches")
     public void elaboraOrdine(ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili, LocalDate dataConsegna) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             //Ottengo l'id dell'ordine
@@ -375,6 +376,7 @@ public class InterfacciaFarmacia {
      * @param lotti lotti da aggiornare
      * @param farmaci farmaci contenuti negli ordini
      */
+    @SuppressWarnings("IfStatementWithIdenticalBranches")
     public void aggiornaLotti(ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             PreparedStatement statement = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
@@ -550,6 +552,7 @@ public class InterfacciaFarmacia {
      * Inserisce nel database della catena farmaceutica i farmaci caricati
      * @param farmaciCaricati farmaci caricati
      */
+    @SuppressWarnings("unchecked")
     public void caricaFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaciCaricati) {
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){

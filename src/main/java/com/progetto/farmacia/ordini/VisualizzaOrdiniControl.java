@@ -24,6 +24,7 @@ import java.util.ArrayList;
  */
 public class VisualizzaOrdiniControl {
     private Farmacia farmacia;
+    @SuppressWarnings("FieldCanBeLocal")
     private ActionEvent event;
     private Stage stage;
     private ListaOrdini listaOrdini;
@@ -180,11 +181,7 @@ public class VisualizzaOrdiniControl {
      * @param entry ordine da caricare
      */
     void clickSuCarica(EntryListaOrdini entry) {
-        try {
-            this.listaOrdini.caricaOrdine(entry);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.listaOrdini.caricaOrdine(entry);
     }
 
     /**

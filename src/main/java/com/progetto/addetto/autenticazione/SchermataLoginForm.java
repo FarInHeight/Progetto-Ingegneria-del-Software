@@ -23,7 +23,7 @@ public class SchermataLoginForm extends Application {
     private PasswordField password;
     @FXML
     //verifica le credenziali inserite
-    private void login(ActionEvent event) throws IOException{
+    private void login(ActionEvent event) {
         AutenticazioneAddettoControl autAddettoCtrl = new AutenticazioneAddettoControl(this.id, this.password, event);
         autAddettoCtrl.start();
     }
@@ -58,6 +58,7 @@ public class SchermataLoginForm extends Application {
      * Permette di avviare la procedura di login
      * @param args
      */
+    @SuppressWarnings("JavadocDeclaration")
     public static void main(String[] args) {
         launch();
     }
