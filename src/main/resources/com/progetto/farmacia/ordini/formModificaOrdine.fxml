@@ -61,7 +61,7 @@
                <center>
                   <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="190.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Text fx:id="periodoLabel" layoutX="31.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Periodo (in giorni)" visible="false">
+                        <Text fx:id="periodoLabel" layoutX="31.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Periodo (in settimane)" visible="false">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
