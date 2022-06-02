@@ -135,7 +135,6 @@ public class RegistrazioneFarmaciRicevutiControl {
      * @param substage sotto-stage della ListaOrdini da distruggere
      */
     void clickSuChiudi(Stage substage) {
-        ListaOrdini.getOrdini().remove(this.entry);
         this.stageRegistrazioneFarmaci.close();
         substage.close();
         ListaOrdini.update();

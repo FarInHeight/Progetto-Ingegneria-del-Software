@@ -119,14 +119,7 @@ public class VisualizzaOrdiniControl {
      * Permette di avviare la control che gestisce la visualizzazione degli ordini della farmacia
      */
     public void start() {
-        InterfacciaFarmacia db = new InterfacciaFarmacia();
-        ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
-        ArrayList<EntryListaOrdini> listaDaVisualizzare = new ArrayList<>();
-        for(EntryListaOrdini entry : ordini) {
-            EntryListaOrdini newEntry = this.entryDaCompattare(entry);
-            this.setPulsanti(newEntry);
-            listaDaVisualizzare.add(newEntry);
-        }
+        ArrayList<EntryListaOrdini> listaDaVisualizzare = this.getOrdiniDaVisualizzare();
         this.stage.hide();
         this.listaOrdini = new ListaOrdini(this.farmacia, listaDaVisualizzare, this);
         try {
@@ -136,6 +129,17 @@ public class VisualizzaOrdiniControl {
         }
     }
 
+    public ArrayList<EntryListaOrdini> getOrdiniDaVisualizzare() {
+        InterfacciaFarmacia db = new InterfacciaFarmacia();
+        ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
+        ArrayList<EntryListaOrdini> listaDaVisualizzare = new ArrayList<>();
+        for(EntryListaOrdini entry : ordini) {
+            EntryListaOrdini newEntry = this.entryDaCompattare(entry);
+            this.setPulsanti(newEntry);
+            listaDaVisualizzare.add(newEntry);
+        }
+        return listaDaVisualizzare;
+    }
     private EntryListaOrdini entryDaCompattare(EntryListaOrdini entry) {
         Ordine ordine = new Ordine(entry.getIdOrdine(), entry.getOrdine().getStato(), new ArrayList<>(), entry.getOrdine().getTipo(), entry.getOrdine().getPeriodo(), entry.getOrdine().getDataConsegna(), entry.getOrdine().getNomeFarmacia(), entry.getOrdine().getIndirizzoConsegna());
         EntryListaOrdini newEntry = new EntryListaOrdini(ordine);

@@ -21,21 +21,10 @@ import java.io.IOException;
  */
 public class MessaggioConfermaOrdine extends Application {
 
-    private static VerificaCorrettezzaOrdineControl control;
-
     /**
      * Istanzia un oggetto di tipo {@code MessaggioConfermaOrdine}
      */
     public MessaggioConfermaOrdine(){super();}
-
-    /**
-     * Istanzia un oggetto di tipo {@code MessaggioConfermaOrdine} data in input la control che permette di verificare
-     * la correttezza dell'ordine
-     * @param verificaCorrettezzaOrdineControl control che permette di verificare la correttezza dell'ordine
-     */
-    public MessaggioConfermaOrdine(VerificaCorrettezzaOrdineControl verificaCorrettezzaOrdineControl) {
-        control = verificaCorrettezzaOrdineControl;
-    }
 
     /**
      * Permette di visualizzare il {@code MessaggioConfermaOrdine}

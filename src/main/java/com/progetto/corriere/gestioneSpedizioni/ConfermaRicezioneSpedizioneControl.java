@@ -111,7 +111,7 @@ public class ConfermaRicezioneSpedizioneControl {
         for (LottoOrdinato lotto : lotti) {
             db.rimuoviLottiConsegnati(lotto);
         }
-        if (spedizione.getOrdine().getTipo() == 1) {
+        if (spedizione.getOrdine().getTipo() == 1 && spedizione.getOrdine().getPeriodo() != 0) {
             db.prenotaOrdine(spedizione.getOrdine());
         }
         ListaSpedizioni.getSpedizioni().remove(spedizione);

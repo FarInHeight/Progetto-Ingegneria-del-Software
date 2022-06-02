@@ -173,6 +173,7 @@ public class VerificaCorrettezzaOrdineControl {
                     break;
                 }
             }
+
         }
 
         return farmaciNonDisponibili.size() == 0;
@@ -217,23 +218,14 @@ public class VerificaCorrettezzaOrdineControl {
         //Metto i farmaci restanti in un ordine prenotato
         db.prenotaOrdineNonPeriodico(this.farmaciNonDisponibili, this.dataConsegna);
 
-        //Se siamo in modifica rimuove l'ordine precedente e ritorna i farmaci ai lotti
+        //Se siamo in modifica aggiorniamo la lista ordini
         if (this.entry != null) {
-            db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
-            db.cancellaOrdine(this.entry.getIdOrdine());
-
             //aggiornamento lista ordini
-            ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
-            ListaOrdini.getOrdini().clear();
-            for (EntryListaOrdini entry : ordini) {
-                this.setPulsanti(entry);
-                ListaOrdini.getOrdini().add(entry);
-            }
             ListaOrdini.update();
         }
 
         //Mostra il messaggio di conferma
-        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(this);
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
         try {
             messaggioConfermaOrdine.start(this.stage);
         } catch (IOException e) {
@@ -243,27 +235,17 @@ public class VerificaCorrettezzaOrdineControl {
 
     private void effettuaOrdine() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
-
+        //Creo l'ordine
         db.elaboraOrdine(this.lottiDisponibili, this.farmaciDisponibili, this.dataConsegna);
         db.aggiornaLotti(this.lottiDisponibili, this.farmaciDisponibili);
 
-        //Se siamo in modifica rimuove l'ordine precedente e ritorna i farmaci ai lotti
+        //Se siamo in modifica aggiorno la lista ordini
         if (this.entry != null) {
-            db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
-            db.cancellaOrdine(this.entry.getIdOrdine());
-
-            //aggiornamento lista ordini
-            ArrayList<EntryListaOrdini> ordini = db.getOrdini(this.farmacia.getIdFarmacia());
-            ListaOrdini.getOrdini().clear();
-            for (EntryListaOrdini entry : ordini) {
-                this.setPulsanti(entry);
-                ListaOrdini.getOrdini().add(entry);
-            }
             ListaOrdini.update();
         }
 
         //Mostra il messaggio di conferma
-        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(this);
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
         try {
             messaggioConfermaOrdine.start(this.stage);
         } catch (IOException e) {
@@ -295,6 +277,11 @@ public class VerificaCorrettezzaOrdineControl {
     }
 
     public void start() {
+        InterfacciaFarmacia db = new InterfacciaFarmacia();
+        if (entry != null) {
+            db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
+            db.cancellaOrdine(this.entry.getIdOrdine());
+        }
 
         this.ottieniLotti();
         if (verificaQuantita()) {
@@ -312,59 +299,6 @@ public class VerificaCorrettezzaOrdineControl {
             }
         }
 
-    }
-
-    private void setPulsanti(EntryListaOrdini entry) {
-        // creazione dei pulsanti
-        Button carica = new Button("CARICA");
-        carica.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                VerificaCorrettezzaOrdineControl.this.clickSuCarica(entry);
-            }
-        });
-        carica.setBackground(Background.fill(Color.rgb(38, 180, 27)));
-        carica.setStyle("-fx-text-fill: white");
-        carica.setPrefWidth(80);
-        if(entry.getOrdine().getStato() != 4) {
-            carica.setVisible(false);
-            carica.setManaged(false);
-        }
-        Button modifica = new Button("MODIFICA");
-        modifica.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                VerificaCorrettezzaOrdineControl.this.clickSuModifica(entry);
-            }
-        });
-        modifica.setBackground(Background.fill(Color.rgb(190, 190, 120)));
-        modifica.setStyle("-fx-text-fill: white");
-        modifica.setPrefWidth(80);
-        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getStato() == 4) {
-            modifica.setVisible(false);
-            modifica.setManaged(false);
-        }
-        Button cancella = new Button("CANCELLA");
-        cancella.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                VerificaCorrettezzaOrdineControl.this.clickSuCancella(entry);
-            }
-        });
-        cancella.setBackground(Background.fill(Color.rgb(210, 79, 66)));
-        cancella.setStyle("-fx-text-fill: white");
-        cancella.setPrefWidth(80);
-        // se la data di consegna è entro due giorni successivi oppure l'ordine è periodico
-        if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getTipo() == 1 || entry.getOrdine().getStato() == 4) {
-            cancella.setVisible(false);
-            cancella.setManaged(false);
-        }
-        FlowPane flow = new FlowPane();
-        flow.getChildren().addAll(carica, modifica, cancella);
-        flow.setAlignment(Pos.CENTER);
-        flow.setHgap(10);
-        flow.setVgap(10);
-        entry.setStrumenti(flow);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.progetto.farmacia.ordini;
 
 import com.progetto.entity.*;
 import com.progetto.farmacia.magazzino.SchermataMagazzino;
+import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -146,6 +147,7 @@ public class FormModificaOrdine extends Application implements Initializable {
     @FXML
     private void invia(ActionEvent event){
         ArrayList<Farmaco> farmaci = new ArrayList<>();
+        InterfacciaFarmacia db = new InterfacciaFarmacia();
 
         for(int i = 0;; i++) {
             if(this.lista.getColumns().get(0).getCellData(i) == null){
@@ -159,11 +161,22 @@ public class FormModificaOrdine extends Application implements Initializable {
         }
         int periodo = 0;
         if(entry.getOrdine().getTipo() == 1) {
-            periodo = ((Spinner<Integer>) this.pane.getChildren().get(1)).getValue();
+            periodo = ((Spinner<Integer>) this.pane.getChildren().get(3)).getValue();
         }
         if(FormModificaOrdine.entry.getOrdine().getTipo() == 2 && this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < 0){
             VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormModificaOrdine.farmacia,this.getStage(), FormModificaOrdine.entry,FormModificaOrdine.refListaOrdini,this.data.getValue());
             verCorrOrdCtrl.start();
+        } else if (FormModificaOrdine.entry.getOrdine().getTipo() == 1) {
+            db.modificaOrdinePeriodico(entry.getIdOrdine(),entry.getOrdine().getDataConsegna(),farmaci,periodo);
+            //Modifico la lista
+            ListaOrdini.update();
+            //Mostra il messaggio di conferma
+            MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
+            try {
+                messaggioConfermaOrdine.start(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

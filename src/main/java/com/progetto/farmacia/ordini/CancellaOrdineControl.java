@@ -48,6 +48,5 @@ public class CancellaOrdineControl {
         db.cancellaOrdine(this.entry.getIdOrdine());
         MessaggioConfermaEliminazioneOrdine confermaEliminazione = new MessaggioConfermaEliminazioneOrdine();
         confermaEliminazione.start(this.stage);
-        ListaOrdini.getOrdini().remove(entry);
     }
 }

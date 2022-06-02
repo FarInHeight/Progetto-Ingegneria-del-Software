@@ -101,7 +101,7 @@ public class ListaOrdini extends Application implements Initializable {
         ListaOrdini.farmacia = farmacia;
     }
 
-    private void setOrdini(ArrayList<EntryListaOrdini> ordini) {
+    public void setOrdini(ArrayList<EntryListaOrdini> ordini) {
         if(ordini == null) {
             throw new NullPointerException("Lista di ordini = null");
         }
@@ -196,6 +196,7 @@ public class ListaOrdini extends Application implements Initializable {
      * Permette di aggiornare la {@code ListaOrdini} in base al suo contenuto
      */
     public static void update(){
+        ListaOrdini.ordini = control.getOrdiniDaVisualizzare();
         ListaOrdini.ref.getItems().clear();
         for(EntryListaOrdini entry : ListaOrdini.ordini) {
             ListaOrdini.ref.getItems().add(entry);
@@ -240,7 +241,6 @@ public class ListaOrdini extends Application implements Initializable {
     public void modificaOrdine (EntryListaOrdini entry) throws IOException{
         ModificaOrdineControl modOrdCtrl = new ModificaOrdineControl(ListaOrdini.farmacia,entry,this.stage,this);
         modOrdCtrl.start();
-        update();
     }
 
     /**
@@ -251,7 +251,6 @@ public class ListaOrdini extends Application implements Initializable {
     public void caricaOrdine (EntryListaOrdini entry) throws IOException{
         RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl = new RegistrazioneFarmaciRicevutiControl(entry, this.stage);
         registrazioneFarmaciRicevutiControl.start();
-        update();
     }
 
 }
