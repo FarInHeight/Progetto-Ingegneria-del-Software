@@ -210,9 +210,10 @@ public class InterfacciaFarmacia {
             int ultimoIdOrdine = this.getLastIdOrdine();
 
             //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,null,1,3,0,null,?)");
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,1,3,0,null,?)");
             statement.setInt(1,ultimoIdOrdine+1);
-            statement.setInt(2,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
+            statement.setDate(2,Date.valueOf(LocalDate.now().plusDays(8)));
+            statement.setInt(3,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             statement.executeUpdate();
 
             //Ottengo l'ultimo id lotto
@@ -276,7 +277,7 @@ public class InterfacciaFarmacia {
      * Associa all'ordine dei nuovi lotti
      * @param farmaci farmaci da ordinare
      */
-    public void prenotaOrdineNonPeriodico(ArrayList<Farmaco> farmaci) {
+    public void prenotaOrdineNonPeriodico(ArrayList<Farmaco> farmaci, LocalDate dataConsegna) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")){
             //Ottengo il nuovo id ordine
             int ultimoIdOrdine = getLastIdOrdine();
@@ -284,7 +285,13 @@ public class InterfacciaFarmacia {
             //Inserisco l'Ordine
             PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,2,3,0,null,?)");
             statement.setInt(1,ultimoIdOrdine+1);
-            statement.setDate(2,Date.valueOf(LocalDate.now().plusWeeks(2)));
+            LocalDate dataConsegnaScelta;
+            if (dataConsegna.isAfter(LocalDate.now().plusWeeks(1))) {
+                dataConsegnaScelta = dataConsegna;
+            } else {
+                dataConsegnaScelta = LocalDate.now().plusDays(8);
+            }
+            statement.setDate(2,Date.valueOf(dataConsegnaScelta));
             statement.setInt(3,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             statement.executeUpdate();
 
@@ -318,7 +325,7 @@ public class InterfacciaFarmacia {
      * @param lottiDisponibili lotti disponibili nel magazzino dell'azienda
      * @param farmaciDisponibili farmaci disponibili nel magazzino dell'azienda
      */
-    public void elaboraOrdine(ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili) {
+    public void elaboraOrdine(ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili, LocalDate dataConsegna) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             //Ottengo l'id dell'ordine
             int ultimoIdOrdine = getLastIdOrdine();
@@ -326,7 +333,7 @@ public class InterfacciaFarmacia {
             //Inserisco l'Ordine
             PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,2,1,0,null,?)");
             statement.setInt(1, ultimoIdOrdine+1);
-            statement.setDate(2, Date.valueOf(LocalDate.now().plusDays(7)));
+            statement.setDate(2, Date.valueOf(dataConsegna));
             statement.setInt(3, SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             statement.executeUpdate();
 

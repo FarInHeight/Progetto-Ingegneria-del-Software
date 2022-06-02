@@ -28,8 +28,6 @@ public class VerificaCorrettezzaOrdineControl {
 
     private ListaOrdini refListaOrdini;  //riferimento a lista ordini
 
-    private int periodo;  //periodo dell'eventuale ordine periodico
-
     private EntryListaOrdini entry;  // entry dell'ordine eventuale da eliminare
 
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
@@ -41,8 +39,9 @@ public class VerificaCorrettezzaOrdineControl {
     private ArrayList<Lotto> lottiDisponibili;  //lotti relativi a farmaci disponibili
     private ArrayList<Farmaco> farmaciNonDisponibili;  //farmaci non disponibili
     private ArrayList<String> farmaciScadenza;  //farmaci non disponibili
+    private LocalDate dataConsegna;
 
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage) {
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, LocalDate dataConsegna) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
@@ -51,14 +50,14 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaciDisponibili = new ArrayList<>();
         this.lottiDisponibili = new ArrayList<>();
         this.farmaciNonDisponibili = new ArrayList<>();
+        this.setDataConsegna(dataConsegna);
     }
 
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, int periodo, ListaOrdini refListaOrdini) {
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, ListaOrdini refListaOrdini) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
         this.setEntry(entry);
-        this.setPeriodo(periodo);
         this.setRefListaOrdini(refListaOrdini);
         this.farmaciParzialmenteDisponibili = new ArrayList<>();
         this.lottiParzialmenteDisponibili = new ArrayList<>();
@@ -72,13 +71,6 @@ public class VerificaCorrettezzaOrdineControl {
             throw new NullPointerException("ref lista ordini = null");
         }
         this.refListaOrdini = refListaOrdini;
-    }
-
-    private void setPeriodo(int periodo) {
-        if (periodo < 0) {
-            throw new IllegalArgumentException("periodo < 0");
-        }
-        this.periodo = periodo;
     }
 
     private void setEntry(EntryListaOrdini entry) {
@@ -114,6 +106,13 @@ public class VerificaCorrettezzaOrdineControl {
             throw new NullPointerException("lotti == null");
         }
         this.lotti = lotti;
+    }
+
+    public void setDataConsegna(LocalDate dataConsegna) {
+        if (dataConsegna == null) {
+            throw new NullPointerException("data consegna = null");
+        }
+        this.dataConsegna = dataConsegna;
     }
 
     private void ottieniLotti() {
@@ -211,11 +210,11 @@ public class VerificaCorrettezzaOrdineControl {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
 
         //Creo l'ordine coi farmaci che ci sono
-        db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+        db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.dataConsegna);
         db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
 
         //Metto i farmaci restanti in un ordine prenotato
-        db.prenotaOrdineNonPeriodico(this.farmaciNonDisponibili);
+        db.prenotaOrdineNonPeriodico(this.farmaciNonDisponibili, this.dataConsegna);
 
         //Se siamo in modifica rimuove l'ordine precedente e ritorna i farmaci ai lotti
         if (this.entry != null) {
@@ -244,7 +243,7 @@ public class VerificaCorrettezzaOrdineControl {
     private void effettuaOrdine() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
 
-        db.elaboraOrdine(this.lottiDisponibili, this.farmaciDisponibili);
+        db.elaboraOrdine(this.lottiDisponibili, this.farmaciDisponibili, this.dataConsegna);
         db.aggiornaLotti(this.lottiDisponibili, this.farmaciDisponibili);
 
         //Se siamo in modifica rimuove l'ordine precedente e ritorna i farmaci ai lotti

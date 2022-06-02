@@ -126,8 +126,9 @@ public class InterfacciaCorriere {
             //Ottengo il nuovo id ordine
             int ultimoIdOrdine = getLastIdOrdine();
             //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,null,?,3,?,null,?)");
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,?,3,?,null,?)");
             statement.setInt(1,ultimoIdOrdine+1);
+            statement.setDate(2,Date.valueOf(LocalDate.now().plusWeeks(ordine.getPeriodo())));
             statement.setInt(2,ordine.getTipo());
             statement.setInt(3,ordine.getPeriodo());
             statement.setInt(4,ordine.getIdFarmacia());
