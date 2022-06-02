@@ -53,7 +53,7 @@ public class VerificaCorrettezzaOrdineControl {
         this.setDataConsegna(dataConsegna);
     }
 
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, ListaOrdini refListaOrdini) {
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, ListaOrdini refListaOrdini, LocalDate dataConsegna) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
@@ -64,6 +64,7 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaciDisponibili = new ArrayList<>();
         this.lottiDisponibili = new ArrayList<>();
         this.farmaciNonDisponibili = new ArrayList<>();
+        this.setDataConsegna(dataConsegna);
     }
 
     private void setRefListaOrdini(ListaOrdini refListaOrdini){

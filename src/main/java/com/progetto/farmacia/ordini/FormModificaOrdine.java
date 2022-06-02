@@ -162,7 +162,7 @@ public class FormModificaOrdine extends Application implements Initializable {
             periodo = ((Spinner<Integer>) this.pane.getChildren().get(1)).getValue();
         }
         if(FormModificaOrdine.entry.getOrdine().getTipo() == 2 && this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < 0){
-            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage(), this.data.getValue());
+            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormModificaOrdine.farmacia,this.getStage(), this.data.getValue());
             verCorrOrdCtrl.start();
         }
         //VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage(),FormModificaOrdine.entry,periodo, this.refListaOrdini);
