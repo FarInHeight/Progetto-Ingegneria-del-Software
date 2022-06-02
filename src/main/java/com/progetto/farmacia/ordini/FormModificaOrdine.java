@@ -266,10 +266,9 @@ public class FormModificaOrdine extends Application implements Initializable {
                 quantita = farmaco.getQuantita();
             }
         }
-
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(quantita,Integer.MAX_VALUE,1);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,quantita);
         spinner.setValueFactory(valueFactory);
         spinner.setMaxWidth(100);
         FlowPane flow = new FlowPane();
