@@ -128,7 +128,7 @@ public class FormOrdine extends Application implements Initializable {
             int quantita = spinner.getValue();
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        if(this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < 0){
+        if(this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < -3){
             VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage(), this.data.getValue());
             verCorrOrdCtrl.start();
         }
