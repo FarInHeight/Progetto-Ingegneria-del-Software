@@ -335,40 +335,4 @@ public class VerificaCorrettezzaOrdineControl {
         }
 
     }
-
-    /**
-     * Metodo che viene richiamato quando si fa un click sul pulsante {@code carica} di una entry della {@code ListaOrdini}.
-     * @param entry ordine da caricare
-     */
-    void clickSuCarica(EntryListaOrdini entry) {
-        try {
-            this.refListaOrdini.caricaOrdine(entry);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Metodo che viene richiamato quando si fa un click sul pulsante {@code modifica} di una entry della {@code ListaOrdini}.
-     * @param entry ordine da modificare
-     */
-    void clickSuModifica(EntryListaOrdini entry) {
-        try {
-            this.refListaOrdini.modificaOrdine(entry);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Metodo che viene richiamato quando si fa un click sul pulsante {@code cancella} di una entry della {@code ListaOrdini}.
-     * @param entry ordine da rimuovere
-     */
-    void clickSuCancella(EntryListaOrdini entry) {
-        try {
-            this.refListaOrdini.cancellaOrdine(entry);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
