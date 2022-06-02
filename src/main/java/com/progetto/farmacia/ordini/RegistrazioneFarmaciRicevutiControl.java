@@ -92,7 +92,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     public void clickSuConfermaRegistrazione() {
         ArrayList<Farmaco> farmaciConsegnati = ordine.getFarmaci();
         ArrayList<EntryMagazzinoFarmacia> farmaciCaricati = SchermataRegistrazioneFarmaciForm.getFarmaci();
-        String farmaciMancanti = controllaQuantita(farmaciConsegnati,farmaciCaricati);
+        String farmaciMancanti = controlloQuantita(farmaciConsegnati,farmaciCaricati);
         boolean caricamentoCorretto = farmaciMancanti.equals("");
         db.caricaFarmaci(farmaciCaricati);
         db.modificaStatoInCaricato(this.ordine.getIdOrdine());
@@ -110,7 +110,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     }
 
     @SuppressWarnings("unchecked")
-    private String controllaQuantita(ArrayList<Farmaco> farmaciConsegnati, ArrayList<EntryMagazzinoFarmacia> farmaciCaricati ) {
+    private String controlloQuantita(ArrayList<Farmaco> farmaciConsegnati, ArrayList<EntryMagazzinoFarmacia> farmaciCaricati ) {
         String farmaciMancanti = "";
         for(int i=0; i<farmaciCaricati.size(); i++) {
             int quantitaConsegnata = farmaciConsegnati.get(i).getQuantita();

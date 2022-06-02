@@ -69,7 +69,7 @@ public class Tempo {
             }
             // PER VERIFICA REGISTRAZIONE FARMACI
             if( LocalDate.now().atTime(20, 0).isBefore( LocalDateTime.now() ) ) {
-                this.runVerificaRegistrazioneFarmaci();
+                this.verificaRegistratazione();
             } else {
                 long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(20, 0));
                 Task<Void> sleeper = new Task<Void>() {
@@ -80,7 +80,7 @@ public class Tempo {
                         return null;
                     }
                 };
-                sleeper.setOnSucceeded(event -> Tempo.this.runVerificaRegistrazioneFarmaci());
+                sleeper.setOnSucceeded(event -> Tempo.this.verificaRegistratazione());
                 new Thread(sleeper).start();
             }
 
@@ -109,7 +109,7 @@ public class Tempo {
         control.start();
     }
 
-    private void runVerificaRegistrazioneFarmaci() {
+    private void verificaRegistratazione() {
         VerificaRegistrazioniFarmaciControl control = new VerificaRegistrazioniFarmaciControl(this.farmacia);
         control.start();
     }
