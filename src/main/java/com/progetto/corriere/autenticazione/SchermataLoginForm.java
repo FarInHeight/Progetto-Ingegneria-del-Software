@@ -23,14 +23,14 @@ public class SchermataLoginForm extends Application {
     private PasswordField password;
     @FXML
     //verifica le credenziali inserite
-    private void login(ActionEvent event) throws IOException{
+    private void login(ActionEvent event) {
         AutenticazioneCorriereControl autenticazioneCorriereControl = new AutenticazioneCorriereControl(this.id, this.password, event);
         autenticazioneCorriereControl.start();
     }
 
     /**
      * Permette di mostrare la schermata di login
-     * @param stage oggetto di tipo {@coe Stag} relativo alla schermata
+     * @param stage oggetto di tipo {@code Stage} relativo alla schermata
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
@@ -60,6 +60,7 @@ public class SchermataLoginForm extends Application {
      * Permette di avviare la procedura di login
      * @param args
      */
+    @SuppressWarnings("JavadocDeclaration")
     public static void main(String[] args) {
         launch();
     }

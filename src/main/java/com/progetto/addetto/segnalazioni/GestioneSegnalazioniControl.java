@@ -23,6 +23,7 @@ public class GestioneSegnalazioniControl {
     private AddettoAzienda addetto;
 
     // evento associato al click sul pulsante visualizzaSegnalazioni
+    @SuppressWarnings("FieldCanBeLocal")
     private ActionEvent event;
 
     // stage associato all'evento della schermata principale di addetto

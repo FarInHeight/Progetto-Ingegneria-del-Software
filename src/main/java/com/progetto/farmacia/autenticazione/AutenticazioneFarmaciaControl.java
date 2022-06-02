@@ -30,9 +30,8 @@ public class AutenticazioneFarmaciaControl {
      * @param idFarmacia id della farmacia
      * @param password password inserita dall'utente
      * @param event evento che rappresenta il click del tasto login
-     * @exception IOException se non è possibile caricare il file fxml della schermata dell'errore
      */
-    public AutenticazioneFarmaciaControl(TextField idFarmacia, PasswordField password, ActionEvent event) throws IOException {
+    public AutenticazioneFarmaciaControl(TextField idFarmacia, PasswordField password, ActionEvent event){
         this.setIdFarmacia(idFarmacia);
         this.setPassword(password);
         this.setEvent(event);
@@ -90,6 +89,7 @@ public class AutenticazioneFarmaciaControl {
         }
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     private String creaDigest(String password){
         MessageDigest md = null;
         try {
@@ -103,7 +103,7 @@ public class AutenticazioneFarmaciaControl {
         return hex;  //la stringa ha 64 caratteri
     }
 
-    private Farmacia getCredenziali (int idFarmacia, String password) throws CredentialException {
+    private Farmacia getCredenziali (int idFarmacia, String password) {
         InterfacciaAutenticazione intAut = new InterfacciaAutenticazione();
         return intAut.getCredenzialiFarmacia(idFarmacia, password);
     }

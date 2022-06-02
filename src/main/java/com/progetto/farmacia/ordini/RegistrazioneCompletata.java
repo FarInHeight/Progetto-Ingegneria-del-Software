@@ -40,7 +40,7 @@ public class RegistrazioneCompletata extends Application {
         if (control == null){
             throw new NullPointerException("control = null");
         }
-        this.control = control;
+        RegistrazioneCompletata.control = control;
     }
 
     /**

@@ -145,6 +145,7 @@ public class ElencoFarmaci extends Application implements Initializable {
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ElencoFarmaci.farmacia.getNome());

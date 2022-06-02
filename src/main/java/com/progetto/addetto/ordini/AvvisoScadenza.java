@@ -129,6 +129,7 @@ public class AvvisoScadenza extends Application implements Initializable {
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.farmaciInScadenzaText.setText(AvvisoScadenza.farmaciInScadenza);

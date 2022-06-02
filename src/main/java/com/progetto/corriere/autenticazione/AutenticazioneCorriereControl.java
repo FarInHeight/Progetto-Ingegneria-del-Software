@@ -89,6 +89,7 @@ public class AutenticazioneCorriereControl {
         this.event = event;
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     private String creaDigest(String password){
         MessageDigest md = null;
         try {
@@ -102,7 +103,7 @@ public class AutenticazioneCorriereControl {
         return hex;  //la stringa ha 64 caratteri
     }
 
-    private Corriere getCredenziali (int idCorriere, String password) throws CredentialException {
+    private Corriere getCredenziali (int idCorriere, String password){
         InterfacciaAutenticazione intAut = new InterfacciaAutenticazione();
         return intAut.getCredenzialiCorriere(idCorriere, password);
     }

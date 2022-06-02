@@ -40,8 +40,6 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
 
     private static ModificaOrdineControl control;
 
-    private EntryListaOrdini entry;
-
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
     @FXML
     private TableView<EntryFormOrdine> lista;
@@ -151,6 +149,7 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(ElencoModificaFarmaci.farmacia.getNome());

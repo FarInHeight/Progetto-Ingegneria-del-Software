@@ -31,9 +31,8 @@ public class CreaOrdineControl{
      * @param farmacia farmacia per la quale si vuole creare un ordine
      * @param stage stage della lista delle segnalazioni (utlizzato per tornare indietro quando si clicca sul pulsante
      * {@code indietro} del {@code FormOrdine})
-     * @throws IOException se il caricamento del file {@code fxml} della schermata non è andato a buon fine
      */
-    public CreaOrdineControl(Farmacia farmacia, Stage stage) throws IOException{
+    public CreaOrdineControl(Farmacia farmacia, Stage stage) {
         this.setFarmacia(farmacia);
         this.setStage(stage);
     }
@@ -107,7 +106,7 @@ public class CreaOrdineControl{
      * Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
      * che si trovano nello stesso package.
      * @param stage stage del form
-     * @throws IOException
+     * @throws IOException se il caricamento del filde {@code fxml} non è andato a buon fine
      */
     void clickSuAggungiFarmaci(Stage stage) throws IOException {
         InterfacciaAddetto db = new InterfacciaAddetto();

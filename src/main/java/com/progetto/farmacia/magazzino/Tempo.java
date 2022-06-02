@@ -58,7 +58,7 @@ public class Tempo {
                 long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(18, 0));
                 Task<Void> sleeper = new Task<Void>() {
                     @Override
-                    protected Void call() throws Exception {
+                    protected Void call() {
                         try { Thread.sleep(millis); }
                         catch (InterruptedException e) { }
                         return null;
@@ -74,7 +74,7 @@ public class Tempo {
                 long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(20, 0));
                 Task<Void> sleeper = new Task<Void>() {
                     @Override
-                    protected Void call() throws Exception {
+                    protected Void call() {
                         try { Thread.sleep(millis); }
                         catch (InterruptedException e) { }
                         return null;
@@ -92,7 +92,7 @@ public class Tempo {
                 long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(8, 0));
                 Task<Void> sleeper = new Task<Void>() {
                     @Override
-                    protected Void call() throws Exception {
+                    protected Void call() {
                         try { Thread.sleep(millis); }
                         catch (InterruptedException e) { }
                         return null;

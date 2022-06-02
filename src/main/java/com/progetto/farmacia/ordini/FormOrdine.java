@@ -98,7 +98,7 @@ public class FormOrdine extends Application implements Initializable {
      * @return oggetto di tipo {@code Stage} riferito alla schermata
      */
     Stage getStage(){
-        return this.stage;
+        return FormOrdine.stage;
     }
 
     @FXML
@@ -113,6 +113,7 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.control.clickSuIndietro(stage);
     }
 
+    @SuppressWarnings("unchecked")
     @FXML
     private void invia(ActionEvent event){
         ArrayList<Farmaco> farmaci = new ArrayList<>();
@@ -127,7 +128,7 @@ public class FormOrdine extends Application implements Initializable {
             int quantita = spinner.getValue();
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        if(this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < 0){
+        if(this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < -3){
             VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage(), this.data.getValue());
             verCorrOrdCtrl.start();
         }
@@ -176,6 +177,7 @@ public class FormOrdine extends Application implements Initializable {
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.usernameLabel.setText(FormOrdine.farmacia.getNome());

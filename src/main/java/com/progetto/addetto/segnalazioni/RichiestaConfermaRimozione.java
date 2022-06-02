@@ -110,6 +110,7 @@ public class RichiestaConfermaRimozione extends Application implements Initializ
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.messaggio.setText("Sei sicuro di volere eliminare la segnalazione (ID: " + RichiestaConfermaRimozione.entry.getIdSegnalazione() + ")?");

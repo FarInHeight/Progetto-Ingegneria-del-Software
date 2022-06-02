@@ -87,6 +87,7 @@ public class AutenticazioneAddettoControl {
             exc.printStackTrace();
         }
     }
+    @SuppressWarnings("UnnecessaryLocalVariable")
     private String creaDigest(String password){
         MessageDigest md = null;
         try {
@@ -100,7 +101,7 @@ public class AutenticazioneAddettoControl {
         return hex;  //la stringa ha 64 caratteri
     }
 
-    private AddettoAzienda getCredenziali (int idAddetto, String password) throws CredentialException {
+    private AddettoAzienda getCredenziali (int idAddetto, String password){
         InterfacciaAutenticazione intAut = new InterfacciaAutenticazione();
         return intAut.getCredenzialiAddettoAzienda(idAddetto, password);
     }

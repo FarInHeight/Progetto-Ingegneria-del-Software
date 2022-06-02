@@ -59,6 +59,7 @@ public class SchermataLoginForm extends Application {
      * Permette di avviare la procedura di login
      * @param args
      */
+    @SuppressWarnings("JavadocDeclaration")
     public static void main(String[] args) {
         launch();
     }

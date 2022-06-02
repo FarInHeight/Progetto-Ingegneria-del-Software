@@ -51,7 +51,7 @@ public class VisualizzaMagazzinoControl {
 
     /**
      * Ritorna i farmaci preenti in magazzino
-     * @return oggetto di tipo {@coe ArrayList<EntryMagazzinoFarmacia>} contenente i farmaci presenti in magazzino
+     * @return oggetto di tipo {@code ArrayList<EntryMagazzinoFarmacia>} contenente i farmaci presenti in magazzino
      */
     public ArrayList<EntryMagazzinoFarmacia> getFarmaci() {
         return farmaci;

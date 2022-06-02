@@ -2,9 +2,7 @@ package com.progetto.corriere.gestioneSpedizioni;
 
 import com.progetto.entity.EntryListaSpedizioni;
 import com.progetto.interfacciaDatabase.InterfacciaCorriere;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;

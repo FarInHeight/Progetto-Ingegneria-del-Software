@@ -77,7 +77,7 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         if (ordine==null) {
             throw new NullPointerException("ordine=null");
         }
-        this.ordine=ordine;
+        AvvisoCaricamentoParziale.ordine=ordine;
     }
 
     /**

@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Classe che modella una entry dalla {@code ListaSegnalazioni}
  */
 public class EntryListaSegnalazioni {
+    @SuppressWarnings("FieldMayBeFinal")
     private Segnalazione segnalazione;
     private String riepilogoOrdine;
     private int idFarmacia;

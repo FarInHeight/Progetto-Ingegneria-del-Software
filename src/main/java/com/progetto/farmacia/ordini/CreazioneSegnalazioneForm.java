@@ -61,7 +61,7 @@ public class CreazioneSegnalazioneForm extends Application implements Initializa
     /**
      * Permette di mostrare a schermo il form per creare una segnalazione
      * @param stage riferimento alla finestra corrente
-     * @throws Exception se il caricamento del file {@code fxml} della schermata non è andato a buon fine
+     * @throws IOException se il caricamento del file {@code fxml} della schermata non è andato a buon fine
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -95,6 +95,7 @@ public class CreazioneSegnalazioneForm extends Application implements Initializa
      * @param url
      * @param resourceBundle
      */
+    @SuppressWarnings("JavadocDeclaration")
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.riepilogoOrdine.setText(CreazioneSegnalazioneForm.riepilogo);
