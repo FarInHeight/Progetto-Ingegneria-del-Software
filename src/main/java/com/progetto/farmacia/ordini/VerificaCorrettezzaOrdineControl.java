@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * classe che si occupa di verificare la correttezza di un ordine e rgistrarlo nel dbms
+ * Classe che si occupa di modellare la control {@code VerificaCorrettezzaControl} che si occupa di verificare la correttezza di un ordine e
+ * di registrarlo nel database dell'azienda
  */
 public class VerificaCorrettezzaOrdineControl {
 
@@ -41,6 +42,14 @@ public class VerificaCorrettezzaOrdineControl {
     private ArrayList<String> farmaciScadenza;  //farmaci non disponibili
     private LocalDate dataConsegna;
 
+    /**
+     * Istanzia un oggetto di tipo @code VerificaCorrettezzaControl} dati in input i farmaci da ordinare, la farmacia che ha effettuati l'ordine.
+     * il riferimneto alla schermata del form ordine e la data di consegna deisderata
+     * @param farmaci farmaci da ordinare
+     * @param farmacia farmacia che ha effettuato l'ordine
+     * @param stage riferimento alla schermata del form ordine
+     * @param dataConsegna data consegna desiderata dalla farmacia
+     */
     public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, LocalDate dataConsegna) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
@@ -52,6 +61,17 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaciNonDisponibili = new ArrayList<>();
         this.setDataConsegna(dataConsegna);
     }
+
+    /**
+     * Istanzia un oggetto di tipo @code VerificaCorrettezzaControl} dati in input i farmaci da ordinare, la farmacia che ha effettuato l'ordine,
+     * il riferimneto alla schermata del form ordine, la entry corrispondente all'ordine da modificare, il riferimento alla lista ordini e la data di consegna deisderata
+     * @param farmaci farmaci da ordinare
+     * @param farmacia farmacia che ha effettuato l'ordine
+     * @param stage riferimento alla schermata del form ordine
+     * @param entry entry della lista ordini relativa all'ordine da modificare
+     * @param refListaOrdini riferimento alla lista ordini
+     * @param dataConsegna data di consegna desiderata dalla farmacia
+     */
 
     public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, ListaOrdini refListaOrdini, LocalDate dataConsegna) {
         this.setStage(stage);
@@ -253,6 +273,11 @@ public class VerificaCorrettezzaOrdineControl {
         }
     }
 
+    /**
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code caonferma} del form ordine
+     * @param event evento relativo alla pressione del tasto conferma
+     * @param tipo tipo dell'ordine
+     */
     void clickSuConfermaOrdine(ActionEvent event, int tipo) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
         if (tipo == 0) {
@@ -263,10 +288,18 @@ public class VerificaCorrettezzaOrdineControl {
 
     }
 
+    /**
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code annulla} del form ordine
+     * @param event evento relativo alla pressione del tasto annulla
+     */
     void clickSuAnnullaOrdine(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
     }
 
+    /**
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code caonferma} del form ordine
+     * @param event evento relativo alla pressione del tasto conferma
+     */
     void clickSuConferma(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
         if(verificaScadenza(this.lottiParzialmenteDisponibili)) {
@@ -275,7 +308,9 @@ public class VerificaCorrettezzaOrdineControl {
             effettuaOrdineParziale();
         }
     }
-
+    /**
+     * Permette di avviare la control che si occupa di verificare la correttezza di un ordine e registrarlo nel database dell'azienda
+     */
     public void start() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
         if (entry != null) {
