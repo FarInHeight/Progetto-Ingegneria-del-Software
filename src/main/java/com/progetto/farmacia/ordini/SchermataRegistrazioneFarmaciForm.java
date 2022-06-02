@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 /**
  * Classe che modella la boundary {@code SchermataRegistrazioneFarmaciBoundary}
  */
-public class SchermataRegistrazioneFarmaci extends Application implements Initializable {
+public class SchermataRegistrazioneFarmaciForm extends Application implements Initializable {
 
     @FXML
     private Text idOrdineLabel;
@@ -53,14 +53,14 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
     /**
      * Istanzia un oggetto di tipo {@code SchermataRegistrazioneFarmaci}
      */
-    public SchermataRegistrazioneFarmaci(){super();}
+    public SchermataRegistrazioneFarmaciForm(){super();}
 
     /**
      * Istanzia un oggetto di tipo {@code SchermataRegistrazioneFarmaci}
      * @param farmaci farmaci presenti nel magazzino
      * @param registrazioneFarmaciRicevutiControl control che gestisce la registrazione dei farmaci
      */
-    public SchermataRegistrazioneFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaci, RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl, int idOrdine) {
+    public SchermataRegistrazioneFarmaciForm(ArrayList<EntryMagazzinoFarmacia> farmaci, RegistrazioneFarmaciRicevutiControl registrazioneFarmaciRicevutiControl, int idOrdine) {
         super();
         setFarmaci(farmaci);
         setControl(registrazioneFarmaciRicevutiControl);
@@ -84,7 +84,7 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
         if (idOrdine < 0) {
             throw new IllegalArgumentException("idOrdine < 0");
         }
-        SchermataRegistrazioneFarmaci.idOrdine = idOrdine;
+        com.progetto.farmacia.ordini.SchermataRegistrazioneFarmaciForm.idOrdine = idOrdine;
     }
 
     /**
@@ -103,7 +103,7 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
         if (farmaci == null) {
             throw new NullPointerException("farmaci = null");
         }
-        SchermataRegistrazioneFarmaci.farmaci = farmaci;
+        com.progetto.farmacia.ordini.SchermataRegistrazioneFarmaciForm.farmaci = farmaci;
     }
 
     /**
@@ -122,7 +122,7 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
         if (control == null) {
             throw new NullPointerException("control = null");
         }
-        SchermataRegistrazioneFarmaci.control = control;
+        com.progetto.farmacia.ordini.SchermataRegistrazioneFarmaciForm.control = control;
     }
 
     /**
@@ -171,8 +171,8 @@ public class SchermataRegistrazioneFarmaci extends Application implements Initia
         this.quantita.setCellValueFactory(new PropertyValueFactory<>("quantita"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
 
-        if (SchermataRegistrazioneFarmaci.getFarmaci()!=null) {
-            for(EntryMagazzinoFarmacia farmaco : SchermataRegistrazioneFarmaci.getFarmaci()) {
+        if (com.progetto.farmacia.ordini.SchermataRegistrazioneFarmaciForm.getFarmaci()!=null) {
+            for(EntryMagazzinoFarmacia farmaco : com.progetto.farmacia.ordini.SchermataRegistrazioneFarmaciForm.getFarmaci()) {
                 this.lista.getItems().add(farmaco);
             }
         }

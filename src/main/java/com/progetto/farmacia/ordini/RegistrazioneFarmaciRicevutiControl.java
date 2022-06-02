@@ -68,11 +68,11 @@ public class RegistrazioneFarmaciRicevutiControl {
             setPulsanti(entry);
         }
 
-        SchermataRegistrazioneFarmaci schermataRegistrazioneFarmaci = new SchermataRegistrazioneFarmaci(farmaci,this,this.ordine.getIdOrdine());
+        SchermataRegistrazioneFarmaciForm schermataRegistrazioneFarmaciForm = new SchermataRegistrazioneFarmaciForm(farmaci,this,this.ordine.getIdOrdine());
         this.stage.hide();
         this.stageRegistrazioneFarmaci = new Stage();
         try {
-            schermataRegistrazioneFarmaci.start(this.stageRegistrazioneFarmaci);
+            schermataRegistrazioneFarmaciForm.start(this.stageRegistrazioneFarmaci);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class RegistrazioneFarmaciRicevutiControl {
      */
     public void clickSuConfermaRegistrazione() {
         ArrayList<Farmaco> farmaciConsegnati = ordine.getFarmaci();
-        ArrayList<EntryMagazzinoFarmacia> farmaciCaricati = SchermataRegistrazioneFarmaci.getFarmaci();
+        ArrayList<EntryMagazzinoFarmacia> farmaciCaricati = SchermataRegistrazioneFarmaciForm.getFarmaci();
         String farmaciMancanti = controllaQuantita(farmaciConsegnati,farmaciCaricati);
         boolean caricamentoCorretto = farmaciMancanti.equals("");
         db.caricaFarmaci(farmaciCaricati);
