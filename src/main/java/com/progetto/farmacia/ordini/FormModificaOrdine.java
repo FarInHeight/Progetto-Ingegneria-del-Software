@@ -215,6 +215,7 @@ public class FormModificaOrdine extends Application implements Initializable {
         this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+        this.data.setValue(FormModificaOrdine.entry.getOrdine().getDataConsegna());
 
         if(FormModificaOrdine.entry.getOrdine().getTipo() == 1) {
             this.data.setVisible(false);
@@ -259,9 +260,16 @@ public class FormModificaOrdine extends Application implements Initializable {
             spinner.setLayoutY(8);
             this.pane.getChildren().add(spinner);
         }
+        int quantita = 1;
+        for(Farmaco farmaco : FormModificaOrdine.entry.getFarmaci()){
+            if(farmaco.getNome().compareTo(entry.getNomeFarmaco()) == 0) {
+                quantita = farmaco.getQuantita();
+            }
+        }
+
         Spinner<Integer> spinner = new Spinner<Integer>();
         spinner.setEditable(true);
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(quantita,Integer.MAX_VALUE,1);
         spinner.setValueFactory(valueFactory);
         spinner.setMaxWidth(100);
         FlowPane flow = new FlowPane();

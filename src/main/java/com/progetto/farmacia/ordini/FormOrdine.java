@@ -182,6 +182,7 @@ public class FormOrdine extends Application implements Initializable {
         this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+        this.data.setValue(LocalDate.now().plusDays(3));
         FormOrdine.ref = this.lista;
     }
 
