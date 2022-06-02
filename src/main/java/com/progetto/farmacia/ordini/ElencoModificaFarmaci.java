@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
@@ -33,7 +34,8 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
 
     @FXML
     private Text usernameLabel;
-
+    @FXML
+    private TextField campoRicerca;
     private static ArrayList<EntryFormOrdine> farmaci;
 
     private static Farmacia farmacia;
@@ -185,5 +187,15 @@ public class ElencoModificaFarmaci extends Application implements Initializable 
         }
         ElencoModificaFarmaci.farmaci.remove(entry);
         ElencoModificaFarmaci.ref.getItems().remove(entry);
+    }
+
+    @FXML
+    private void cambiaContenuto() {
+        this.lista.getItems().clear();
+        String campo = this.campoRicerca.getText();
+        for(EntryFormOrdine entry : ElencoModificaFarmaci.farmaci) {
+            if(entry.getNomeFarmaco().strip().toLowerCase().startsWith(campo.toLowerCase().strip()))
+                this.lista.getItems().add(entry);
+        }
     }
 }
