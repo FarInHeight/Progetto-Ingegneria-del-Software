@@ -43,7 +43,8 @@ public class InterfacciaAddetto {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
         return segnalazioni;
     }
@@ -67,8 +68,9 @@ public class InterfacciaAddetto {
             PreparedStatement statement = connection.prepareStatement("delete from segnalazione where id_segnalazione = ?");
             statement.setInt(1, idSegnalazione);
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -87,7 +89,8 @@ public class InterfacciaAddetto {
                 lista.add(new EntryFormOrdine(nome, principioAttivo));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
         return lista;
     }
@@ -105,8 +108,9 @@ public class InterfacciaAddetto {
             while (resultLotti.next()) {
                 lotti.add(new Lotto(resultLotti));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
         return lotti;
     }
@@ -142,7 +146,8 @@ public class InterfacciaAddetto {
                 }
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
     /**
@@ -193,7 +198,8 @@ public class InterfacciaAddetto {
             }
 
         }catch (SQLException e){
-            e.printStackTrace();
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -241,8 +247,9 @@ public class InterfacciaAddetto {
             statement.setInt(3,ultimoIdLotto+1);
             statement.executeUpdate();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 }

@@ -27,8 +27,9 @@ public class InterfacciaAzienda {
             while (resultLotti.next()) {
                 lotti.add(new Lotto(resultLotti));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
         return lotti;
     }
@@ -42,8 +43,9 @@ public class InterfacciaAzienda {
             PreparedStatement statement = connection.prepareStatement("update lotto set data_scadenza = null where id_lotto = ?");
             statement.setInt(1,id);
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -59,8 +61,9 @@ public class InterfacciaAzienda {
             statement.setInt(3,lotto.getQuantitaOrdinata());
             statement.setString(4,lotto.getNomeFarmaco());
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -81,8 +84,9 @@ public class InterfacciaAzienda {
                 statement.setInt(4,lotto.getIdLotto());
                 statement.executeUpdate();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -105,8 +109,9 @@ public class InterfacciaAzienda {
                 }
                 previousID = resultOrdini.getInt("id_ordine");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
         return ordini;
     }
@@ -120,8 +125,9 @@ public class InterfacciaAzienda {
             PreparedStatement statement = connection.prepareStatement("update ordine set stato = 1 where id_ordine = ?");
             statement.setInt(1,id_ordine);
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 }

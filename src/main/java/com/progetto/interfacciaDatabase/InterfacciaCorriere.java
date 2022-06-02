@@ -34,8 +34,9 @@ public class InterfacciaCorriere {
                 }
                 previousID = resultOrdini.getInt("id_ordine");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
         return spedizioni;
     }
@@ -51,8 +52,9 @@ public class InterfacciaCorriere {
                     "where id_ordine = ? AND stato = 1");
             statement.setInt(1,idOrdine);
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -67,8 +69,9 @@ public class InterfacciaCorriere {
                     "where id_ordine = ? AND stato = 2");
             statement.setInt(1,idOrdine);
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -84,8 +87,9 @@ public class InterfacciaCorriere {
             statement.setInt(2,idOrdine);
             statement.setString(1,nominativo);
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -111,8 +115,9 @@ public class InterfacciaCorriere {
             statement.setInt(2,nuovaQuantitaOrdinata);
             statement.setInt(3,lotto.getIdLotto());
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -154,8 +159,9 @@ public class InterfacciaCorriere {
                 statement.setInt(3,ultimoIdLotto+1);
                 statement.executeUpdate();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
     }
 
@@ -170,8 +176,9 @@ public class InterfacciaCorriere {
             if (ultimoOrdine.next()) {
                 lastId = ultimoOrdine.getInt("id_ordine");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
         return lastId;
     }
@@ -187,8 +194,9 @@ public class InterfacciaCorriere {
             if (ultimoLotto.next()) {
                 lastId = ultimoLotto.getInt("id_lotto");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
         }
         return lastId;
     }
