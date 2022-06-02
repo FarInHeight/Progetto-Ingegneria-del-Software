@@ -22,8 +22,6 @@ import java.util.ArrayList;
  */
 public class CreaOrdineControl{
     private Farmacia farmacia;
-
-    private ListaOrdini refListaOrdini;
     private ActionEvent event;
     private Stage stage;
     private FormOrdine formOrdine;

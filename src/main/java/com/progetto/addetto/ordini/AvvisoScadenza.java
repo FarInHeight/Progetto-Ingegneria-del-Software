@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Classe che implementa la boundary {@code AvvisoScadenza}
+ * Classe che modella l'avviso relativo ai farmaci che scadono tra meno di 2 mesi al momento della creazione di un ordine
  */
 public class AvvisoScadenza extends Application implements Initializable {
 
@@ -33,24 +33,27 @@ public class AvvisoScadenza extends Application implements Initializable {
 
     private static VerificaCorrettezzaOrdineControl control;
 
+    private static int tipo;
+
     /**
-     * costruire un oggetto {@code AvvisoScadenza}
+     * Istanzia un oggetto di tipo {@code AvvisoScadenza}
      */
     public AvvisoScadenza(){
         super();
     }
 
     /**
-     * costruisce un oggetto {@code AvvisoScadenza} dati in input i farmaci in scadenza, la farmacia che ha effettuato l'ordine
-     * e la control che ha creato l'avviso
+     * Istanzia un oggetto di tipo {@code AvvisoScadenza} dati in input i farmaci in scadenza e la farmacia che ha effettuato l'ordine
      * @param farmaciInScadenza farmaci in scadenza
      * @param farmacia farmaica che ha effettuato l'ordine
-     * @param control control che ha creato l'avviso
+     * @param control control che ha istnaziato l'avviso
+     * @param tipo tipo di ordine a cui fa riferimento (se intero o parziale)
      */
-    public AvvisoScadenza(String farmaciInScadenza, Farmacia farmacia, VerificaCorrettezzaOrdineControl control){
+    public AvvisoScadenza(String farmaciInScadenza, Farmacia farmacia, VerificaCorrettezzaOrdineControl control, int tipo){
         this.setFarmaciInScadenza(farmaciInScadenza);
         this.setFarmacia(farmacia);
         this.setControl(control);
+        AvvisoScadenza.tipo = tipo;
     }
 
     private void setControl(VerificaCorrettezzaOrdineControl control) {
@@ -62,7 +65,7 @@ public class AvvisoScadenza extends Application implements Initializable {
 
     @FXML
     private void confermaOrdine(ActionEvent event){
-        AvvisoScadenza.control.clickSuConfermaOrdine(event);
+        AvvisoScadenza.control.clickSuConfermaOrdine(event, AvvisoScadenza.tipo);
     }
 
     @FXML
@@ -86,8 +89,8 @@ public class AvvisoScadenza extends Application implements Initializable {
     }
 
     /**
-     * Metodo utilizzato per visualizzare un oggetto di tipo {@code AvvisoScadenza} a schermo
-     * @param stage stage del form ordine
+     * Permette di visualizzare un oggetto di tipo {@code AvvisoScadenza} a schermo
+     * @param stage riferimento alla schermata del form ordine
      * @throws IOException se il caricamento del file {@code fxml} non è andato a buon fine
      */
     @Override
@@ -121,8 +124,8 @@ public class AvvisoScadenza extends Application implements Initializable {
     }
 
     /**
-     * Metodo utilizzato per personalizzare un oggetto di tipo {@code AvvisoScadenza} in base ai farmaci in scadenza
-     *  e alla farmacia che ha effettuato l'ordine
+     * Permette di personalizzare un oggetto di tipo {@code AvvisScadenza} in base ai farmaci in scadenza
+     * e alla farmacia che ha effettuato l'ordine
      * @param url
      * @param resourceBundle
      */
@@ -132,4 +135,3 @@ public class AvvisoScadenza extends Application implements Initializable {
         this.usernameLabel.setText(AvvisoScadenza.farmacia.getNome());
     }
 }
-

@@ -86,11 +86,7 @@ public class ElencoFarmaci extends Application implements Initializable {
         ElencoFarmaci.farmacia = farmacia;
     }
 
-    /**
-     * Permette di settare la control che gestisce la creazione di un ordine
-     * @param control control che gestisce la creazione di un ordine
-     */
-    public void setControl(CreaOrdineControl control) {
+    private void setControl(CreaOrdineControl control) {
         if(control == null){
             throw new NullPointerException("control = null");
         }

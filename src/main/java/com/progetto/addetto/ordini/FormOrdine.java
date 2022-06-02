@@ -11,10 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
@@ -22,6 +19,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -37,6 +36,8 @@ public class FormOrdine extends Application implements Initializable {
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
     private static Stage stage;
     private static ArrayList<EntryFormOrdine> farmaci;
+    @FXML
+    private DatePicker data;
     @FXML
     private Text usernameLabel;
 
@@ -54,16 +55,17 @@ public class FormOrdine extends Application implements Initializable {
 
 
     /**
-     * Costruttore di un {@code FormOrdine}
+     * Istanzia un oggetto di tipo {@code FormOrdine}
      */
     public FormOrdine(){
         super();
     }
 
     /**
-     * Costruttore di un {@code FormOrdine} dato in input il nome della farmacia e la control {@code CreaOrdineControl}
+     * Istanzia un oggetto di tipo {@code FormOrdine} dati in input il nome della farmacia e la control che gestisce la creazione
+     * di un ordine
      * @param farmacia entity farmacia
-     * @param control control di crea ordine
+     * @param control control che gestisce la creazione di un ordine
      */
     public FormOrdine(Farmacia farmacia, CreaOrdineControl control){
         this.setFarmacia(farmacia);
@@ -92,17 +94,15 @@ public class FormOrdine extends Application implements Initializable {
     }
 
     /**
-     * Metodo per ottenere lo stage del {@code FormOrdine} e permettere ad un oggeto di classe {@code FormOrdineControl}
-     * di mostrarlo. Il metodo è stato creato senza modificatore di visibilità affinché possa essere invocato soltanto da classi
-     * che si trovano nello stesso package.
-     * @return stage della lista
+     * Ritorna il riferimneto alla schermata della schermata
+     * @return oggetto di tipo {@code Stage} riferito alla schermata
      */
     Stage getStage(){
         return this.stage;
     }
 
     @FXML
-    private void aggiungiFarmaci(ActionEvent event) throws IOException {
+    private void aggiungiFarmaci(ActionEvent event) throws IOException{
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
         FormOrdine.control.clickSuAggungiFarmaci(stage);
     }
@@ -127,12 +127,15 @@ public class FormOrdine extends Application implements Initializable {
             int quantita = spinner.getValue();
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormOrdine.farmacia, this);
-        verCorrOrdCtrl.start();
+        if(this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < 0){
+            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormOrdine.farmacia,this.getStage(), this.data.getValue(), this);
+            verCorrOrdCtrl.start();
+        }
+
     }
 
     /**
-     * Metodo usato per mostrare a schermo il form per effettuare gli ordini
+     * Permette di mostrare a schermo il form per effettuare gli ordini
      * @param stage stage della schermata principale
      * @throws IOException se il caricamento del file {@code fxml} del form ordine non è andato a buon fine
      */
@@ -157,6 +160,7 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.stage.setWidth(stageWidth);
         FormOrdine.stage.setMinWidth(stageWidth);
         FormOrdine.stage.setMinHeight(stageHeight);
+        FormOrdine.stage.initOwner(stage); //imposto come proprietario dello stage dell'errore lo stage della schermata di login passato in input
         FormOrdine.stage.show();
         FormOrdine.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Per uscire dal programma effettua il logout.");
@@ -168,7 +172,7 @@ public class FormOrdine extends Application implements Initializable {
     }
 
     /**
-     * Metodo usato per inzializzare il {@code FormOrdine}
+     * Permette di per inzializzare il {@code FormOrdine}
      * @param url
      * @param resourceBundle
      */
@@ -178,12 +182,13 @@ public class FormOrdine extends Application implements Initializable {
         this.principioAttivo.setCellValueFactory(new PropertyValueFactory<>("principioAttivo"));
         this.nomeFarmaco.setCellValueFactory(new PropertyValueFactory<>("nomeFarmaco"));
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
+        this.data.setValue(LocalDate.now().plusDays(3));
         FormOrdine.ref = this.lista;
     }
 
     /**
-     * Metodo utilizzato per aggiungere un farmaco al {@code FormOrdine}
-     * @param entry entry del form
+     * Permette di aggiungere il farmaco al form ordine dato in input la entry del form
+     * @param entry entry del form ordine da aggiungere
      */
     public void aggiungiFarmaco(EntryFormOrdine entry) {
         if(entry == null) {
@@ -194,11 +199,11 @@ public class FormOrdine extends Application implements Initializable {
             FormOrdine.ref.getItems().add(entry);
         }
     }
-
     /**
-     * Metodo utilizzato per rimuovere un farmaco dal {@code FormOrdine}
-     * @param entry entry del form
+     * Permette di rimuovere il farmaco al form ordine dato in input la entry del form
+     * @param entry entry del form ordine da rimuovere
      */
+
     public void rimuoviFarmaco(EntryFormOrdine entry) {
         if(entry == null) {
             throw new NullPointerException("Entry in rimuovi farmaco di FormOrdine = null");
@@ -206,6 +211,7 @@ public class FormOrdine extends Application implements Initializable {
         FormOrdine.farmaci.remove(entry);
         FormOrdine.ref.getItems().remove(entry);
     }
+
 
     /**
      * Motodo utilizzato per avvisare la {@code CreaOrdineControl} che l'utente ha cliccato su {@code indietro}.
