@@ -14,10 +14,6 @@ public class CadutaConnessioneControl{
     void start(){
         Stage stage = new Stage();
         ErroreConnessione err = new ErroreConnessione();
-        try {
-            err.start(stage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        err.start(stage);
     }
 }

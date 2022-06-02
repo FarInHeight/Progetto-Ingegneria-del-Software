@@ -67,7 +67,6 @@ public class CreaOrdineControl{
         flow.setHgap(10); // dae8fc
         entry.setStrumenti(flow);
     }
-
     private void setPulsantiFormOrdine(EntryFormOrdine entry){
         Button rimuovi = new Button("RIMUOVI");
         rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));

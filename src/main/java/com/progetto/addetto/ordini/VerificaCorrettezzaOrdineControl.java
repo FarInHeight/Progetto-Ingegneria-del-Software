@@ -20,7 +20,6 @@ import java.util.LinkedList;
  * di registrarlo nel database dell'azienda
  */
 public class VerificaCorrettezzaOrdineControl {
-
     private Stage stage; //stage del form ordine
     private Farmacia farmacia;
     private FormOrdine formOrdine;
@@ -239,7 +238,7 @@ public class VerificaCorrettezzaOrdineControl {
         db.prenotaOrdineNonPeriodico(this.farmaciNonDisponibili, this.dataConsegna, this.farmacia.getIdFarmacia());
 
         //Mostra il messaggio di conferma
-        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(this);
         try {
             messaggioConfermaOrdine.start(this.stage);
         } catch (IOException e) {

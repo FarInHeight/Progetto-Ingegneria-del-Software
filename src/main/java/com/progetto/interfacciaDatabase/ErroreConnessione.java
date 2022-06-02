@@ -27,6 +27,5 @@ public class ErroreConnessione extends Application {
         alert.setTitle("Connessione Interrotta");
         alert.setHeaderText("ERRORE");
         alert.showAndWait();
-
     }
 }

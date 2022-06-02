@@ -1,8 +1,6 @@
 package com.progetto.interfacciaDatabase;
 
 import com.progetto.entity.*;
-import com.progetto.farmacia.SchermataPrincipaleFarmacia;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
