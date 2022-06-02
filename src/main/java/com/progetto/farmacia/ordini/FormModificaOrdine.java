@@ -23,6 +23,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -40,6 +42,10 @@ public class FormModificaOrdine extends Application implements Initializable {
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
     private static Stage stage;
     private static ArrayList<EntryFormOrdine> farmaci;
+    @FXML
+    private DatePicker data;
+    @FXML
+    private Text dataLabel;
     @FXML
     private Text usernameLabel;
     @FXML
@@ -155,8 +161,12 @@ public class FormModificaOrdine extends Application implements Initializable {
         if(entry.getOrdine().getTipo() == 1) {
             periodo = ((Spinner<Integer>) this.pane.getChildren().get(1)).getValue();
         }
-        VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage(),FormModificaOrdine.entry,periodo, this.refListaOrdini);
-        verCorrOrdCtrl.start();
+        if(FormModificaOrdine.entry.getOrdine().getTipo() == 2 && this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < 0){
+            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage(), this.data.getValue());
+            verCorrOrdCtrl.start();
+        }
+        //VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci, FormModificaOrdine.farmacia,this.getStage(),FormModificaOrdine.entry,periodo, this.refListaOrdini);
+        //verCorrOrdCtrl.start();
     }
 
     /**
@@ -209,6 +219,8 @@ public class FormModificaOrdine extends Application implements Initializable {
         this.strumenti.setCellValueFactory(new PropertyValueFactory<>("strumenti"));
 
         if(FormModificaOrdine.entry.getOrdine().getTipo() == 1) {
+            this.data.setVisible(false);
+            this.dataLabel.setVisible(false);
             this.aggungiFarmaciButton.setVisible(false);
             this.aggungiFarmaciButton.setManaged(false);
         }

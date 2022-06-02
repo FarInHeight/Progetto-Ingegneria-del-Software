@@ -66,6 +66,12 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
+                        <Text fx:id="dataLabel" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data consegna:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <DatePicker fx:id="data" layoutX="92.0" layoutY="8.0" prefHeight="26.0" prefWidth="98.0" />
                      </children>
                   </Pane>
                </center>
