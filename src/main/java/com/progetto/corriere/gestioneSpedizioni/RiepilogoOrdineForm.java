@@ -153,7 +153,7 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
      * @param event evento associato alla pressione del tasto conferma consegna
      */
     @FXML
-    public void confermaConsegna(ActionEvent event){
+    public void confermaRicezione(ActionEvent event){
         String nominativo = nominativoFarmacista.getText();
         if (!(nominativo == null || nominativo.equals(""))) {
             getControl().clickSuConfermaRicezione(nominativo);

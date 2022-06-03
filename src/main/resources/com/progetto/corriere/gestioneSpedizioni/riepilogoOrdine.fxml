@@ -46,7 +46,7 @@
                   <Font size="16.0" />
                </font></Text>
             <TextField fx:id="nominativoFarmacista" layoutX="51.0" layoutY="273.0" prefHeight="27.0" prefWidth="204.0" />
-            <Button layoutX="405.0" layoutY="274.0" mnemonicParsing="false" onAction="#confermaConsegna" style="-fx-background-color: #26bd1b; -fx-text-fill: WHITE;" text="CONFERMA CONSEGNA" />
+            <Button layoutX="405.0" layoutY="274.0" mnemonicParsing="false" onAction="#confermaRicezione" style="-fx-background-color: #26bd1b; -fx-text-fill: WHITE;" text="CONFERMA CONSEGNA" />
          </children>
       </Pane>
    </center>
