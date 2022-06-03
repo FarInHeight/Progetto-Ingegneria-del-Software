@@ -1,6 +1,7 @@
 package com.progetto.farmacia.magazzino;
 
 import com.progetto.entity.EntryMagazzinoFarmacia;
+import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.stage.Stage;
 
@@ -87,7 +88,7 @@ public class RimuoviFarmaciControl {
     /**
      * Permette di msotrare una schermata in cui inserire la quantità di farmaco che si intende rimuovere
      */
-    public void clickSuRimuoviFarmaco(){
+    public void start(){
         SchermataRimozioneQuantita schermataRimozioneQuantita = new SchermataRimozioneQuantita(farmaco, this);
         this.getStage().hide();
         try {
@@ -103,13 +104,21 @@ public class RimuoviFarmaciControl {
      * @param stage riferimento alla schermata corrente
      * @param quantitaDaRimuovere quantita di farmaco che si intende rimuovere dal magazzino
      */
-    public void clickSuConferma(Stage stage, int quantitaDaRimuovere){
+    public void clickSuRimuovi(Stage stage, int quantitaDaRimuovere){
         //Modifica la quantita nel db
-        db.rimuoviQuantita(getFarmaco().getNome(),getFarmaco().getFarmaco().getDataScadenza(), quantitaDaRimuovere, getFarmaco().getQuantita());
+        if (controllaQuantita(quantitaDaRimuovere, this.farmaco.getQuantita())) {
+            db.rimuoviQuantita(farmaco.getNome(), farmaco.getFarmaco().getDataScadenza(), quantitaDaRimuovere, farmaco.getQuantita());
+        } else {
+            db.rimuoviFarmaco(SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia(), this.farmaco.getFarmaco());
+        }
         //Modifica la quantita in locale
         getFarmaco().getFarmaco().setQuantita(getFarmaco().getQuantita() - quantitaDaRimuovere);
         //Torna alla schermata magazzino
         clickSuIndietro(stage);
+    }
+
+    private boolean controllaQuantita(int quantitaDaRimuovere, int quantita) {
+        return quantita > quantitaDaRimuovere;
     }
 
     /**
@@ -117,8 +126,8 @@ public class RimuoviFarmaciControl {
      * @param substage riferimento alla schermata corrente
      */
     public void clickSuIndietro(Stage substage) {
-        substage.close();
         getSchermataMagazzino().update();
+        substage.close();
         this.stage.show();
     }
 }
