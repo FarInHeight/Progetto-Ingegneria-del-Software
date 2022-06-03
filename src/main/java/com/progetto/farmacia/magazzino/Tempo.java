@@ -53,7 +53,7 @@ public class Tempo {
             this.setCounter(1);
             // PER VERIFICA ESAURIMENTO FARMACI
             if( LocalDate.now().atTime(18, 0).isBefore( LocalDateTime.now() ) ) {
-                this.runVerificaEsaurimentoFarmaci();
+                this.verificaUltimoControlloEsaurimento();
             } else {
                 long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(18, 0));
                 Task<Void> sleeper = new Task<Void>() {
@@ -64,7 +64,7 @@ public class Tempo {
                         return null;
                     }
                 };
-                sleeper.setOnSucceeded(event -> Tempo.this.runVerificaEsaurimentoFarmaci());
+                sleeper.setOnSucceeded(event -> Tempo.this.verificaUltimoControlloEsaurimento());
                 new Thread(sleeper).start();
             }
             // PER VERIFICA REGISTRAZIONE FARMACI
@@ -87,7 +87,7 @@ public class Tempo {
             // PER RIMUOVI FARMACI SCADUTI
             // se le ore 8:00 di oggi sono passate
             if( LocalDate.now().atTime(8, 0).isBefore( LocalDateTime.now() ) ) {
-                this.runRimuoviFarmaciScaduti();
+                this.verificaUltimaRimozioneFarmaci();
             } else {
                 long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(8, 0));
                 Task<Void> sleeper = new Task<Void>() {
@@ -98,13 +98,13 @@ public class Tempo {
                         return null;
                     }
                 };
-                sleeper.setOnSucceeded(event -> Tempo.this.runRimuoviFarmaciScaduti());
+                sleeper.setOnSucceeded(event -> Tempo.this.verificaUltimaRimozioneFarmaci());
                 new Thread(sleeper).start();
             }
         }
     }
 
-    private void runRimuoviFarmaciScaduti() {
+    private void verificaUltimaRimozioneFarmaci() {
         RimuoviFarmaciScadutiControl control = new RimuoviFarmaciScadutiControl(this.farmacia);
         control.start();
     }
@@ -114,7 +114,7 @@ public class Tempo {
         control.start();
     }
 
-    private void runVerificaEsaurimentoFarmaci() {
+    private void verificaUltimoControlloEsaurimento() {
         VerificaEsaurimentoFarmaciControl control = new VerificaEsaurimentoFarmaciControl();
         control.start();
     }
