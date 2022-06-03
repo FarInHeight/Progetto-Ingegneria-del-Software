@@ -170,7 +170,7 @@ public class InterfacciaFarmacia {
      * @param nome nome del farmaco
      * @return quantita in arrivo
      */
-    public int controllaQuantitaOrdinata(String nome) {
+    public int getQuantitaOrdinata(String nome) {
 
         int quantita = 0;
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbazienda", "root","password")){

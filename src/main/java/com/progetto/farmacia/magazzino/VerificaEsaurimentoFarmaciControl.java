@@ -29,12 +29,11 @@ public class VerificaEsaurimentoFarmaciControl {
         ArrayList<Farmaco> farmaci = db.getFarmaciDaBanco();
         for (Farmaco farmaco : farmaci) {
             if (farmaco.getQuantita() < 50) {
-                if (db.controllaQuantitaOrdinata(farmaco.getNome()) < 200 ){
+                if (db.getQuantitaOrdinata(farmaco.getNome()) < 200 ){
                     db.prenotaOrdineDaBanco(farmaco.getNome());
                 }
             }
         }
-
     }
 
 
