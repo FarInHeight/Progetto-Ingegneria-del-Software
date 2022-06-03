@@ -230,10 +230,11 @@ public class VerificaCorrettezzaOrdineControl {
 
     private void effettuaOrdineParziale() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
-
         //Creo l'ordine coi farmaci che ci sono
-        db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.dataConsegna);
-        db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+        if(this.farmaciParzialmenteDisponibili.size() > 0) {
+            db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.dataConsegna);
+            db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+        }
 
         //Metto i farmaci restanti in un ordine prenotato
         db.prenotaOrdineNonPeriodico(this.farmaciNonDisponibili, this.dataConsegna);

@@ -336,7 +336,6 @@ public class InterfacciaFarmacia {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
             //Ottengo l'id dell'ordine
             int ultimoIdOrdine = getLastIdOrdine();
-
             //Inserisco l'Ordine
             PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,2,1,0,null,?)");
             statement.setInt(1, ultimoIdOrdine+1);
