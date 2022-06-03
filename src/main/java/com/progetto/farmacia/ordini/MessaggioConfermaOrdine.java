@@ -18,10 +18,18 @@ import java.io.IOException;
  */
 public class MessaggioConfermaOrdine extends Application {
 
+    private static Object control;
+
+    private static Stage stage;
+
     /**
      * Istanzia un oggetto di tipo {@code MessaggioConfermaOrdine}
      */
     public MessaggioConfermaOrdine(){super();}
+
+    public MessaggioConfermaOrdine(Object control){
+        MessaggioConfermaOrdine.control = control;
+    }
 
     /**
      * Permette di visualizzare il {@code MessaggioConfermaOrdine}
@@ -30,6 +38,7 @@ public class MessaggioConfermaOrdine extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        MessaggioConfermaOrdine.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("messaggioConfermaOrdine.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 250);
 
@@ -53,6 +62,11 @@ public class MessaggioConfermaOrdine extends Application {
 
     @FXML
     private void chiudi(ActionEvent event) {
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
+        if (control instanceof FormOrdine formOrdine) {
+            formOrdine.indietro(MessaggioConfermaOrdine.stage);
+        } else {
+            FormModificaOrdine formModificaOrdine = (FormModificaOrdine) control;
+            formModificaOrdine.indietro(MessaggioConfermaOrdine.stage);
+        }
     }
 }

@@ -35,6 +35,7 @@ public class FormOrdine extends Application implements Initializable {
 
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
     private static Stage stage;
+    private Stage oldStage;
     private static ArrayList<EntryFormOrdine> farmaci;
     @FXML
     private DatePicker data;
@@ -108,11 +109,14 @@ public class FormOrdine extends Application implements Initializable {
     }
 
     @FXML
-    private void indietro(ActionEvent event){
+    public void indietro(ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
         FormOrdine.control.clickSuIndietro(stage);
     }
 
+    public void indietro(Stage stage){
+        FormOrdine.control.clickSuIndietro(stage);
+    }
     @SuppressWarnings("unchecked")
     @FXML
     private void invia(ActionEvent event){
@@ -129,7 +133,7 @@ public class FormOrdine extends Application implements Initializable {
             farmaci.add(new Farmaco(nomeFarmaco, quantita, princpioAttivo));
         }
         if(this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < -2){
-            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage(), this.data.getValue());
+            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormOrdine.farmacia,this.getStage(), this.data.getValue(), this);
             verCorrOrdCtrl.start();
         }
 
@@ -142,6 +146,7 @@ public class FormOrdine extends Application implements Initializable {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        this.oldStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("formOrdine.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 

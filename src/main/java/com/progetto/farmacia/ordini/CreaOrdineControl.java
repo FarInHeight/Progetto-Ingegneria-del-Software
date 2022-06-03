@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class CreaOrdineControl{
     private Farmacia farmacia;
     private ActionEvent event;
-    private Stage stage;
+    private Stage stage; //Stage della schermata principale
     private FormOrdine formOrdine;
 
     private ElencoFarmaci elenco;

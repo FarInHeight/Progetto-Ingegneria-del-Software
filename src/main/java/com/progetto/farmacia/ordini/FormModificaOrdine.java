@@ -42,6 +42,7 @@ public class FormModificaOrdine extends Application implements Initializable {
     private static TableView<EntryFormOrdine> ref;  // riferimento per poter apportare modifiche dall'esterno
     private static Stage stage;
     private static ArrayList<EntryFormOrdine> farmaci;
+    private Stage oldStage;
     @FXML
     private DatePicker data;
     @FXML
@@ -138,8 +139,12 @@ public class FormModificaOrdine extends Application implements Initializable {
     }
 
     @FXML
-    private void indietro(ActionEvent event){
+    public void indietro(ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+        FormModificaOrdine.control.clickSuIndietro(stage);
+    }
+
+    public void indietro(Stage stage){
         FormModificaOrdine.control.clickSuIndietro(stage);
     }
 
@@ -164,7 +169,7 @@ public class FormModificaOrdine extends Application implements Initializable {
             periodo = ((Spinner<Integer>) this.pane.getChildren().get(3)).getValue();
         }
         if(FormModificaOrdine.entry.getOrdine().getTipo() == 2 && this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < -2){
-            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormModificaOrdine.farmacia,this.getStage(), FormModificaOrdine.entry,FormModificaOrdine.refListaOrdini,this.data.getValue());
+            VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormModificaOrdine.farmacia,this.getStage(), FormModificaOrdine.entry,FormModificaOrdine.refListaOrdini,this.data.getValue(), this);
             verCorrOrdCtrl.start();
         } else if (FormModificaOrdine.entry.getOrdine().getTipo() == 1) {
             db.modificaOrdinePeriodico(entry.getIdOrdine(),entry.getOrdine().getDataConsegna(),farmaci,periodo);
@@ -187,6 +192,7 @@ public class FormModificaOrdine extends Application implements Initializable {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        this.oldStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("formModificaOrdine.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
