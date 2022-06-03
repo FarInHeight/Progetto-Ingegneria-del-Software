@@ -162,7 +162,7 @@ public class GestioneSegnalazioniControl {
      void clickSuElimina(Stage substage, EntryListaSegnalazioni segnalazione) {
         InterfacciaAddetto db = new InterfacciaAddetto();
         db.eliminaSegnalazione(segnalazione.getIdSegnalazione());
-        this.lista.confermaEliminazione(segnalazione);
+        this.lista.update(segnalazione);
         substage.close();
     }
 }

@@ -165,7 +165,7 @@ public class ListaSegnalazioni extends Application implements Initializable {
      * Metodo utilizzato per rimuovere una entry dalla {@code ListaSegnalazioni}
      * @param entry segnalazione da rimuovere dalla lista
      */
-    public void confermaEliminazione(EntryListaSegnalazioni entry) {
+    public void update(EntryListaSegnalazioni entry) {
         if(entry == null) {
             throw new NullPointerException("Entry della lista in conferma eliminazione = null");
         }
