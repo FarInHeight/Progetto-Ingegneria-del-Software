@@ -171,7 +171,6 @@ public class InterfacciaFarmacia {
      * @return quantita in arrivo
      */
     public int getQuantitaOrdinata(String nome) {
-
         int quantita = 0;
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbazienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select sum(n_farmaci) as totale " +

@@ -22,6 +22,7 @@ public class VerificaCorrettezzaOrdineControl {
 
     @SuppressWarnings("FieldCanBeLocal")
     private ListaOrdini refListaOrdini;  //riferimento a lista ordini
+    private Object control;
 
     private EntryListaOrdini entry;  // entry dell'ordine eventuale da eliminare
     private ArrayList<LottoOrdinato> lottiModifica;
@@ -50,7 +51,7 @@ public class VerificaCorrettezzaOrdineControl {
      * @param stage riferimento alla schermata del form ordine
      * @param dataConsegna data consegna desiderata dalla farmacia
      */
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, LocalDate dataConsegna) {
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, LocalDate dataConsegna, Object control) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
@@ -60,6 +61,7 @@ public class VerificaCorrettezzaOrdineControl {
         this.lottiDisponibili = new ArrayList<>();
         this.farmaciNonDisponibili = new ArrayList<>();
         this.setDataConsegna(dataConsegna);
+        this.control = control;
     }
 
     /**
@@ -72,8 +74,7 @@ public class VerificaCorrettezzaOrdineControl {
      * @param refListaOrdini riferimento alla lista ordini
      * @param dataConsegna data di consegna desiderata dalla farmacia
      */
-
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, ListaOrdini refListaOrdini, LocalDate dataConsegna) {
+    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, ListaOrdini refListaOrdini, LocalDate dataConsegna, Object control) {
         this.setStage(stage);
         this.setFarmaci(farmaci);
         this.setFarmacia(farmacia);
@@ -85,6 +86,7 @@ public class VerificaCorrettezzaOrdineControl {
         this.lottiDisponibili = new ArrayList<>();
         this.farmaciNonDisponibili = new ArrayList<>();
         this.setDataConsegna(dataConsegna);
+        this.control = control;
     }
 
     private void setRefListaOrdini(ListaOrdini refListaOrdini){
@@ -246,7 +248,7 @@ public class VerificaCorrettezzaOrdineControl {
         }
 
         //Mostra il messaggio di conferma
-        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(control);
         try {
             messaggioConfermaOrdine.start(this.stage);
         } catch (IOException e) {
@@ -267,7 +269,7 @@ public class VerificaCorrettezzaOrdineControl {
         }
 
         //Mostra il messaggio di conferma
-        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine();
+        MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(control);
         try {
             messaggioConfermaOrdine.start(this.stage);
         } catch (IOException e) {
