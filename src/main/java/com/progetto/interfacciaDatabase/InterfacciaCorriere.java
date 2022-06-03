@@ -35,6 +35,7 @@ public class InterfacciaCorriere {
                 previousID = resultOrdini.getInt("id_ordine");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -53,6 +54,7 @@ public class InterfacciaCorriere {
             statement.setInt(1,idOrdine);
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -70,6 +72,7 @@ public class InterfacciaCorriere {
             statement.setInt(1,idOrdine);
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -88,6 +91,7 @@ public class InterfacciaCorriere {
             statement.setString(1,nominativo);
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -116,6 +120,7 @@ public class InterfacciaCorriere {
             statement.setInt(3,lotto.getIdLotto());
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -160,6 +165,7 @@ public class InterfacciaCorriere {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -177,6 +183,7 @@ public class InterfacciaCorriere {
                 lastId = ultimoOrdine.getInt("id_ordine");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -195,6 +202,7 @@ public class InterfacciaCorriere {
                 lastId = ultimoLotto.getInt("id_lotto");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }

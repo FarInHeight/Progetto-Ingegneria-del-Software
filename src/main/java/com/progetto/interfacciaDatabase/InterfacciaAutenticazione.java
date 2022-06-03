@@ -41,6 +41,7 @@ public class InterfacciaAutenticazione {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -79,6 +80,7 @@ public class InterfacciaAutenticazione {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -113,6 +115,7 @@ public class InterfacciaAutenticazione {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
