@@ -544,7 +544,7 @@ public class InterfacciaFarmacia {
      * @param farmaciCaricati farmaci caricati
      */
     @SuppressWarnings("unchecked")
-    public void caricaFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaciCaricati) {
+    public void registraFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaciCaricati) {
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbCatena", "root","password")){
             for (EntryMagazzinoFarmacia farmaco:farmaciCaricati) {
