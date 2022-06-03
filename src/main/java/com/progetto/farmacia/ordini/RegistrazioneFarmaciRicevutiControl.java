@@ -92,10 +92,10 @@ public class RegistrazioneFarmaciRicevutiControl {
     public void clickSuConfermaRegistrazione() {
         ArrayList<Farmaco> farmaciConsegnati = ordine.getFarmaci();
         ArrayList<EntryMagazzinoFarmacia> farmaciCaricati = SchermataRegistrazioneFarmaciForm.getFarmaci();
+        db.registraFarmaci(farmaciCaricati);
+        db.modificaStatoInCaricato(this.ordine.getIdOrdine());
         String farmaciMancanti = controlloQuantita(farmaciConsegnati,farmaciCaricati);
         boolean caricamentoCorretto = farmaciMancanti.equals("");
-        db.caricaFarmaci(farmaciCaricati);
-        db.modificaStatoInCaricato(this.ordine.getIdOrdine());
         try {
             if (!caricamentoCorretto) {
                 AvvisoCaricamentoParziale avvisoCaricamentoParziale = new AvvisoCaricamentoParziale(farmaciMancanti, entry, this);

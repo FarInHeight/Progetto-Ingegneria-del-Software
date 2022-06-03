@@ -83,7 +83,7 @@ public class SchermataErroreQuantita extends Application {
 
     @FXML
     private void annulla(ActionEvent event) {
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
+        SchermataErroreQuantita.control.clickSuAnnullaOrdine(event);
     }
 
     @FXML

@@ -88,7 +88,7 @@ public class ConfermaRicezioneSpedizioneControl {
     /**
      * Metodo che instanza un {@code RiepologoOrdineForm} per mostrare a schermo il riepologo della spedizione
      */
-    public void clickSuConsegna() {
+    public void start() {
         RiepilogoOrdineForm riepilogoOrdineForm = new RiepilogoOrdineForm(getSpedizione(), this);
         getStage().hide();
         try {

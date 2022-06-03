@@ -69,7 +69,7 @@ public class CreaListaSpedizioniControl {
      * Permette di creare e mostrare la lista delle spedizioni
      * @throws IOException lanciata se il caricamento del file {@code fxml} non è andato a buon fine
      */
-    public void clickSuVisualizzaSpedizioni() throws IOException {
+    public void start() throws IOException {
 
         //Ottengo le entry della lista
         setSpedizioni(db.getOrdiniGiornalieri());

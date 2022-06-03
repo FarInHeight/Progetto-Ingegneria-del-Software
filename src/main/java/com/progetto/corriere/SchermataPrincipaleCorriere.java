@@ -114,7 +114,7 @@ public class SchermataPrincipaleCorriere extends Application implements Initiali
     @FXML
     private void visualizzaListaSpedizioni(ActionEvent event) throws IOException {
         CreaListaSpedizioniControl creaListaSpedizioniControl = new CreaListaSpedizioniControl(event);
-        creaListaSpedizioniControl.clickSuVisualizzaSpedizioni();
+        creaListaSpedizioniControl.start();
     }
 
 }

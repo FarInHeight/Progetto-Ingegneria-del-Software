@@ -163,7 +163,7 @@ public class FormModificaOrdine extends Application implements Initializable {
         if(entry.getOrdine().getTipo() == 1) {
             periodo = ((Spinner<Integer>) this.pane.getChildren().get(3)).getValue();
         }
-        if(FormModificaOrdine.entry.getOrdine().getTipo() == 2 && this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < -3){
+        if(FormModificaOrdine.entry.getOrdine().getTipo() == 2 && this.data != null && Period.between(this.data.getValue(), LocalDate.now()).getDays() < -2){
             VerificaCorrettezzaOrdineControl verCorrOrdCtrl = new VerificaCorrettezzaOrdineControl(farmaci,FormModificaOrdine.farmacia,this.getStage(), FormModificaOrdine.entry,FormModificaOrdine.refListaOrdini,this.data.getValue());
             verCorrOrdCtrl.start();
         } else if (FormModificaOrdine.entry.getOrdine().getTipo() == 1) {

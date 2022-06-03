@@ -10,9 +10,9 @@ public class Test {
         GestioneProduzioneControl gestioneProduzioneControl = new GestioneProduzioneControl();
 
 
-        rimuoviLottiScadutiControl.rimuoviLottiScaduti();
+        rimuoviLottiScadutiControl.start();
 
-        gestioneProduzioneControl.gestioneProduzione();
+        gestioneProduzioneControl.start();
 
     }
 
