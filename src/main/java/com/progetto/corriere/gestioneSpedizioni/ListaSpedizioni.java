@@ -142,7 +142,7 @@ public class ListaSpedizioni extends Application implements Initializable {
             for(EntryListaSpedizioni spedizione : ListaSpedizioni.spedizioni) {
                 this.lista.getItems().add(spedizione);
                 Button pulsanteConsegna = (Button)spedizione.getStrumenti().getChildren().get(0);
-                pulsanteConsegna.setOnAction(event -> consegna(event, spedizione));
+                pulsanteConsegna.setOnAction(event -> confermaConsegna(event, spedizione));
             }
         }
     }
@@ -156,7 +156,7 @@ public class ListaSpedizioni extends Application implements Initializable {
             for(EntryListaSpedizioni spedizione : ListaSpedizioni.spedizioni) {
                 this.lista.getItems().add(spedizione);
                 Button pulsanteConsegna = (Button)spedizione.getStrumenti().getChildren().get(0);
-                pulsanteConsegna.setOnAction(event -> consegna(event, spedizione));
+                pulsanteConsegna.setOnAction(event -> confermaConsegna(event, spedizione));
             }
         }
     }
@@ -166,10 +166,11 @@ public class ListaSpedizioni extends Application implements Initializable {
      * @param event evento associato alla pressione del tasto consegna
      * @param spedizione oggeto di tipo {@code EntrListaSpedizioni} relativo alla spedizione da consegnare
      */
-    public void consegna(ActionEvent event,EntryListaSpedizioni spedizione) {
+    @FXML
+    public void confermaConsegna(ActionEvent event,EntryListaSpedizioni spedizione) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         ConfermaRicezioneSpedizioneControl confermaRicezioneSpedizioneControl = new ConfermaRicezioneSpedizioneControl(stage, spedizione, this);
-        confermaRicezioneSpedizioneControl.clickSuConsegna();
+        confermaRicezioneSpedizioneControl.start();
     }
 
     /*
