@@ -295,9 +295,9 @@ public class VerificaCorrettezzaOrdineControl {
      * @param event evento relativo alla pressione del tasto annulla
      */
     void clickSuAnnullaOrdine(ActionEvent event) {
-        InterfacciaFarmacia db = new InterfacciaFarmacia();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
         if (entry != null && entry.getOrdine().getStato()!=3) {
+            InterfacciaFarmacia db = new InterfacciaFarmacia();
             db.ricreaOrdine(lottiModifica);
         }
     }
