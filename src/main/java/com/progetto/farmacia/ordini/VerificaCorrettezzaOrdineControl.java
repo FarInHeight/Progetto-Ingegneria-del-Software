@@ -279,7 +279,7 @@ public class VerificaCorrettezzaOrdineControl {
     }
 
     /**
-     * Metodo che viene richiamato quando si fa un click sul pulsante {@code caonferma} del form ordine
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code caonferma} dell'avviso scadenza
      * @param event evento relativo alla pressione del tasto conferma
      * @param tipo tipo dell'ordine
      */
@@ -306,7 +306,7 @@ public class VerificaCorrettezzaOrdineControl {
     }
 
     /**
-     * Metodo che viene richiamato quando si fa un click sul pulsante {@code caonferma} del form ordine
+     * Metodo che viene richiamato quando si fa un click sul pulsante {@code caonferma} dell'avviso quantità
      * @param event evento relativo alla pressione del tasto conferma
      */
     void clickSuConferma(ActionEvent event) {
@@ -314,7 +314,7 @@ public class VerificaCorrettezzaOrdineControl {
         if(verificaScadenza(this.lottiParzialmenteDisponibili)) {
             creaAvvisoScadenza(1);
         } else {
-            effettuaOrdineParziale();
+            this.effettuaOrdineParziale();
         }
     }
     /**
