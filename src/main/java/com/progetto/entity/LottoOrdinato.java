@@ -13,17 +13,13 @@ public class LottoOrdinato extends Lotto{
     private int quantitaOrdine;
 
     /**
-     * Istanzia un oggetto di tipo {@code LottoOrdinato} dato in input l'id, il nome del farmaco, la data di scadenza, la quantità
-     * di farmaco contenuta, la quantità di farmaco già ordinata e la quantità di farmaco contenuta nell'ordine
+     * Istanzia un oggetto di tipo {@code LottoOrdinato} dato in input l'id e la quantità di farmaco contenuta nell'ordine
      * @param idLotto identificativo unico del lotto
-     * @param nomeFarmaco riferimento all'oggetto Farmaco contenuto nel Lotto
-     * @param dataScadenza data di scadenza del Lotto
-     * @param quantitaContenuta quantità di Farmaco contenuti nel Lotto
-     * @param quantitaOrdinata quantità di Farmaco del Lotto già ordinata
      * @param quantitaOrdine quantità di Farmaco del Lotto contenuta nel particolare Ordine
      */
-    public LottoOrdinato(int idLotto, String nomeFarmaco, LocalDate dataScadenza, int quantitaContenuta, int quantitaOrdinata, int quantitaOrdine) {
-        super(idLotto, nomeFarmaco, dataScadenza, quantitaContenuta, quantitaOrdinata);
+    public LottoOrdinato(int idLotto, int quantitaOrdinata, int quantitaOrdine) {
+        this.setQuantitaOrdinata(quantitaOrdinata);
+        this.setIdLotto(idLotto);
         this.quantitaOrdine = quantitaOrdine;
     }
 
