@@ -13,16 +13,20 @@ public class RimuoviLottiScadutiControl {
     /**
      * Rimuove tutti i Lotti del database la cui data di scadenza preceda la data odierna
      */
-    public void rimuoviLottiScaduti() {
+    public void start() {
 
         InterfacciaAzienda db = new InterfacciaAzienda();
         ArrayList<Lotto> lotti = db.getLotti();
 
         for (Lotto lotto : lotti) {
-            if(lotto.getDataScadenza().compareTo(LocalDate.now()) < 0) {
+            if(controllaScadenza(lotto.getDataScadenza())) {
                 db.rimuoviLotto(lotto.getIdLotto());
             }
         }
+    }
+
+    private boolean controllaScadenza(LocalDate dataScadenza) {
+        return dataScadenza.compareTo(LocalDate.now()) < 0;
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.TimerTask;
  * Gestisce il sistema di rifornimento dell'azienda.
  * Fa eseguire periodicamente i metodi assocaiti alla produzione di nuovi {@code lotti} e la rimozione di lotti scaduti
  */
-public class MainAzienda {
+public class Tempo {
     /**
      * metodo che permette di avviare il sistema di rifornimento dell'azienda
      * @param args
@@ -23,7 +23,7 @@ public class MainAzienda {
             @Override
             public void run() {
                 GestioneProduzioneControl gestioneProduzioneControl = new GestioneProduzioneControl();
-                gestioneProduzioneControl.gestioneProduzione();
+                gestioneProduzioneControl.start();
             }
         }, 0, 604800000);//Una volta a settimana
 
@@ -31,7 +31,7 @@ public class MainAzienda {
             @Override
             public void run() {
                 RimuoviLottiScadutiControl rimuoviLottiScadutiControl = new RimuoviLottiScadutiControl();
-                rimuoviLottiScadutiControl.rimuoviLottiScaduti();
+                rimuoviLottiScadutiControl.start();
             }
         }, 0, 86400000);//Una volta al giorno
 

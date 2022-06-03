@@ -66,7 +66,7 @@ public class SchermataPrincipaleFarmacia extends Application implements Initiali
     @FXML
     private void visualizzaMagazzino(ActionEvent event) {
         VisualizzaMagazzinoControl visualizzaMagazzinoControl = new VisualizzaMagazzinoControl(event);
-        visualizzaMagazzinoControl.clickSuVisualizzaMagazzino();
+        visualizzaMagazzinoControl.start();
     }
 
     @FXML

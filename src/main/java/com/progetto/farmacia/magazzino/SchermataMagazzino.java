@@ -153,7 +153,7 @@ public class SchermataMagazzino extends Application implements Initializable {
             for(EntryMagazzinoFarmacia farmaco : SchermataMagazzino.getFarmaci()) {
                 this.lista.getItems().add(farmaco);
                 Button pulsanteConsegna = (Button)farmaco.getStrumenti().getChildren().get(0);
-                pulsanteConsegna.setOnAction(event -> rimuoviFarmaco(event, farmaco));
+                pulsanteConsegna.setOnAction(event -> rimuoviQuantita(event, farmaco));
             }
         }
     }
@@ -177,10 +177,10 @@ public class SchermataMagazzino extends Application implements Initializable {
      * @param event evento associato alla pressione del {@code button} rimuovi farmaco
      * @param farmaco farmaco da rimuovere
      */
-    public void rimuoviFarmaco(ActionEvent event,EntryMagazzinoFarmacia farmaco) {
+    public void rimuoviQuantita(ActionEvent event,EntryMagazzinoFarmacia farmaco) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         RimuoviFarmaciControl rimuoviFarmaciControl = new RimuoviFarmaciControl(farmaco,stage,this);
-        rimuoviFarmaciControl.clickSuRimuoviFarmaco();
+        rimuoviFarmaciControl.start();
     }
 
     /*

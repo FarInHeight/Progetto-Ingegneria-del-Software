@@ -151,10 +151,10 @@ public class SchermataRimozioneQuantita extends Application implements Initializ
      * Metodo che interagisce con la control per la rimozione della quantita specificata
      */
     @FXML
-    private void confermaRimozione(ActionEvent event){
+    private void rimuovi(ActionEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         int quantitaDaRimuovere = spinner.getValue();
-        getControl().clickSuConferma(stage,quantitaDaRimuovere);
+        getControl().clickSuRimuovi(stage,quantitaDaRimuovere);
     }
 
     /*

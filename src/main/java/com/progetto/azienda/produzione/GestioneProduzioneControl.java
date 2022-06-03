@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class GestioneProduzioneControl {
     /** Permette di avviare la gestione della produzione dell'azienda
      */
-    public void gestioneProduzione() {
+    public void start() {
 
         InterfacciaAzienda db = new InterfacciaAzienda();
 
@@ -29,7 +29,7 @@ public class GestioneProduzioneControl {
         ArrayList<Lotto> lotti = db.getLotti();
 
         for(Lotto lotto : lotti) {
-            if (lotto.getQuantitaContenuta() != 0 && lotto.getQuantitaOrdinata() != 0) {
+            if (lotto.getQuantitaContenuta() != 0) {
                 Lotto newLotto = Lotto.lottoProdotto(lotto);
                 if (controllaQuantita(lotto)) {
                     db.addLotto(newLotto);
@@ -61,7 +61,7 @@ public class GestioneProduzioneControl {
      * ritorna true se la quantità ordinata è minore della metà del totale, false altrimenti
      */
     private boolean controllaQuantita(Lotto lotto) {
-        return (lotto.getQuantitaOrdinata() <= (0.5*lotto.getQuantitaOrdinata()));
+        return (lotto.getQuantitaOrdinata() <= (0.5*lotto.getQuantitaContenuta()));
     }
 
 

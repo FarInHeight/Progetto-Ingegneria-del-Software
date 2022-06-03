@@ -42,7 +42,7 @@
                </font>
             </Text>
             <Pane fx:id="spinnerPane" layoutX="14.0" layoutY="162.0" prefHeight="39.0" prefWidth="200.0" />
-            <Button layoutX="227.0" layoutY="162.0" mnemonicParsing="false" onAction="#confermaRimozione" style="-fx-background-color: #26bd1b;" text="CONFERMA RIMOZIONE" textFill="WHITE" />
+            <Button layoutX="227.0" layoutY="162.0" mnemonicParsing="false" onAction="#rimuovi" style="-fx-background-color: #26bd1b;" text="RIMUOVI" textFill="WHITE" />
             <Text fx:id="quantitaAttuale" layoutX="16.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="quantita" wrappingWidth="88.21629333496094" />
          </children>
       </Pane>

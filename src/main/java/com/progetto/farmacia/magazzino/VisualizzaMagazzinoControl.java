@@ -71,7 +71,7 @@ public class VisualizzaMagazzinoControl {
     /**
      * Richiede i farmaci dal database, crea la SchermataMagazzino e la mostra a schermo
      */
-    public void clickSuVisualizzaMagazzino(){
+    public void start(){
         //Richiedo i farmaci
         setFarmaci(db.getFarmaciMagazzino());
         //Asscoio i pulsanti
