@@ -53,7 +53,7 @@ public class Tempo {
             this.setCounter(1);
             // PER VERIFICA ESAURIMENTO FARMACI
             if( LocalDate.now().atTime(18, 0).isBefore( LocalDateTime.now() ) ) {
-                this.runVerificaEsaurimentoFarmaci();
+                this.verificaUltimoControlloEsaurimento();
             } else {
                 long millis = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().atTime(18, 0));
                 Task<Void> sleeper = new Task<Void>() {
@@ -64,7 +64,7 @@ public class Tempo {
                         return null;
                     }
                 };
-                sleeper.setOnSucceeded(event -> Tempo.this.runVerificaEsaurimentoFarmaci());
+                sleeper.setOnSucceeded(event -> Tempo.this.verificaUltimoControlloEsaurimento());
                 new Thread(sleeper).start();
             }
             // PER VERIFICA REGISTRAZIONE FARMACI
@@ -114,7 +114,7 @@ public class Tempo {
         control.start();
     }
 
-    private void runVerificaEsaurimentoFarmaci() {
+    private void verificaUltimoControlloEsaurimento() {
         VerificaEsaurimentoFarmaciControl control = new VerificaEsaurimentoFarmaciControl();
         control.start();
     }
