@@ -468,18 +468,45 @@ public class InterfacciaFarmacia {
     }
 
     /**
-     * Detrae il numero dei farmaci ordini dai lotti riguardanti l'ordine corrispondente all'id passato in input
+     * Detrae il numero dei farmaci ordini dai lotti riguardanti l'ordine in elaborazione corrispondente all'id passato in input
      * @param idOrdine id dell'ordine
      */
     public void modificaFarmaciOrdinati(int idOrdine){
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
+            //ottengo lotti coinvolti nell'ordine
+            PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
+            composizione.setInt(1,idOrdine);
+            ResultSet risultatoComposizione = composizione.executeQuery();
+            while(risultatoComposizione.next()) {
+                int nFarmaci = risultatoComposizione.getInt("n_farmaci");
+                int idLotto = risultatoComposizione.getInt("lotto_id_lotto");
 
-            //se l'ordine è prenotato devo rimuovere i lotti
-            PreparedStatement determinazioneTipo = connection.prepareStatement("select * from ordine where id_ordine = ?");
-            determinazioneTipo.setInt(1,idOrdine);
-            ResultSet risultatoDeterminazioneTipo = determinazioneTipo.executeQuery();
-            risultatoDeterminazioneTipo.next();
-            if(risultatoDeterminazioneTipo.getInt("stato") == 3) {
+                //ottengo i farmaci precedentemente ordinati
+                PreparedStatement lottoPrecedente = connection.prepareStatement("select * from lotto where id_lotto = ?");
+                lottoPrecedente.setInt(1, idLotto);
+                ResultSet risultatoLottoPrecedente = lottoPrecedente.executeQuery();
+                risultatoLottoPrecedente.next();
+                int farmaciOrdinati = risultatoLottoPrecedente.getInt("n_ordinati");
+
+                //aggiorno i farmaci ordinati
+                PreparedStatement lottoNuovo = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
+                lottoNuovo.setInt(1, farmaciOrdinati - nFarmaci);
+                lottoNuovo.setInt(2, idLotto);
+                lottoNuovo.executeUpdate();
+            }
+        }catch (SQLException e){
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
+        }
+    }
+
+    /**
+     * Cancella l'ordine raltivo all'id ordine passato in input
+     * @param idOrdine id dell'ordine da eliminare
+     */
+    public void cancellaOrdine(int idOrdine, int stato){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
+            if(stato == 3) {
                 //ottengo lotti coinvolti nell'ordine
                 PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
                 composizione.setInt(1, idOrdine);
@@ -496,48 +523,12 @@ public class InterfacciaFarmacia {
                     lottoNuovo.setInt(1, idLotto);
                     lottoNuovo.executeUpdate();
                 }
+            } else {
+                //elimino composizione
+                PreparedStatement eliminazioneComposizione = connection.prepareStatement("delete from composizione where ordine_id_ordine = ?");
+                eliminazioneComposizione.setInt(1,idOrdine);
+                eliminazioneComposizione.executeUpdate();
             }
-            else{
-                //ottengo lotti coinvolti nell'ordine
-                PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
-                composizione.setInt(1,idOrdine);
-                ResultSet risultatoComposizione = composizione.executeQuery();
-                while(risultatoComposizione.next()) {
-                    int nFarmaci = risultatoComposizione.getInt("n_farmaci");
-                    int idLotto = risultatoComposizione.getInt("lotto_id_lotto");
-
-                    //ottengo i farmaci precedentemente ordinati
-                    PreparedStatement lottoPrecedente = connection.prepareStatement("select * from lotto where id_lotto = ?");
-                    lottoPrecedente.setInt(1, idLotto);
-                    ResultSet risultatoLottoPrecedente = lottoPrecedente.executeQuery();
-                    risultatoLottoPrecedente.next();
-                    int farmaciOrdinati = risultatoLottoPrecedente.getInt("n_ordinati");
-
-                    //aggiorno i farmaci ordinati
-                    PreparedStatement lottoNuovo = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
-                    lottoNuovo.setInt(1, farmaciOrdinati - nFarmaci);
-                    lottoNuovo.setInt(2, idLotto);
-                    lottoNuovo.executeUpdate();
-                }
-            }
-        }catch (SQLException e){
-            CadutaConnessioneControl c = new CadutaConnessioneControl();
-            c.start();
-        }
-    }
-
-    /**
-     * Cancella l'ordine raltivo all'id ordine passato in input
-     * @param idOrdine id dell'ordine da eliminare
-     */
-    public void cancellaOrdine(int idOrdine){
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
-
-            //elimino composizione
-            PreparedStatement eliminazioneComposizione = connection.prepareStatement("delete from composizione where ordine_id_ordine = ?");
-            eliminazioneComposizione.setInt(1,idOrdine);
-            eliminazioneComposizione.executeUpdate();
-
             //elimino ordine
             PreparedStatement eliminazioneOrdine = connection.prepareStatement("delete from ordine where id_ordine = ?");
             eliminazioneOrdine.setInt(1,idOrdine);
@@ -720,6 +711,39 @@ public class InterfacciaFarmacia {
             statement = connection.prepareStatement("update ordine set periodo = 0 where id_ordine = ?");
             statement.setInt(1,idOrdine);
             statement.executeUpdate();
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
+        }
+    }
+
+    public ArrayList<LottoOrdinato> getLottiAssociati(int idOrdine) {
+        ArrayList<LottoOrdinato> lotti = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")) {
+            PreparedStatement statementOrdine = connection.prepareStatement("select * " +
+                    "from composizione,lotto " +
+                    "where ordine_id_ordine = ? and lotto_id_lotto = id_lotto");
+            statementOrdine.setInt(1,idOrdine);
+            ResultSet infoOrdine = statementOrdine.executeQuery();
+            while (infoOrdine.next()) {
+                lotti.add(new LottoOrdinato(infoOrdine.getInt("id_lotto"), infoOrdine.getInt("n_ordinati"), infoOrdine.getInt("n_farmaci")));
+            }
+        } catch (SQLException e) {
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
+        }
+        return lotti;
+
+    }
+
+    public void ricreaOrdine(ArrayList<LottoOrdinato> lottiModifica) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")) {
+            PreparedStatement statementOrdine = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
+            for (LottoOrdinato lottoOrdinato:lottiModifica) {
+                statementOrdine.setInt(1,lottoOrdinato.getQuantitaOrdine() + lottoOrdinato.getQuantitaOrdinata());
+                statementOrdine.setInt(2,lottoOrdinato.getIdLotto());
+                statementOrdine.executeUpdate();
+            }
         } catch (SQLException e) {
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();

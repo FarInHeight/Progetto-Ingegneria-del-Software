@@ -24,6 +24,7 @@ public class VerificaCorrettezzaOrdineControl {
     private ListaOrdini refListaOrdini;  //riferimento a lista ordini
 
     private EntryListaOrdini entry;  // entry dell'ordine eventuale da eliminare
+    private ArrayList<LottoOrdinato> lottiModifica;
 
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
     private LinkedList<Lotto> lotti;  //lotti presenti nel magazzino azienda
@@ -237,9 +238,10 @@ public class VerificaCorrettezzaOrdineControl {
         //Metto i farmaci restanti in un ordine prenotato
         db.prenotaOrdineNonPeriodico(this.farmaciNonDisponibili, this.dataConsegna);
 
-        //Se siamo in modifica aggiorniamo la lista ordini
+        //Se siamo in modifica aggiorniamo la lista ordini e rimuovo l'ordine precedente
         if (this.entry != null) {
             //aggiornamento lista ordini
+            db.cancellaOrdine(this.entry.getIdOrdine(), this.entry.getOrdine().getStato());
             ListaOrdini.update();
         }
 
@@ -258,8 +260,9 @@ public class VerificaCorrettezzaOrdineControl {
         db.elaboraOrdine(this.lottiDisponibili, this.farmaciDisponibili, this.dataConsegna);
         db.aggiornaLotti(this.lottiDisponibili, this.farmaciDisponibili);
 
-        //Se siamo in modifica aggiorno la lista ordini
+        //Se siamo in modifica aggiorno la lista ordini e rimuovo l'ordine precedente
         if (this.entry != null) {
+            db.cancellaOrdine(this.entry.getIdOrdine(), this.entry.getOrdine().getStato());
             ListaOrdini.update();
         }
 
@@ -292,7 +295,11 @@ public class VerificaCorrettezzaOrdineControl {
      * @param event evento relativo alla pressione del tasto annulla
      */
     void clickSuAnnullaOrdine(ActionEvent event) {
+        InterfacciaFarmacia db = new InterfacciaFarmacia();
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
+        if (entry != null && entry.getOrdine().getStato()!=3) {
+            db.ricreaOrdine(lottiModifica);
+        }
     }
 
     /**
@@ -312,9 +319,9 @@ public class VerificaCorrettezzaOrdineControl {
      */
     public void start() {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
-        if (entry != null) {
+        if (entry != null && entry.getOrdine().getStato() != 3) {
+            this.lottiModifica = db.getLottiAssociati(this.entry.getIdOrdine());
             db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
-            db.cancellaOrdine(this.entry.getIdOrdine());
         }
 
         this.ottieniLotti();

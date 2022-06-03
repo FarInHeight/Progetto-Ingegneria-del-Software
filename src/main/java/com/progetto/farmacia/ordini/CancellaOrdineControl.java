@@ -43,8 +43,10 @@ public class CancellaOrdineControl {
      */
     public void start() throws IOException {
         InterfacciaFarmacia db = new InterfacciaFarmacia();
-        db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
-        db.cancellaOrdine(this.entry.getIdOrdine());
+        if (entry.getOrdine().getStato() != 3) {
+            db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
+        }
+        db.cancellaOrdine(this.entry.getIdOrdine(), this.entry.getOrdine().getStato());
         MessaggioConfermaEliminazioneOrdine confermaEliminazione = new MessaggioConfermaEliminazioneOrdine();
         confermaEliminazione.start(this.stage);
     }
