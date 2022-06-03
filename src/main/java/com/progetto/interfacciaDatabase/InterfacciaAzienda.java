@@ -28,6 +28,7 @@ public class InterfacciaAzienda {
                 lotti.add(new Lotto(resultLotti));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -44,6 +45,7 @@ public class InterfacciaAzienda {
             statement.setInt(1,id);
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -62,6 +64,7 @@ public class InterfacciaAzienda {
             statement.setString(4,lotto.getNomeFarmaco());
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -85,6 +88,7 @@ public class InterfacciaAzienda {
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -110,6 +114,7 @@ public class InterfacciaAzienda {
                 previousID = resultOrdini.getInt("id_ordine");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -126,6 +131,7 @@ public class InterfacciaAzienda {
             statement.setInt(1,id_ordine);
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }

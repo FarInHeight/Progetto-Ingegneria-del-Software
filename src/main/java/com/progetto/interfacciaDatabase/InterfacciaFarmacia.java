@@ -30,6 +30,7 @@ public class InterfacciaFarmacia {
                 lista.add(new EntryFormOrdine(nome, principioAttivo));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -55,6 +56,7 @@ public class InterfacciaFarmacia {
                 lista.add(new Farmaco(nome, principio_attivo, tipo, dataScadenza, quantita));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -74,6 +76,7 @@ public class InterfacciaFarmacia {
             statement.setString(3, farmaco.getDataScadenza().toString());
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -93,6 +96,7 @@ public class InterfacciaFarmacia {
                 farmaci.add(new EntryMagazzinoFarmacia(new Farmaco(resulFarmaci)));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -113,6 +117,7 @@ public class InterfacciaFarmacia {
                 lotti.add(new Lotto(resultLotti));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -139,6 +144,7 @@ public class InterfacciaFarmacia {
             statement.setDate(4,Date.valueOf(dataScadenza));
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -159,6 +165,7 @@ public class InterfacciaFarmacia {
                 farmaci.add(new Farmaco(resulFarmaci));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -184,6 +191,7 @@ public class InterfacciaFarmacia {
                 quantita = resulFarmaci.getInt("totale");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -224,6 +232,7 @@ public class InterfacciaFarmacia {
             statement.executeUpdate();
 
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -241,6 +250,7 @@ public class InterfacciaFarmacia {
                 lastId = ultimoOrdine.getInt("id_ordine");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -259,6 +269,7 @@ public class InterfacciaFarmacia {
                 lastId = ultimoLotto.getInt("id_lotto");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -309,6 +320,7 @@ public class InterfacciaFarmacia {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -355,6 +367,7 @@ public class InterfacciaFarmacia {
                 }
             }
         }catch (SQLException e){
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -392,6 +405,7 @@ public class InterfacciaFarmacia {
                 }
             }
         }catch (SQLException e){
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -439,7 +453,8 @@ public class InterfacciaFarmacia {
                     entry.getFarmaci().add(farmaco);
                 }
             }
-        } catch (SQLException exc) {
+        } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -484,6 +499,7 @@ public class InterfacciaFarmacia {
                 lottoNuovo.executeUpdate();
             }
         }catch (SQLException e){
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -523,6 +539,7 @@ public class InterfacciaFarmacia {
             eliminazioneOrdine.setInt(1,idOrdine);
             eliminazioneOrdine.executeUpdate();
         }catch (SQLException e){
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -566,6 +583,7 @@ public class InterfacciaFarmacia {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -582,6 +600,7 @@ public class InterfacciaFarmacia {
             statement.setInt(1,id_ordine);
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -601,6 +620,7 @@ public class InterfacciaFarmacia {
             statement.setInt(3, idOrdine);
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -649,7 +669,8 @@ public class InterfacciaFarmacia {
                     entry.getFarmaci().add(farmaco);
                 }
             }
-        } catch (SQLException exc) {
+        } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -701,6 +722,7 @@ public class InterfacciaFarmacia {
             statement.setInt(1,idOrdine);
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -718,6 +740,7 @@ public class InterfacciaFarmacia {
                 lotti.add(new LottoOrdinato(infoOrdine.getInt("id_lotto"), infoOrdine.getInt("n_ordinati"), infoOrdine.getInt("n_farmaci")));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
@@ -734,6 +757,7 @@ public class InterfacciaFarmacia {
                 statementOrdine.executeUpdate();
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
