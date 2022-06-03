@@ -132,6 +132,4 @@ public class AvvisoCaricamentoParziale extends Application implements Initializa
         CreaSegnalazioneControl creaSegnalazioneControl = new CreaSegnalazioneControl(AvvisoCaricamentoParziale.ordine, AvvisoCaricamentoParziale.control);
         creaSegnalazioneControl.start(event);
     }
-
-
 }

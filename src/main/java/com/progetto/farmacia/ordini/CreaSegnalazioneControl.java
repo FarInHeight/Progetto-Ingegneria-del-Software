@@ -44,13 +44,13 @@ public class CreaSegnalazioneControl {
      * @param event evento che ha provocato la creazione della control
      */
     public void start(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
-        stage.close();
         String riepilogo = "";
         for(Farmaco farmaco : ordine.getFarmaci()) {
             riepilogo += farmaco.getNome() + "\t" + farmaco.getQuantita();
         }
         this.form = new CreazioneSegnalazioneForm(riepilogo.stripTrailing(), this);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); //ottiene stage corrente
+        stage.close();
         try {
             this.form.start(new Stage());
         } catch (Exception e) {
