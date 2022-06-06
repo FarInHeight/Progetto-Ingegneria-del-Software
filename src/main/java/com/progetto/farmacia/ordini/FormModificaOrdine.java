@@ -177,7 +177,7 @@ public class FormModificaOrdine extends Application implements Initializable {
             //Modifico la lista
             ListaOrdini.update();
             //Mostra il messaggio di conferma
-            MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(FormModificaOrdine.control);
+            MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(this);
             try {
                 messaggioConfermaOrdine.start(stage);
             } catch (IOException e) {
