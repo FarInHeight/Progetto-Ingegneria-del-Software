@@ -259,6 +259,75 @@ public class InterfacciaAddetto {
         }
     }
 
+    /**
+     * Crea un ordine in stato di eleaborazione
+     * @param lottiDisponibili lotti disponibili nel magazzino dell'azienda
+     * @param farmaciDisponibili farmaci disponibili nel magazzino dell'azienda
+     * @param dataConsegna data di consegna dell'ordine
+     * @param idFarmacia ID della {@code Farmacia}
+     */
+    public void elaboraOrdine(ArrayList<Lotto> lottiParzialmenteDisponibili, ArrayList<Farmaco> farmaciParzialmenteDisponibili, ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili, LocalDate dataConsegna, int idFarmacia) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root", "password")) {
+            //Ottengo l'id dell'ordine
+            int ultimoIdOrdine = getLastIdOrdine();
+
+            //Inserisco l'Ordine
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,2,1,0,null,?)");
+            statement.setInt(1, ultimoIdOrdine+1);
+            statement.setDate(2, Date.valueOf(dataConsegna));
+            statement.setInt(3, idFarmacia);
+            statement.executeUpdate();
+
+            //collego i lotti all'ordine
+            for (Farmaco farmaco : farmaciDisponibili) {
+                int quantitaOrdinataFarmaco = farmaco.getQuantita();
+                for (Lotto lotto : lottiDisponibili) {
+                    if (lotto.getNomeFarmaco().compareTo(farmaco.getNome()) == 0) {
+                        if (lotto.getQuantitaContenuta() - lotto.getQuantitaOrdinata() > quantitaOrdinataFarmaco) {
+                            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+                            statement.setInt(1, lotto.getQuantitaOrdinata()+quantitaOrdinataFarmaco);
+                            statement.setInt(2, ultimoIdOrdine+1);
+                            statement.setInt(3, lotto.getIdLotto());
+                            statement.executeUpdate();
+                        } else {
+                            quantitaOrdinataFarmaco -= (lotto.getQuantitaContenuta() - lotto.getQuantitaOrdinata());
+                            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+                            statement.setInt(1, lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
+                            statement.setInt(2, ultimoIdOrdine+1);
+                            statement.setInt(3, lotto.getIdLotto());
+                            statement.executeUpdate();
+                        }
+                    }
+                }
+            }
+            for (Farmaco farmaco : farmaciParzialmenteDisponibili) {
+                int quantitaOrdinataFarmaco = farmaco.getQuantita();
+                for (Lotto lotto : lottiParzialmenteDisponibili) {
+                    if (lotto.getNomeFarmaco().compareTo(farmaco.getNome()) == 0) {
+                        if (lotto.getQuantitaContenuta() - lotto.getQuantitaOrdinata() > quantitaOrdinataFarmaco) {
+                            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+                            statement.setInt(1, lotto.getQuantitaOrdinata()+quantitaOrdinataFarmaco);
+                            statement.setInt(2, ultimoIdOrdine+1);
+                            statement.setInt(3, lotto.getIdLotto());
+                            statement.executeUpdate();
+                        } else {
+                            quantitaOrdinataFarmaco -= (lotto.getQuantitaContenuta() - lotto.getQuantitaOrdinata());
+                            statement = connection.prepareStatement("insert into composizione values (?,?,?)");
+                            statement.setInt(1, lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
+                            statement.setInt(2, ultimoIdOrdine+1);
+                            statement.setInt(3, lotto.getIdLotto());
+                            statement.executeUpdate();
+                        }
+                    }
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
+        }
+    }
+
     private int getLastIdOrdine() {
         int lastId = 0;
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbAzienda", "root","password")) {
