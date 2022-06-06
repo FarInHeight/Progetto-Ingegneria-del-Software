@@ -1,6 +1,5 @@
 package com.progetto.farmacia.magazzino;
 
-import com.progetto.entity.EntryMagazzinoFarmacia;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

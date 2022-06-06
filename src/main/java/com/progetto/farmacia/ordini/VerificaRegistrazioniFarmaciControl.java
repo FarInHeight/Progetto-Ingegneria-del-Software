@@ -1,6 +1,5 @@
 package com.progetto.farmacia.ordini;
 
-import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.event.ActionEvent;

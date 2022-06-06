@@ -1,6 +1,6 @@
 package com.progetto.interfacciaDatabase;
 
-import com.progetto.entity.EntryListaSpedizioni;
+import com.progetto.corriere.gestioneSpedizioni.EntryListaSpedizioni;
 import com.progetto.entity.LottoOrdinato;
 import com.progetto.entity.Ordine;
 

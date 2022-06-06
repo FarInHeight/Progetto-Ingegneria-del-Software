@@ -2,7 +2,6 @@ package com.progetto.corriere;
 
 import com.progetto.addetto.autenticazione.LogoutControl;
 import com.progetto.corriere.gestioneSpedizioni.CreaListaSpedizioniControl;
-import com.progetto.entity.Corriere;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

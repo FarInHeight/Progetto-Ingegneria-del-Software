@@ -1,7 +1,6 @@
 package com.progetto.corriere.gestioneSpedizioni;
 
 import com.progetto.corriere.SchermataPrincipaleCorriere;
-import com.progetto.entity.EntryListaSpedizioni;
 import com.progetto.entity.LottoOrdinato;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

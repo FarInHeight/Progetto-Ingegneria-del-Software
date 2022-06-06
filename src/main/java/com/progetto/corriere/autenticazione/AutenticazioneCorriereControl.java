@@ -2,7 +2,7 @@ package com.progetto.corriere.autenticazione;
 
 import com.progetto.corriere.SchermataPrincipaleCorriere;
 import com.progetto.interfacciaDatabase.InterfacciaAutenticazione;
-import com.progetto.entity.Corriere;
+import com.progetto.corriere.Corriere;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.PasswordField;

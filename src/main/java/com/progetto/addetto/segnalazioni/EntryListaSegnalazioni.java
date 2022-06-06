@@ -1,5 +1,6 @@
-package com.progetto.entity;
+package com.progetto.addetto.segnalazioni;
 
+import com.progetto.entity.Segnalazione;
 import javafx.scene.layout.FlowPane;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

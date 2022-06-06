@@ -1,6 +1,6 @@
 package com.progetto.interfacciaDatabase;
-import com.progetto.entity.AddettoAzienda;
-import com.progetto.entity.Corriere;
+import com.progetto.addetto.AddettoAzienda;
+import com.progetto.corriere.Corriere;
 import com.progetto.entity.Farmacia;
 import java.sql.*;
 

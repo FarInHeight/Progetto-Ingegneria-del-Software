@@ -1,6 +1,5 @@
 package com.progetto.corriere.gestioneSpedizioni;
 
-import com.progetto.entity.EntryListaSpedizioni;
 import com.progetto.entity.LottoOrdinato;
 import com.progetto.interfacciaDatabase.InterfacciaCorriere;
 import javafx.stage.Stage;

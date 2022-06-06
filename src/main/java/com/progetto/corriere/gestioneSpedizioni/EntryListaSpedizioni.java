@@ -1,5 +1,6 @@
-package com.progetto.entity;
+package com.progetto.corriere.gestioneSpedizioni;
 
+import com.progetto.entity.Ordine;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;

@@ -2,7 +2,6 @@ package com.progetto.addetto;
 
 import com.progetto.addetto.autenticazione.LogoutControl;
 import com.progetto.addetto.segnalazioni.GestioneSegnalazioniControl;
-import com.progetto.entity.AddettoAzienda;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

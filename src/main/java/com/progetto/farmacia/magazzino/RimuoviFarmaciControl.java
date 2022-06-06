@@ -1,6 +1,5 @@
 package com.progetto.farmacia.magazzino;
 
-import com.progetto.entity.EntryMagazzinoFarmacia;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;
 import javafx.stage.Stage;

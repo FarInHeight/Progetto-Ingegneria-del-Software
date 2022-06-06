@@ -1,5 +1,7 @@
-package com.progetto.entity;
+package com.progetto.farmacia.ordini;
 
+import com.progetto.entity.Farmaco;
+import com.progetto.entity.Ordine;
 import javafx.scene.layout.FlowPane;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package com.progetto.addetto.segnalazioni;
 
-import com.progetto.entity.EntryListaSegnalazioni;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

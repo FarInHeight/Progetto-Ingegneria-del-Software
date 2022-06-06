@@ -1,6 +1,5 @@
 package com.progetto.addetto.ordini;
 
-import com.progetto.entity.EntryListaOrdini;
 import com.progetto.entity.Farmacia;
 import com.progetto.entity.Farmaco;
 import com.progetto.entity.Lotto;
@@ -23,7 +22,6 @@ public class VerificaCorrettezzaOrdineControl {
     private Stage stage; //stage del form ordine
     private Farmacia farmacia;
     private FormOrdine formOrdine;
-    private EntryListaOrdini entry;  // entry dell'ordine eventuale da eliminare
 
     private ArrayList<Farmaco> farmaci;  //farmaci richiesti
     private LinkedList<Lotto> lotti;  //lotti presenti nel magazzino azienda
@@ -63,41 +61,11 @@ public class VerificaCorrettezzaOrdineControl {
         this.setFormOrdine(formOrdine);
     }
 
-    /**
-     * Istanzia un oggetto di tipo {@code VerificaCorrettezzaControl} dati in input i farmaci da ordinare, la farmacia che ha effettuato l'ordine,
-     * il riferimneto alla schermata del form ordine, la entry corrispondente all'ordine da modificare, il riferimento alla lista ordini e la data di consegna deisderata
-     * @param farmaci farmaci da ordinare
-     * @param farmacia farmacia che ha effettuato l'ordine
-     * @param stage riferimento alla schermata del form ordine
-     * @param entry entry della lista ordini relativa all'ordine da modificare
-     * @param dataConsegna data di consegna desiderata dalla farmacia
-     */
-
-    public VerificaCorrettezzaOrdineControl(ArrayList<Farmaco> farmaci, Farmacia farmacia, Stage stage, EntryListaOrdini entry, LocalDate dataConsegna) {
-        this.setStage(stage);
-        this.setFarmaci(farmaci);
-        this.setFarmacia(farmacia);
-        this.setEntry(entry);
-        this.farmaciParzialmenteDisponibili = new ArrayList<>();
-        this.lottiParzialmenteDisponibili = new ArrayList<>();
-        this.farmaciDisponibili = new ArrayList<>();
-        this.lottiDisponibili = new ArrayList<>();
-        this.farmaciNonDisponibili = new ArrayList<>();
-        this.setDataConsegna(dataConsegna);
-    }
-
     private void setFormOrdine(FormOrdine formOrdine) {
         if (formOrdine == null) {
             throw new IllegalArgumentException("Form Ordine = null");
         }
         this.formOrdine = formOrdine;
-    }
-
-    private void setEntry(EntryListaOrdini entry) {
-        if (entry == null) {
-            throw new IllegalArgumentException("entry dell'ordine = null");
-        }
-        this.entry = entry;
     }
 
     private void setStage(Stage stage) {
@@ -302,11 +270,6 @@ public class VerificaCorrettezzaOrdineControl {
      * Permette di avviare la control che si occupa di verificare la correttezza di un ordine e registrarlo nel database dell'azienda
      */
     public void start() {
-        InterfacciaAddetto db = new InterfacciaAddetto();
-        if (entry != null) {
-            db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
-            db.cancellaOrdine(this.entry.getIdOrdine());
-        }
 
         this.ottieniLotti();
         if (verificaQuantita()) {

@@ -1,7 +1,6 @@
 package com.progetto.addetto.segnalazioni;
 
 import com.progetto.addetto.ordini.CreaOrdineControl;
-import com.progetto.entity.EntryListaSegnalazioni;
 import com.progetto.entity.Farmacia;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

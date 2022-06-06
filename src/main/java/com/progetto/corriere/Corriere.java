@@ -1,4 +1,4 @@
-package com.progetto.entity;
+package com.progetto.corriere;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

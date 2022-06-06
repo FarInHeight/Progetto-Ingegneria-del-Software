@@ -1,6 +1,9 @@
 package com.progetto.interfacciaDatabase;
 
+import com.progetto.addetto.segnalazioni.EntryListaSegnalazioni;
 import com.progetto.entity.*;
+import com.progetto.entity.Farmaco;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

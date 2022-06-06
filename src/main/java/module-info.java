@@ -12,15 +12,18 @@ module com.progetto {
     exports com.progetto.entity;
     opens com.progetto.farmacia.autenticazione to javafx.fxml;
     opens com.progetto.addetto.autenticazione to javafx.fxml;
-    opens com.progetto.addetto.segnalazioni to javafx.fxml, javafx.graphics;
-    opens com.progetto.addetto to javafx.fxml;
     opens com.progetto.addetto.ordini to javafx.fxml;
-    opens com.progetto.entity to javafx.base;
-    opens com.progetto.farmacia.ordini to javafx.fxml, javafx.graphics;
-    opens com.progetto.farmacia.magazzino to javafx.fxml, javafx.graphics;
     opens com.progetto.farmacia to javafx.fxml;
     opens com.progetto.corriere.autenticazione to javafx.graphics,javafx.fxml;
-    opens com.progetto.corriere to javafx.graphics,javafx.fxml;
-    opens com.progetto.corriere.gestioneSpedizioni to javafx.graphics,javafx.fxml;
     opens com.progetto.interfacciaDatabase to javafx.fxml,javafx.graphics;
+    opens com.progetto.addetto to javafx.base, javafx.fxml;
+    opens com.progetto.corriere to javafx.base, javafx.fxml, javafx.graphics;
+    exports com.progetto.farmacia.ordini;
+    opens com.progetto.farmacia.ordini to javafx.base, javafx.fxml, javafx.graphics;
+    exports com.progetto.addetto.segnalazioni;
+    opens com.progetto.addetto.segnalazioni to javafx.base, javafx.fxml, javafx.graphics;
+    opens com.progetto.corriere.gestioneSpedizioni to javafx.base, javafx.fxml, javafx.graphics;
+    exports com.progetto.farmacia.magazzino;
+    opens com.progetto.farmacia.magazzino to javafx.base, javafx.fxml, javafx.graphics;
+    opens com.progetto.entity to javafx.base, javafx.fxml, javafx.graphics;
 }

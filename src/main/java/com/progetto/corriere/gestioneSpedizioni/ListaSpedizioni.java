@@ -1,8 +1,7 @@
 package com.progetto.corriere.gestioneSpedizioni;
 
 import com.progetto.corriere.SchermataPrincipaleCorriere;
-import com.progetto.entity.EntryListaSegnalazioni;
-import com.progetto.entity.EntryListaSpedizioni;
+import com.progetto.addetto.segnalazioni.EntryListaSegnalazioni;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

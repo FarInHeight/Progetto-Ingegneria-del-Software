@@ -2,6 +2,9 @@ package com.progetto.interfacciaDatabase;
 
 import com.progetto.entity.*;
 import com.progetto.farmacia.SchermataPrincipaleFarmacia;
+import com.progetto.farmacia.magazzino.EntryMagazzinoFarmacia;
+import com.progetto.entity.Farmaco;
+import com.progetto.farmacia.ordini.EntryListaOrdini;
 import javafx.scene.control.Spinner;
 import java.sql.*;
 import java.time.LocalDate;

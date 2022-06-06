@@ -1,5 +1,6 @@
-package com.progetto.entity;
+package com.progetto.farmacia.magazzino;
 
+import com.progetto.entity.Farmaco;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;

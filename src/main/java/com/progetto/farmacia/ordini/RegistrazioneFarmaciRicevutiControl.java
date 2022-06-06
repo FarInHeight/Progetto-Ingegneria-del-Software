@@ -1,7 +1,6 @@
 package com.progetto.farmacia.ordini;
 
-import com.progetto.entity.EntryListaOrdini;
-import com.progetto.entity.EntryMagazzinoFarmacia;
+import com.progetto.farmacia.magazzino.EntryMagazzinoFarmacia;
 import com.progetto.entity.Farmaco;
 import com.progetto.entity.Ordine;
 import com.progetto.interfacciaDatabase.InterfacciaFarmacia;

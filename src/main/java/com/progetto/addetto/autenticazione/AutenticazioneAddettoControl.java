@@ -2,7 +2,7 @@ package com.progetto.addetto.autenticazione;
 
 import com.progetto.addetto.SchermataPrincipaleAddettoAzienda;
 import com.progetto.interfacciaDatabase.InterfacciaAutenticazione;
-import com.progetto.entity.AddettoAzienda;
+import com.progetto.addetto.AddettoAzienda;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.PasswordField;
