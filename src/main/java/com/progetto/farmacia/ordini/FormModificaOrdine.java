@@ -277,7 +277,7 @@ public class FormModificaOrdine extends Application implements Initializable {
             SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
             spinner.setValueFactory(valueFactory);
             spinner.setMaxWidth(60);
-            spinner.setTranslateX(140);
+            spinner.setTranslateX(170);
             spinner.setLayoutY(8);
             this.pane.getChildren().add(spinner);
         }
