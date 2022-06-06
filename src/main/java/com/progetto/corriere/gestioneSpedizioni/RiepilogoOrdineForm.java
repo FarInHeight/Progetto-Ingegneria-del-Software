@@ -116,7 +116,7 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
         //mostra la schermata di login
         subStage.setTitle("Riepilogo Ordine");
         subStage.setScene(scene);
-        subStage.setMinWidth(stageWidth + 50);
+        subStage.setMinWidth(stageWidth);
         subStage.setMinHeight(stageHeight);
         subStage.show();
         subStage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
