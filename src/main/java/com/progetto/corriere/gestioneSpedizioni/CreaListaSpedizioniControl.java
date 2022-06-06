@@ -91,7 +91,7 @@ public class CreaListaSpedizioniControl {
      Metodo che crea e associa i pulsanti alle entry della lista spedizioni
     */
     private void setPulsanti(EntryListaSpedizioni spedizione) {
-        Button consegna = new Button("consegna");
+        Button consegna = new Button("CONSEGNA");
         consegna.setBackground(Background.fill(Color.rgb(0, 0, 200)));
         consegna.setStyle("-fx-text-fill: white");
         spedizione.setStrumenti(consegna);

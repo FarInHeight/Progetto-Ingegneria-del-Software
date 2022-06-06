@@ -102,9 +102,9 @@ public class RiepilogoOrdineForm extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("riepilogoOrdine.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
-        double stageWidth = 800;
+        double stageWidth = 600;
         double stageHeight = 400;
 
         Stage subStage = new Stage();
