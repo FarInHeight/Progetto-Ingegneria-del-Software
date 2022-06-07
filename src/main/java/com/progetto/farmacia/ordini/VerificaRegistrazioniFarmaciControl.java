@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -79,7 +80,7 @@ public class VerificaRegistrazioniFarmaciControl {
                     VerificaRegistrazioniFarmaciControl.this.clickSuCarica(entry);
                 }
             });
-            carica.setBackground(Background.fill(Color.rgb(38, 180, 27)));
+            carica.setBackground(new Background(new BackgroundFill(Color.rgb(38, 180, 27), null, null)));
             carica.setStyle("-fx-text-fill: white");
             carica.setPrefWidth(80);
             FlowPane flow = new FlowPane();

@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -71,7 +72,7 @@ public class VisualizzaOrdiniControl {
                 VisualizzaOrdiniControl.this.clickSuCarica(entry);
             }
         });
-        carica.setBackground(Background.fill(Color.rgb(38, 180, 27)));
+        carica.setBackground(new Background(new BackgroundFill(Color.rgb(38, 180, 27), null, null)));
         carica.setStyle("-fx-text-fill: white");
         carica.setPrefWidth(80);
         if(entry.getOrdine().getStato() != 4) {
@@ -85,7 +86,7 @@ public class VisualizzaOrdiniControl {
                 VisualizzaOrdiniControl.this.clickSuModifica(entry);
             }
         });
-        modifica.setBackground(Background.fill(Color.rgb(190, 190, 120)));
+        modifica.setBackground(new Background(new BackgroundFill(Color.rgb(190, 190, 120), null, null)));
         modifica.setStyle("-fx-text-fill: white");
         modifica.setPrefWidth(80);
         if(LocalDate.now().plusDays(2).isAfter( entry.getOrdine().getDataConsegna() ) || entry.getOrdine().getStato() == 4) {
@@ -99,7 +100,7 @@ public class VisualizzaOrdiniControl {
                 VisualizzaOrdiniControl.this.clickSuCancella(entry);
             }
         });
-        cancella.setBackground(Background.fill(Color.rgb(210, 79, 66)));
+        cancella.setBackground(new Background(new BackgroundFill(Color.rgb(210, 79, 66), null, null)));
         cancella.setStyle("-fx-text-fill: white");
         cancella.setPrefWidth(80);
         // se la data di consegna è entro due giorni successivi oppure l'ordine è periodico

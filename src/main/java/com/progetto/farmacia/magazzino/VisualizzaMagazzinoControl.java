@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -93,7 +94,7 @@ public class VisualizzaMagazzinoControl {
      */
     private void setPulsanti(EntryMagazzinoFarmacia farmaco) {
         Button consegna = new Button("RIMUOVI FARMACO");
-        consegna.setBackground(Background.fill(Color.rgb(255, 51, 51)));
+        consegna.setBackground(new Background(new BackgroundFill(Color.rgb(255, 51, 51), null, null)));
         consegna.setStyle("-fx-text-fill: white");
         farmaco.setStrumenti(consegna);
     }
