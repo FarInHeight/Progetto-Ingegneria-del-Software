@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -92,7 +93,7 @@ public class CreaListaSpedizioniControl {
     */
     private void setPulsanti(EntryListaSpedizioni spedizione) {
         Button consegna = new Button("CONSEGNA");
-        consegna.setBackground(Background.fill(Color.rgb(0, 0, 200)));
+        consegna.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 200), null, null)));
         consegna.setStyle("-fx-text-fill: white");
         spedizione.setStrumenti(consegna);
     }
