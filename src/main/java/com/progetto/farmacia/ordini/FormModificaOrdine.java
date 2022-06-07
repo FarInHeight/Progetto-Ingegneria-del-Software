@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -260,7 +261,7 @@ public class FormModificaOrdine extends Application implements Initializable {
 
     private void setPulsanti(EntryFormOrdine entry){
         Button rimuovi = new Button("RIMUOVI");
-        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuovi.setBackground(new Background(new BackgroundFill(Color.rgb(255, 79, 66), null, null)));
         rimuovi.setStyle("-fx-text-fill: white");
         rimuovi.setOnAction(new EventHandler<ActionEvent>() {
             @Override

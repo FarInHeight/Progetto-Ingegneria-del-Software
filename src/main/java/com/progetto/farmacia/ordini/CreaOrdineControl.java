@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -65,7 +66,7 @@ public class CreaOrdineControl{
 
     private void setPulsantiListaFarmaci(EntryFormOrdine entry){
         Button aggiungi = new Button("AGGIUNGI");
-        aggiungi.setBackground(Background.fill(Color.rgb(0, 0, 200)));
+        aggiungi.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 200), null, null)));
         aggiungi.setStyle("-fx-text-fill: white");
         aggiungi.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -82,7 +83,7 @@ public class CreaOrdineControl{
 
     private void setPulsantiFormOrdine(EntryFormOrdine entry){
         Button rimuovi = new Button("RIMUOVI");
-        rimuovi.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuovi.setBackground(new Background(new BackgroundFill(Color.rgb(255, 79, 66), null, null)));
         rimuovi.setStyle("-fx-text-fill: white");
         rimuovi.setOnAction(new EventHandler<ActionEvent>() {
             @Override
