@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -72,7 +73,7 @@ public class GestioneSegnalazioniControl {
                 GestioneSegnalazioniControl.this.clickSuEspandi(entry);
             }
         });
-        espandi.setBackground(Background.fill(Color.rgb(38, 189, 27)));
+        espandi.setBackground(new Background(new BackgroundFill(Color.rgb(38, 189, 27), null, null)));
         espandi.setStyle("-fx-text-fill: white");
         Button rimuoviSegnalazione = new Button("RIMUOVI");
         rimuoviSegnalazione.setOnAction(new EventHandler<ActionEvent>() {
@@ -81,7 +82,7 @@ public class GestioneSegnalazioniControl {
                 GestioneSegnalazioniControl.this.clickSuRimuovi(entry);
             }
         });
-        rimuoviSegnalazione.setBackground(Background.fill(Color.rgb(255, 79, 66)));
+        rimuoviSegnalazione.setBackground(new Background(new BackgroundFill(Color.rgb(255, 79, 66), null, null)));
         rimuoviSegnalazione.setStyle("-fx-text-fill: white");
         FlowPane flow = new FlowPane();
         flow.getChildren().addAll(espandi, rimuoviSegnalazione);
