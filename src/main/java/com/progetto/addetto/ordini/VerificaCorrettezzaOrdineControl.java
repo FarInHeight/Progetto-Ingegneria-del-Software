@@ -263,7 +263,12 @@ public class VerificaCorrettezzaOrdineControl {
      */
     void clickSuConferma(ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
-        if(verificaScadenza(this.lottiParzialmenteDisponibili)) {
+        ArrayList<Lotto> lottiTotali = new ArrayList<>();
+        if (!lottiDisponibili.isEmpty()){
+            lottiTotali.addAll(lottiDisponibili);
+        }
+        lottiTotali.addAll(lottiParzialmenteDisponibili);
+        if(verificaScadenza(lottiTotali)) {
             creaAvvisoScadenza(1);
         } else {
             effettuaOrdineParziale();
