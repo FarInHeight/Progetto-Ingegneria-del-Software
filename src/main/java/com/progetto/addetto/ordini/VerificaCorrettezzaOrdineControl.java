@@ -205,6 +205,9 @@ public class VerificaCorrettezzaOrdineControl {
         } else if(this.farmaciParzialmenteDisponibili.size() > 0) {
             db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.dataConsegna, this.farmacia.getIdFarmacia());
             db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+        } else if(this.farmaciDisponibili.size()>0){
+            db.elaboraOrdine(this.lottiDisponibili, this.farmaciDisponibili, this.dataConsegna, this.farmacia.getIdFarmacia());
+            db.aggiornaLotti(this.lottiDisponibili, this.farmaciDisponibili);
         }
 
         //Metto i farmaci restanti in un ordine prenotato
@@ -267,7 +270,9 @@ public class VerificaCorrettezzaOrdineControl {
         if (!lottiDisponibili.isEmpty()){
             lottiTotali.addAll(lottiDisponibili);
         }
-        lottiTotali.addAll(lottiParzialmenteDisponibili);
+        if (!lottiParzialmenteDisponibili.isEmpty()){
+            lottiTotali.addAll(lottiParzialmenteDisponibili);
+        }
         if(verificaScadenza(lottiTotali)) {
             creaAvvisoScadenza(1);
         } else {
