@@ -56,7 +56,7 @@ public class InterfacciaAutenticazione {
      */
     public AddettoAzienda getCredenzialiAddettoAzienda(int idAddetto, String password){
         AddettoAzienda addetto = new AddettoAzienda();
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbazienda", "root","password")){
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbazienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select * from addetto where id_addetto = ? and password = ?");
             statement.setInt(1,idAddetto);
             statement.setString(2,password);

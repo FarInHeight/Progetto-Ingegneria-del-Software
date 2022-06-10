@@ -188,7 +188,8 @@ public class ElencoFarmaci extends Application implements Initializable {
         this.lista.getItems().clear();
         String campo = this.campoRicerca.getText();
         for(EntryFormOrdine entry : ElencoFarmaci.farmaci) {
-            if(entry.getNomeFarmaco().strip().toLowerCase().startsWith(campo.toLowerCase().strip()))
+            if(entry.getNomeFarmaco().strip().toLowerCase().contains(campo.toLowerCase().strip()) ||
+                    entry.getPrincipioAttivo().strip().toLowerCase().contains(campo.toLowerCase().strip()))
                 this.lista.getItems().add(entry);
         }
     }
