@@ -29,7 +29,7 @@ public class GestioneProduzioneControl {
         ArrayList<Lotto> lotti = db.getLotti();
 
         for(Lotto lotto : lotti) {
-            if (lotto.getQuantitaContenuta() != 0) {
+            if (lotto.getQuantitaOrdinata() != 0) {
                 Lotto newLotto = Lotto.lottoProdotto(lotto);
                 if (controllaQuantita(lotto)) {
                     db.addLotto(newLotto);
