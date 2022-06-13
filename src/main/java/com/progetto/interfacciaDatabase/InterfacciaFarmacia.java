@@ -212,7 +212,7 @@ public class InterfacciaFarmacia {
             int ultimoIdOrdine = this.getLastIdOrdine();
 
             //Inserisco l'Ordine
-            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,1,3,0,null,?)");
+            PreparedStatement statement = connection.prepareStatement("insert into ordine values (?,?,2,3,0,null,?)");
             statement.setInt(1,ultimoIdOrdine+1);
             statement.setDate(2,Date.valueOf(LocalDate.now().plusDays(8)));
             statement.setInt(3,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
