@@ -31,4 +31,5 @@ module com.progetto {
     opens com.progetto.corriere.gestioneSpedizioni to javafx.base, javafx.fxml, javafx.graphics;
     opens com.progetto.interfacciaDatabase to javafx.fxml,javafx.graphics;
     opens com.progetto.entity to javafx.base, javafx.fxml, javafx.graphics;
+    opens com.progetto.azienda to javafx.base, javafx.fxml, javafx.graphics;
 }
