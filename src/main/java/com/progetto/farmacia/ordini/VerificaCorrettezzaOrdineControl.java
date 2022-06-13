@@ -271,8 +271,11 @@ public class VerificaCorrettezzaOrdineControl {
         db.aggiornaLotti(this.lottiDisponibili, this.farmaciDisponibili);
 
         //Se siamo in modifica aggiorno la lista ordini e rimuovo l'ordine precedente
-        if (this.entry != null) {
+        if (this.entry != null && entry.getOrdine().getStato() != 3) {
             db.cancellaOrdine(this.entry.getIdOrdine(), this.entry.getOrdine().getStato());
+            ListaOrdini.update();
+        } else if(this.entry != null){
+            db.cancellaOrdine(this.entry.getIdOrdine(), this.lottiModifica);
             ListaOrdini.update();
         }
 
@@ -308,7 +311,7 @@ public class VerificaCorrettezzaOrdineControl {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();  // chiudo l'avviso
         if (entry != null && entry.getOrdine().getStato()!=3) {
             InterfacciaFarmacia db = new InterfacciaFarmacia();
-            db.ricreaOrdine(lottiModifica);
+            db.ricreaOrdine(lottiModifica, entry.getOrdine().getTipo(), entry.getIdOrdine());
         }
     }
 
@@ -339,6 +342,9 @@ public class VerificaCorrettezzaOrdineControl {
         if (entry != null && entry.getOrdine().getStato() != 3) {
             this.lottiModifica = db.getLottiAssociati(this.entry.getIdOrdine());
             db.modificaFarmaciOrdinati(this.entry.getIdOrdine());
+        } else if (entry != null){
+            this.lottiModifica = db.getLottiAssociati(this.entry.getIdOrdine());
+            db.scollegaLotti(this.entry.getIdOrdine());
         }
 
         this.ottieniLotti();

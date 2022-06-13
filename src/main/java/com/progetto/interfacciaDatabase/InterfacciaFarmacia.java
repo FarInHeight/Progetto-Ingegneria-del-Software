@@ -533,6 +533,19 @@ public class InterfacciaFarmacia {
         }
     }
 
+    public void scollegaLotti(int idOrdine) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root", "password")) {
+            //ottengo lotti coinvolti nell'ordine
+            PreparedStatement composizione = connection.prepareStatement("delete from composizione where ordine_id_ordine = ?");
+            composizione.setInt(1,idOrdine);
+            composizione.executeQuery();
+        }catch (SQLException e){
+            e.printStackTrace();
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
+        }
+    }
+
     /**
      * Getter per ottenere un lista di oggetti della classe {@code EntryListaOrdini} riferiti agli ordini presenti
      * nel datatabse dell'Azienda per una particolare farmacia
@@ -667,6 +680,25 @@ public class InterfacciaFarmacia {
         }
     }
 
+    public void cancellaOrdine(int idOrdine, ArrayList<LottoOrdinato> lotti){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root", "password")) {
+            //rimuovo i lotti coinvolti nell'ordine
+            PreparedStatement statement = connection.prepareStatement("delete from lotto where id_lotto = ?");
+            for (LottoOrdinato lotto:lotti){
+                statement.setInt(1, lotto.getIdLotto());
+                statement.executeUpdate();
+            }
+
+            //elimino ordine
+            PreparedStatement eliminazioneOrdine = connection.prepareStatement("delete from ordine where id_ordine = ?");
+            eliminazioneOrdine.setInt(1,idOrdine);
+            eliminazioneOrdine.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
+        }
+    }
     /**
      * Inserisce nel database della catena farmaceutica i farmaci caricati
      * @param farmaciCaricati farmaci caricati
@@ -870,18 +902,30 @@ public class InterfacciaFarmacia {
 
     }
 
-    public void ricreaOrdine(ArrayList<LottoOrdinato> lottiModifica) {
+    public void ricreaOrdine(ArrayList<LottoOrdinato> lottiModifica, int tipo, int idOrdine) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")) {
-            PreparedStatement statementOrdine = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
-            for (LottoOrdinato lottoOrdinato:lottiModifica) {
-                statementOrdine.setInt(1,lottoOrdinato.getQuantitaOrdine() + lottoOrdinato.getQuantitaOrdinata());
-                statementOrdine.setInt(2,lottoOrdinato.getIdLotto());
-                statementOrdine.executeUpdate();
+            if (tipo == 1){
+                PreparedStatement statementOrdine = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
+                for (LottoOrdinato lottoOrdinato:lottiModifica) {
+                    statementOrdine.setInt(1,lottoOrdinato.getQuantitaOrdine() + lottoOrdinato.getQuantitaOrdinata());
+                    statementOrdine.setInt(2,lottoOrdinato.getIdLotto());
+                    statementOrdine.executeUpdate();
+                }
+            } else {
+                PreparedStatement statementOrdine = connection.prepareStatement("insert into composizione values (?,?,?)");
+                for (LottoOrdinato lottoOrdinato:lottiModifica) {
+                    statementOrdine.setInt(1,lottoOrdinato.getQuantitaOrdine());
+                    statementOrdine.setInt(3,lottoOrdinato.getIdLotto());
+                    statementOrdine.setInt(2,idOrdine);
+                    statementOrdine.executeUpdate();
+                }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
             c.start();
         }
     }
+
 }
