@@ -127,7 +127,7 @@ public class RegistrazioneFarmaciRicevutiControl {
      */
     void clickSuIndietro(Stage substage) {
         this.stageRegistrazioneFarmaci.close();
-        ListaOrdini.update();
+        ListaOrdini.update(entry);
         this.stage.show();
     }
 
@@ -137,7 +137,7 @@ public class RegistrazioneFarmaciRicevutiControl {
     void clickSuChiudi(Stage substage) {
         this.stageRegistrazioneFarmaci.close();
         substage.close();
-        ListaOrdini.update();
+        ListaOrdini.update(entry);
         this.stage.show();
     }
 }

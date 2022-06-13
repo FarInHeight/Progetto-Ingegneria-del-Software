@@ -176,7 +176,7 @@ public class FormModificaOrdine extends Application implements Initializable {
         } else if (FormModificaOrdine.entry.getOrdine().getTipo() == 1) {
             db.modificaOrdinePeriodico(entry.getIdOrdine(),entry.getOrdine().getDataConsegna(),farmaci,periodo);
             //Modifico la lista
-            ListaOrdini.update();
+            ListaOrdini.update(null);
             //Mostra il messaggio di conferma
             MessaggioConfermaOrdine messaggioConfermaOrdine = new MessaggioConfermaOrdine(this);
             try {

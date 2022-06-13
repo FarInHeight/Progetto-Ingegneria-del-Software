@@ -20,6 +20,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -195,14 +196,18 @@ public class ListaOrdini extends Application implements Initializable {
     /**
      * Permette di aggiornare la {@code ListaOrdini} in base al suo contenuto
      */
-    public static void update() {
-        if(ListaOrdini.controlVerifica != null) {
-            ListaOrdini.controlVerifica.clickSuFatto(ListaOrdini.stage);
-        } else {
+    public static void update(EntryListaOrdini aggiornamento) {
+        if(aggiornamento == null) {
             ListaOrdini.ordini = ListaOrdini.control.getOrdiniDaVisualizzare();
             ListaOrdini.ref.getItems().clear();
             for (EntryListaOrdini entry : ListaOrdini.ordini) {
                 ListaOrdini.ref.getItems().add(entry);
+            }
+        } else {
+            ListaOrdini.ref.getItems().clear();
+            for (EntryListaOrdini entry : ListaOrdini.ordini) {
+                if(entry != aggiornamento)
+                    ListaOrdini.ref.getItems().add(entry);
             }
         }
     }
@@ -234,7 +239,7 @@ public class ListaOrdini extends Application implements Initializable {
     public void cancellaOrdine (EntryListaOrdini entry) throws IOException{
         CancellaOrdineControl cancOrdCtrl = new CancellaOrdineControl(entry,this.stage);
         cancOrdCtrl.start();
-        update();
+        update(null);
     }
 
     /**
