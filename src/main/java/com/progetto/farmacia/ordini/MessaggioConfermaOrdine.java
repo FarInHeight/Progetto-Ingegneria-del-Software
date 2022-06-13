@@ -42,7 +42,7 @@ public class MessaggioConfermaOrdine extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("messaggioConfermaOrdine.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 250);
 
-        double stageWidth = 400;
+        double stageWidth = 450;
         double stageHeight = 250;
 
         Stage subStage = new Stage();
