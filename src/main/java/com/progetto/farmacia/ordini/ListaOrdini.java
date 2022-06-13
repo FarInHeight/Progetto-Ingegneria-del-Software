@@ -195,11 +195,13 @@ public class ListaOrdini extends Application implements Initializable {
     /**
      * Permette di aggiornare la {@code ListaOrdini} in base al suo contenuto
      */
-    public static void update(){
-        ListaOrdini.ordini = control.getOrdiniDaVisualizzare();
-        ListaOrdini.ref.getItems().clear();
-        for(EntryListaOrdini entry : ListaOrdini.ordini) {
-            ListaOrdini.ref.getItems().add(entry);
+    public static void update() {
+        if(ListaOrdini.control != null) {
+            ListaOrdini.ordini = ListaOrdini.control.getOrdiniDaVisualizzare();
+            ListaOrdini.ref.getItems().clear();
+            for (EntryListaOrdini entry : ListaOrdini.ordini) {
+                ListaOrdini.ref.getItems().add(entry);
+            }
         }
     }
     /**
