@@ -252,7 +252,7 @@ public class VerificaCorrettezzaOrdineControl {
         if (this.entry != null) {
             //aggiornamento lista ordini
             db.cancellaOrdine(this.entry.getIdOrdine(), this.entry.getOrdine().getStato());
-            ListaOrdini.update();
+            ListaOrdini.update(null);
         }
 
         //Mostra il messaggio di conferma
@@ -273,10 +273,10 @@ public class VerificaCorrettezzaOrdineControl {
         //Se siamo in modifica aggiorno la lista ordini e rimuovo l'ordine precedente
         if (this.entry != null && entry.getOrdine().getStato() != 3) {
             db.cancellaOrdine(this.entry.getIdOrdine(), this.entry.getOrdine().getStato());
-            ListaOrdini.update();
+            ListaOrdini.update(null);
         } else if(this.entry != null){
             db.cancellaOrdine(this.entry.getIdOrdine(), this.lottiModifica);
-            ListaOrdini.update();
+            ListaOrdini.update(null);
         }
 
         //Mostra il messaggio di conferma
