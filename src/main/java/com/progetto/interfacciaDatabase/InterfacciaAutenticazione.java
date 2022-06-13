@@ -18,7 +18,7 @@ public class InterfacciaAutenticazione {
      */
     public Farmacia getCredenzialiFarmacia(int idFarmacia, String password){
         Farmacia farmacia = new Farmacia();
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbazienda", "root","password")){
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select * from farmacia where id_farmacia = ? and password = ?");
             statement.setInt(1,idFarmacia);
             statement.setString(2,password);
@@ -95,7 +95,7 @@ public class InterfacciaAutenticazione {
      */
     public Corriere getCredenzialiCorriere(int idCorriere, String password){
         Corriere corriere = null;
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbazienda", "root","password")){
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select * from corriere where id_corriere = ? and password = ?");
             statement.setInt(1,idCorriere);
             statement.setString(2,password);
