@@ -52,7 +52,7 @@ public class ListaOrdini extends Application implements Initializable {
     private static VisualizzaOrdiniControl control;
     private static VerificaRegistrazioniFarmaciControl controlVerifica;
     private static ArrayList<EntryListaOrdini> ordini;
-    private Stage stage;
+    private static Stage stage;
     /**
      * Istanzia un oggetto di tipo {@code ListaOrdini}
      */
@@ -134,19 +134,19 @@ public class ListaOrdini extends Application implements Initializable {
         double stageWidth = 800;
         double stageHeight = 500;
 
-        this.stage = new Stage();
+        ListaOrdini.stage = new Stage();
 
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        this.stage.setX((screenBounds.getWidth() - stageWidth) / 2);
-        this.stage.setY((screenBounds.getHeight() - stageHeight) / 2);
+        ListaOrdini.stage.setX((screenBounds.getWidth() - stageWidth) / 2);
+        ListaOrdini.stage.setY((screenBounds.getHeight() - stageHeight) / 2);
 
-        this.stage.setTitle("Lista Ordini");
-        this.stage.setScene(scene);
-        this.stage.setMinWidth(stageWidth);
-        this.stage.setMinHeight(stageHeight);
-        this.stage.initOwner(stage);
-        this.stage.show();
-        this.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        ListaOrdini.stage.setTitle("Lista Ordini");
+        ListaOrdini.stage.setScene(scene);
+        ListaOrdini.stage.setMinWidth(stageWidth);
+        ListaOrdini.stage.setMinHeight(stageHeight);
+        ListaOrdini.stage.initOwner(stage);
+        ListaOrdini.stage.show();
+        ListaOrdini.stage.setOnCloseRequest(event -> { Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Per uscire dal programma effettua il logout.");
             alert.setTitle("Chiusura Programma");
             alert.setHeaderText("AVVISO");
@@ -155,10 +155,10 @@ public class ListaOrdini extends Application implements Initializable {
         });
 
         if(ListaOrdini.controlVerifica != null) {
-            this.stage.setWidth(stageWidth);
-            this.stage.setHeight(stageHeight);
-            this.stage.setMaxWidth(stageWidth);
-            this.stage.setMaxHeight(stageHeight);
+            ListaOrdini.stage.setWidth(stageWidth);
+            ListaOrdini.stage.setHeight(stageHeight);
+            ListaOrdini.stage.setMaxWidth(stageWidth);
+            ListaOrdini.stage.setMaxHeight(stageHeight);
         }
     }
 
@@ -196,7 +196,9 @@ public class ListaOrdini extends Application implements Initializable {
      * Permette di aggiornare la {@code ListaOrdini} in base al suo contenuto
      */
     public static void update() {
-        if(ListaOrdini.control != null) {
+        if(ListaOrdini.controlVerifica != null) {
+            ListaOrdini.controlVerifica.clickSuFatto(ListaOrdini.stage);
+        } else {
             ListaOrdini.ordini = ListaOrdini.control.getOrdiniDaVisualizzare();
             ListaOrdini.ref.getItems().clear();
             for (EntryListaOrdini entry : ListaOrdini.ordini) {
