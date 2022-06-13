@@ -2,9 +2,13 @@ package com.progetto.azienda;
 
 import com.progetto.azienda.magazzino.RimuoviLottiScadutiControl;
 import com.progetto.azienda.produzione.GestioneProduzioneControl;
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Task;
+import javafx.util.Duration;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Gestisce il sistema di rifornimento dell'azienda.
@@ -18,23 +22,46 @@ public class Tempo {
     @SuppressWarnings("JavadocDeclaration")
     public static void main(String[] args) {
 
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                GestioneProduzioneControl gestioneProduzioneControl = new GestioneProduzioneControl();
-                gestioneProduzioneControl.start();
+        Tempo.verificaUltimoRifornimento();
+        long millisRifornimento = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().plusWeeks(1));
+        ScheduledService<Void> rifornimento = new ScheduledService<Void>() {
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    protected Void call() {
+                        Tempo.verificaUltimoRifornimento();
+                        return null;
+                    }
+                };
             }
-        }, 0, 604800000);//Una volta a settimana
+        };
+        rifornimento.setPeriod(Duration.millis(millisRifornimento));
+        rifornimento.start();
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                RimuoviLottiScadutiControl rimuoviLottiScadutiControl = new RimuoviLottiScadutiControl();
-                rimuoviLottiScadutiControl.start();
+       //Una volta al giorno
+        Tempo.verificaUltimaRimozioneLotti();
+        long millisRimozione = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDate.now().plusDays(1));
+        ScheduledService<Void> rimozione = new ScheduledService<Void>() {
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    protected Void call() {
+                        Tempo.verificaUltimaRimozioneLotti();
+                        return null;
+                    }
+                };
             }
-        }, 0, 86400000);//Una volta al giorno
+        };
+        rimozione.setPeriod(Duration.millis(millisRimozione));
+        rimozione.start();
 
     }
 
+    static private void verificaUltimoRifornimento() {
+        GestioneProduzioneControl gestioneProduzioneControl = new GestioneProduzioneControl();
+        gestioneProduzioneControl.start();
+    }
+
+    static private void verificaUltimaRimozioneLotti() {
+        RimuoviLottiScadutiControl rimuoviLottiScadutiControl = new RimuoviLottiScadutiControl();
+        rimuoviLottiScadutiControl.start();
+    }
 }
