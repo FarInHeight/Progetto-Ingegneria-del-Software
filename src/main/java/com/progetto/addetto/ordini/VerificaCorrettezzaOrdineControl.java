@@ -171,7 +171,7 @@ public class VerificaCorrettezzaOrdineControl {
         this.farmaciScadenza = new ArrayList<>();
         //Per ogni lotto, se la data di scadenza è troppo vicina aggiungo il farmaco contenuto alla lista
         for (Lotto lotto : lottiDisponibili) {
-            if (Period.between(this.dataConsegna, lotto.getDataScadenza()).getMonths() < 2) {
+            if (this.dataConsegna.plusMonths(2).isAfter(lotto.getDataScadenza())) {
                 if (!farmaciScadenza.contains(lotto.getNomeFarmaco())) {
                     farmaciScadenza.add(lotto.getNomeFarmaco());
                 }
@@ -201,7 +201,7 @@ public class VerificaCorrettezzaOrdineControl {
             //Creo l'ordine coi farmaci che ci sono
         if(this.farmaciParzialmenteDisponibili.size() > 0 && this.farmaciDisponibili.size() > 0) {
             db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.lottiDisponibili, this.farmaciDisponibili, this.dataConsegna, this.farmacia.getIdFarmacia());
-            db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+            db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.lottiDisponibili, this.farmaciDisponibili);
         } else if(this.farmaciParzialmenteDisponibili.size() > 0) {
             db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.dataConsegna, this.farmacia.getIdFarmacia());
             db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);

@@ -538,7 +538,7 @@ public class InterfacciaFarmacia {
             //ottengo lotti coinvolti nell'ordine
             PreparedStatement composizione = connection.prepareStatement("delete from composizione where ordine_id_ordine = ?");
             composizione.setInt(1,idOrdine);
-            composizione.executeQuery();
+            composizione.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
             CadutaConnessioneControl c = new CadutaConnessioneControl();
