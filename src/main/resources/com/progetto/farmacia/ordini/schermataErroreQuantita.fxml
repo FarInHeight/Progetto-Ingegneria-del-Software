@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.progetto.farmacia.ordini.SchermataErroreQuantita">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" BorderPane.alignment="CENTER">
          <children>
             <Button layoutX="233.0" layoutY="235.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#conferma" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #26bd1b;" text="CONFERMA" textFill="WHITE" />
-            <Text fx:id="messaggio" layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L'azienda attualmente non possiede abbastanza farmaci da soddisfare l'ordine in quanto i farmaci richiesti sono stati già ordinati da altre farmacie. L'azienda può garantire la consegna di parte dell'ordine richiesto a breve e il resto appena il magazzino viene rifornito. In caso di conferma potrà visulizzare gli ordini dalla schermata principale." textAlignment="JUSTIFY" wrappingWidth="371.103515625">
+            <Text fx:id="messaggio" layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L'azienda attualmente non possiede abbastanza farmaci da soddisfare l'ordine in quanto i farmaci richiesti sono stati già ordinati da altre farmacie. L'azienda può garantire la consegna di parte dell'ordine richiesto per la data di consegna inserita e il resto appena il magazzino viene rifornito (minimo tra 8 giorni). In caso di conferma potrà visulizzare gli ordini dalla schermata principale." textAlignment="JUSTIFY" wrappingWidth="371.103515625">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
             <Button layoutX="86.0" layoutY="235.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#annulla" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: ff4f42;" text="ANNULLA" textFill="WHITE" />
-            <Text fx:id="messaggio1" layoutX="86.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vuole continuare comunque?" textAlignment="CENTER" wrappingWidth="227.103515625">
+            <Text fx:id="messaggio1" layoutX="86.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vuole continuare comunque?" textAlignment="CENTER" wrappingWidth="227.103515625">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
