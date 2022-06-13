@@ -24,7 +24,7 @@ public class InterfacciaFarmacia {
      */
     public ArrayList<EntryFormOrdine> getFarmaciEntry() {
         ArrayList<EntryFormOrdine> lista = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbazienda", "root","password")){
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from farmaco");
             while(resultSet.next()) {
@@ -46,7 +46,7 @@ public class InterfacciaFarmacia {
      */
     public ArrayList<Farmaco> getFarmaci(int idFarmacia) {
         ArrayList<Farmaco> lista = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbcatena", "root","password")){
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbcatena", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select * from farmaco where farmacia_id_farmacia = ?");
             statement.setInt(1, idFarmacia);
             ResultSet resultSet = statement.executeQuery();
@@ -72,7 +72,7 @@ public class InterfacciaFarmacia {
      * @param farmaco farmaco da rimuovere
      */
     public void rimuoviFarmaco(int idFarmacia, Farmaco farmaco) {
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbcatena", "root","password")){
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbcatena", "root","password")){
             PreparedStatement statement = connection.prepareStatement("delete from farmaco where farmacia_id_farmacia = ? and nome = ? and data_scadenza = ?");
             statement.setInt(1, idFarmacia);
             statement.setString(2, farmaco.getNome());
@@ -91,7 +91,7 @@ public class InterfacciaFarmacia {
      */
     public ArrayList<EntryMagazzinoFarmacia> getFarmaciMagazzino() {
         ArrayList<EntryMagazzinoFarmacia> farmaci = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbCatena", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCatena", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select * from farmaco where farmacia_id_farmacia = ?");
             statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             ResultSet resulFarmaci = statement.executeQuery();
@@ -113,7 +113,7 @@ public class InterfacciaFarmacia {
     public LinkedList<Lotto> getLotti() {
 
         LinkedList<Lotto> lotti = new LinkedList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
             Statement statement = connection.createStatement();
             ResultSet resultLotti = statement.executeQuery("select * from lotto where data_scadenza is not null order by data_scadenza asc");
             while (resultLotti.next()) {
@@ -137,7 +137,7 @@ public class InterfacciaFarmacia {
      */
     public void rimuoviQuantita(String nome, LocalDate dataScadenza, int quantitaDaRimuovere, int quantitaAttuale) {
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbCatena", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCatena", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update farmaco " +
                     "set quantita = ? " +
                     "where farmacia_id_farmacia = ? AND nome = ? AND data_scadenza = ?");
@@ -160,7 +160,7 @@ public class InterfacciaFarmacia {
      */
     public ArrayList<Farmaco> getFarmaciDaBanco() {
         ArrayList<Farmaco> farmaci = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbCatena", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCatena", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select * from farmaco where farmacia_id_farmacia = ? AND tipo = 0");
             statement.setInt(1,SchermataPrincipaleFarmacia.getFarmacia().getIdFarmacia());
             ResultSet resulFarmaci = statement.executeQuery();
@@ -182,7 +182,7 @@ public class InterfacciaFarmacia {
      */
     public int getQuantitaOrdinata(String nome) {
         int quantita = 0;
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbazienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("select sum(n_farmaci) as totale " +
                     "from ordine,composizione,lotto " +
                     "where id_ordine = ordine_id_ordine AND id_lotto = lotto_id_lotto AND farmacia_id_farmacia = ? AND farmaco_nome = ? AND stato <> 5");
@@ -206,7 +206,7 @@ public class InterfacciaFarmacia {
      * @param nome nome del farmaco da ordinare
      */
     public void prenotaOrdineDaBanco(String nome) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
 
             //Ottengo l'ultimo id ordine
             int ultimoIdOrdine = this.getLastIdOrdine();
@@ -242,7 +242,7 @@ public class InterfacciaFarmacia {
 
     private int getLastIdOrdine() {
         int lastId = 0;
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")) {
             Statement statementOrdine = connection.createStatement();
             ResultSet ultimoOrdine = statementOrdine.executeQuery("select id_ordine " +
                     "from ordine " +
@@ -261,7 +261,7 @@ public class InterfacciaFarmacia {
 
     private int getLastIdLotto() {
         int lastId = 0;
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")) {
             Statement statementLotto = connection.createStatement();
             ResultSet ultimoLotto = statementLotto.executeQuery("select id_lotto " +
                     "from lotto " +
@@ -284,7 +284,7 @@ public class InterfacciaFarmacia {
      * @param farmaci farmaci da ordinare
      */
     public void prenotaOrdineNonPeriodico(ArrayList<Farmaco> farmaci, LocalDate dataConsegna) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
             //Ottengo il nuovo id ordine
             int ultimoIdOrdine = getLastIdOrdine();
 
@@ -335,7 +335,7 @@ public class InterfacciaFarmacia {
      */
     @SuppressWarnings("IfStatementWithIdenticalBranches")
     public void elaboraOrdine(ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili, LocalDate dataConsegna) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root", "password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root", "password")) {
             //Ottengo l'id dell'ordine
             int ultimoIdOrdine = getLastIdOrdine();
             //Inserisco l'Ordine
@@ -381,7 +381,7 @@ public class InterfacciaFarmacia {
      */
     @SuppressWarnings("IfStatementWithIdenticalBranches")
     public void elaboraOrdine(ArrayList<Lotto> lottiParzialmenteDisponibili, ArrayList<Farmaco> farmaciParzialmenteDisponibili, ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili, LocalDate dataConsegna) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root", "password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root", "password")) {
             //Ottengo l'id dell'ordine
             int ultimoIdOrdine = getLastIdOrdine();
             //Inserisco l'Ordine
@@ -448,7 +448,7 @@ public class InterfacciaFarmacia {
      */
     @SuppressWarnings("IfStatementWithIdenticalBranches")
     public void aggiornaLotti(ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root", "password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root", "password")) {
             PreparedStatement statement = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
             for(Farmaco farmaco : farmaci){
                 int quantitaOrdinataFarmaco = farmaco.getQuantita();
@@ -487,7 +487,7 @@ public class InterfacciaFarmacia {
      */
     public ArrayList<EntryListaOrdini> getOrdini(int idFarmacia) {
         ArrayList<EntryListaOrdini> ordini = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbazienda", "root","password")) {
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")) {
             PreparedStatement statement = connection.prepareStatement("SELECT o.id_ordine, c.n_farmaci, l.farmaco_nome, " +
                     "o.tipo, o.stato, o.periodo, o.data_consegna, f.nome, f.indirizzo, " +
                     "far.principio_attivo, far.tipo as tipo_farmaco, l.data_scadenza FROM ordine as o, " +
@@ -544,7 +544,7 @@ public class InterfacciaFarmacia {
      * @param idOrdine id dell'ordine
      */
     public void modificaFarmaciOrdinati(int idOrdine){
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root", "password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root", "password")) {
             //ottengo lotti coinvolti nell'ordine
             PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
             composizione.setInt(1,idOrdine);
@@ -578,7 +578,7 @@ public class InterfacciaFarmacia {
      * @param idOrdine id dell'ordine da eliminare
      */
     public void cancellaOrdine(int idOrdine, int stato){
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root", "password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root", "password")) {
             if(stato == 3) {
                 //ottengo lotti coinvolti nell'ordine
                 PreparedStatement composizione = connection.prepareStatement("select * from composizione where ordine_id_ordine = ?");
@@ -620,7 +620,7 @@ public class InterfacciaFarmacia {
     @SuppressWarnings("unchecked")
     public void registraFarmaci(ArrayList<EntryMagazzinoFarmacia> farmaciCaricati) {
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbCatena", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCatena", "root","password")){
             for (EntryMagazzinoFarmacia farmaco:farmaciCaricati) {
                 PreparedStatement statement = connection.prepareStatement("select * from farmaco " +
                         "where nome = ? and data_scadenza = ? and farmacia_id_farmacia = ?");
@@ -663,7 +663,7 @@ public class InterfacciaFarmacia {
      * @param id_ordine identificativo dell'Ordine
      */
     public void modificaStatoInCaricato(int id_ordine) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("update ordine set stato = 5 where id_ordine = ?");
             statement.setInt(1,id_ordine);
             statement.executeUpdate();
@@ -681,7 +681,7 @@ public class InterfacciaFarmacia {
      * @param dataGenerazione data di generazione della segnalazione
      */
     public void aggiungiSegnalazione(int idOrdine, String commento, LocalDate dataGenerazione) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
             PreparedStatement statement = connection.prepareStatement("insert segnalazione values (null, ?, ?, ?);");
             statement.setString(1,commento);
             statement.setDate(2, Date.valueOf(dataGenerazione));
@@ -701,7 +701,7 @@ public class InterfacciaFarmacia {
      */
     public ArrayList<EntryListaOrdini> getOrdiniNonCaricati(int idFarmacia) {
         ArrayList<EntryListaOrdini> ordini = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbazienda", "root","password")) {
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbazienda", "root","password")) {
             PreparedStatement statement = connection.prepareStatement("SELECT o.id_ordine, c.n_farmaci, l.farmaco_nome, " +
                     "o.tipo, o.stato, o.periodo, o.data_consegna, f.nome, f.indirizzo, " +
                     "far.principio_attivo, far.tipo as tipo_farmaco, l.data_scadenza FROM ordine as o, " +
@@ -752,7 +752,7 @@ public class InterfacciaFarmacia {
      * @param periodo periodo dell'ordine
      */
     public void modificaOrdinePeriodico(int idOrdine, LocalDate dataConsegna,ArrayList<Farmaco> farmaci, int periodo) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")){
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")){
             //Creo il nuovo ordine
             //Ottengo il nuovo id ordine
             int ultimoIdOrdine = getLastIdOrdine();
@@ -798,7 +798,7 @@ public class InterfacciaFarmacia {
 
     public ArrayList<LottoOrdinato> getLottiAssociati(int idOrdine) {
         ArrayList<LottoOrdinato> lotti = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")) {
             PreparedStatement statementOrdine = connection.prepareStatement("select * " +
                     "from composizione,lotto " +
                     "where ordine_id_ordine = ? and lotto_id_lotto = id_lotto");
@@ -817,7 +817,7 @@ public class InterfacciaFarmacia {
     }
 
     public void ricreaOrdine(ArrayList<LottoOrdinato> lottiModifica) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.154.1:3306/dbAzienda", "root","password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root","password")) {
             PreparedStatement statementOrdine = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
             for (LottoOrdinato lottoOrdinato:lottiModifica) {
                 statementOrdine.setInt(1,lottoOrdinato.getQuantitaOrdine() + lottoOrdinato.getQuantitaOrdinata());
