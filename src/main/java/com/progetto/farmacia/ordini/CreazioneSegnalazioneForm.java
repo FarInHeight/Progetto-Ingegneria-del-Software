@@ -68,7 +68,7 @@ public class CreazioneSegnalazioneForm extends Application implements Initializa
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("creazioneSegnalazioneForm.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
 
-        double stageWidth = 600;
+        double stageWidth = 650;
         double stageHeight = 500;
 
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
