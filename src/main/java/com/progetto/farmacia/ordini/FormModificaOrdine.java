@@ -275,7 +275,7 @@ public class FormModificaOrdine extends Application implements Initializable {
             this.periodoLabel.setVisible(true);
             Spinner<Integer> spinner = new Spinner<>();
             spinner.setEditable(true);
-            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,1);
+            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,Integer.MAX_VALUE,FormModificaOrdine.entry.getOrdine().getPeriodo());
             spinner.setValueFactory(valueFactory);
             spinner.setMaxWidth(60);
             spinner.setTranslateX(170);
