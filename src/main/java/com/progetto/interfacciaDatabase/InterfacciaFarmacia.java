@@ -222,9 +222,10 @@ public class InterfacciaFarmacia {
             int ultimoIdLotto = getLastIdLotto();
 
             //aggiungo il lotto vuoto
-            statement = connection.prepareStatement("insert into lotto values (?,null,0,0,?)");
+            statement = connection.prepareStatement("insert into lotto values (?,?,0,0,?)");
             statement.setInt(1,ultimoIdLotto+1);
-            statement.setString(2,nome);
+            statement.setDate(2,Date.valueOf(LocalDate.now().plusYears(1)));
+            statement.setString(3,nome);
             statement.executeUpdate();
 
             //collego il lotto all'ordine
