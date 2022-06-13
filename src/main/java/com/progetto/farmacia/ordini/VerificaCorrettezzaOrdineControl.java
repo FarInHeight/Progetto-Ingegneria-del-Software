@@ -236,7 +236,7 @@ public class VerificaCorrettezzaOrdineControl {
         //Creo l'ordine coi farmaci che ci sono
         if(this.farmaciParzialmenteDisponibili.size() > 0 && this.farmaciDisponibili.size() > 0) {
             db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.lottiDisponibili, this.farmaciDisponibili, this.dataConsegna);
-            db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);
+            db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.lottiDisponibili, this.farmaciDisponibili);
         } else if(this.farmaciParzialmenteDisponibili.size() > 0) {
             db.elaboraOrdine(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili, this.dataConsegna);
             db.aggiornaLotti(this.lottiParzialmenteDisponibili, this.farmaciParzialmenteDisponibili);

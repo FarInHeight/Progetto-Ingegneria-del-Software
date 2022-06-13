@@ -479,6 +479,60 @@ public class InterfacciaFarmacia {
         }
     }
 
+    public void aggiornaLotti(ArrayList<Lotto> lotti, ArrayList<Farmaco> farmaci, ArrayList<Lotto> lottiDisponibili, ArrayList<Farmaco> farmaciDisponibili) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbAzienda", "root", "password")) {
+            PreparedStatement statement = connection.prepareStatement("update lotto set n_ordinati = ? where id_lotto = ?");
+            for(Farmaco farmaco : farmaci){
+                int quantitaOrdinataFarmaco = farmaco.getQuantita();
+                for(Lotto lotto : lotti){
+                    if(farmaco.getNome().compareTo(lotto.getNomeFarmaco()) == 0){
+                        PreparedStatement statementPrecedente = connection.prepareStatement("select n_ordinati from lotto where id_lotto = ?");
+                        statementPrecedente.setInt(1,lotto.getIdLotto());
+                        ResultSet result = statementPrecedente.executeQuery();
+                        result.next();
+                        int nOrdinatiPrecedente = result.getInt("n_ordinati");
+                        if(lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata() >= quantitaOrdinataFarmaco){
+                            statement.setInt(1, quantitaOrdinataFarmaco+nOrdinatiPrecedente);
+                            statement.setInt(2,lotto.getIdLotto());
+                            statement.executeUpdate();
+                        } else {
+                            quantitaOrdinataFarmaco -= (lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
+                            statement.setInt(1,lotto.getQuantitaContenuta());
+                            statement.setInt(2,lotto.getIdLotto());
+                            statement.executeUpdate();
+                        }
+                    }
+                }
+            }
+            for(Farmaco farmaco : farmaciDisponibili){
+                int quantitaOrdinataFarmaco = farmaco.getQuantita();
+                for(Lotto lotto : lottiDisponibili){
+                    if(farmaco.getNome().compareTo(lotto.getNomeFarmaco()) == 0){
+                        PreparedStatement statementPrecedente = connection.prepareStatement("select n_ordinati from lotto where id_lotto = ?");
+                        statementPrecedente.setInt(1,lotto.getIdLotto());
+                        ResultSet result = statementPrecedente.executeQuery();
+                        result.next();
+                        int nOrdinatiPrecedente = result.getInt("n_ordinati");
+                        if(lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata() >= quantitaOrdinataFarmaco){
+                            statement.setInt(1, quantitaOrdinataFarmaco+nOrdinatiPrecedente);
+                            statement.setInt(2,lotto.getIdLotto());
+                            statement.executeUpdate();
+                        } else {
+                            quantitaOrdinataFarmaco -= (lotto.getQuantitaContenuta()-lotto.getQuantitaOrdinata());
+                            statement.setInt(1,lotto.getQuantitaContenuta());
+                            statement.setInt(2,lotto.getIdLotto());
+                            statement.executeUpdate();
+                        }
+                    }
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            CadutaConnessioneControl c = new CadutaConnessioneControl();
+            c.start();
+        }
+    }
+
     /**
      * Getter per ottenere un lista di oggetti della classe {@code EntryListaOrdini} riferiti agli ordini presenti
      * nel datatabse dell'Azienda per una particolare farmacia
