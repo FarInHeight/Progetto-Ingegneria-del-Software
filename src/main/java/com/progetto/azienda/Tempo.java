@@ -36,7 +36,6 @@ public class Tempo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Tempo.verificaUltimoRifornimento();
         long millisRifornimento = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDateTime.now().plusWeeks(1));
         ScheduledService<Void> rifornimento = new ScheduledService<Void>() {
             protected Task<Void> createTask() {
@@ -52,7 +51,6 @@ public class Tempo extends Application {
         rifornimento.start();
 
         //Una volta al giorno
-        Tempo.verificaUltimaRimozioneLotti();
         long millisRimozione = ChronoUnit.MILLIS.between(LocalDateTime.now(), LocalDateTime.now().plusDays(1));
         ScheduledService<Void> rimozione = new ScheduledService<Void>() {
             protected Task<Void> createTask() {
