@@ -1,5 +1,5 @@
 # progettoIS - Descrizione
-Repository per il progetto di Ingegneria del Software
+Repository per il progetto di Ingegneria del Software al quale hanno contribuito @Angelorium, @FarInHeight e @andrimega.
 # Tesina
 Si richiede la progettazione di un software per il supporto ad un’azienda farmaceutica. Le specifiche
 di seguito espresse sono da considerarsi come minime per la tesina in oggetto e possono essere
