@@ -1,0 +1,17 @@
+module:com.progetto
+com.progetto.addetto
+com.progetto.addetto.autenticazione
+com.progetto.addetto.ordini
+com.progetto.addetto.segnalazioni
+com.progetto.azienda
+com.progetto.azienda.magazzino
+com.progetto.azienda.produzione
+com.progetto.corriere
+com.progetto.corriere.autenticazione
+com.progetto.corriere.gestioneSpedizioni
+com.progetto.entity
+com.progetto.farmacia
+com.progetto.farmacia.autenticazione
+com.progetto.farmacia.magazzino
+com.progetto.farmacia.ordini
+com.progetto.interfacciaDatabase
