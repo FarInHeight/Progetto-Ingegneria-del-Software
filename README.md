@@ -1,6 +1,6 @@
-# progettoIS - Descrizione
+# Descrizione
 Repository per il progetto di Ingegneria del Software al quale hanno contribuito [@Angelorium](https://github.com/Angelorium), [@FarInHeight](https://github.com/FarInHeight) e [@andrimega](https://github.com/andrimega).
-# Tesina
+## Tesina
 Si richiede la progettazione di un software per il supporto ad un’azienda farmaceutica. Le specifiche
 di seguito espresse sono da considerarsi come minime per la tesina in oggetto e possono essere
 estese dallo studente qualora questo non violi la natura e l’intento del software richiesto. Lo
